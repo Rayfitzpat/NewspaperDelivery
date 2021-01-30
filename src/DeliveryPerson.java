@@ -40,21 +40,12 @@ public class DeliveryPerson {
                         displayAllDeliveryPerson(); //The code for this method is already done for you below
                         break;
                     case 2:
-                        displayParticularDeliveryPerson(); //You need to code this method below
-                        break;
-                    case 3:
                         addNewDeliveryPerson(); //You need to code this method below
                         break;
-                    case 4:
+                    case 3:
                         deleteDeliveryPerson(); //You need to code this method below
                         break;
-                    case 5:
-                        registerDeliveryPerson(); //You need to code this method below
-                        break;
-                    case 6:
-                        editDeliveryPerson(); //You need to code this method below
-                        break;
-                    case 7:
+                    case 4:
                         System.out.println("Program is closing...");
                         cleanup_resources();  // close the connection to the database when finished program
                         break;
@@ -70,13 +61,12 @@ public class DeliveryPerson {
     }
 
     public static void displayAllDeliveryPerson() {
-        //1: Query the database for all students
-        //2: Display the result set in an appropriate manner
-        String str = "Select * from DeliveryPerson";
+
+        String str = "Select * from delivery_person";
 
         try {
             rs = stmt.executeQuery(str);
-            System.out.printf("\n%-12s %-15s %-20s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status");
+            System.out.printf("\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-10s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status");
             while (rs.next()) {
                 int delivery_person_id = rs.getInt("delivery_person_id");
                 String first_name = rs.getString("first_name");
@@ -84,12 +74,12 @@ public class DeliveryPerson {
                 String address1 = rs.getString("address1");
                 String address2 = rs.getString("address2");
                 String town = rs.getString("town");
-                int phone_number = rs.getInt("phone_number");
+                String delivery_phone_number = rs.getString("delivery_phone_number");
                 String dateOfBirth = rs.getString("dob");
                 String access_level = rs.getString("access_level");
-                String status = rs.getString("status");
+                String delivery_status = rs.getString("delivery_status");
 
-                System.out.printf("%-12d %-15s %-20s %-10s %-10s %-10s %-10s %-10s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, phone_number,dateOfBirth,access_level,status);
+                System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-10s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number,dateOfBirth,access_level,delivery_status);
             }
 
         } catch (SQLException sqle) {
@@ -100,54 +90,13 @@ public class DeliveryPerson {
     }
 
 
-    public static void displayParticularDeliveryPerson() throws SQLException {
-        //Your code should go here:
-        //1: You need to get the user to select an existing student first - display all the existing students and
-        //   let the user select a studentId that they wish to display.
-        //2: Ensure that the studentId they selected exists (query the database for a count of students with that studentId,
-        //    and if the count comes back as 0, then it doesn't exist; if its a 1 then it does.
-        //3: Query the database for the student and all its modules
-        //4: Display the result set in an appropriate manner
-        displayAllDeliveryPerson();
-        System.out.println("Please select the ID of the Delivery Person who's modules you would like to display");
-        String id = in.next();
-        if(validateEntry(id)){
-            String str_person = "select count(*) as total from Delivery_Person where delivery_person_id = "+ id;
-            rs = stmt.executeQuery(str_person);
-            count = 0;
-            while (rs.next()) {
-                count = rs.getInt("total");
-            }
-            if(count > 0)
-            {
-                String strModule = "select student.firstName, student.lastName, module.title from student,module, attends where student.studentId = attends.studentId and module.moduleId = attends.moduleId and student.studentId =" + id;
-                try {
-                    rs = stmt.executeQuery(strModule);
-                    System.out.printf("\n %-15s %-20s %-10s\n", "First Name", "Last Name", "Module Title");
-                    while (rs.next()) {
-                        String firstName = rs.getString("firstName");
-                        String lastName = rs.getString("lastName");
-                        String title = rs.getString("title");
-
-                        System.out.printf(" %-15s %-20s %-10s\n", firstName, lastName, title);
-                    }
-
-                } catch (SQLException sqle) {
-                    System.out.println("valid input detected - please use only 1 or 2 numbers");
-                }
-            }
-            else{
-                System.out.println("That student does not exist, please try again");
-            }
-        }
-    }
 
     public static void addNewDeliveryPerson() throws SQLException {
         //Your code should go here:
         //1: Get the required data from the user (i.e. the student data) and validate the data if needs be
         //2: Insert the data in the database
 
-        System.out.println("Please enter the student's FIRST name");
+        System.out.println("Please enter the persons FIRST name");
 
         if (in.hasNextLine()) {
             fn = in.next();
@@ -161,7 +110,7 @@ public class DeliveryPerson {
             }
         }
         do {
-            System.out.println("Please enter the Students LAST name");
+            System.out.println("Please enter the persons LAST name");
 
             if (in.hasNext()) {
                 ln = in.next();
@@ -179,7 +128,7 @@ public class DeliveryPerson {
         } while (!validLN);
 
 
-        System.out.println("Please enter the Students DOB");
+        System.out.println("Please enter the persons DOB");
         do {
             System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
             if (in.hasNext()) {
@@ -206,29 +155,23 @@ public class DeliveryPerson {
         }
         String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
 
-        System.out.println("Successfully added student: " +fn + " "+ ln + " " + dobFinal);
+        System.out.println("Successfully added Person: " +fn + " "+ ln + " " + dobFinal);
 
 
         Statement addNewStudent = con.createStatement();
-        addNewStudent.executeUpdate("insert into Student values (null,'" + fn + "','" + ln + "','" + dobFinal + "')");
+        addNewStudent.executeUpdate("insert into deliveryPerson values (null,'" + fn + "','" + ln + "','" + dobFinal + "')");
 
     }
 
 
     public static void deleteDeliveryPerson() throws SQLException {
-        //Your code should go here:
-        //1. You need to get the user to select an existing student first - display all the existing students and
-        //   let the user select a studentId that they wish to delete.
-        //2: Ensure that the studentId they selected exists (query the database for a count of students with that studentId -
-        //   if the count comes back as 0, then it doesn't exist; if its a 1 then it does.
-        //3: Delete any reference to the student in the attends table
-        //4: Delete the selected student from the student table
+
         displayAllDeliveryPerson();
-        System.out.println("Please enter the id number of the student that you want to delete");
+        System.out.println("Please enter the id number of the delivery person that you want to delete");
 
         String id = in.next();
         if(validateEntry(id)) {
-            String strStudent = "select count(*) as total from student where studentId = "+ id;
+            String strStudent = "select count(*) as total from deliveryPerson where delivery_person_id = "+ id;
             rs = stmt.executeQuery(strStudent);
             deleteCount = 0;
             while (rs.next()) {
@@ -236,133 +179,23 @@ public class DeliveryPerson {
             }
 
             if (deleteCount > 0) {
+
                 try {
-                    Statement deleteStudent2 = con.createStatement();
-                    deleteStudent2.executeUpdate("delete from attends where studentId =" + id + "");
-                    System.out.println("Student: " + id + " successfully deleted");
-                }catch (Exception e){
-                    System.out.println("Unable to delete student from attends");
-                }
-                try {
-                    Statement deleteStudent = con.createStatement();
-                    deleteStudent.executeUpdate("delete from Student where studentId =" + id + "");
+                    Statement deletePerson = con.createStatement();
+                    deletePerson.executeUpdate("delete from deliveryPerson where delivery_person_id =" + id + "");
                 } catch (Exception e) {
-                    System.out.println("unable to delete student");
+                    System.out.println("unable to delete delivery person");
                 }
 
             }
             else {
-                System.out.println("That Student does not exist, please try again");
+                System.out.println("That person does not exist, please try again");
             }
         }
 
     }
 
-    public static void registerDeliveryPerson() throws SQLException {
-        //Your code should go here:
-        //1: Get the required data from the user (i.e. the student and module ids)  and validate the data if needs be
-        //   (You should print out a list of students and modules to the user first)
-        //2: Insert the data in the database
-        displayAllDeliveryPerson();
-        String str1 = "Select * from module";
 
-        System.out.println("Please enter the id of the student you want to register");
-        registerId = in.next();
-        if(validateEntry(registerId)) {
-            String strStudent = "select count(*) as total from student where studentId = " + registerId;
-            rs = stmt.executeQuery(strStudent);
-            registerCount = 0;
-            while (rs.next()) {
-                registerCount = rs.getInt("total");
-            }
-            if (registerCount > 0) {
-                try {
-                    rs = stmt.executeQuery(str1);
-                    System.out.printf("\n%-15s %-40s %-10s\n", "Module ID", "Module Title", "Credits");
-                    while (rs.next()) {
-                        int moduleId = rs.getInt("moduleId");
-                        String title = rs.getString("title");
-                        String credits = rs.getString("credits");
-
-                        System.out.printf("%-15s %-40s %-10s\n", moduleId, title, credits);
-                    }
-                    System.out.println("Please enter the module that you want that student registered to");
-                    int modId = in.nextInt();
-                    Statement registerStudent = con.createStatement();
-                    registerStudent.executeUpdate("insert into attends values(" + registerId + "," + modId + ")");
-
-                } catch (SQLException sqle) {
-                    System.out.println("Error: failed to register student.");
-                    System.out.println(sqle.getMessage());
-                    System.out.println(str1);
-                }
-                System.out.println("student: " + registerId + " successfully registered to module");
-
-            }
-            else{
-                System.out.println("That student does not exist, please choose another");
-            }
-        }
-    }
-
-
-    public static void editDeliveryPerson() throws SQLException {
-        //Your code should go here:
-        //1: Get the required data from the user (i.e. the student data) and validate the data if needs be
-        //2: Ensure the student exists as you've done previously
-        //3: Edit the selected student
-        displayAllDeliveryPerson();
-        System.out.println(" Select the id of the student that you would like to edit");
-
-        editId = in.next();
-        if(validateEntry(editId)) {
-            String strStudent = "select count(*) as total from student where studentId = " + editId;
-            rs = stmt.executeQuery(strStudent);
-            count = 0;
-            while (rs.next()) {
-                count = rs.getInt("total");
-            }
-            if (count > 0) {
-
-                System.out.println("what would you like to edit");
-                int menuChoiceEditStudent = 0; // variable used to store Edit Student menu choice
-                int stopEdit = 4; //value from menu that is used to close the Edit Student process
-
-                while (menuChoiceEditStudent != stopEdit) {
-                    displayEditMenu(); //display the primary menu
-                    if (in.hasNextInt()) {
-                        //get the menu choice from the user
-                        menuChoiceEditStudent = in.nextInt();
-
-                        switch (menuChoiceEditStudent) {
-                            case 1:
-                                editStudentFirstName(); //The code for this method is already done for you below
-                                break;
-                            case 2:
-                                editStudentLastName(); //You need to code this method below
-                                break;
-                            case 3:
-                                editStudentDOB(); //You need to code this method below
-                                break;
-                            case 4:
-                                stopEdit = 4;
-                                break;
-                            default:
-                                System.out.println("You entered an valid choice, please try again...");
-                        }
-                    } else {
-
-                        in.nextLine();
-                        System.out.println("You entered an valid choice, please try again...");
-                    }
-                }
-            }
-            else {
-                System.out.println(" This student does not exist, please select another");
-            }
-        }
-
-    }
 
     public static boolean validateString(String name) {
         name = name.toLowerCase();
@@ -475,7 +308,7 @@ public class DeliveryPerson {
     public static void displayMainMenu()
     {
         System.out.println("\nMain Menu");
-        System.out.println("1: Display all students");
+        System.out.println("1: Display all Delivery People");
         System.out.println("2: Display a particular student's modules ");
         System.out.println("3: Create a new student ");
         System.out.println("4: Delete a student ");
@@ -495,54 +328,7 @@ public class DeliveryPerson {
         System.out.print("Enter your choice: ");
     }
 
-    public static void editStudentFirstName() throws SQLException {
-        System.out.println("Please enter a new First Name");
-        String newName = in.next();
-        Statement registerStudent = con.createStatement();
-        registerStudent.executeUpdate("update student SET firstName = '"+newName +"' where studentId = '"+editId+"'");
-    }
 
-    public static void editStudentLastName() throws SQLException {
-        System.out.println("Please enter a new Last Name");
-        String newName = in.next();
-        Statement registerStudent = con.createStatement();
-        registerStudent.executeUpdate("update student SET lastName = '"+newName +"' where studentId = '"+editId+"'");
-    }
-
-    public static void editStudentDOB() throws SQLException {
-        do
-        {
-            System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
-            if (in.hasNext()) {
-                dobYear = in.next();
-                validateYear(dobYear);
-            }
-        } while (!validDOB);
-        validDOB = false;
-        System.out.println("DOB finished");
-        while (!validDOB) {
-            System.out.println("Next, what month were they born in? (1 - 12, 2 Numbers required)");
-            if (in.hasNext()) {
-                dobMonth = in.next();
-                validateMonth(dobMonth);
-            }
-        }
-        validDOB = false;
-        while (!validDOB) {
-            System.out.println("finally the date they were born (1 - 31, 2 numbers required)");
-            if (in.hasNext()) {
-                dobDay = in.next();
-                validateDate(dobDay);
-            }
-        }
-        String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
-        System.out.println(dobFinal);
-        System.out.println(fn);
-        System.out.println(ln);
-
-        Statement registerStudent = con.createStatement();
-        registerStudent.executeUpdate("update student SET dateOfBirth = '"+ dobFinal+"' where studentId = '"+editId+"'");
-    }
 
     public static void finishEditStudent()
     {
@@ -566,7 +352,7 @@ public class DeliveryPerson {
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url="jdbc:mysql://localhost:3306/databaseprojectsql?useTimezone=true&serverTimezone=UTC";
+            String url="jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
             con = DriverManager.getConnection(url, "root", "admin");
             stmt = con.createStatement();
         }
