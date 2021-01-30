@@ -1,8 +1,12 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class PublicationMain {
+
     static Connection con = null;
     static Statement stmt = null;
     static ResultSet rs = null;
@@ -31,7 +35,6 @@ public class Main {
         ArrayList<Publication> publicationsList =  publication.readAllPublications(stmt);
         publication.displayAllPublications(publicationsList);
     }
-
 
 
 }
