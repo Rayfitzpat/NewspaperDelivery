@@ -11,8 +11,23 @@ public class DeliveryPerson {
     static Scanner in = new Scanner(System.in);
     static String fn = "";
     static String ln = "";
+    static String address2 = "";
+    static String town = "";
+    static String name = "";
+
+    static int houseNumber;
+    static int prefix;
+    static int phoneNumber;
+
     static boolean validLN = true;
     static boolean validDOB = true;
+    static boolean validaddress2 = true;
+    static boolean validTown = true;
+    static boolean validHouseNumber = true;
+    static boolean validPrefix = true;
+    static boolean validPhone = true;
+
+
     static String dobYear;
     static String dobMonth;
     static String dobDay;
@@ -39,10 +54,16 @@ public class DeliveryPerson {
                     case 1:
                         displayAllDeliveryPerson(); //The code for this method is already done for you below
                         break;
-                    case 2:
+//                    case 2:
+//                        displayDeliveryPerson(); //You need to code this method below
+//                        break;
+                    case 3:
                         addNewDeliveryPerson(); //You need to code this method below
                         break;
-                    case 3:
+//                    case 4:
+//                        editDeliveryPerson(); //You need to code this method below
+//                        break;
+                    case 5:
                         deleteDeliveryPerson(); //You need to code this method below
                         break;
                     case 4:
@@ -92,9 +113,6 @@ public class DeliveryPerson {
 
 
     public static void addNewDeliveryPerson() throws SQLException {
-        //Your code should go here:
-        //1: Get the required data from the user (i.e. the student data) and validate the data if needs be
-        //2: Insert the data in the database
 
         System.out.println("Please enter the persons FIRST name");
 
@@ -127,41 +145,134 @@ public class DeliveryPerson {
             }
         } while (!validLN);
 
-
-        System.out.println("Please enter the persons DOB");
         do {
-            System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
-            if (in.hasNext()) {
-                dobYear = in.next();
-                validateYear(dobYear);
+            System.out.println("Please enter the persons House Number");
 
-            }
-        } while (!validDOB);
-        validDOB = false;
-        while (!validDOB) {
-            System.out.println("Next, what month were they born in? (1 - 12, 2 Numbers required)");
-            if (in.hasNext()) {
-                dobMonth = in.next();
-                validateMonth(dobMonth);
+                if (in.hasNextInt()) {
+                    houseNumber = in.nextInt();
+
+                    if (houseNumber < 1 || houseNumber > 2000) {
+                        System.out.println("The house Number must contain between 1 and 2000");
+                        validHouseNumber = false;
+                    } else {
+                        validHouseNumber = true;
+                    }
+                }
+            }  while (!validHouseNumber) ;
+
+
+
+
+            do {
+                System.out.println("Please enter the persons Street name");
+
+                if (in.hasNext()) {
+                    address2 = in.next();
+
+                    if (address2.length() < 2 || ln.length() > 30) {
+                        System.out.println("The Street Name must contain between 2 and 30 characters");
+                        validaddress2 = false;
+                    } else if (!validateString(ln)) {
+                        System.out.println("Names cannot contain numbers");
+                        validaddress2 = false;
+                    } else {
+                        validaddress2 = true;
+                    }
+                }
+            } while (!validaddress2);
+
+            do {
+                System.out.println("Please enter the persons Town");
+
+                if (in.hasNext()) {
+                    town = in.next();
+
+                    if (town.length() < 2 || ln.length() > 20) {
+                        System.out.println("The Town Name must contain between 2 and 20 characters");
+                        validTown = false;
+                    } else if (!validateString(ln)) {
+                        System.out.println("Names cannot contain numbers");
+                        validTown = false;
+                    } else {
+                        validTown = true;
+                    }
+                }
+            } while (!validTown);
+
+            try {
+                do {
+                    System.out.println("Please enter the Phone Number prefix i.e. 056 or  087");
+
+                    if (in.hasNextInt()) {
+                        prefix = in.nextInt();
+
+                        if (prefix < 50 || prefix > 100) {
+                            System.out.println("The house Number must contain between 1 and 2000");
+                            validPrefix = false;
+                        } else {
+                            validPrefix = true;
+                        }
+                    }
+                } while (!validPrefix);
+            } catch (Exception ex) {
+                System.out.println("you must enter numbers only");
+                try {
+                    do {
+                        System.out.println("Please enter the rest of the Phone Number ");
+
+                        if (in.hasNextInt()) {
+                            phoneNumber = in.nextInt();
+
+                            if (phoneNumber < 999999 || phoneNumber > 10000000) {
+                                System.out.println("The house Number must contain 7 digits");
+                                validPhone = false;
+                            } else {
+                                validPhone = true;
+                            }
+                        }
+                    } while (!validPhone);
+                } catch (Exception exc) {
+                    System.out.println("you must enter numbers only");
+                }
+                String phoneFinal = "(" + prefix + ")" + phoneNumber;
+
+                System.out.println("Please enter the persons DOB");
+                do {
+                    System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
+                    if (in.hasNext()) {
+                        dobYear = in.next();
+                        validateYear(dobYear);
+
+                    }
+                } while (!validDOB);
+                validDOB = false;
+                while (!validDOB) {
+                    System.out.println("Next, what month were they born in? (1 - 12, 2 Numbers required)");
+                    if (in.hasNext()) {
+                        dobMonth = in.next();
+                        validateMonth(dobMonth);
+                    }
+                }
+                validDOB = false;
+                while (!validDOB) {
+                    System.out.println("finally the date they were born (1 - 31, 2 numbers required)");
+                    if (in.hasNext()) {
+                        dobDay = in.next();
+                        validateDate(dobDay);
+                    }
+                }
+                String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
+
+                System.out.println("Successfully added Person: " + fn + " " + ln + " " + dobFinal);
+
+
+                Statement addNewStudent = con.createStatement();
+                addNewStudent.executeUpdate("insert into delivery_Person values (null,'" + fn + "','" + ln + "','" + houseNumber + "','" + address2 + "','" + town + "','" +phoneFinal + "','" + dobFinal + 2 + "','" + "true" + "','" + "')");
+
             }
         }
-        validDOB = false;
-        while (!validDOB) {
-            System.out.println("finally the date they were born (1 - 31, 2 numbers required)");
-            if (in.hasNext()) {
-                dobDay = in.next();
-                validateDate(dobDay);
-            }
-        }
-        String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
-
-        System.out.println("Successfully added Person: " +fn + " "+ ln + " " + dobFinal);
 
 
-        Statement addNewStudent = con.createStatement();
-        addNewStudent.executeUpdate("insert into deliveryPerson values (null,'" + fn + "','" + ln + "','" + dobFinal + "')");
-
-    }
 
 
     public static void deleteDeliveryPerson() throws SQLException {
@@ -309,12 +420,11 @@ public class DeliveryPerson {
     {
         System.out.println("\nMain Menu");
         System.out.println("1: Display all Delivery People");
-        System.out.println("2: Display a particular student's modules ");
-        System.out.println("3: Create a new student ");
-        System.out.println("4: Delete a student ");
-        System.out.println("5: Register a student ");
-        System.out.println("6: Edit a student's details ");
-        System.out.println("7: Exit application\n");
+        System.out.println("2: Display a particular Delivery Person ");
+        System.out.println("3: Create a new Delivery Person ");
+        System.out.println("4: Edit a Person's details ");
+        System.out.println("5: Delete a Delivery Person ");
+        System.out.println("6: Return to Main Menu\n");
         System.out.print("Enter your choice: ");
     }
 
