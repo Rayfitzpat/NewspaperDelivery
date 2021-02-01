@@ -1,8 +1,13 @@
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class DeliveryPersonView {
 
+    private String name;
     private int deliveryPersonId;
     private String firstName;
     private String lastName;
@@ -114,6 +119,10 @@ public class DeliveryPersonView {
         this.deliveryStatus = deliveryStatus;
     }
 
+    // ******************************************************************************************************
+    // Beginning of the DISPLAY Delivery Person Section
+    // ******************************************************************************************************
+
     public static void displayAllDeliveryPerson() {
 
         String str = "Select * from delivery_person";
@@ -143,6 +152,11 @@ public class DeliveryPersonView {
         }
     }
 
+
+    // ******************************************************************************************************
+    // Beginning of the ADD NEW Delivery Person Section
+    // ******************************************************************************************************
+
     public void addNewDeliveryPerson() throws SQLException {
         String fn;
         String ln;
@@ -150,15 +164,22 @@ public class DeliveryPersonView {
         boolean validLN = true;
         boolean validHouseNumber = true;
         boolean validaddress2 = true;
+        boolean validTown = true;
+        boolean validPhone = true;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Scanner in = new Scanner(System.in);
+        String dob = "";
+        boolean inputValid = false;
+
         System.out.println("Please enter the persons FIRST name");
 
         if (in.hasNextLine()) {
-            fn = in.next();
+            firstName = in.next();
 
-            if (fn.length() < 2 || fn.length() > 20) {
+            if (firstName.length() < 2 || firstName.length() > 20) {
                 System.out.println("The first name must contain between 2 and 20 characters");
                 addNewDeliveryPerson();
-            } else if (!validateString(fn)) {
+            } else if (!validateString(firstName)) {
                 System.out.println("Names cannot contain numbers");
                 addNewDeliveryPerson();
             }
@@ -168,12 +189,12 @@ public class DeliveryPersonView {
             System.out.println("Please enter the persons LAST name");
 
             if (in.hasNext()) {
-                ln = in.next();
+                lastName = in.next();
 
-                if (ln.length() < 2 || ln.length() > 20) {
+                if (lastName.length() < 2 || lastName.length() > 20) {
                     System.out.println("The last name must contain between 2 and 20 characters");
                     validLN = false;
-                } else if (!validateString(ln)) {
+                } else if (!validateString(lastName)) {
                     System.out.println("Names cannot contain numbers");
                     validLN = false;
                 } else {
@@ -185,16 +206,16 @@ public class DeliveryPersonView {
             System.out.println("Please enter the persons House Number");
 
             if (in.hasNextInt()) {
-                houseNumber = in.nextInt();
+                address1 = in.nextInt();
 
-                if (houseNumber < 1 || houseNumber > 2000) {
+                if (address1 < 1 || address1 > 2000) {
                     System.out.println("The house Number must contain between 1 and 2000");
                     validHouseNumber = false;
                 } else {
                     validHouseNumber = true;
                 }
             }
-        }  while (!validHouseNumber) ;
+        } while (!validHouseNumber);
         do {
             System.out.println("Please enter the persons Street name");
 
@@ -212,21 +233,162 @@ public class DeliveryPersonView {
                 }
             }
         } while (!validaddress2);
+
+        do {
+            System.out.println("Please enter the persons Town");
+
+            if (in.hasNext()) {
+                town = in.next();
+
+                if (town.length() < 2 || town.length() > 20) {
+                    System.out.println("The Town Name must contain between 2 and 20 characters");
+                    validTown = false;
+                } else if (!validateString(town)) {
+                    System.out.println("Names cannot contain numbers");
+                    validTown = false;
+                } else {
+                    validTown = true;
+                }
+            }
+        } while (!validTown);
+
+        do {
+            System.out.println("Please enter the Phone Number i.e. 087 3987656");
+
+            if (in.hasNext()) {
+                deliveryPhoneNumber = in.next();
+                if (deliveryPhoneNumber.length() < 7 || deliveryPhoneNumber.length() > 11) {
+                    System.out.println("The phone number must contain between 7 to 11 digits including prefix");
+                    validPhone = false;
+                } else if (!validPhoneNumber(deliveryPhoneNumber)) {
+                    System.out.println(" The phone number cannot contain any letters");
+                } else {
+                    validPhone = true;
+                }
+            }
+        } while (!validPhone);
+
+        do {
+                System.out.println("Enter persons date of birth (yyyy-mm-dd):");
+                if (in.hasNextLine()) {
+                    try {
+                        dateOfBirth = in.nextLine();
+                        // if parsing the date didn't throw any exceptions,
+                        // then string is in the correct format
+                        Date date = format.parse(dateOfBirth);
+                        inputValid = true;
+                    } catch (ParseException e) {
+                        System.out.println("Date format incorrect.");
+                    }
+                } else {
+                    //clear the input buffer and start again
+                    in.nextLine();
+                    System.out.println("You entered an invalid date, please try again...");
+                }
+        }while (!inputValid);
+
+        Statement addNewStudent = con.createStatement();
+        addNewStudent.executeUpdate("insert into delivery_Person values (null,'" + firstName + "','" + lastName + "','" + address1 + "','" + address2 + "','" + town + "','" + deliveryPhoneNumber + "','" + dateOfBirth + 2 + "','" + "true" + "','" + "')");
     }
 
+    // ******************************************************************************************************
+    // Beginning of the DELETE Delivery Person Section
+    // ******************************************************************************************************
 
+    public void deleteDeliveryPerson() throws SQLException {
 
+        displayAllDeliveryPerson();
+        System.out.println("Please enter the id number of the delivery person that you want to delete");
+        String id = in.next();
+        if(validateEntry(id)) {
+            String strStudent = "select count(*) as total from deliveryPerson where delivery_person_id = "+ id;
+            rs = stmt.executeQuery(strStudent);
+            deleteCount = 0;
+            while (rs.next()) {
+                deleteCount = rs.getInt("total");
+            }
 
+            if (deleteCount > 0) {
 
-    public boolean validateString(String name) {
-        name = name.toLowerCase();
-        char[] nameArray = name.toCharArray();
-        for (int i = 0; i < nameArray.length; i++) {
-            char ch = nameArray[i];
-            if (ch >= 'a' && ch <= 'z') {
-                return true;
+                try {
+                    Statement deletePerson = con.createStatement();
+                    deletePerson.executeUpdate("delete from deliveryPerson where delivery_person_id =" + id + "");
+                } catch (Exception e) {
+                    System.out.println("unable to delete delivery person");
+                }
+            }
+            else {
+                System.out.println("That person does not exist, please try again");
             }
         }
-        return false;
+
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ******************************************************************************************************
+    // Beginning of the VALIDATION Section
+    // ******************************************************************************************************
+
+        public static boolean validateString (String name){
+            name = name.toLowerCase();
+            char[] nameArray = name.toCharArray();
+            for (int i = 0; i < nameArray.length; i++) {
+                char ch = nameArray[i];
+                if (ch >= 'a' && ch <= 'z') {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void validatePhoneNumber (String deliveryPhoneNumber){
+        boolean validPhone = true;
+            if (deliveryPhoneNumber.length() < 7 || deliveryPhoneNumber.length() > 11) {
+                System.out.println("The phone number must contain between 7 to 11 digits including prefix");
+                validPhone = false;
+            } else {
+                deliveryPhoneNumber = deliveryPhoneNumber.toLowerCase();
+                char[] phoneArray = deliveryPhoneNumber.toCharArray();
+                for (int i = 0; i < phoneArray.length; i++) {
+                    char ch = phoneArray[i];
+                    if (ch >= '0' && ch <= '9') {
+                        validPhone = true;
+                    } else {
+                        validPhone = false;
+                    }
+                }
+            }
+        }
+
+    public static boolean validateEntry(String id) {
+        if (id.length() > 2) {
+            System.out.println("valid entry, you must enter no more than 2 numbers");
+            return false;
+        }
+        else
+        {
+            try {
+                int tempId = Integer.parseInt(id);
+            }
+            catch (Exception e){
+                System.out.println("valid Text entered, please enter a number");
+                return false;
+            }
+        }return true;
+    }
+    }
+
+
+
