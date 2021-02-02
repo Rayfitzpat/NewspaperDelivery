@@ -6,14 +6,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+
+
 public class DeliveryPersonView {
 
-
+    Scanner in = new Scanner(System.in);
     // ******************************************************************************************************
     // Beginning of the DISPLAY Delivery Person Section
     // ******************************************************************************************************
 
-    public static void displayAllDeliveryPerson(Statement stmt) {
+    public void displayAllDeliveryPerson(Statement stmt) {
 
         String str = "Select * from delivery_person";
 
@@ -43,11 +45,63 @@ public class DeliveryPersonView {
             System.out.println(str);
         }
     }
+    // ******************************************************************************************************
+    // Beginning of the DISPLAY ONE Delivery Person Section
+    // ******************************************************************************************************
+
+    public void displayDeliveryPerson(Statement stmt) throws SQLException {
+        int count;
+        String str = "";
+        displayAllDeliveryPerson(stmt);
+        System.out.println("Please select the id of the person you would like to display");
 
 
-    // ******************************************************************************************************
-    // Beginning of the ADD NEW Delivery Person Section
-    // ******************************************************************************************************
+        String id = in.next();
+        if (validateEntry(id)) {
+          str = "select count(*) as total from delivery_Person where delivery_person_id = " + id;
+            ResultSet rs = stmt.executeQuery(str);
+            count = 0;
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if (count > 0) {
+                str = "Select * from delivery_person where delivery_person_id = " + id;
+
+                try {
+
+                    rs = stmt.executeQuery(str);
+                    System.out.printf("\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-10s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status");
+                    while (rs.next()) {
+
+                        int delivery_person_id = rs.getInt("delivery_person_id");
+                        String first_name = rs.getString("first_name");
+                        String last_name = rs.getString("last_name");
+                        String address1 = rs.getString("address1");
+                        String address2 = rs.getString("address2");
+                        String town = rs.getString("town");
+                        String delivery_phone_number = rs.getString("delivery_phone_number");
+                        String dateOfBirth = rs.getString("dob");
+                        String access_level = rs.getString("access_level");
+                        String delivery_status = rs.getString("delivery_status");
+
+                        System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-10s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status);
+                    }
+
+                } catch (SQLException sqle) {
+                    System.out.println("valid input detected - please use only 1 or 2 numbers");
+                    displayDeliveryPerson(stmt);
+                }
+            }
+            else{
+                System.out.println("That person does not exist, please try again");
+                displayDeliveryPerson(stmt);
+            }
+        }
+    }
+
+            // ******************************************************************************************************
+            // Beginning of the ADD NEW Delivery Person Section
+            // ******************************************************************************************************
 //
 //    public void addNewDeliveryPerson() throws SQLException {
 //
@@ -283,7 +337,24 @@ public class DeliveryPersonView {
 //        }return true;
 //    }
 //    }
-//
+
+
+         public static boolean validateEntry (String id){
+                if (id.length() > 2) {
+                    System.out.println("invalid entry, you must enter no more than 2 numbers");
+                    return false;
+                } else {
+                    try {
+                        int tempId = Integer.parseInt(id);
+                    } catch (Exception e) {
+                        System.out.println("invalid Text entered, please enter a number");
+                        return false;
+                    }
+                }
+                return true;
+            }
 //
 //
 }
+
+
