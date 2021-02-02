@@ -26,7 +26,7 @@ public class Customer {
             validateDate(holidayStartDate);
             validateDate(holidayEndDate);
             validateHoliday(holidayStartDate, holidayEndDate);
-            validateStatus(status);
+            //validateStatus(status);
         }
         catch (CustomerExceptionHandler e)
         {
