@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,48 +21,51 @@ public class DeliveryPersonMain {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         init_db();  // open the connection to the database
-
+        DeliveryPersonView dpv = new DeliveryPersonView();
         int menuChoice = 0; // variable used to store main menu choice
         final int STOP_APP = 7; //value from menu that is used to quit the application
 
-        while (menuChoice != STOP_APP) {
-            displayMainMenu(); //display the primary menu
-            if (in.hasNextInt()) {
-                //get the menu choice from the user
-                menuChoice = in.nextInt();
+        dpv.displayAllDeliveryPerson(stmt);
 
-                switch (menuChoice) {
-                    case 1:
-                        displayAllDeliveryPerson(); //The code for this method is already done for you below
-                        break;
+//        while (menuChoice != STOP_APP) {
+//            dpv.displayMainMenu(); //display the primary menu
+//            if (in.hasNextInt()) {
+//                //get the menu choice from the user
+//                menuChoice = in.nextInt();
+//
+//                switch (menuChoice) {
+//                    case 1:
+//                        dpv.displayAllDeliveryPerson(stmt); //The code for this method is already done for you below
+//                        break;
 //                    case 2:
 //                        displayDeliveryPerson(); //You need to code this method below
 //                        break;
-                    case 3:
-                        addNewDeliveryPerson(); //You need to code this method below
-                        break;
-//                    case 4:
-//                        editDeliveryPerson(); //You need to code this method below
+//                    case 3:
+//                        dpv.addNewDeliveryPerson(); //You need to code this method below
 //                        break;
-                    case 5:
-                        deleteDeliveryPerson(); //You need to code this method below
-                        break;
-                    case 4:
-                        System.out.println("Program is closing...");
-                        cleanup_resources();  // close the connection to the database when finished program
-                        break;
-                    default:
-                        System.out.println("You entered an valid choice, please try again...");
-                }
-            } else {
-                //clear the input buffer and start again
-                in.nextLine();
-                System.out.println("You entered an valid choice, please try again...");
-            }
-        }
-    }
+////                    case 4:
+////                        editDeliveryPerson(); //You need to code this method below
+////                        break;
+//                    case 5:
+//                        dpv.deleteDeliveryPerson(); //You need to code this method below
+//                        break;
+//                    case 4:
+//                        System.out.println("Program is closing...");
+//                        dpv.cleanup_resources();  // close the connection to the database when finished program
+//                        break;
+//                    default:
+//                        System.out.println("You entered an valid choice, please try again...");
+               }
+//            } else {
+//                //clear the input buffer and start again
+//                in.nextLine();
+//                System.out.println("You entered an valid choice, please try again...");
+//            }
+//        }
+//    }
+//
 
     }
 
