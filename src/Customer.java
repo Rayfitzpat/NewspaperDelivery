@@ -18,8 +18,8 @@ public class Customer {
             validateName(lastName, "Last name");
             validateAddress(address2, "Address line 2");
             validateAddress(town, "Town");
-            //validateEircode(eircode);
-            //validatePhoneNumber(phoneNumber);
+            validateEircode(eircode);
+            validatePhoneNumber(phoneNumber);
             //validateHoliday(holidayStartDate, holidayEndDate);
             //validateStatus(status);
         }
@@ -183,6 +183,18 @@ public class Customer {
         }
         else if (address.length() > maxLength) {
             throw new CustomerExceptionHandler(nameOfField + " exceeds maximum length requirements");
+        }
+    }
+
+    public void validateEircode(String eircode) throws CustomerExceptionHandler{
+        String s = "[A-Z0-9]+";
+
+        Pattern phonePattern = Pattern.compile("[A-Z0-9]{7}");
+        Matcher matcher = phonePattern.matcher(eircode);
+
+        if (!matcher.matches())
+        {
+            throw new CustomerExceptionHandler("Eircode does not correspond to the format \"A11AA11\"");
         }
     }
 
