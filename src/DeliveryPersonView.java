@@ -243,34 +243,39 @@ public class DeliveryPersonView {
 //    // Beginning of the DELETE Delivery Person Section
 //    // ******************************************************************************************************
 //
-//    public void deleteDeliveryPerson() throws SQLException {
-//
-//        displayAllDeliveryPerson();
-//        System.out.println("Please enter the id number of the delivery person that you want to delete");
-//        String id = in.next();
-//        if(validateEntry(id)) {
-//            String strStudent = "select count(*) as total from deliveryPerson where delivery_person_id = "+ id;
-//            rs = stmt.executeQuery(strStudent);
-//            deleteCount = 0;
-//            while (rs.next()) {
-//                deleteCount = rs.getInt("total");
-//            }
-//
-//            if (deleteCount > 0) {
-//
-//                try {
-//                    Statement deletePerson = con.createStatement();
-//                    deletePerson.executeUpdate("delete from deliveryPerson where delivery_person_id =" + id + "");
-//                } catch (Exception e) {
-//                    System.out.println("unable to delete delivery person");
-//                }
-//            }
-//            else {
-//                System.out.println("That person does not exist, please try again");
-//            }
-//        }
-//
-//    }
+    public void deleteDeliveryPerson(Statement stmt) throws SQLException {
+        int deleteCount;
+        String str;
+        ResultSet rs;
+        DeliveryPersonMain dpm = new DeliveryPersonMain();
+        displayAllDeliveryPerson(stmt);
+        System.out.println("Please enter the id number of the delivery person that you want to delete");
+
+        String id = in.next();
+        if(validateEntry(id)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = "+ id;
+
+            rs = stmt.executeQuery(str);
+            deleteCount = 0;
+            while (rs.next()) {
+                deleteCount = rs.getInt("total");
+            }
+
+            if (deleteCount > 0) {
+
+                try {
+                    Statement deletePerson = dpm.con.createStatement();
+                    deletePerson.executeUpdate("delete from delivery_Person where delivery_person_id =" + id + "");
+                } catch (Exception e) {
+                    System.out.println("unable to delete delivery person");
+                }
+            }
+            else {
+                System.out.println("That person does not exist, please try again");
+            }
+        }
+
+    }
 //
 //
 //

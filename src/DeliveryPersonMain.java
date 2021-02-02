@@ -27,8 +27,9 @@ public class DeliveryPersonMain {
         int menuChoice = 0; // variable used to store main menu choice
         final int STOP_APP = 7; //value from menu that is used to quit the application
 
-        dpv.displayAllDeliveryPerson(stmt);
-        dpv.displayDeliveryPerson(stmt);
+//        dpv.displayAllDeliveryPerson(stmt);
+//        dpv.displayDeliveryPerson(stmt);
+      dpv.deleteDeliveryPerson(stmt);
 
 //        while (menuChoice != STOP_APP) {
 //            dpv.displayMainMenu(); //display the primary menu
