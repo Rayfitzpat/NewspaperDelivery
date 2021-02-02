@@ -1,3 +1,6 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Customer {
     private int customerId, address1;
     private String firstName, lastName, address2, town, eircode, phoneNumber, holidayStartDate, holidayEndDate;
@@ -13,8 +16,8 @@ public class Customer {
             //validateAddress1(address1);
             validateName(firstName, "First name");
             validateName(lastName, "Last name");
-            validateName(address2, "Address line 2");
-            validateName(town, "Town");
+            validateAddress(address2, "Address line 2");
+            validateAddress(town, "Town");
             //validateEircode(eircode);
             //validatePhoneNumber(phoneNumber);
             //validateHoliday(holidayStartDate, holidayEndDate);
@@ -160,4 +163,40 @@ public class Customer {
             }
         }
     }
+
+    /**
+     * Method is validating address lines input
+     * @param address The string containing address (street or town names)
+     * @param nameOfField Can be Either "Address line 2" or "Town". A placeholder for appropriate output.
+     *                    It also help to reduce amount of code needed for validation
+     * @throws CustomerExceptionHandler
+     */
+    public void validateAddress(String address, String nameOfField) throws CustomerExceptionHandler {
+        int minLength = 2;
+        int maxLength = 35;
+
+        if(address.isBlank() || address.isEmpty()){
+            throw new CustomerExceptionHandler(nameOfField + " NOT specified");
+        }
+        else if (address.length() < minLength) {
+            throw new CustomerExceptionHandler(nameOfField + " does not meet minimum length requirements");
+        }
+        else if (address.length() > maxLength) {
+            throw new CustomerExceptionHandler(nameOfField + " exceeds maximum length requirements");
+        }
+    }
+
+
+    public void validatePhoneNumber(String phoneNumber) throws CustomerExceptionHandler {
+        // number format is 080 837 1923
+        Pattern phonePattern = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s]\\d{3}[\\s]\\d{4}$");
+        Matcher matcher = phonePattern.matcher(phoneNumber);
+
+        if (!matcher.matches())
+        {
+            throw new CustomerExceptionHandler("Phone number does not correspond to the format \"000 000 0000\"");
+        }
+    }
+
+
 }

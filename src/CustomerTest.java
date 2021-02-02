@@ -21,7 +21,6 @@ public class CustomerTest extends TestCase {
 
         // create the Customer object
 
-
         try {
 
             // call constructor under test
@@ -52,7 +51,6 @@ public class CustomerTest extends TestCase {
     //Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
 
     public void testValidateName001() {
-
         try {
 
             //Call method under test
