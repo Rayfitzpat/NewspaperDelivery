@@ -29,47 +29,48 @@ public class DeliveryPersonMain {
 
 //        dpv.displayAllDeliveryPerson(stmt);
 //        dpv.displayDeliveryPerson(stmt);
-      dpv.deleteDeliveryPerson(stmt);
+//        dpv.deleteDeliveryPerson(stmt);
+        //dpv.addNewDeliveryPerson(stmt);
 
-//        while (menuChoice != STOP_APP) {
-//            dpv.displayMainMenu(); //display the primary menu
-//            if (in.hasNextInt()) {
-//                //get the menu choice from the user
-//                menuChoice = in.nextInt();
-//
-//                switch (menuChoice) {
-//                    case 1:
-//                        dpv.displayAllDeliveryPerson(stmt); //The code for this method is already done for you below
+       while (menuChoice != STOP_APP) {
+            dpv.displayMainMenu(); //display the primary menu
+            if (in.hasNextInt()) {
+                //get the menu choice from the user
+                menuChoice = in.nextInt();
+
+                switch (menuChoice) {
+                    case 1:
+                        dpv.displayAllDeliveryPerson(stmt); //The code for this method is already done for you below
+                        break;
+                    case 2:
+                        dpv.displayDeliveryPerson(stmt); //You need to code this method below
+                        break;
+                    case 3:
+                        dpv.addNewDeliveryPerson(stmt); //You need to code this method below
+                        break;
+//                   case 4:
+//                        editDeliveryPerson(); //You need to code this method below
 //                        break;
-//                    case 2:
-//                        displayDeliveryPerson(); //You need to code this method below
-//                        break;
-//                    case 3:
-//                        dpv.addNewDeliveryPerson(); //You need to code this method below
-//                        break;
-////                    case 4:
-////                        editDeliveryPerson(); //You need to code this method below
-////                        break;
-//                    case 5:
-//                        dpv.deleteDeliveryPerson(); //You need to code this method below
-//                        break;
-//                    case 4:
-//                        System.out.println("Program is closing...");
-//                        dpv.cleanup_resources();  // close the connection to the database when finished program
-//                        break;
-//                    default:
-//                        System.out.println("You entered an valid choice, please try again...");
+                    case 5:
+                        dpv.deleteDeliveryPerson(stmt); //You need to code this method below
+                       break;
+                    case 4:
+                        System.out.println("Program is closing...");
+                        dpv.cleanup_resources();  // close the connection to the database when finished program
+                        break;
+                    default:
+                        System.out.println("You entered an invalid choice, please try again...");
                }
-//            } else {
-//                //clear the input buffer and start again
-//                in.nextLine();
-//                System.out.println("You entered an valid choice, please try again...");
-//            }
-//        }
-//    }
-//
-
+            } else {
+                //clear the input buffer and start again
+                in.nextLine();
+                System.out.println("You entered an invalid choice, please try again...");
+            }
+        }
     }
+
+
+}
 
 
 
