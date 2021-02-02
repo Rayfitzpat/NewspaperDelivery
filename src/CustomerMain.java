@@ -5,12 +5,12 @@ public class CustomerMain {
 
 
         try {
-            customer.validateEircode("M35UJ99");
-            System.out.println("match");
+            customer.validateHoliday("2021-29", "2021-10-9");
+            System.out.println("valid");
         }
         catch (CustomerExceptionHandler e)
         {
-            System.out.println("now match");
+            System.out.println("invalid");
         }
 
 

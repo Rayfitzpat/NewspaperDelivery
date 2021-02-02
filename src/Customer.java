@@ -1,3 +1,6 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,15 +16,17 @@ public class Customer {
 
         // validate input
         try{
-            //validateAddress1(address1);
+            validateAddress1(address1);
             validateName(firstName, "First name");
             validateName(lastName, "Last name");
             validateAddress(address2, "Address line 2");
             validateAddress(town, "Town");
             validateEircode(eircode);
             validatePhoneNumber(phoneNumber);
-            //validateHoliday(holidayStartDate, holidayEndDate);
-            //validateStatus(status);
+            validateDate(holidayStartDate);
+            validateDate(holidayEndDate);
+            validateHoliday(holidayStartDate, holidayEndDate);
+            validateStatus(status);
         }
         catch (CustomerExceptionHandler e)
         {
@@ -186,12 +191,17 @@ public class Customer {
         }
     }
 
+    /**
+     * Method is validating if eircode is in correct format
+     * @param eircode The string of eircode that needs to be validated
+     * @throws CustomerExceptionHandler Exception is thrown if eircode is in wrong format
+     */
     public void validateEircode(String eircode) throws CustomerExceptionHandler{
-        String s = "[A-Z0-9]+";
-
+        // pattern for eircode
         Pattern phonePattern = Pattern.compile("[A-Z0-9]{7}");
         Matcher matcher = phonePattern.matcher(eircode);
 
+        // if eircode parameter does not correspond to regex expression, throw an exception
         if (!matcher.matches())
         {
             throw new CustomerExceptionHandler("Eircode does not correspond to the format \"A11AA11\"");
@@ -199,6 +209,11 @@ public class Customer {
     }
 
 
+    /**
+     * Method is validating the phone number format
+     * @param phoneNumber String containin the phone number
+     * @throws CustomerExceptionHandler Exception is thrown if phone number is in the wrong format
+     */
     public void validatePhoneNumber(String phoneNumber) throws CustomerExceptionHandler {
         // number format is 080 837 1923
         Pattern phonePattern = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s]\\d{3}[\\s]\\d{4}$");
@@ -210,5 +225,77 @@ public class Customer {
         }
     }
 
+    /**
+     * Method is validating if address1 is correct
+     * @param address1 Represents number of building or an apartment
+     * @throws CustomerExceptionHandler Exception is thrown if address1 is incorrect
+     */
+    public void validateAddress1(int address1) throws CustomerExceptionHandler {
+        // boundaries
+        int minAddress = 1;
+        int maxAddress = 300;
+
+        if (address1 < minAddress) {
+            throw new CustomerExceptionHandler("Address line 1 cannot be a negative number");
+        }
+        else if (address1 > maxAddress) {
+            throw new CustomerExceptionHandler("Address line 1 cannot be greater than 300");
+        }
+    }
+
+    // need to figure this out
+    public void validateStatus(boolean status) throws CustomerExceptionHandler{
+
+    }
+
+    /**
+     * Method is checking if date format is correct
+     * @param date The String containing date
+     * @throws CustomerExceptionHandler is thrown if date parameter does not correspond to "yyyy-MM-dd" format
+     */
+    public void validateDate(String date) throws CustomerExceptionHandler {
+        // setting the format for date 2021-02-29
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        // checking the format of start date
+        try {
+            Date start = format.parse(date);
+        }
+        catch (ParseException e)
+        {
+            throw new CustomerExceptionHandler("Holiday start date format is incorrect");
+        }
+    }
+
+    /**
+     * Method is checking  if dates are in correct order (if start date is earlier than the end date)
+     * @param startDate The String containing the holiday start date
+     * @param endDate The String containing the holiday end date
+     * @throws CustomerExceptionHandler is thrown if start date is earlier than the end date
+     */
+    public void validateHoliday(String startDate, String endDate) throws CustomerExceptionHandler {
+        // setting the format for date 2021-02-29
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        // variables for saving dates in Date type
+        Date start;
+        Date end;
+
+        // converting dates
+        try {
+            start = format.parse(startDate);
+            end = format.parse(endDate);
+
+            // if start date is not before the end date, throwing an exception
+            if (!start.before(end)) {
+                throw new CustomerExceptionHandler("Holiday start date cannot be after the end date");
+            }
+        }
+        catch (ParseException e)
+        {
+            throw new CustomerExceptionHandler("Holiday dates are in wrong format");
+        }
+
+    }
 
 }
