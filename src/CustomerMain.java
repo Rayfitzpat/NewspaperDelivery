@@ -28,7 +28,8 @@ public class CustomerMain {
     public static void main(String[] args) {
         init_db();  // open the connection to the database
 
-//        ArrayList<Customer> publicationsList =  view.readAllPublications(stmt);
-//        publication.displayAllPublications(publicationsList);
+        CustomerView view = new CustomerView();
+        ArrayList<Customer> publicationsList =  view.getAllCustomers(stmt);
+        view.printCustomers(publicationsList);
     }
 }

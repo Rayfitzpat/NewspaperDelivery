@@ -5,17 +5,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Customer {
-    private int customerId, address1;
+    private int customerId, address1, deliveryAreaId;
     private String firstName, lastName, address2, town, eircode, phoneNumber, holidayStartDate, holidayEndDate;
     private boolean status;
 
-    public Customer(String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status) throws CustomerExceptionHandler {
+    public Customer(String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
 
         // customer record in the database is autoincrement
         customerId = 0;
 
         // validate input
         try{
+            //validateDeliveryAreaId();
             validateAddress1(address1);
             validateName(firstName, "First name");
             validateName(lastName, "Last name");
@@ -34,6 +35,45 @@ public class Customer {
         }
 
         // if there was no exception during validation, attributes are set to it's values
+        this.deliveryAreaId = deliveryAreaId;
+        this.address1 = address1;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address2 = address2;
+        this.town = town;
+        this.eircode = eircode;
+        this.phoneNumber = phoneNumber;
+        this.holidayStartDate = holidayStartDate;
+        this.holidayEndDate = holidayEndDate;
+        this.status = status;
+    }
+
+    public Customer(int customerId, String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
+
+        // validate input
+        try{
+            //validateId(customerId);
+            //validateId(deliveryAreaId);
+            validateAddress1(address1);
+            validateName(firstName, "First name");
+            validateName(lastName, "Last name");
+            validateAddress(address2, "Address line 2");
+            validateAddress(town, "Town");
+            validateEircode(eircode);
+            validatePhoneNumber(phoneNumber);
+            validateDate(holidayStartDate);
+            validateDate(holidayEndDate);
+            validateHoliday(holidayStartDate, holidayEndDate);
+            //validateStatus(status);
+        }
+        catch (CustomerExceptionHandler e)
+        {
+            throw e;
+        }
+
+        // if there was no exception during validation, attributes are set to it's values
+        this.customerId = customerId;
+        this.deliveryAreaId = deliveryAreaId;
         this.address1 = address1;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -138,6 +178,11 @@ public class Customer {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public int getDeliveryAreaId() {
+        return deliveryAreaId;
+    }
+
 
     /**
      * Method is validating the data to be compliant
@@ -262,13 +307,16 @@ public class Customer {
         // setting the format for date 2021-02-29
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        // checking the format of start date
-        try {
-            Date start = format.parse(date);
-        }
-        catch (ParseException e)
-        {
-            throw new CustomerExceptionHandler("Holiday start date format is incorrect");
+        // null is acceptable for holiday
+        if (date != null) {
+            // checking the format of start date
+            try {
+                Date start = format.parse(date);
+            }
+            catch (ParseException e)
+            {
+                throw new CustomerExceptionHandler("Holiday start date format is incorrect");
+            }
         }
     }
 
@@ -279,26 +327,30 @@ public class Customer {
      * @throws CustomerExceptionHandler is thrown if start date is earlier than the end date
      */
     public void validateHoliday(String startDate, String endDate) throws CustomerExceptionHandler {
-        // setting the format for date 2021-02-29
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        // null in both fields is acceptable hor holiday field
+        if (startDate != null && endDate != null) {
+            // setting the format for date 2021-02-29
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        // variables for saving dates in Date type
-        Date start;
-        Date end;
+            // variables for saving dates in Date type
+            Date start;
+            Date end;
 
-        // converting dates
-        try {
-            start = format.parse(startDate);
-            end = format.parse(endDate);
 
-            // if start date is not before the end date, throwing an exception
-            if (!start.before(end)) {
-                throw new CustomerExceptionHandler("Holiday start date cannot be after the end date");
+            // converting dates
+            try {
+                start = format.parse(startDate);
+                end = format.parse(endDate);
+
+                // if start date is not before the end date, throwing an exception
+                if (!start.before(end)) {
+                    throw new CustomerExceptionHandler("Holiday start date cannot be after the end date");
+                }
             }
-        }
-        catch (ParseException e)
-        {
-            throw new CustomerExceptionHandler("Holiday dates are in wrong format");
+            catch (ParseException e)
+            {
+                throw new CustomerExceptionHandler("Holiday dates are in wrong format");
+            }
         }
 
     }
