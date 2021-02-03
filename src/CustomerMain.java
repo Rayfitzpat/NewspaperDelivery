@@ -29,7 +29,24 @@ public class CustomerMain {
         init_db();  // open the connection to the database
 
         CustomerView view = new CustomerView();
+
+        // testing read
         ArrayList<Customer> publicationsList =  view.getAllCustomers(stmt);
         view.printCustomers(publicationsList);
+
+        // testing insert/create
+        try {
+            Customer customer = new Customer("Jack", "Martin", 23, "Dublin Road", "Athlone","M35UJ99","084 831 6481", null, null,  true, 6);
+            view.insertCustomer(customer, con);
+        }
+        catch (CustomerExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+
+        // testing read
+        publicationsList =  view.getAllCustomers(stmt);
+        view.printCustomers(publicationsList);
+
+
     }
 }

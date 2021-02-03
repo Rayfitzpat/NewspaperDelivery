@@ -1,6 +1,4 @@
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class CustomerView {
@@ -72,5 +70,46 @@ public class CustomerView {
         {
             System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber() , customers.get(i).getStatus(), customers.get(i).getDeliveryAreaId());
         }
+    }
+
+    // need to work on check of duplicates
+    public boolean insertCustomer(Customer customer, Connection con) {
+
+        // setting resulting flag to default true value
+        boolean isSuccess = true;
+
+        // sql query
+        String insertQuery = "INSERT INTO customer VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try
+        {
+            PreparedStatement pstmt = con.prepareStatement(insertQuery);
+            pstmt.setString(1, customer.getFirstName());
+            pstmt.setString(2, customer.getLastName());
+            pstmt.setInt(3, customer.getAddress1());
+            pstmt.setString(4, customer.getAddress2());
+            pstmt.setString(5, customer.getTown());
+            pstmt.setString(6, customer.getEircode());
+            pstmt.setString(7, customer.getPhoneNumber());
+            pstmt.setString(8, customer.getHolidayStartDate());
+            pstmt.setString(9, customer.getHolidayEndDate());
+            pstmt.setString(10, customer.getStatus()+"");
+            pstmt.setInt(11, customer.getDeliveryAreaId());
+
+            int rows = pstmt.executeUpdate();
+
+            System.out.println("Adding new customer record was successful");
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("Error: failed to add a customer record");
+            System.out.println(sqle.getMessage());
+            System.out.println(insertQuery);
+
+            // resetting the success flag
+            isSuccess = false;
+        }
+
+        return isSuccess;
     }
 }
