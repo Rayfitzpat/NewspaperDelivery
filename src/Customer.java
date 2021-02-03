@@ -148,15 +148,20 @@ public class Customer {
         int minLength = 2;
         int maxLength = 25;
 
-        if(line.isBlank() || line.isEmpty()){
+        if (line == null || nameOfField ==  null) {
+            throw new CustomerExceptionHandler("NULL value in the arguments");
+        }
+        else if(line.isBlank() || line.isEmpty()){
             throw new CustomerExceptionHandler(nameOfField + " NOT specified");
         }
-
         else if (line.length() < minLength) {
             throw new CustomerExceptionHandler(nameOfField + " does not meet minimum length requirements");
         }
         else if (line.length() > maxLength) {
             throw new CustomerExceptionHandler(nameOfField + " exceeds maximum length requirements");
+        }
+        else if(!(nameOfField.equals("First name") || nameOfField.equals("Last name"))) {
+            throw new CustomerExceptionHandler("nameOfField is invalid");
         }
         else {
             // checking if line has any numbers

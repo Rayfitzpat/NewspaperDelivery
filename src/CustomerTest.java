@@ -47,18 +47,144 @@ public class CustomerTest extends TestCase {
 
     //Test #: 2
     //Test Objective: To catch an invalid customer name
-    //Inputs: line = "B", nameOfField = "Customer name"
+    //Inputs: line = "B", nameOfField = "First name"
     //Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
 
     public void testValidateName001() {
         try {
 
             //Call method under test
-            customer.validateName("B", "Customer name");
+            customer.validateName("B", "First name");
             fail("Exception expected");
         }
         catch (CustomerExceptionHandler e) {
-            assertEquals("Customer name does not meet minimum length requirements", e.getMessage());
+            assertEquals("First name does not meet minimum length requirements", e.getMessage());
+        }
+    }
+
+    //Test #: 3
+    //Test Objective: To catch an invalid customer name (more than 25 symbolls in a name)
+    //Inputs: line = "aaaaaaaaaaaaaaaaaaaaaaaaaa", nameOfField = "First name"
+    //Expected Output: Exception Message: "First name exceeds maximum length requirements"
+    public void testValidateName002() {
+        try {
+
+            //Call method under test
+            customer.validateName("aaaaaaaaaaaaaaaaaaaaaaaaaa", "First name");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("First name exceeds maximum length requirements", e.getMessage());
+        }
+    }
+
+    //Test #: 4
+    //Test Objective: To catch an invalid customer name (empty string)
+    //Inputs: line = "", nameOfField = "First name"
+    //Expected Output: Exception Message: "First name  NOT specified"
+    public void testValidateName003() {
+        try {
+
+            //Call method under test
+            customer.validateName("", "First name");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("First name NOT specified", e.getMessage());
+        }
+    }
+
+    //Test #: 5
+    //Test Objective: To catch an invalid customer name (null string)
+    //Inputs: line = null, nameOfField = "First name"
+    //Expected Output: Exception Message: "NULL value in the arguments"
+    public void testValidateName004() {
+        try {
+
+            //Call method under test
+            customer.validateName(null, "First name");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("NULL value in the arguments", e.getMessage());
+        }
+    }
+
+    //Test #: 6
+    //Test Objective: To catch an invalid customer name (containing digits)
+    //Inputs: line = "bbb23", nameOfField = "Last name"
+    //Expected Output: Exception Message: "Last name cannot include numbers"
+    public void testValidateName005() {
+        try {
+
+            //Call method under test
+            customer.validateName("bbb23", "Last name");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Last name cannot include numbers", e.getMessage());
+        }
+    }
+
+    //Test #: 7
+    //Test Objective: To catch an nameOfField exception.("First name" and "Last name" are the only valid strings)
+    //Inputs: line = "John", nameOfField = "Random string"
+    //Expected Output: Exception Message: "nameOfField is invalid"
+    public void testValidateName006() {
+        try {
+
+            //Call method under test
+            customer.validateName("John", "Random string");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("nameOfField is invalid", e.getMessage());
+        }
+    }
+
+    //Test #: 8
+    //Test Objective: To catch an nameOfField exception (null value)
+    //Inputs: line = "Mary", nameOfField = null
+    //Expected Output: Exception Message: "NULL value in the arguments"
+    public void testValidateName007() {
+        try {
+
+            //Call method under test
+            customer.validateName("Mary", null);
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("NULL value in the arguments", e.getMessage());
+        }
+    }
+
+    //Test #: 9
+    //Test Objective: To test validation of a correct name
+    //Inputs: line = "Martin", nameOfField = "First name"
+    //Expected Output: no exceptions
+    public void testValidateName008() {
+        try {
+
+            //Call method under test
+            customer.validateName("Martin", "First name");
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 10
+    //Test Objective: To test validation of a correct name
+    //Inputs: line = "O'Connor", nameOfField = "Last name"
+    //Expected Output: no exceptions
+    public void testValidateName009() {
+        try {
+
+            //Call method under test
+            customer.validateName("O'Connor", "Last name");
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not expected");
         }
     }
 }
