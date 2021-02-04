@@ -24,7 +24,7 @@ public class DeliveryPersonView {
         try {
             ResultSet rs = stmt.executeQuery(str);
 
-            System.out.printf("\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-10s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status");
+            System.out.printf("\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-10s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
             while (rs.next()) {
                 int delivery_person_id = rs.getInt("delivery_person_id");
                 String first_name = rs.getString("first_name");
@@ -36,8 +36,10 @@ public class DeliveryPersonView {
                 String dateOfBirth = rs.getString("dob");
                 String access_level = rs.getString("access_level");
                 String delivery_status = rs.getString("delivery_status");
+                String user_name = rs.getString("user_name");
+                int password = rs.getInt("password");
 
-                System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-10s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status);
+                System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-10s %-10d\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
             }
 
         } catch (SQLException sqle) {
@@ -71,7 +73,7 @@ public class DeliveryPersonView {
                 try {
 
                     rs = stmt.executeQuery(str);
-                    System.out.printf("\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-10s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status");
+                    System.out.printf("\n\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-10s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
                     while (rs.next()) {
 
                         int delivery_person_id = rs.getInt("delivery_person_id");
@@ -84,8 +86,10 @@ public class DeliveryPersonView {
                         String dateOfBirth = rs.getString("dob");
                         String access_level = rs.getString("access_level");
                         String delivery_status = rs.getString("delivery_status");
+                        String user_name = rs.getString("user_name");
+                        int password = rs.getInt("password");
 
-                        System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-10s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status);
+                        System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-10s %-10d\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
                     }
 
                 } catch (SQLException sqle) {
@@ -114,12 +118,16 @@ public class DeliveryPersonView {
         String town = "";
         String deliveryPhoneNumber = "";
         String dateOfBirth = "";
+        String userName = "";
+        String password = "";
         int houseNumber;
         boolean validLN = true;
         boolean validHouseNumber = true;
         boolean validaddress2 = true;
         boolean validTown = true;
         boolean validPhone = true;
+        boolean validUser = true;
+        boolean validPw = false;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Scanner in = new Scanner(System.in);
         String dob = "";
@@ -165,11 +173,12 @@ public class DeliveryPersonView {
                 address1 = in.nextInt();
                 dp.setAddress1(address1);
 
-                if (address1 < 1 || address1 > 2000) {
+                if (address1 >= 1 && address1 <= 2000) {
+
+                    validHouseNumber = true;
+                } else {
                     System.out.println("The house Number must contain between 1 and 2000");
                     validHouseNumber = false;
-                } else {
-                    validHouseNumber = true;
                 }
             }
         } while (!validHouseNumber);
@@ -215,17 +224,19 @@ public class DeliveryPersonView {
         System.out.println("Please enter the Phone Number i.e. 087 3987656");
 
         do {
-            if (in.hasNextInt()) {
+            if (in.hasNext()) {
                 deliveryPhoneNumber = in.next();
                 dp.setDeliveryPhoneNumber(deliveryPhoneNumber);
 
-                if (deliveryPhoneNumber.length() < 7 || deliveryPhoneNumber.length() >= 13) {
+                if (deliveryPhoneNumber.length() <= 7 || deliveryPhoneNumber.length() >= 13) {
                     System.out.println("The phone number must contain between 7 to 11 digits including prefix");
                     validPhone = false;
 
                 } else {
                     validPhone = true;
                 }
+            } else {
+                validPhone = false;
             }
         } while (!validPhone);
 
@@ -240,55 +251,185 @@ public class DeliveryPersonView {
                     inputValid = true;
                 } catch (Exception e) {
                     System.out.println("Date of Birth incorrect");
+                    inputValid = false;
                 }
             }
         }
         while (!inputValid);
 
 
+        do {
+            System.out.println("Please enter the persons Username - between 2 & 10 characters");
+
+            if (in.hasNext()) {
+                userName = in.next();
+                dp.setUserName(userName);
+
+                if (userName.length() < 2 || userName.length() > 10) {
+                    System.out.println("The Town Name must contain between 2 and 10 characters");
+                    validUser = false;
+                } else if (!validateString(town)) {
+                    System.out.println("Names cannot contain numbers");
+                    validUser = false;
+                } else {
+                    validUser = true;
+                }
+            }
+        } while (!validUser);
+
+        do {
+            System.out.println("Please enter the persons Password - must be 4 characters");
+            try {
+                if (in.hasNext()) {
+                    password = in.next();
+                    dp.setPassword(password);
+                    if (password.length() != 4) {
+                        System.out.println("Invalid entry - please enter 4 characters");
+                        validPw = false;
+                    } else {
+                        validPw = true;
+                    }
+                } else {
+                    System.out.println("\"Invalid entry - please enter 4 characters");
+                    validPw = false;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid entry - please enter 4 characters");
+                validPw = false;
+            }
+        } while (!validPw);
+
+
         Statement addNewPerson = dpm.con.createStatement();
-        addNewPerson.executeUpdate("insert into delivery_Person values (null, '"+ dp.getLastName() + "','" + dp.getLastName() + "','" + dp.getAddress1() + "','" + dp.getAddress2() + "','" + dp.getTown() + "','" + dp.getDeliveryPhoneNumber() + "','" + dp.getDateOfBirth() + "','" + 2 + "','" + "true" + "')");
+        addNewPerson.executeUpdate("insert into delivery_Person values (null ,'" + dp.getFirstName() + "','" + dp.getLastName() + "','" + dp.getAddress1() + "','" + dp.getAddress2() + "','" + dp.getTown() + "','" + dp.getDeliveryPhoneNumber() + "','" + dp.getDateOfBirth() + "','" + 2 + "','" + "true" + "','" + dp.getUserName() + "','" + dp.getPassword() + "')");
 
     }
 
-//
+    // ******************************************************************************************************
+    // Beginning of the EDIT Delivery Person Section
+    // ******************************************************************************************************
+    public void editDeliveryPerson(Statement stmt) throws SQLException {
+        DeliveryPersonView dpv = new DeliveryPersonView();
+        String str = "";
+        int count;
+        displayAllDeliveryPerson(stmt);
+        System.out.println("Please enter the id corresponding to the attribute you would like to edit");
+        String editId = in.next();
+        if (validateEntry(editId)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editId;
+            ResultSet rs = stmt.executeQuery(str);
+            count = 0;
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if (count > 0) {
+
+                System.out.println("Please enter the id corresponding to the attribute you would like to edit");
+                int menuChoiceEditPerson = 0; // variable used to store Edit menu choice
+                int stopEdit = 12; //value from menu that is used to close the Edit Student process
+
+                while (menuChoiceEditPerson != stopEdit) {
+                    editDeliveryPersonMenu(); //display the primary menu
+                    if (in.hasNextInt()) {
+                        //get the menu choice from the user
+                        menuChoiceEditPerson = in.nextInt();
+                        if (in.hasNextInt()) {
+                            //get the menu choice from the user
+                            menuChoiceEditPerson = in.nextInt();
+
+                            switch (menuChoiceEditPerson) {
+                                case 1:
+                                    dpv.editPersonFirstName(stmt); //The code for this method is already done for you below
+                                    break;
+                                case 2:
+                                    dpv.editPersonLastName(stmt); //You need to code this method below
+                                    break;
+                                case 3:
+                                    dpv.editPersonaddress1(stmt); //You need to code this method below
+                                    break;
+                                case 4:
+                                    dpv.editPersonAddress2(stmt); //You need to code this method below
+                                    break;
+                                case 5:
+                                    dpv.editPersonTown(stmt); //You need to code this method below
+                                    break;
+                                case 6:
+                                    dpv.editPersonPhoneNumber(stmt); //You need to code this method below
+                                    break;
+                                case 7:
+                                    dpv.editPersonDoB(stmt); //You need to code this method below
+                                    break;
+                                case 8:
+                                    dpv.editPersonAccessLevel(stmt); //You need to code this method below
+                                    break;
+                                case 9:
+                                    dpv.editPersonStatus(stmt); //You need to code this method below
+                                    break;
+                                case 10:
+                                    dpv.editPersonUserName(stmt); //You need to code this method below
+                                    break;
+                                case 11:
+                                    dpv.editPersonPassword(stmt); //You need to code this method below
+                                    break;
+                                case 12:
+                                    System.out.println("Program is closing...");
+                                    dpv.cleanup_resources();  // close the connection to the database when finished program
+                                    break;
+                                default:
+                                    System.out.println("You entered an invalid choice, please try again...");
+                            }
+                        } else {
+                            //clear the input buffer and start again
+                            in.nextLine();
+                            System.out.println("You entered an invalid choice, please try again...");
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+
+
+
 //    // ******************************************************************************************************
 //    // Beginning of the DELETE Delivery Person Section
 //    // ******************************************************************************************************
 //
-        public void deleteDeliveryPerson (Statement stmt) throws SQLException {
-            int deleteCount;
-            String str;
-            ResultSet rs;
-            DeliveryPersonMain dpm = new DeliveryPersonMain();
-            displayAllDeliveryPerson(stmt);
-            System.out.println("Please enter the id number of the delivery person that you want to delete");
+               public void deleteDeliveryPerson (Statement stmt) throws SQLException {
+                   int deleteCount;
+                   String str;
+                   ResultSet rs;
+                   DeliveryPersonMain dpm = new DeliveryPersonMain();
+                   displayAllDeliveryPerson(stmt);
+                   System.out.println("Please enter the id number of the delivery person that you want to delete");
 
-            String id = in.next();
-            if (validateEntry(id)) {
-                str = "select count(*) as total from delivery_Person where delivery_person_id = " + id;
+                   String id = in.next();
+                   if (validateEntry(id)) {
+                       str = "select count(*) as total from delivery_Person where delivery_person_id = " + id;
 
-                rs = stmt.executeQuery(str);
-                deleteCount = 0;
-                while (rs.next()) {
-                    deleteCount = rs.getInt("total");
-                }
+                       rs = stmt.executeQuery(str);
+                       deleteCount = 0;
+                       while (rs.next()) {
+                           deleteCount = rs.getInt("total");
+                       }
 
-                if (deleteCount > 0) {
+                       if (deleteCount > 0) {
 
-                    try {
-                        Statement deletePerson = dpm.con.createStatement();
-                        deletePerson.executeUpdate("delete from delivery_Person where delivery_person_id =" + id + "");
-                        System.out.println(" Delivery Person with id: " + id + " has been deleted");
-                    } catch (Exception e) {
-                        System.out.println("unable to delete delivery person");
-                    }
-                } else {
-                    System.out.println("That person does not exist, please try again");
-                }
-            }
+                           try {
+                               Statement deletePerson = dpm.con.createStatement();
+                               deletePerson.executeUpdate("delete from delivery_Person where delivery_person_id =" + id + "");
+                               System.out.println(" Delivery Person with id: " + id + " has been deleted");
+                           } catch (Exception e) {
+                               System.out.println("unable to delete delivery person");
+                           }
+                       } else {
+                           System.out.println("That person does not exist, please try again");
+                       }
+                   }
 
-        }
+               }
 
 //
 //
@@ -423,6 +564,23 @@ public class DeliveryPersonView {
         System.out.println("4: Edit a Person's details ");
         System.out.println("5: Delete a Delivery Person ");
         System.out.println("6: Return to Main Menu\n");
+        System.out.print("Enter your choice: ");
+    }
+
+    public static void editDeliveryPersonMenu() {
+        System.out.println("\nEdit Person Menu");
+        System.out.println("1: Edit Person's First Name");
+        System.out.println("2: Edit Person's Last Name");
+        System.out.println("3: Edit Person's House Number");
+        System.out.println("4: Edit Person's Street name");
+        System.out.println("5: Edit Person's Town");
+        System.out.println("6: Edit Person's Phone Number'");
+        System.out.println("7: Edit Person Date of Birth");
+        System.out.println("8: Edit Person's Access level");
+        System.out.println("9: Edit Person's Status");
+        System.out.println("10: Edit Person's Username");
+        System.out.println("11: Edit Person's Password");
+        System.out.println("12: Exit to Main Menu\n");
         System.out.print("Enter your choice: ");
     }
 //

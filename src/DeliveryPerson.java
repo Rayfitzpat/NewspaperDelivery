@@ -13,8 +13,26 @@ public class DeliveryPerson {
     private String dateOfBirth;
     private String accessLevel;
     private String deliveryStatus;
+    private String userName;
+    private String password;
 
     Scanner in = new Scanner(System.in);
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
 
     public int getDeliveryPersonId() {
@@ -101,7 +119,7 @@ public class DeliveryPerson {
 
     }
 
-    public DeliveryPerson(int deliveryPersonId, String firstName, String lastName, int address1, String address2, String town, String deliveryPhoneNumber, String dateOfBirth, String accessLevel, String deliveryStatus) {
+    public DeliveryPerson(int deliveryPersonId, String firstName, String lastName, int address1, String address2, String town, String deliveryPhoneNumber, String dateOfBirth, String accessLevel, String deliveryStatus, String userName, String password) {
         this.deliveryPersonId = deliveryPersonId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -112,6 +130,8 @@ public class DeliveryPerson {
         this.dateOfBirth = dateOfBirth;
         this.accessLevel = accessLevel;
         this.deliveryStatus = deliveryStatus;
+        this.userName = userName;
+        this.password = password;
     }
 
 

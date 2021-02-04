@@ -48,13 +48,13 @@ public class DeliveryPersonMain {
                     case 3:
                         dpv.addNewDeliveryPerson(stmt); //You need to code this method below
                         break;
-//                   case 4:
-//                        editDeliveryPerson(); //You need to code this method below
-//                        break;
+                   case 4:
+                        dpv.editDeliveryPerson(stmt); //You need to code this method below
+                        break;
                     case 5:
                         dpv.deleteDeliveryPerson(stmt); //You need to code this method below
                        break;
-                    case 4:
+                    case 6:
                         System.out.println("Program is closing...");
                         dpv.cleanup_resources();  // close the connection to the database when finished program
                         break;
