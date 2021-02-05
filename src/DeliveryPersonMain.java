@@ -25,7 +25,7 @@ public class DeliveryPersonMain {
         init_db();  // open the connection to the database
         DeliveryPersonView dpv = new DeliveryPersonView();
         int menuChoice = 0; // variable used to store main menu choice
-        final int STOP_APP = 7; //value from menu that is used to quit the application
+        final int STOP_APP = 6; //value from menu that is used to quit the application
 
 //        dpv.displayAllDeliveryPerson(stmt);
 //        dpv.displayDeliveryPerson(stmt);
