@@ -1,49 +1,49 @@
-//import junit.framework.TestCase;
-//
-//public class DeliveryPersonTest extends TestCase {
-//
-//    //Test #: 1
-//    //Test Objective: To create a Customer Record
-//    //Inputs: firstName = "Jack", lastName = "Martin",  address1 = 23, address2 = "Dublin Road", town = "Athlone",
-//    //      eircode="M35UJ99", phoneNumber = "084 831 6481", holidayStartDate = "2021-02-19", holidayEndDate = "2021-02-29", status = "true"
-//    //Expected Output: Customer Object created with id = 0, firstName = "Jack", lastName = "Martin",  address1 = 23,
-//    //      address2 = "Dublin Road", town = "Athlone",
-//    //      eircode="M35UJ99", phoneNumber = "084 831 6481", holidayStartDate = "", holidayEndDate = "", status = "true"
-//
-//    public void testCustomer001() {
-//
-//        // create the Customer object
-//
-//        try {
-//
-//            // call constructor under test
-//            Customer customer = new Customer("Jack", "Martin", 23, "Dublin Road", "Athlone","M35UJ99","084 831 6481", "2021-02-19", "2021-02-29",  true, 6);
-//
-//            // checking object creation
-//            assertEquals(0, customer.getCustomerId());
-//            assertEquals("Jack", customer.getFirstName());
-//            assertEquals("Martin", customer.getLastName());
-//            assertEquals(23, customer.getAddress1());
-//            assertEquals("Dublin Road", customer.getAddress2());
-//            assertEquals("Athlone", customer.getTown());
-//            assertEquals("M35UJ99", customer.getEircode());
-//            assertEquals("084 831 6481", customer.getPhoneNumber());
-//            assertEquals("2021-02-19", customer.getHolidayStartDate());
-//            assertEquals("2021-02-29", customer.getHolidayEndDate());
-//            assertEquals(true, customer.getStatus());
-//            assertEquals(6, customer.getDeliveryAreaId());
-//        }
-//        catch (CustomerExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//
-//    }
-//
-//    //Test #: 2
-//    //Test Objective: To catch an invalid customer name
-//    //Inputs: line = "B", nameOfField = "First name"
-//    //Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
-//
+import junit.framework.TestCase;
+
+public class DeliveryPersonTest extends TestCase {
+
+    //Test #: 1
+    //Test Objective: To create a Customer Record
+    //Inputs: firstName = "Jack", lastName = "Martin",  address1 = 23, address2 = "Dublin Road", town = "Athlone",
+    //      eircode="M35UJ99", phoneNumber = "084 831 6481", holidayStartDate = "2021-02-19", holidayEndDate = "2021-02-29", status = "true"
+    //Expected Output: Customer Object created with id = 0, firstName = "Jack", lastName = "Martin",  address1 = 23,
+    //      address2 = "Dublin Road", town = "Athlone",
+    //      eircode="M35UJ99", phoneNumber = "084 831 6481", holidayStartDate = "", holidayEndDate = "", status = "true"
+
+    public void testDeliveryPerson001() {
+
+
+
+        try {
+            // create the Customer object
+            // call constructor under test
+            DeliveryPerson deliveryPerson = new DeliveryPerson(5,"Pam", "Beezley", 87, "Willow Park", "Athlone","087 8888888","1997-11-12", "2", "true",  "PamAndJim", "1111");
+
+            // checking object creation
+            assertEquals(5, deliveryPerson.getDeliveryPersonId());
+            assertEquals("Pam", deliveryPerson.getFirstName());
+            assertEquals("Beezley", deliveryPerson.getLastName());
+            assertEquals(87, deliveryPerson.getAddress1());
+            assertEquals("Willow Park", deliveryPerson.getAddress2());
+            assertEquals("Athlone", deliveryPerson.getTown());
+            assertEquals("087 8888888", deliveryPerson.getDeliveryPhoneNumber());
+            assertEquals("1997-11-12", deliveryPerson.getDateOfBirth());
+            assertEquals("2", deliveryPerson.getAccessLevel());
+            assertEquals("true", deliveryPerson.getDeliveryStatus());
+            assertEquals("PamAndJim", deliveryPerson.getUserName());
+            assertEquals("1111", deliveryPerson.getPassword());
+        }
+        catch (Exception e) {
+            fail("Exception not expected");
+        }
+
+    }
+}
+    //Test #: 2
+    //Test Objective: To catch an invalid customer name
+    //Inputs: line = "B", nameOfField = "First name"
+    //Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
+
 //    public void testValidateName001() {
 //        try {
 //
