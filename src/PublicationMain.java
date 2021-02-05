@@ -28,13 +28,55 @@ public class PublicationMain {
 
         init_db();  // open the connection to the database
 
-        System.out.println("First Commit");
-
         Publication publication = new Publication();
 
-        ArrayList<Publication> publicationsList =  publication.readAllPublications(stmt);
-        publication.displayAllPublications(publicationsList);
+        PublicationView pv = new PublicationView();
+
+        int menuChoice = 0;
+
+        final int STOP_APP = 7;
+        pv.displayAllPublication(stmt);
+//        while (menuChoice != STOP_APP) {
+//            pv.displayMainMenu(); //display the primary menu
+//            if (in.hasNextInt()) {
+//                //get the menu choice from the user
+//                menuChoice = in.nextInt();
+//
+//                switch (menuChoice) {
+//                    case 1:
+//                        pv.displayAllPublication(stmt); //The code for this method is already done for you below
+//                        break;
+//                    case 2:
+//                        pv.displayPublication(stmt); //You need to code this method below
+//                        break;
+//                    case 3:
+//                        pv.addNewPublication(stmt); //You need to code this method below
+//                        break;
+//                    case 4:
+//                        pv.editPublication(stmt); //You need to code this method below
+//                       break;
+//                    case 5:
+//                        pv.deletePublication(stmt); //You need to code this method below
+//                        break;
+//                    case 6:
+//                        System.out.println("Program is closing...");
+//                        pv.cleanup_resources();  // close the connection to the database when finished program
+//                        break;
+//                    default:
+//                        System.out.println("You entered an invalid choice, please try again...");
+//                }
+//            } else {
+//                //clear the input buffer and start again
+//                in.nextLine();
+//                System.out.println("You entered an invalid choice, please try again...");
+//            }
+//        }
     }
 
 
-}
+//        ArrayList<Publication> publicationsList =  publication.readAllPublications(stmt);
+//        publication.displayAllPublications(publicationsList);
+    }
+
+
+
