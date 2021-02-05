@@ -28,8 +28,8 @@ public class Main {
 
         Publication publication = new Publication();
 
-        ArrayList<Publication> publicationsList =  publication.readAllPublications(stmt);
-        publication.displayAllPublications(publicationsList);
+//        ArrayList<Publication> publicationsList =  publication.readAllPublications(stmt);
+//        publication.displayAllPublications(publicationsList);
     }
 
 

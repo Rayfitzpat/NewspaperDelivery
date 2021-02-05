@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,7 +21,7 @@ public class PublicationMain {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         init_db();  // open the connection to the database
 
@@ -35,7 +32,7 @@ public class PublicationMain {
         int menuChoice = 0;
 
         final int STOP_APP = 7;
-        pv.displayAllPublication(stmt);
+        pv.addNewPublication(stmt);
 //        while (menuChoice != STOP_APP) {
 //            pv.displayMainMenu(); //display the primary menu
 //            if (in.hasNextInt()) {
