@@ -32,7 +32,7 @@ public class CustomerMain {
 
             // testing read
             System.out.println("\n************************************PRINTING********************************************");
-            view.printCustomers();
+            view.printAllCustomers();
 
             // testing insert/create
 //            System.out.println("\n************************************INSERTING********************************************");
@@ -41,12 +41,7 @@ public class CustomerMain {
 
             // testing delete
             System.out.println("\n************************************DELETING********************************************");
-            view.deactivateCustomer(59, stmt);
-            view.printCustomers();
-            view.deactivateCustomer(60, stmt);
-            view.printCustomers();
-            view.deactivateCustomer(61, stmt);
-            view.printCustomers();
+            view.printAllActiveCustomers();
 
         }
         catch (CustomerExceptionHandler e) {

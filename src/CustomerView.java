@@ -5,6 +5,9 @@ public class CustomerView {
 
     /**
      * The class will be handling the outputs into the console and fetching data with the database
+     *
+     * To be finished if I have time:
+     * - actual deleting of the customers
      */
 
     private ArrayList<Customer> customers; // local copy of all customers in the db
@@ -205,7 +208,7 @@ public class CustomerView {
      * Method for printing customer objects out into console window
      * @param customers collection of objects that will be printed to console
      */
-    public void printCustomers(ArrayList<Customer> customers) {
+    public void printAllCustomers(ArrayList<Customer> customers) {
         System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
         for (int i = 0; i < customers.size(); i++)
         {
@@ -215,13 +218,30 @@ public class CustomerView {
 
 
     /**
-     * Method for printing customer objects out into console window
+     * Method for printing all customer objects out into console window
      */
-    public void printCustomers() {
+    public void printAllActiveCustomers() {
         System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
         for (int i = 0; i < customers.size(); i++)
         {
-            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber() , customers.get(i).getStatus(), customers.get(i).getDeliveryAreaId());
+            if (customers.get(i).getStatus() == true) {
+                String customerStatus = "active";
+                System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber() , customerStatus, customers.get(i).getDeliveryAreaId());
+            }
+
+        }
+    }
+
+    /**
+     * Method for printing customer objects out into console window
+     */
+    public void printAllCustomers() {
+        System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
+        for (int i = 0; i < customers.size(); i++)
+        {
+            String status = customers.get(i).getStatus() ? "active" : "inactive";
+
+            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber() , status, customers.get(i).getDeliveryAreaId());
         }
     }
 }
