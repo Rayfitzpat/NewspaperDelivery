@@ -655,7 +655,7 @@ public class DeliveryPersonView {
 
     public static void displayMainMenu()
     {
-        System.out.println("\nMain Menu");
+        System.out.println("\nDelivery Person Main Menu");
         System.out.println("1: Display all Delivery People");
         System.out.println("2: Display a particular Delivery Person ");
         System.out.println("3: Create a new Delivery Person ");

@@ -4,16 +4,14 @@ public class DeliveryPersonTest extends TestCase {
 
     //Test #: 1
     //Test Objective: To create a Customer Record
-    //Inputs: firstName = "Jack", lastName = "Martin",  address1 = 23, address2 = "Dublin Road", town = "Athlone",
-    //      eircode="M35UJ99", phoneNumber = "084 831 6481", holidayStartDate = "2021-02-19", holidayEndDate = "2021-02-29", status = "true"
-    //Expected Output: Customer Object created with id = 0, firstName = "Jack", lastName = "Martin",  address1 = 23,
-    //      address2 = "Dublin Road", town = "Athlone",
-    //      eircode="M35UJ99", phoneNumber = "084 831 6481", holidayStartDate = "", holidayEndDate = "", status = "true"
+    //Inputs: id= 5 firstName = "Pam", lastName = "Beezley",  address1 = 87, address2 = "Willow Park", town = "Athlone",
+        // deliveryPhoneNumber ="087 8888888", dateOfBirth = "1997-11-12", accessLevel = "2", deliveryStatus = "true",
+        // userName = "PamAndJim", password = "1111"
+    //Expected Output: Customer Object created with id = 5, firstName = "Pam", lastName = "Beezley",
+         // address1 = 87, address2 = "Willow Park", town = "Athlone", deliveryPhoneNumber ="087 8888888", dateOfBirth = "1997-11-12",
+         // accessLevel = "2", deliveryStatus = "true", userName = "PamAndJim", password = "1111"
 
     public void testDeliveryPerson001() {
-
-
-
         try {
             // create the Customer object
             // call constructor under test
@@ -40,7 +38,7 @@ public class DeliveryPersonTest extends TestCase {
     }
 }
     //Test #: 2
-    //Test Objective: To catch an invalid customer name
+    //Test Objective: To test validateEntry and see if no more than 2 numbers are entered
     //Inputs: line = "B", nameOfField = "First name"
     //Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
 

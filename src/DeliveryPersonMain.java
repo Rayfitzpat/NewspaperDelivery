@@ -21,9 +21,11 @@ public class DeliveryPersonMain {
     }
 
 
-    public static void main(String[] args) throws SQLException {
+//    public static void main(String[] args) throws SQLException {
+    public static void deliveryPersonMainPage() throws SQLException{
         init_db();  // open the connection to the database
         DeliveryPersonView dpv = new DeliveryPersonView();
+        Main main = new Main();
         int menuChoice = 0; // variable used to store main menu choice
         final int STOP_APP = 6; //value from menu that is used to quit the application
 
@@ -55,8 +57,7 @@ public class DeliveryPersonMain {
                         dpv.deleteDeliveryPerson(stmt); //You need to code this method below
                        break;
                     case 6:
-                        System.out.println("Program is closing...");
-                        dpv.cleanup_resources();  // close the connection to the database when finished program
+                        main.displayMainMenu(); // close the connection to the database when finished program
                         break;
                     default:
                         System.out.println("You entered an invalid choice, please try again...");
