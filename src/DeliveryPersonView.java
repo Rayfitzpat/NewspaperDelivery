@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 
 public class DeliveryPersonView {
+    DeliveryPersonMain dpm = new DeliveryPersonMain();
 
     Scanner in = new Scanner(System.in);
     // ******************************************************************************************************
@@ -333,65 +334,141 @@ public class DeliveryPersonView {
                     if (in.hasNextInt()) {
                         //get the menu choice from the user
                         menuChoiceEditPerson = in.nextInt();
-                        if (in.hasNextInt()) {
-                            //get the menu choice from the user
-                            menuChoiceEditPerson = in.nextInt();
 
-                            switch (menuChoiceEditPerson) {
-                                case 1:
-                                    dpv.editPersonFirstName(stmt); //The code for this method is already done for you below
-                                    break;
-                                case 2:
-                                    dpv.editPersonLastName(stmt); //You need to code this method below
-                                    break;
-                                case 3:
-                                    dpv.editPersonaddress1(stmt); //You need to code this method below
-                                    break;
-                                case 4:
-                                    dpv.editPersonAddress2(stmt); //You need to code this method below
-                                    break;
-                                case 5:
-                                    dpv.editPersonTown(stmt); //You need to code this method below
-                                    break;
-                                case 6:
-                                    dpv.editPersonPhoneNumber(stmt); //You need to code this method below
-                                    break;
-                                case 7:
-                                    dpv.editPersonDoB(stmt); //You need to code this method below
-                                    break;
-                                case 8:
-                                    dpv.editPersonAccessLevel(stmt); //You need to code this method below
-                                    break;
-                                case 9:
-                                    dpv.editPersonStatus(stmt); //You need to code this method below
-                                    break;
-                                case 10:
-                                    dpv.editPersonUserName(stmt); //You need to code this method below
-                                    break;
-                                case 11:
-                                    dpv.editPersonPassword(stmt); //You need to code this method below
-                                    break;
-                                case 12:
-                                    System.out.println("Program is closing...");
-                                    dpv.cleanup_resources();  // close the connection to the database when finished program
-                                    break;
-                                default:
-                                    System.out.println("You entered an invalid choice, please try again...");
-                            }
-                        } else {
-                            //clear the input buffer and start again
-                            in.nextLine();
-                            System.out.println("You entered an invalid choice, please try again...");
+                        switch (menuChoiceEditPerson) {
+                            case 1:
+                                editPersonFirstName(); //The code for this method is already done for you below
+                                break;
+                            case 2:
+                                editPersonLastName(); //You need to code this method below
+                                break;
+                            case 3:
+                                editPersonAddress1(); //You need to code this method below
+                                break;
+                            case 4:
+                                editPersonAddress2(); //You need to code this method below
+                                break;
+                            case 5:
+                                editPersonTown(); //You need to code this method below
+                                break;
+                            case 6:
+                                editPersonPhoneNumber(); //You need to code this method below
+                                break;
+                            case 7:
+                                editPersonDoB(); //You need to code this method below
+                                break;
+                            case 8:
+                                editPersonAccessLevel(); //You need to code this method below
+                                break;
+                            case 9:
+                                editPersonStatus(); //You need to code this method below
+                                break;
+                            case 10:
+                                editPersonUserName(); //You need to code this method below
+                                break;
+                            case 11:
+                                editPersonPassword(); //You need to code this method below
+                                break;
+                            case 12:
+                                System.out.println("Program is closing...");
+                                cleanup_resources();  // close the connection to the database when finished program
+                                break;
+                            default:
+                                System.out.println("You entered an invalid choice, please try again...");
                         }
+                    } else {
+                        //clear the input buffer and start again
+                        in.nextLine();
+                        System.out.println("You entered an invalid choice, please try again...");
                     }
+                }
 
 
                 }
             }
         }
+
+
+    // ******************************************************************************************************
+//    // Beginning of the Edit Person Method Section
+//    // ******************************************************************************************************
+
+    public void editPersonFirstName() throws SQLException {
+        System.out.println("Please enter a new First Name");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET first_name = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
     }
 
+    public void editPersonLastName() throws SQLException {
+        System.out.println("Please enter a new Last Name");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET last_name = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
+    }
 
+    public void editPersonAddress1() throws SQLException {
+        System.out.println("Please enter a new House Number");
+        int newHouse = in.nextInt();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET address1 = '" + newHouse + "' where delivery_person_id = '" +editPerson+"'");
+    }
+
+    public void editPersonAddress2() throws SQLException {
+        System.out.println("Please enter a new Street Name");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET address2 = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
+    }
+
+    public void editPersonTown() throws SQLException {
+        System.out.println("Please enter a new Town");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET town = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
+    }
+
+    public void editPersonPhoneNumber() throws SQLException {
+        System.out.println("Please enter a new Phone Number");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
+    }
+
+    public void editPersonDoB() throws SQLException {
+        System.out.println("Please enter a new Date of Birth YYYY-MM-DD");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET dob = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
+    }
+
+    public void editPersonAccessLevel() throws SQLException {
+        System.out.println("Please enter a new access level - 1 for admin, 2 for Delivery access");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET access_level = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
+    }
+
+    public void editPersonStatus() throws SQLException {
+        System.out.println("Please enter a new status - true = active, false = inactive");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET delivery_status = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
+    }
+
+    public void editPersonUserName() throws SQLException {
+        System.out.println("Please enter a new User Name - 10 characters max");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET user_name = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
+    }
+
+    public void editPersonPassword() throws SQLException {
+        System.out.println("Please enter a new Password - 4 characters max");
+        String newName = in.next();
+        Statement editPerson = dpm.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET password = '" + newName + "' where delivery_person_id = '" +editPerson+"'");
+    }
 
 //    // ******************************************************************************************************
 //    // Beginning of the DELETE Delivery Person Section
