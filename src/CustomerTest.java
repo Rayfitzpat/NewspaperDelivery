@@ -64,7 +64,7 @@ public class CustomerTest extends TestCase {
     }
 
     //Test #: 3
-    //Test Objective: To catch an invalid customer name (more than 25 symbolls in a name)
+    //Test Objective: To catch an invalid customer name (more than 25 symbols in a name)
     //Inputs: line = "aaaaaaaaaaaaaaaaaaaaaaaaaa", nameOfField = "First name"
     //Expected Output: Exception Message: "First name exceeds maximum length requirements"
     public void testValidateName002() {
@@ -188,4 +188,102 @@ public class CustomerTest extends TestCase {
             fail("Exception not expected");
         }
     }
+
+
+
+    //Test #: 11
+    //Test Objective: To catch an invalid address exception
+    //Inputs: address = "b", nameOFField = "Town"
+    //Expected Output: Town does not meet minimum length requirements
+    public void testValidateAddress001() {
+        try {
+
+            //Call method under test
+            customer.validateAddress("b", "Town");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Town does not meet minimum length requirements", e.getMessage());
+        }
+    }
+
+    //Test #: 11
+    //Test Objective: To catch an invalid name of field exception
+    //Inputs: address = "Moate", nameOFField = "Townie"
+    //Expected Output: Townie is incorrect name of address field
+    public void testValidateAddress002() {
+        try {
+
+            //Call method under test
+            customer.validateAddress("Moate", "Townie");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+
+            assertEquals("Townie is incorrect name of address field", e.getMessage());
+        }
+    }
+
+    //Test #: 12
+    //Test Objective: To catch an invalid address exception (address line too long)
+    //Inputs: address = "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", nameOFField = "Town"
+    //Expected Output: Townie is incorrect name of address field
+    public void testValidateAddress003() {
+        try {
+
+            //Call method under test
+            customer.validateAddress("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Town");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Town exceeds maximum length requirements", e.getMessage());
+        }
+    }
+
+    //Test #: 13
+    //Test Objective: To catch a null exception
+    //Inputs: address = "Dublin", nameOFField = null
+    //Expected Output: NULL value in the arguments
+    public void testValidateAddress005() {
+        try {
+
+            //Call method under test
+            customer.validateAddress(null, null);
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("NULL value in the arguments", e.getMessage());
+        }
+    }
+
+    //Test #: 14
+    //Test Objective: To check validation of a correct data
+    //Inputs: address = "Dublin", nameOFField = "Town"
+    //Expected Output: no exception
+    public void testValidateAddress006() {
+        try {
+
+            //Call method under test
+            customer.validateAddress("Dublin", "Town");
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 15
+    //Test Objective: To check validation of a correct data
+    //Inputs: address = "Strand street", nameOFField = "Address line 2"
+    //Expected Output: no exception
+    public void testValidateAddress007() {
+        try {
+
+            //Call method under test
+            customer.validateAddress("Strand street", "Address line 2");
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
 }

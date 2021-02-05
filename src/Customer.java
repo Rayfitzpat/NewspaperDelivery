@@ -9,6 +9,7 @@ public class Customer {
     private String firstName, lastName, address2, town, eircode, phoneNumber, holidayStartDate, holidayEndDate;
     private boolean status;
 
+    // constructor for initialising Customer objects without customerId
     public Customer(String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
 
         // customer record in the database is autoincrement
@@ -27,7 +28,6 @@ public class Customer {
             validateDate(holidayStartDate);
             validateDate(holidayEndDate);
             validateHoliday(holidayStartDate, holidayEndDate);
-            //validateStatus(status);
         }
         catch (CustomerExceptionHandler e)
         {
@@ -48,6 +48,7 @@ public class Customer {
         this.status = status;
     }
 
+    // constructor for initialising Customer objects with all fields
     public Customer(int customerId, String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
 
         // validate input
@@ -64,7 +65,6 @@ public class Customer {
             validateDate(holidayStartDate);
             validateDate(holidayEndDate);
             validateHoliday(holidayStartDate, holidayEndDate);
-            //validateStatus(status);
         }
         catch (CustomerExceptionHandler e)
         {
@@ -86,6 +86,7 @@ public class Customer {
         this.status = status;
     }
 
+    // constructor for initialising object of Customer with no data
     public Customer(){
 
     }
@@ -230,7 +231,14 @@ public class Customer {
         int minLength = 2;
         int maxLength = 35;
 
-        if(address.isBlank() || address.isEmpty()){
+        // checking for null inputs
+        if (address == null && nameOfField == null) {
+            throw new CustomerExceptionHandler("NULL value in the arguments");
+        }
+        else if (!(nameOfField.equals("Town") || nameOfField.equals("Address line 2"))) {
+            throw new CustomerExceptionHandler(nameOfField + " is incorrect name of address field");
+        }
+        else if(address.isBlank() || address.isEmpty()){
             throw new CustomerExceptionHandler(nameOfField + " NOT specified");
         }
         else if (address.length() < minLength) {
@@ -239,6 +247,8 @@ public class Customer {
         else if (address.length() > maxLength) {
             throw new CustomerExceptionHandler(nameOfField + " exceeds maximum length requirements");
         }
+
+
     }
 
     /**
