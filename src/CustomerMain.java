@@ -2,7 +2,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CustomerMain {
@@ -28,24 +27,32 @@ public class CustomerMain {
     public static void main(String[] args) {
         init_db();  // open the connection to the database
 
-        CustomerView view = new CustomerView();
-
-        // testing read
-        ArrayList<Customer> publicationsList =  view.getAllCustomers(stmt);
-        view.printCustomers(publicationsList);
-
-        // testing insert/create
         try {
-            Customer customer = new Customer("Jack", "Martin", 23, "Dublin Road", "Athlone","M35UJ99","084 831 6481", null, null,  true, 6);
-            view.insertCustomer(customer, con);
+            CustomerView view = new CustomerView(stmt);
+
+            // testing read
+            System.out.println("\n************************************PRINTING********************************************");
+            view.printCustomers();
+
+            // testing insert/create
+//            System.out.println("\n************************************INSERTING********************************************");
+//            Customer customer = new Customer("Jack", "Martin", 23, "Dublin Road", "Athlone","M35UJ99","084 831 6481", null, null,  true, 6);
+//            view.insertCustomer(customer, con);
+
+            // testing delete
+            System.out.println("\n************************************DELETING********************************************");
+            view.deactivateCustomer(59, stmt);
+            view.printCustomers();
+            view.deactivateCustomer(60, stmt);
+            view.printCustomers();
+            view.deactivateCustomer(61, stmt);
+            view.printCustomers();
+
         }
         catch (CustomerExceptionHandler e) {
             System.out.println(e.getMessage());
         }
 
-        // testing read
-        publicationsList =  view.getAllCustomers(stmt);
-        view.printCustomers(publicationsList);
 
 
     }
