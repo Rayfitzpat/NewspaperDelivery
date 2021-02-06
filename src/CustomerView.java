@@ -13,7 +13,7 @@ public class CustomerView {
     private ArrayList<Customer> customers; // local copy of all customers in the db
 
     // constructor
-    public CustomerView(Statement stmt) {
+    public CustomerView(Statement stmt)  throws CustomerExceptionHandler{
         fetchCustomers(stmt);
     }
 
@@ -34,7 +34,7 @@ public class CustomerView {
      * @param stmt Connection statement
      * @return an ArrayList of Customer objects from the database
      */
-    public ArrayList<Customer> fetchCustomers(Statement stmt) {
+    public ArrayList<Customer> fetchCustomers(Statement stmt) throws CustomerExceptionHandler {
         // array list for saving all the objects of the Customer class
         ArrayList<Customer> customersList = new ArrayList<>();
 
@@ -76,9 +76,11 @@ public class CustomerView {
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
             System.out.println(query);
-            System.out.println("Error: failed to read all customers.");
+
+            throw new CustomerExceptionHandler("Error: failed to read all customers.");
         } catch (CustomerExceptionHandler customerException) {
             System.out.println(customerException.getMessage());
+            throw customerException;
         }
 
         // saving customers locally
@@ -96,9 +98,7 @@ public class CustomerView {
      *                 and inserted into the db
      * @param con      Conncetion object to establish connection to db and perform the insert
      */
-    public boolean insertCustomer(Customer customer, Connection con) {
-
-        boolean isQuerySuccessfull = false; // setting default result flag
+    public void insertCustomer(Customer customer, Connection con) throws CustomerExceptionHandler{
 
         // checking if the new record is not duplicate
         if (!ifCustomerExists(customer)) { // if false
@@ -122,21 +122,16 @@ public class CustomerView {
 
                 int rows = pstmt.executeUpdate();
 
-                isQuerySuccessfull = true;
                 System.out.println("Adding new customer record was successful");
             } catch (SQLException sqle) {
-                System.out.println("Error: failed to add a customer record");
                 System.out.println(sqle.getMessage());
                 System.out.println(insertQuery);
-                isQuerySuccessfull = false;
+                throw new CustomerExceptionHandler("Error: failed to add a customer record");
             }
         } else {
             // outputting message about duplicate
-            System.out.println(customer.getFirstName() + " " + customer.getLastName() + " record already exists in the database");
-            isQuerySuccessfull = false;
+            throw new CustomerExceptionHandler(customer.getFirstName() + " " + customer.getLastName() + " record already exists in the database");
         }
-
-        return isQuerySuccessfull;
     }
 
     /**
@@ -170,7 +165,7 @@ public class CustomerView {
      * @param customerId the id of the customer record that must be updated
      * @param c the customer object with containing data for update
      * @param stmt Statement object to access the db
-     * @throws CustomerExceptionHandler
+     * @throws CustomerExceptionHandler exception is thrown if update query wfailed
      */
     public void updateCustomer(int customerId, Customer c,  Statement stmt) throws CustomerExceptionHandler {
 
