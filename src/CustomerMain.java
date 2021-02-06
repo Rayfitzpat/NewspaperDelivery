@@ -60,6 +60,17 @@ public class CustomerMain {
     }
 
     public static void addNewCustomer() {
+        Scanner in = new Scanner(System.in);
+        boolean isValid = false;
+
+        while(!isValid) {
+            String firstName = askUserToEnterName("first name");
+            String lastName = askUserToEnterName("last name");
+            int address1 = askUserToEnterAddress1();
+            String address2 = askUserToEnterAddress2("address line 2");
+            String town = askUserToEnterAddress2("town");
+            System.out.println("**************SUCCESS for now*********************");
+        }
 
     }
 
@@ -76,7 +87,7 @@ public class CustomerMain {
         boolean isValid = false;
         int customerID = 0;
 
-        // geting id if the customer
+        // getting id if the customer
         while (!isValid)
         {
             System.out.println("Enter id of the customer: ");
@@ -100,6 +111,100 @@ public class CustomerMain {
             }
         }
         return customerID;
+    }
+
+
+    public static String askUserToEnterName(String initial)
+    {
+        Scanner in = new Scanner(System.in);
+        Customer c = new Customer();
+        String name = "";
+        boolean inputValid = false;
+        while (!inputValid)
+        {
+            System.out.println("Enter customer " + initial + " name(25 chars or less): ");
+            if (in.hasNextLine())
+            {
+                name = in.nextLine();
+                try {
+                    c.setFirstName(name);
+                    // if validation was successful
+                    inputValid = true;
+                }catch (CustomerExceptionHandler e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            else
+            {
+                //clear the input buffer and start again
+                in.nextLine();
+                System.out.println("You entered an invalid " + initial + " name, please try again...");
+            }
+        }
+        return name;
+    }
+
+
+    public static int askUserToEnterAddress1()
+    {
+        Scanner in = new Scanner(System.in);
+        Customer c = new Customer();
+        int address1 = 0;
+        boolean inputValid = false;
+
+        while (!inputValid)
+        {
+            System.out.println("Enter customer address line 1 (number of house or apartment): ");
+            if (in.hasNextInt())
+            {
+                address1 = in.nextInt();
+                try {
+                    c.setAddress1(address1);
+                    // if validation was successful
+                    inputValid = true;
+                }catch (CustomerExceptionHandler e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            else
+            {
+                //clear the input buffer and start again
+                in.nextLine();
+                System.out.println("You entered an invalid address line 1, please try again...");
+            }
+        }
+        return address1;
+    }
+
+
+    public static String askUserToEnterAddress2(String addressType)
+    {
+        Scanner in = new Scanner(System.in);
+        Customer c = new Customer();
+        String address = "";
+        boolean inputValid = false;
+        while (!inputValid)
+        {
+            System.out.println("Enter customer " + addressType + " (35 chars or less): ");
+            if (in.hasNextLine())
+            {
+                address = in.nextLine();
+                try {
+                    c.setAddress2(address);
+                    // if validation was successful
+                    inputValid = true;
+                }catch (CustomerExceptionHandler e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            else
+            {
+                //clear the input buffer and start again
+                in.nextLine();
+                System.out.println("You entered an invalid " + addressType + ", please try again...");
+            }
+        }
+        return address;
     }
 
     public static void displayCustomerMenu () {

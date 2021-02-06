@@ -96,7 +96,8 @@ public class Customer {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(int customerId) throws CustomerExceptionHandler{
+
         this.customerId = customerId;
     }
 
@@ -104,7 +105,13 @@ public class Customer {
         return address1;
     }
 
-    public void setAddress1(int address1) {
+    public void setAddress1(int address1) throws CustomerExceptionHandler{
+        try {
+            validateAddress1(address1);
+        }
+        catch (CustomerExceptionHandler e) {
+            throw e;
+        }
         this.address1 = address1;
     }
 
@@ -112,7 +119,13 @@ public class Customer {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName) throws CustomerExceptionHandler {
+        try {
+            validateName(firstName, "First name");
+        }
+        catch (CustomerExceptionHandler e) {
+            throw e;
+        }
         this.firstName = firstName;
     }
 
@@ -120,7 +133,13 @@ public class Customer {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName) throws CustomerExceptionHandler{
+        try {
+            validateName(lastName, "Last name");
+        }
+        catch (CustomerExceptionHandler e) {
+            throw e;
+        }
         this.lastName = lastName;
     }
 
@@ -128,7 +147,13 @@ public class Customer {
         return address2;
     }
 
-    public void setAddress2(String address2) {
+    public void setAddress2(String address2) throws CustomerExceptionHandler{
+        try{
+            validateAddress(address2, "Address line 2" );
+        }
+        catch (CustomerExceptionHandler e) {
+            throw e;
+        }
         this.address2 = address2;
     }
 
@@ -136,7 +161,13 @@ public class Customer {
         return town;
     }
 
-    public void setTown(String town) {
+    public void setTown(String town) throws CustomerExceptionHandler{
+        try {
+            validateAddress(town, "Town");
+        }
+        catch (CustomerExceptionHandler e) {
+            throw  e;
+        }
         this.town = town;
     }
 
@@ -144,7 +175,13 @@ public class Customer {
         return eircode;
     }
 
-    public void setEircode(String eircode) {
+    public void setEircode(String eircode) throws CustomerExceptionHandler{
+        try {
+            validateEircode(eircode);
+        }
+        catch (CustomerExceptionHandler e) {
+            throw e;
+        }
         this.eircode = eircode;
     }
 
@@ -152,7 +189,12 @@ public class Customer {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) throws CustomerExceptionHandler{
+        try {
+            validatePhoneNumber(phoneNumber);
+        } catch (CustomerExceptionHandler e) {
+            throw e;
+        }
         this.phoneNumber = phoneNumber;
     }
 
@@ -160,7 +202,13 @@ public class Customer {
         return holidayStartDate;
     }
 
-    public void setHolidayStartDate(String holidayStartDate) {
+    public void setHolidayStartDate(String holidayStartDate) throws CustomerExceptionHandler{
+        try {
+            validateDate(holidayStartDate);
+        }
+        catch (CustomerExceptionHandler e) {
+            throw e;
+        }
         this.holidayStartDate = holidayStartDate;
     }
 
@@ -168,7 +216,13 @@ public class Customer {
         return holidayEndDate;
     }
 
-    public void setHolidayEndDate(String holidayEndDate) {
+    public void setHolidayEndDate(String holidayEndDate) throws CustomerExceptionHandler{
+        try {
+            validateDate(holidayEndDate);
+        }
+        catch (CustomerExceptionHandler e) {
+            throw e;
+        }
         this.holidayEndDate = holidayEndDate;
     }
 
@@ -182,6 +236,10 @@ public class Customer {
 
     public int getDeliveryAreaId() {
         return deliveryAreaId;
+    }
+
+    public void setDeliveryAreaId(int id) {
+        this.deliveryAreaId = id;
     }
 
 
