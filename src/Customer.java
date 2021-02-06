@@ -362,7 +362,22 @@ public class Customer {
                 throw new CustomerExceptionHandler("Holiday dates are in wrong format");
             }
         }
-
     }
 
+    @Override
+    public String toString() {
+
+        // simplifying holiday and status display
+        String holiday = holidayStartDate == null ? "not specified" : ("from" + holidayStartDate + " to " + holidayEndDate);
+        String customerStatus = status ? "active" : "inactive";
+
+        return "Customer No" + customerId +
+                "\n" + firstName + ' ' + lastName +
+                ", \nAddress: " + address1 + " " + address2 + ", " + town  +
+                ", \nEircode: " + eircode +
+                ", \nPhone number: " + phoneNumber  +
+                ", \nHoliday: " + holiday +
+                ", \nStatus: " + customerStatus +
+                ", \nDelivery Area No. " + deliveryAreaId;
+    }
 }

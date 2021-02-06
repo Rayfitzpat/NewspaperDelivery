@@ -5,14 +5,15 @@ public class CustomerView {
 
     /**
      * The class will be handling the outputs into the console and fetching data with the database
-     *
+     * <p>
      * To be finished if I have time:
      * - actual deleting of the customers
      */
 
     private ArrayList<Customer> customers; // local copy of all customers in the db
 
-    public CustomerView(Statement stmt) throws CustomerExceptionHandler {
+    // constructor
+    public CustomerView(Statement stmt) {
         fetchCustomers(stmt);
     }
 
@@ -29,24 +30,13 @@ public class CustomerView {
 
     /**
      * Method is retrieving the data about the customers and returns ArrayList of Customer objects
+     *
      * @param stmt Connection statement
      * @return an ArrayList of Customer objects from the database
      */
-    public ArrayList<Customer> fetchCustomers(Statement stmt)  throws CustomerExceptionHandler  {
+    public ArrayList<Customer> fetchCustomers(Statement stmt) {
         // array list for saving all the objects of the Customer class
         ArrayList<Customer> customersList = new ArrayList<>();
-        int id;
-        String firstName;
-        String lastName;
-        int address1;
-        String address2;
-        String town;
-        String eircode;
-        String phonenumber;
-        String holidayStartDate;
-        String holidayEndDate;
-        boolean status;
-        int deliveryAreaId;
 
         String query = "Select * from customer";
         ResultSet rs;
@@ -54,28 +44,40 @@ public class CustomerView {
             rs = stmt.executeQuery(query);
             while (rs.next()) {
 
-                id = rs.getInt("customer_id");
-                firstName = rs.getString("first_name");
-                lastName = rs.getString("last_name");
-                address1 = rs.getInt("address1");
-                address2 = rs.getString("address2");
-                town = rs.getString("town");
-                eircode = rs.getString("eircode");
-                phonenumber = rs.getString("phone_number");
-                holidayStartDate = rs.getString("holiday_start_date");
-                holidayEndDate = rs.getString("holiday_end_date");
-                status = rs.getBoolean("customer_status");
-                deliveryAreaId = rs.getInt("delivery_area_id");
+                int id = rs.getInt("customer_id");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                int address1 = rs.getInt("address1");
+                String address2 = rs.getString("address2");
+                String town = rs.getString("town");
+                String eircode = rs.getString("eircode");
+                String phonenumber = rs.getString("phone_number");
+                String holidayStartDate = rs.getString("holiday_start_date");
+                String holidayEndDate = rs.getString("holiday_end_date");
+                boolean status = rs.getBoolean("customer_status");
+                int deliveryAreaId = rs.getInt("delivery_area_id");
 
-                customersList.add(new Customer(id, firstName, lastName, address1, address2, town, eircode, phonenumber, holidayStartDate, holidayEndDate, status, deliveryAreaId));
+                customersList.add(new Customer(
+                        id,
+                        firstName,
+                        lastName,
+                        address1,
+                        address2,
+                        town,
+                        eircode,
+                        phonenumber,
+                        holidayStartDate,
+                        holidayEndDate,
+                        status,
+                        deliveryAreaId)
+                );
             }
 
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
             System.out.println(query);
-            throw new CustomerExceptionHandler("Error: failed to read all customers.");
-        }
-        catch (CustomerExceptionHandler customerException) {
+            System.out.println("Error: failed to read all customers.");
+        } catch (CustomerExceptionHandler customerException) {
             System.out.println(customerException.getMessage());
         }
 
@@ -86,16 +88,17 @@ public class CustomerView {
     }
 
 
-
-
     /**
      * Method is inserting new customer into the db
+     *
      * @param customer object containing all the data about the customer.
      *                 This data is accessed through getters and setters
      *                 and inserted into the db
-     * @param con Conncetion object to establish connection to db and perform the insert
+     * @param con      Conncetion object to establish connection to db and perform the insert
      */
-    public void insertCustomer(Customer customer, Connection con) throws CustomerExceptionHandler {
+    public boolean insertCustomer(Customer customer, Connection con) {
+
+        boolean isQuerySuccessfull = false; // setting default result flag
 
         // checking if the new record is not duplicate
         if (!ifCustomerExists(customer)) { // if false
@@ -103,8 +106,7 @@ public class CustomerView {
             // sql query
             String insertQuery = "INSERT INTO customer VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            try
-            {
+            try {
                 PreparedStatement pstmt = con.prepareStatement(insertQuery);
                 pstmt.setString(1, customer.getFirstName());
                 pstmt.setString(2, customer.getLastName());
@@ -115,35 +117,35 @@ public class CustomerView {
                 pstmt.setString(7, customer.getPhoneNumber());
                 pstmt.setString(8, customer.getHolidayStartDate());
                 pstmt.setString(9, customer.getHolidayEndDate());
-                pstmt.setString(10, customer.getStatus()+"");
+                pstmt.setString(10, customer.getStatus() + "");
                 pstmt.setInt(11, customer.getDeliveryAreaId());
 
                 int rows = pstmt.executeUpdate();
 
-
+                isQuerySuccessfull = true;
                 System.out.println("Adding new customer record was successful");
-            }
-            catch (SQLException sqle)
-            {
+            } catch (SQLException sqle) {
                 System.out.println("Error: failed to add a customer record");
                 System.out.println(sqle.getMessage());
                 System.out.println(insertQuery);
-                throw new CustomerExceptionHandler("Error: failed to read all customers.");
+                isQuerySuccessfull = false;
             }
-        }
-        else {
+        } else {
             // outputting message about duplicate
-            throw new CustomerExceptionHandler(customer.getFirstName() + " " +customer.getLastName() + " record already exists in the database");
+            System.out.println(customer.getFirstName() + " " + customer.getLastName() + " record already exists in the database");
+            isQuerySuccessfull = false;
         }
+
+        return isQuerySuccessfull;
     }
 
     /**
      * Method is setting customer status to "inactive" or false
+     *
      * @param customerId the if of customer that has to be deactivated
-     * @param stmt Statement object to access the db
-     * @return true if customer status was changed to "inactive" or false if not
+     * @param stmt       Statement object to access the db
      */
-    public void deactivateCustomer(int customerId, Statement stmt) throws CustomerExceptionHandler  {
+    public void deactivateCustomer(int customerId, Statement stmt) throws CustomerExceptionHandler {
 
         // checking if customer with Id customerId exists in the db
         if (ifCustomerExists(customerId)) {
@@ -152,21 +154,59 @@ public class CustomerView {
                     "WHERE customer_id = " + customerId + ";";
             try {
                 stmt.executeUpdate(updateQuery);
-                throw new CustomerExceptionHandler("Customer with Id "+ customerId + " was successfully deactivated");
-            }
-            catch (SQLException sqle) {
+                System.out.println("Customer with Id " + customerId + " was successfully deactivated");
+            } catch (SQLException sqle) {
                 System.out.println(sqle.getMessage());
                 System.out.println(updateQuery);
                 throw new CustomerExceptionHandler("Failed to deactivate customer record");
             }
+        } else {
+            throw new CustomerExceptionHandler("There is no customer with id " + customerId + " in the database");
         }
-        else {
+    }
+
+    /**
+     * Method updates customer information
+     * @param customerId the id of the customer record that must be updated
+     * @param c the customer object with containing data for update
+     * @param stmt Statement object to access the db
+     * @throws CustomerExceptionHandler
+     */
+    public void updateCustomer(int customerId, Customer c,  Statement stmt) throws CustomerExceptionHandler {
+
+        // checking if customer with Id customerId exists in the db
+        if (ifCustomerExists(customerId)) {
+
+            // if customer exists, then update is possible
+            String updateQuery = "UPDATE customer " +
+                    "SET first_name = \"" + c.getFirstName() +
+                    "\", last_name = \"" + c.getLastName() +
+                    "\", address1 = " + c.getAddress1() +
+                    ", address2 = \"" + c.getAddress2() +
+                    "\", town = \"" + c.getTown() +
+                    "\", eircode = \"" + c.getEircode() +
+                    "\", phone_number = \"" + c.getPhoneNumber() +
+                    "\", holiday_start_date = " + c.getHolidayStartDate() +
+                    ", holiday_end_date = " + c.getHolidayEndDate() +
+                    ", customer_status = \"" + c.getStatus() +
+                    "\", delivery_area_id = " + c.getDeliveryAreaId() +
+                    " WHERE customer_id = " + customerId + ";";
+            try {
+                stmt.executeUpdate(updateQuery);
+                System.out.println("Customer with Id " + customerId + " was successfully updated");
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
+                System.out.println(updateQuery);
+                throw new CustomerExceptionHandler("Failed to update customer record");
+            }
+        } else {
             throw new CustomerExceptionHandler("There is no customer with id " + customerId + " in the database");
         }
     }
 
     /**
      * Method is checking if such customer already exists. The check is performed by checking name and address
+     *
      * @param newCustomer the customer object that needs to be checked if duplicate
      * @return true if this customer already exists in the db, false if not
      */
@@ -189,6 +229,7 @@ public class CustomerView {
 
     /**
      * Method is checking if customer with customerId  already exists
+     *
      * @param customerId customer if from the db
      * @return true if this customer already exists in the db, false if not
      */
@@ -206,27 +247,25 @@ public class CustomerView {
 
     /**
      * Method for printing customer objects out into console window
+     *
      * @param customers collection of objects that will be printed to console
      */
-    public void printAllCustomers(ArrayList<Customer> customers) {
+    public void printCustomers(ArrayList<Customer> customers) {
         System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
-        for (int i = 0; i < customers.size(); i++)
-        {
-            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber() , customers.get(i).getStatus(), customers.get(i).getDeliveryAreaId());
+        for (int i = 0; i < customers.size(); i++) {
+            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), customers.get(i).getStatus(), customers.get(i).getDeliveryAreaId());
         }
     }
-
 
     /**
      * Method for printing all customer objects out into console window
      */
     public void printAllActiveCustomers() {
         System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
-        for (int i = 0; i < customers.size(); i++)
-        {
+        for (int i = 0; i < customers.size(); i++) {
             if (customers.get(i).getStatus() == true) {
                 String customerStatus = "active";
-                System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber() , customerStatus, customers.get(i).getDeliveryAreaId());
+                System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), customerStatus, customers.get(i).getDeliveryAreaId());
             }
 
         }
@@ -235,13 +274,24 @@ public class CustomerView {
     /**
      * Method for printing customer objects out into console window
      */
-    public void printAllCustomers() {
+    public void printCustomers() {
         System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
-        for (int i = 0; i < customers.size(); i++)
-        {
+        for (int i = 0; i < customers.size(); i++) {
             String status = customers.get(i).getStatus() ? "active" : "inactive";
 
-            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber() , status, customers.get(i).getDeliveryAreaId());
+            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), status, customers.get(i).getDeliveryAreaId());
         }
     }
+
+//    /**
+//     * Method for printing customer object out by id
+//     */
+//    public void printCustomerById(int id) {
+//        System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
+//        for (int i = 0; i < customers.size(); i++) {
+//            String status = customers.get(i).getStatus() ? "active" : "inactive";
+//
+//            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), status, customers.get(i).getDeliveryAreaId());
+//        }
+//    }
 }
