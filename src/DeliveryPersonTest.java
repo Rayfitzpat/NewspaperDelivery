@@ -15,13 +15,13 @@ public class DeliveryPersonTest extends TestCase {
         try {
             // create the Customer object
             // call constructor under test
-            DeliveryPerson deliveryPerson = new DeliveryPerson(5,"Pam", "Beezley", 87, "Willow Park", "Athlone","087 8888888","1997-11-12", "2", "true",  "PamAndJim", "1111");
+            DeliveryPerson deliveryPerson = new DeliveryPerson(5,"Pam", "Beezley", "87", "Willow Park", "Athlone","087 8888888","1997-11-12", "2", "true",  "PamAndJim", "1111");
 
             // checking object creation
             assertEquals(5, deliveryPerson.getDeliveryPersonId());
             assertEquals("Pam", deliveryPerson.getFirstName());
             assertEquals("Beezley", deliveryPerson.getLastName());
-            assertEquals(87, deliveryPerson.getAddress1());
+            assertEquals("87", deliveryPerson.getAddress1());
             assertEquals("Willow Park", deliveryPerson.getAddress2());
             assertEquals("Athlone", deliveryPerson.getTown());
             assertEquals("087 8888888", deliveryPerson.getDeliveryPhoneNumber());

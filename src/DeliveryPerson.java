@@ -6,7 +6,7 @@ public class DeliveryPerson {
     private int deliveryPersonId;
     private String firstName;
     private String lastName;
-    private int address1;
+    private String address1;
     private String address2;
     private String town;
     private String deliveryPhoneNumber;
@@ -59,11 +59,11 @@ public class DeliveryPerson {
         this.lastName = lastName;
     }
 
-    public int getAddress1() {
+    public String getAddress1() {
         return address1;
     }
 
-    public void setAddress1(int address1) {
+    public void setAddress1(String address1) {
         this.address1 = address1;
     }
 
@@ -119,7 +119,7 @@ public class DeliveryPerson {
 
     }
 
-    public DeliveryPerson(int deliveryPersonId, String firstName, String lastName, int address1, String address2, String town, String deliveryPhoneNumber, String dateOfBirth, String accessLevel, String deliveryStatus, String userName, String password) {
+    public DeliveryPerson(int deliveryPersonId, String firstName, String lastName, String address1, String address2, String town, String deliveryPhoneNumber, String dateOfBirth, String accessLevel, String deliveryStatus, String userName, String password) {
         this.deliveryPersonId = deliveryPersonId;
         this.firstName = firstName;
         this.lastName = lastName;
