@@ -2,7 +2,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DeliveryPersonMain {
+public class DeliveryPersonDB {
 
     static Connection con = null;
     static Statement stmt = null;
@@ -22,7 +22,7 @@ public class DeliveryPersonMain {
 
 
 //    public static void main(String[] args) throws SQLException {
-    public static void deliveryPersonMainPage() throws SQLException{
+    public void deliveryPersonMainPage() throws SQLException{
         init_db();  // open the connection to the database
         DeliveryPersonView dpv = new DeliveryPersonView();
         Main main = new Main();

@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class DeliveryPerson {
 
-    private String name;
     private int deliveryPersonId;
     private String firstName;
     private String lastName;
@@ -26,14 +25,11 @@ public class DeliveryPerson {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password) {this.password = password;
     }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
 
     public int getDeliveryPersonId() {
         return deliveryPersonId;
@@ -133,6 +129,4 @@ public class DeliveryPerson {
         this.userName = userName;
         this.password = password;
     }
-
-
 }

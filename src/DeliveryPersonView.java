@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 
 public class DeliveryPersonView {
-    DeliveryPersonMain dpm = new DeliveryPersonMain();
+    DeliveryPersonDB dpDB = new DeliveryPersonDB();
     String editId = "";
     DeliveryPerson dp = new DeliveryPerson();
     String firstName = "";
@@ -20,17 +20,15 @@ public class DeliveryPersonView {
     String dateOfBirth = "";
     String userName = "";
     String password = "";
-    int houseNumber;
     boolean validName = true;
     boolean validHouseNumber = true;
-    boolean validaddress2 = true;
+    boolean validAddress2 = true;
     boolean validTown = true;
     boolean validPhone = true;
     boolean validUser = true;
     boolean validPw = false;
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     Scanner in = new Scanner(System.in);
-    String dob = "";
     boolean inputValid = false;
 
     // ******************************************************************************************************
@@ -58,9 +56,9 @@ public class DeliveryPersonView {
                 String access_level = rs.getString("access_level");
                 String delivery_status = rs.getString("delivery_status");
                 String user_name = rs.getString("user_name");
-                int password = rs.getInt("password");
+                String password = rs.getString("password");
 
-                System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-20s %-10d\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
+                System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-20s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
             }
 
         } catch (SQLException sqle) {
@@ -75,7 +73,7 @@ public class DeliveryPersonView {
 
     public void displayDeliveryPerson(Statement stmt) throws SQLException {
         int count;
-        String str = "";
+        String str;
         displayAllDeliveryPerson(stmt);
         System.out.println("Please select the id of the person you would like to display");
 
@@ -94,7 +92,7 @@ public class DeliveryPersonView {
                 try {
 
                     rs = stmt.executeQuery(str);
-                    System.out.printf("\n\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-10s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
+                    System.out.printf("\n\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
                     while (rs.next()) {
 
                         int delivery_person_id = rs.getInt("delivery_person_id");
@@ -108,9 +106,9 @@ public class DeliveryPersonView {
                         String access_level = rs.getString("access_level");
                         String delivery_status = rs.getString("delivery_status");
                         String user_name = rs.getString("user_name");
-                        int password = rs.getInt("password");
+                        String password = rs.getString("password");
 
-                        System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-10s %-10d\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
+                        System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-20s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
                     }
 
                 } catch (SQLException sqle) {
@@ -166,20 +164,20 @@ public class DeliveryPersonView {
 
 
         do {
-                System.out.println("Please enter the persons House Number");
+            System.out.println("Please enter the persons House Number");
 
-                if (in.hasNext()) {
-                    address1 = in.next();
-                    dp.setAddress1(address1);
-                    if (!validateHouseNumber(address1)) {
-                        System.out.println("The house Number must be between 1 and 99999");
-                        validHouseNumber = false;
+            if (in.hasNext()) {
+                address1 = in.next();
+                dp.setAddress1(address1);
+                if (!validateHouseNumber(address1)) {
+                    System.out.println("The house Number must be between 1 and 99999");
+                    validHouseNumber = false;
 
-                    } else {
-                        validHouseNumber = true;
-                    }
+                } else {
+                    validHouseNumber = true;
                 }
-        }while (!validHouseNumber);
+            }
+        } while (!validHouseNumber);
 
         do {
             System.out.println("Please enter the persons Street name");
@@ -190,12 +188,12 @@ public class DeliveryPersonView {
 
                 if (!validateString(address2)) {
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
-                    validaddress2 = false;
+                    validAddress2 = false;
                 } else {
-                    validaddress2 = true;
+                    validAddress2 = true;
                 }
             }
-        } while (!validaddress2);
+        } while (!validAddress2);
 
         do {
             System.out.println("Please enter the persons Town");
@@ -269,7 +267,7 @@ public class DeliveryPersonView {
 
         do {
             System.out.println("Please enter the persons Password - must be 4 characters");
-            try {
+//            try {
                 if (in.hasNext()) {
                     password = in.next();
                     dp.setPassword(password);
@@ -283,14 +281,14 @@ public class DeliveryPersonView {
                     System.out.println("\"Invalid entry - please enter 4 characters");
                     validPw = false;
                 }
-            } catch (Exception e) {
-                System.out.println("Invalid entry - please enter 4 characters");
-                validPw = false;
-            }
+//            } catch (Exception e) {
+//                System.out.println("Invalid entry - please enter 4 characters");
+//                validPw = false;
+//            }
         } while (!validPw);
 
 
-        Statement addNewPerson = dpm.con.createStatement();
+        Statement addNewPerson = dpDB.con.createStatement();
         addNewPerson.executeUpdate("insert into delivery_Person values (null ,'" + dp.getFirstName() + "','" + dp.getLastName() + "','" + dp.getAddress1() + "','" + dp.getAddress2() + "','" + dp.getTown() + "','" + dp.getDeliveryPhoneNumber() + "','" + dp.getDateOfBirth() + "','" + 2 + "','" + "true" + "','" + dp.getUserName() + "','" + dp.getPassword() + "')");
 
     }
@@ -300,12 +298,11 @@ public class DeliveryPersonView {
     // ******************************************************************************************************
 
     //TODO Validate all edit methods
-    //TODO why will pw only take numbers
     //TODO Transfer all validation to DP.java
 
     public void editDeliveryPerson(Statement stmt) throws SQLException {
         DeliveryPersonView dpv = new DeliveryPersonView();
-        String str = "";
+        String str;
         int count;
         displayAllDeliveryPerson(stmt);
         System.out.println("Please enter the id of the person you would like to edit");
@@ -394,7 +391,7 @@ public class DeliveryPersonView {
             validName = false;
         } else {
             validName = true;
-            Statement editPerson = dpm.con.createStatement();
+            Statement editPerson = dpDB.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET first_name = '" + newName + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -408,7 +405,7 @@ public class DeliveryPersonView {
             validName = false;
         } else {
             validName = true;
-            Statement editPerson = dpm.con.createStatement();
+            Statement editPerson = dpDB.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET last_name = '" + newName + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -421,7 +418,7 @@ public class DeliveryPersonView {
             System.out.println("The house Number must be between 1 and 99999");
         }
         else {
-            Statement editPerson = dpm.con.createStatement();
+            Statement editPerson = dpDB.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET address1 = '" + newHouse + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -434,7 +431,7 @@ public class DeliveryPersonView {
             validName = false;
         } else {
             validName = true;
-            Statement editPerson = dpm.con.createStatement();
+            Statement editPerson = dpDB.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET address2 = '" + newName + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -446,7 +443,7 @@ public class DeliveryPersonView {
             validName = false;
         } else {
             validName = true;
-            Statement editPerson = dpm.con.createStatement();
+            Statement editPerson = dpDB.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET town = '" + newName + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -454,7 +451,7 @@ public class DeliveryPersonView {
     public void editPersonPhoneNumber() throws SQLException {
         System.out.println("Please enter a new Phone Number");
         String newPhone = in.next();
-        Statement editPerson = dpm.con.createStatement();
+        Statement editPerson = dpDB.con.createStatement();
         editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + newPhone + "' where delivery_person_id = '" +editId+"'");
     }
 
@@ -464,7 +461,7 @@ public class DeliveryPersonView {
         if (!validateDate(newDob)) {
             System.out.println("Date of Birth incorrect format");
         } else {
-            Statement editPerson = dpm.con.createStatement();
+            Statement editPerson = dpDB.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET dob = '" + newDob + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -473,7 +470,7 @@ public class DeliveryPersonView {
         System.out.println("Please enter a new access level - 1 for admin, 2 for Delivery access");
         String newAccess = in.next();
         if (newAccess.equals("1") || newAccess.equals("2")) {
-            Statement editPerson = dpm.con.createStatement();
+            Statement editPerson = dpDB.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET access_level = '" + newAccess + "' where delivery_person_id = '" + editId + "'");
         } else {
             System.out.println("Invalid input, please enter 1 for admin, 2 for Delivery access");
@@ -484,7 +481,7 @@ public class DeliveryPersonView {
         System.out.println("Please enter a new status - true = active, false = inactive");
         String newStatus = in.next();
         if (newStatus.equals("true") || newStatus.equals("false")) {
-            Statement editPerson = dpm.con.createStatement();
+            Statement editPerson = dpDB.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET delivery_status = '" + newStatus + "' where delivery_person_id = '" + editId + "'");
         } else {
             System.out.println("Invalid input, please enter true for active or false for inactive");
@@ -499,7 +496,7 @@ public class DeliveryPersonView {
             validName = false;
         } else {
             validName = true;
-            Statement editPerson = dpm.con.createStatement();
+            Statement editPerson = dpDB.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET user_name = '" + newName + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -511,7 +508,7 @@ public class DeliveryPersonView {
                 System.out.println("Please enter a new Password - 4 Numbers");
                 String newPw = in.next();
                 if(newPw.length() == 4) {
-                    Statement editPerson = dpm.con.createStatement();
+                    Statement editPerson = dpDB.con.createStatement();
                     valid = true;
                     editPerson.executeUpdate("Update delivery_person SET password = '" + newPw + "' where delivery_person_id = '" + editId + "'");
                 }
@@ -534,7 +531,7 @@ public class DeliveryPersonView {
                    int deleteCount;
                    String str;
                    ResultSet rs;
-                   DeliveryPersonMain dpm = new DeliveryPersonMain();
+                   DeliveryPersonDB dpm = new DeliveryPersonDB();
                    displayAllDeliveryPerson(stmt);
                    System.out.println("Please enter the id number of the delivery person that you want to delete");
 
@@ -553,7 +550,7 @@ public class DeliveryPersonView {
                            try {
                                Statement deletePerson = dpm.con.createStatement();
                                deletePerson.executeUpdate("delete from delivery_Person where delivery_person_id =" + id + "");
-                               System.out.println(" Delivery Person with id: " + id + " has been deleted");
+                               System.out.println("Delivery Person with id: " + id + " has been deleted");
                            } catch (Exception e) {
                                System.out.println("unable to delete delivery person");
                            }
@@ -701,7 +698,7 @@ public class DeliveryPersonView {
 
     public static void cleanup_resources()
     {
-        DeliveryPersonMain dpm = new DeliveryPersonMain();
+        DeliveryPersonDB dpm = new DeliveryPersonDB();
         try
         {
             dpm.con.close();

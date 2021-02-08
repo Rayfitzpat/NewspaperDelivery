@@ -1,5 +1,4 @@
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -26,7 +25,7 @@ public class Main {
 
         int menuChoice = 0; // variable used to store main menu choice
         final int STOP_APP = 6; //value from menu that is used to quit the application
-        DeliveryPersonMain dpm = new DeliveryPersonMain();
+        DeliveryPersonDB dpm = new DeliveryPersonDB();
 //        dpm.deliveryPersonMainPage();
 
         while (menuChoice != STOP_APP) {
