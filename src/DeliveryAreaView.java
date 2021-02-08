@@ -80,11 +80,11 @@ public class DeliveryAreaView
 
 
         System.out.println("Please enter Delivery Area name: ");   //Needs Validation
-        dAreaName = in.next();
+        dAreaName = in.nextLine();
         da.setDAreaName(dAreaName);
 
         System.out.println("Please enter an Area Description: ");   //Needs Validation
-        description = in.next();
+        description = in.nextLine();
         da.setDescription(description);
 
         System.out.println("Please enter the delivery person's id: ");
@@ -92,7 +92,7 @@ public class DeliveryAreaView
         da.setDeliveryPersonId(deliverypersonid);
 
         Statement addNewArea = dam.con.createStatement();
-        addNewArea.executeUpdate("insert into delivery_area values (null ','" + da.getDAreaName() + "','" + da.getDescription() + "','" + da.getDeliveryPersonId() + "')");
+        addNewArea.executeUpdate("insert into delivery_area values (null ,'" + da.getDAreaName() + "','" + da.getDescription() + "','" + da.getDeliveryPersonId() + "')");
     }
 
     public void deleteDeliveryArea(Statement stmt) throws SQLException // NEEDS VALIDATION
