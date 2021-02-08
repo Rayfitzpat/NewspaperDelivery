@@ -643,7 +643,7 @@ public class DeliveryPersonView {
             }
             return true;
         }
-
+//TODO fix validate string to include a space
         public boolean validateString (String name){
         if(name.length()>1 && name.length()<20) {
             name = name.toLowerCase();
