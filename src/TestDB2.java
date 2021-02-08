@@ -140,6 +140,8 @@ class testDB2 extends javax.swing.JFrame{
         Statement deletePerson = con.createStatement();
         deletePerson.executeQuery("select * from delivery_Person");
         System.out.println("Delivery Person with id");
+        DeliveryPersonView dpv = new DeliveryPersonView();
+        dpv.displayAllDeliveryPerson(stmt);
 
     }
 
