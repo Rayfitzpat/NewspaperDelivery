@@ -96,7 +96,7 @@ public class Customer {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) throws CustomerExceptionHandler{
+    public void setCustomerId(int customerId) {
 
         this.customerId = customerId;
     }
@@ -105,13 +105,13 @@ public class Customer {
         return address1;
     }
 
-    public void setAddress1(int address1) throws CustomerExceptionHandler{
-        try {
-            validateAddress1(address1);
-        }
-        catch (CustomerExceptionHandler e) {
-            throw e;
-        }
+    public void setAddress1(int address1) {
+//        try {
+//            validateAddress1(address1);
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            throw e;
+//        }
         this.address1 = address1;
     }
 
@@ -119,13 +119,13 @@ public class Customer {
         return firstName;
     }
 
-    public void setFirstName(String firstName) throws CustomerExceptionHandler {
-        try {
-            validateName(firstName, "First name");
-        }
-        catch (CustomerExceptionHandler e) {
-            throw e;
-        }
+    public void setFirstName(String firstName) {
+//        try {
+//            validateName(firstName, "First name");
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            throw e;
+//        }
         this.firstName = firstName;
     }
 
@@ -133,13 +133,13 @@ public class Customer {
         return lastName;
     }
 
-    public void setLastName(String lastName) throws CustomerExceptionHandler{
-        try {
-            validateName(lastName, "Last name");
-        }
-        catch (CustomerExceptionHandler e) {
-            throw e;
-        }
+    public void setLastName(String lastName) {
+//        try {
+//            validateName(lastName, "Last name");
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            throw e;
+//        }
         this.lastName = lastName;
     }
 
@@ -147,13 +147,13 @@ public class Customer {
         return address2;
     }
 
-    public void setAddress2(String address2) throws CustomerExceptionHandler{
-        try{
-            validateAddress(address2, "Address line 2" );
-        }
-        catch (CustomerExceptionHandler e) {
-            throw e;
-        }
+    public void setAddress2(String address2) {
+//        try{
+//            validateAddress(address2, "Address line 2" );
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            throw e;
+//        }
         this.address2 = address2;
     }
 
@@ -161,13 +161,13 @@ public class Customer {
         return town;
     }
 
-    public void setTown(String town) throws CustomerExceptionHandler{
-        try {
-            validateAddress(town, "Town");
-        }
-        catch (CustomerExceptionHandler e) {
-            throw  e;
-        }
+    public void setTown(String town) {
+//        try {
+//            validateAddress(town, "Town");
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            throw  e;
+//        }
         this.town = town;
     }
 
@@ -175,13 +175,13 @@ public class Customer {
         return eircode;
     }
 
-    public void setEircode(String eircode) throws CustomerExceptionHandler{
-        try {
-            validateEircode(eircode);
-        }
-        catch (CustomerExceptionHandler e) {
-            throw e;
-        }
+    public void setEircode(String eircode) {
+//        try {
+//            validateEircode(eircode);
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            throw e;
+//        }
         this.eircode = eircode;
     }
 
@@ -189,12 +189,12 @@ public class Customer {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) throws CustomerExceptionHandler{
-        try {
-            validatePhoneNumber(phoneNumber);
-        } catch (CustomerExceptionHandler e) {
-            throw e;
-        }
+    public void setPhoneNumber(String phoneNumber) {
+//        try {
+//            validatePhoneNumber(phoneNumber);
+//        } catch (CustomerExceptionHandler e) {
+//            throw e;
+//        }
         this.phoneNumber = phoneNumber;
     }
 
@@ -202,13 +202,13 @@ public class Customer {
         return holidayStartDate;
     }
 
-    public void setHolidayStartDate(String holidayStartDate) throws CustomerExceptionHandler{
-        try {
-            validateDate(holidayStartDate);
-        }
-        catch (CustomerExceptionHandler e) {
-            throw e;
-        }
+    public void setHolidayStartDate(String holidayStartDate){
+//        try {
+//            validateDate(holidayStartDate);
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            throw e;
+//        }
         this.holidayStartDate = holidayStartDate;
     }
 
@@ -216,13 +216,13 @@ public class Customer {
         return holidayEndDate;
     }
 
-    public void setHolidayEndDate(String holidayEndDate) throws CustomerExceptionHandler{
-        try {
-            validateDate(holidayEndDate);
-        }
-        catch (CustomerExceptionHandler e) {
-            throw e;
-        }
+    public void setHolidayEndDate(String holidayEndDate) {
+//        try {
+//            validateDate(holidayEndDate);
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            throw e;
+//        }
         this.holidayEndDate = holidayEndDate;
     }
 
@@ -264,7 +264,7 @@ public class Customer {
         else if (line.length() > maxLength) {
             throw new CustomerExceptionHandler(nameOfField + " exceeds maximum length requirements");
         }
-        else if(!(nameOfField.equals("First name") || nameOfField.equals("Last name"))) {
+        else if(!(nameOfField.equals("First name") || nameOfField.equals("Last name") || nameOfField.equals("first name") || nameOfField.equals("last name"))) {
             throw new CustomerExceptionHandler("nameOfField is invalid");
         }
         else {
@@ -293,7 +293,7 @@ public class Customer {
         if (address == null && nameOfField == null) {
             throw new CustomerExceptionHandler("NULL value in the arguments");
         }
-        else if (!(nameOfField.equals("Town") || nameOfField.equals("Address line 2"))) {
+        else if (!(nameOfField.equals("Town") || nameOfField.equals("Address line 2") || nameOfField.equals("town") || nameOfField.equals("address line 2"))) {
             throw new CustomerExceptionHandler(nameOfField + " is incorrect name of address field");
         }
         else if(address.isBlank() || address.isEmpty()){
@@ -378,11 +378,7 @@ public class Customer {
      * @throws CustomerExceptionHandler is thrown if date parameter does not correspond to "yyyy-MM-dd" format
      */
     public void validateDate(String date) throws CustomerExceptionHandler {
-        // check for null input
-        if(date == null) {
-            throw new CustomerExceptionHandler("NULL value in the argument");
-        }
-        else {
+
             // setting the format for date 2021-02-29
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -397,7 +393,6 @@ public class Customer {
                     throw new CustomerExceptionHandler("Date format is incorrect");
                 }
             }
-        }
     }
 
     /**
@@ -440,13 +435,14 @@ public class Customer {
         String holiday = holidayStartDate == null ? "not specified" : ("from" + holidayStartDate + " to " + holidayEndDate);
         String customerStatus = status ? "active" : "inactive";
 
-        return "Customer No" + customerId +
+        return "\n*********************************\n" + customerId +
                 "\n" + firstName + ' ' + lastName +
                 ", \nAddress: " + address1 + " " + address2 + ", " + town  +
                 ", \nEircode: " + eircode +
                 ", \nPhone number: " + phoneNumber  +
                 ", \nHoliday: " + holiday +
                 ", \nStatus: " + customerStatus +
-                ", \nDelivery Area No. " + deliveryAreaId;
+                ", \nDelivery Area No. " + deliveryAreaId +
+                "\n*********************************\n";
     }
 }

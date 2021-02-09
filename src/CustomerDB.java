@@ -45,6 +45,7 @@ public class CustomerDB {
             while (rs.next()) {
 
                 int id = rs.getInt("customer_id");
+
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 int address1 = rs.getInt("address1");
@@ -79,7 +80,6 @@ public class CustomerDB {
 
             throw new CustomerExceptionHandler("Error: failed to read all customers.");
         } catch (CustomerExceptionHandler customerException) {
-            System.out.println(customerException.getMessage());
             throw customerException;
         }
 

@@ -455,16 +455,16 @@ public class CustomerTest extends TestCase {
     }
 
     //Test #: 28
-    //Test Objective: To check validation of an incorrect date
+    //Test Objective: To check validation of an correct date value of null
     //Inputs: date = null
     //Expected Output: NULL value in the argument
     public void testValidateDate003() {
         try {
             customer.validateDate(null);
-            fail("Exception excpected");
+
         }
         catch (CustomerExceptionHandler e) {
-            assertEquals("NULL value in the argument", e.getMessage());
+            fail("Exception not excpected");
         }
     }
 
