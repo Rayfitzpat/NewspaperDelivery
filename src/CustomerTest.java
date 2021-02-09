@@ -286,4 +286,187 @@ public class CustomerTest extends TestCase {
         }
     }
 
+    //Test #: 16
+    //Test Objective: To check validation of a correct eircode
+    //Inputs: eircode="A11AA11"
+    //Expected Output: no exception
+    public void testValidateEircode001() {
+        try {
+            customer.validateEircode("A11AA11");
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 17
+    //Test Objective: To check validation of an incorrect eircode
+    //Inputs: eircode="a11aa11"
+    //Expected Output: Eircode does not correspond to the format "A11AA11"
+    public void testValidateEircode002() {
+        try {
+            customer.validateEircode("a11aa11");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Eircode does not correspond to the format \"A11AA11\"", e.getMessage());
+        }
+    }
+
+    //Test #: 18
+    //Test Objective: To check validation of an incorrect eircode
+    //Inputs: eircode= null
+    //Expected Output: NULL value in the argument
+    public void testValidateEircode003() {
+        try {
+            customer.validateEircode(null);
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("NULL value in the argument", e.getMessage());
+        }
+    }
+
+
+    //Test #: 19
+    //Test Objective: To check validation of a correct phone number
+    //Inputs: phoneNumber = "085 856 7843"
+    //Expected Output: No exception
+    public void testValidatePhoneNumber001() {
+        try {
+            customer.validatePhoneNumber("085 856 7843");
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+
+    //Test #: 20
+    //Test Objective: To check validation of an incorrect phone number
+    //Inputs: phoneNumber = "0858567843"
+    //Expected Output: Phone number does not correspond to the format "000 000 0000"
+    public void testValidatePhoneNumber002() {
+        try {
+            customer.validatePhoneNumber("0858567843");
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Phone number does not correspond to the format \"000 000 0000\"", e.getMessage());
+        }
+    }
+
+    //Test #: 21
+    //Test Objective: To check validation of an incorrect eircode
+    //Inputs: eircode = null
+    //Expected Output: NULL value in the argument
+    public void testValidatePhoneNumber003() {
+        try {
+            customer.validateEircode(null);
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("NULL value in the argument", e.getMessage());
+        }
+    }
+
+    //Test #: 22
+    //Test Objective: To check validation of a correct address1 (number of house or apartment)
+    //Inputs: phoneNumber = 1
+    //Expected Output: no exception
+    public void testValidateAddress1001() {
+        try {
+            customer.validateAddress1(1);
+
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 23
+    //Test Objective: To check validation of a correct address1 (number of house or apartment)
+    //Inputs: phoneNumber = 1000
+    //Expected Output: no exception
+    public void testValidateAddress1002() {
+        try {
+            customer.validateAddress1(1000);
+
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 24
+    //Test Objective: To check validation of an incorrect address1 (number of house or apartment)
+    //Inputs: phoneNumber = -1
+    //Expected Output: Address line 1 cannot be a negative number
+    public void testValidateAddress1003() {
+        try {
+            customer.validateAddress1(-1);
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Address line 1 cannot be a negative number", e.getMessage());
+        }
+    }
+
+    //Test #: 25
+    //Test Objective: To check validation of an incorrect address1 (number of house or apartment)
+    //Inputs: phoneNumber = 1001
+    //Expected Output: Address line 1 cannot be greater than 1000
+    public void testValidateAddress1004() {
+        try {
+            customer.validateAddress1(1001);
+            fail("Exception expected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Address line 1 cannot be greater than 1000", e.getMessage());
+        }
+    }
+
+
+    //Test #: 26
+    //Test Objective: To check validation of a correct date
+    //Inputs: date = "2020-11-10"
+    //Expected Output: no exception
+    public void testValidateDate001() {
+        try {
+            customer.validateDate("2020-11-10");
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 27
+    //Test Objective: To check validation of an incorrect date
+    //Inputs: date = "10-11-2020"
+    //Expected Output: Date format is incorrect
+    public void testValidateDate002() {
+        try {
+            customer.validateDate("10 11 2020");
+            fail("Exception excpected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Date format is incorrect", e.getMessage());
+        }
+    }
+
+    //Test #: 28
+    //Test Objective: To check validation of an incorrect date
+    //Inputs: date = null
+    //Expected Output: NULL value in the argument
+    public void testValidateDate003() {
+        try {
+            customer.validateDate(null);
+            fail("Exception excpected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("NULL value in the argument", e.getMessage());
+        }
+    }
+
+
 }

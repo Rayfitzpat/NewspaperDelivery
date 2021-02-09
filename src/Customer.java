@@ -315,14 +315,20 @@ public class Customer {
      * @throws CustomerExceptionHandler Exception is thrown if eircode is in wrong format
      */
     public void validateEircode(String eircode) throws CustomerExceptionHandler{
-        // pattern for eircode
-        Pattern phonePattern = Pattern.compile("[A-Z0-9]{7}");
-        Matcher matcher = phonePattern.matcher(eircode);
+        // check for null value
+        if (eircode == null) {
+            throw new CustomerExceptionHandler("NULL value in the argument");
+        }
+        else {
+            // pattern for eircode
+            Pattern phonePattern = Pattern.compile("[A-Z0-9]{7}");
+            Matcher matcher = phonePattern.matcher(eircode);
 
-        // if eircode parameter does not correspond to regex expression, throw an exception
-        if (!matcher.matches())
-        {
-            throw new CustomerExceptionHandler("Eircode does not correspond to the format \"A11AA11\"");
+            // if eircode parameter does not correspond to regex expression, throw an exception
+            if (!matcher.matches())
+            {
+                throw new CustomerExceptionHandler("Eircode does not correspond to the format \"A11AA11\"");
+            }
         }
     }
 
@@ -333,13 +339,18 @@ public class Customer {
      * @throws CustomerExceptionHandler Exception is thrown if phone number is in the wrong format
      */
     public void validatePhoneNumber(String phoneNumber) throws CustomerExceptionHandler {
-        // number format is 080 837 1923
-        Pattern phonePattern = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s]\\d{3}[\\s]\\d{4}$");
-        Matcher matcher = phonePattern.matcher(phoneNumber);
+        if (phoneNumber == null) {
+            throw new CustomerExceptionHandler("NULL value in the argument");
+        }
+        else {
+            // number format is 080 837 1923
+            Pattern phonePattern = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s]\\d{3}[\\s]\\d{4}$");
+            Matcher matcher = phonePattern.matcher(phoneNumber);
 
-        if (!matcher.matches())
-        {
-            throw new CustomerExceptionHandler("Phone number does not correspond to the format \"000 000 0000\"");
+            if (!matcher.matches())
+            {
+                throw new CustomerExceptionHandler("Phone number does not correspond to the format \"000 000 0000\"");
+            }
         }
     }
 
@@ -351,19 +362,14 @@ public class Customer {
     public void validateAddress1(int address1) throws CustomerExceptionHandler {
         // boundaries
         int minAddress = 1;
-        int maxAddress = 300;
+        int maxAddress = 1000;
 
         if (address1 < minAddress) {
             throw new CustomerExceptionHandler("Address line 1 cannot be a negative number");
         }
         else if (address1 > maxAddress) {
-            throw new CustomerExceptionHandler("Address line 1 cannot be greater than 300");
+            throw new CustomerExceptionHandler("Address line 1 cannot be greater than 1000");
         }
-    }
-
-    // need to figure this out
-    public void validateStatus(boolean status) throws CustomerExceptionHandler{
-
     }
 
     /**
@@ -372,18 +378,24 @@ public class Customer {
      * @throws CustomerExceptionHandler is thrown if date parameter does not correspond to "yyyy-MM-dd" format
      */
     public void validateDate(String date) throws CustomerExceptionHandler {
-        // setting the format for date 2021-02-29
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        // check for null input
+        if(date == null) {
+            throw new CustomerExceptionHandler("NULL value in the argument");
+        }
+        else {
+            // setting the format for date 2021-02-29
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        // null is acceptable for holiday
-        if (date != null) {
-            // checking the format of start date
-            try {
-                Date start = format.parse(date);
-            }
-            catch (ParseException e)
-            {
-                throw new CustomerExceptionHandler("Holiday start date format is incorrect");
+            // null is acceptable for holiday
+            if (date != null) {
+                // checking the format of start date
+                try {
+                    Date start = format.parse(date);
+                }
+                catch (ParseException e)
+                {
+                    throw new CustomerExceptionHandler("Date format is incorrect");
+                }
             }
         }
     }
@@ -403,7 +415,6 @@ public class Customer {
             // variables for saving dates in Date type
             Date start;
             Date end;
-
 
             // converting dates
             try {
