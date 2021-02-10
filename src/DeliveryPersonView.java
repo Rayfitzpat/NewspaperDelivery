@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -18,6 +19,9 @@ public class DeliveryPersonView {
     String town = "";
     String deliveryPhoneNumber = "";
     String dateOfBirth = "";
+    String dobMonth = "";
+    String dobYear = "";
+    String dobDay = "";
     String userName = "";
     String password = "";
     boolean validName = true;
@@ -27,6 +31,7 @@ public class DeliveryPersonView {
     boolean validPhone = true;
     boolean validUser = true;
     boolean validPw = false;
+    boolean validDOB = false;
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     Scanner in = new Scanner(System.in);
     boolean inputValid = false;
@@ -219,7 +224,7 @@ public class DeliveryPersonView {
                 deliveryPhoneNumber = in.next();
                 dp.setDeliveryPhoneNumber(deliveryPhoneNumber);
 
-                if (deliveryPhoneNumber.length() <= 7 || deliveryPhoneNumber.length() >= 13) {
+                if (deliveryPhoneNumber.length() != 10) {
                     System.out.println("The phone number must contain between 7 to 13 digits including prefix");
                     validPhone = false;
 
@@ -231,22 +236,51 @@ public class DeliveryPersonView {
             }
         } while (!validPhone);
 
+//        do {
+//            System.out.println("Enter persons date of birth (yyyy-mm-dd):");
+//            inputValid = false;
+//            if (in.hasNext()) {
+//                try {
+//                    dateOfBirth = in.next();
+//                    dp.setDateOfBirth(dateOfBirth);
+//                    validateDate(dateOfBirth);
+//                    inputValid = true;
+//                } catch (Exception e) {
+//                    System.out.println("Date of Birth incorrect format");
+//                    inputValid = false;
+//                }
+//            }
+//        }
+//        while (!inputValid);
+
+
+        System.out.println("Please enter the Persons DOB");
         do {
-            System.out.println("Enter persons date of birth (yyyy-mm-dd):");
-            inputValid = false;
+            System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
             if (in.hasNext()) {
-                try {
-                    dateOfBirth = in.next();
-                    dp.setDateOfBirth(dateOfBirth);
-                    validateDate(dateOfBirth);
-                    inputValid = true;
-                } catch (Exception e) {
-                    System.out.println("Date of Birth incorrect format");
-                    inputValid = false;
-                }
+                dobYear = in.next();
+                validateYear(dobYear);
+
+            }
+        } while (!validDOB);
+        validDOB = false;
+        while (!validDOB) {
+            System.out.println("Next, what month were they born in? (1 - 12, 2 Numbers required)");
+            if (in.hasNext()) {
+                dobMonth = in.next();
+                validateMonth(dobMonth);
             }
         }
-        while (!inputValid);
+        validDOB = false;
+        while (!validDOB) {
+            System.out.println("finally the date they were born (1 - 31, 2 numbers required)");
+            if (in.hasNext()) {
+                dobDay = in.next();
+                validateDate(dobDay);
+            }
+        }
+        String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
+        dp.setDateOfBirth(dobFinal);
 
 
         do {
@@ -318,7 +352,7 @@ public class DeliveryPersonView {
 
                 System.out.println("Please enter the id corresponding to the attribute you would like to edit");
                 int menuChoiceEditPerson = 0; // variable used to store Edit menu choice
-                int stopEdit = 12; //value from menu that is used to close the Edit Student process
+                int stopEdit = 12; //value from menu that is used to close the Edit process
 
                 while (menuChoiceEditPerson != stopEdit) {
                     editDeliveryPersonMenu(); //display the primary menu
@@ -346,7 +380,7 @@ public class DeliveryPersonView {
                                 editPersonPhoneNumber(); //You need to code this method below
                                 break;
                             case 7:
-                                editPersonDoB(); //You need to code this method below
+                                editPersonDob(); //You need to code this method below
                                 break;
                             case 8:
                                 editPersonAccessLevel(); //You need to code this method below
@@ -455,16 +489,47 @@ public class DeliveryPersonView {
         editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + newPhone + "' where delivery_person_id = '" +editId+"'");
     }
 
-    public void editPersonDoB() throws SQLException {
-        System.out.println("Please enter a new Date of Birth YYYY-MM-DD");
-        String newDob = in.next();
-        if (!validateDate(newDob)) {
-            System.out.println("Date of Birth incorrect format");
-        } else {
-            Statement editPerson = dpDB.con.createStatement();
-            editPerson.executeUpdate("Update delivery_person SET dob = '" + newDob + "' where delivery_person_id = '" + editId + "'");
+    public void editPersonDob() throws SQLException {
+        do
+        {
+            System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
+            if (in.hasNext()) {
+                dobYear = in.next();
+                validateYear(dobYear);
+            }
+        } while (!validDOB);
+        validDOB = false;
+        while (!validDOB) {
+            System.out.println("Next, what month were they born in? (1 - 12, 2 Numbers required)");
+            if (in.hasNext()) {
+                dobMonth = in.next();
+                validateMonth(dobMonth);
+            }
         }
+        validDOB = false;
+        while (!validDOB) {
+            System.out.println("finally the date they were born (1 - 31, 2 numbers required)");
+            if (in.hasNext()) {
+                dobDay = in.next();
+                validateDate(dobDay);
+            }
+        }
+        String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
+
+        Statement editPersonDOB = dpDB.con.createStatement();
+        editPersonDOB.executeUpdate("update delivery_person SET dob = '"+ dobFinal+"' where delivery_person_id = '"+editId+"'");
     }
+
+//    public void editPersonDoB() throws SQLException {
+//        System.out.println("Please enter a new Date of Birth YYYY-MM-DD");
+//        String newDob = in.next();
+//        if (!validateDate(newDob)) {
+//            System.out.println("Date of Birth incorrect format");
+//        } else {
+//            Statement editPerson = dpDB.con.createStatement();
+//            editPerson.executeUpdate("Update delivery_person SET dob = '" + newDob + "' where delivery_person_id = '" + editId + "'");
+//        }
+//    }
 
     public void editPersonAccessLevel() throws SQLException {
         System.out.println("Please enter a new access level - 1 for admin, 2 for Delivery access");
@@ -679,22 +744,99 @@ public class DeliveryPersonView {
             return false;
     }
 
-    public boolean validateDate(String date)  {
+//    public boolean validateDate(String date)  {
+//
+//        // setting the format for date 2021-02-29
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        // checking the format of start date
+//        try {
+//            Date date2 = format.parse(date);
+//            boolean inputValid = true;
+//        }
+//        catch (ParseException e)
+//        {
+//            System.out.println("date format is incorrect");
+//        }
+//        return false;
+//    }
 
-        // setting the format for date 2021-02-29
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    public  void validateYear(String dobYear) {
+        if (dobYear.length() != 4) {
+            System.out.println("The year must contain 4 numbers");
+            validDOB = false;
 
-        // checking the format of start date
-        try {
-            Date date2 = format.parse(date);
-            boolean inputValid = true;
+        } else {
+            dobYear = dobYear.toLowerCase();
+            char[] dobArray = dobYear.toCharArray();
+            for (int i = 0; i < dobArray.length; i++) {
+                char ch = dobArray[i];
+                if (ch >= '0' && ch <= '9') {
+                    int dobYearTest = Integer.parseInt(dobYear);
+                    if (dobYearTest > 1900 && dobYearTest <= Calendar.getInstance().get(Calendar.YEAR)) {
+                        validDOB = true;
+                    } else {
+
+                        validDOB = false;
+                    }
+                } else {
+                    validDOB = false;
+                }
+
+            }
         }
-        catch (ParseException e)
-        {
-            System.out.println("date format is incorrect");
-        }
-        return false;
     }
+
+    public void validateMonth(String dobMonth) {
+        if (dobMonth.length() != 2) {
+            System.out.println("The month must contain 2 numbers");
+            validDOB = false;
+
+        } else {
+            dobMonth = dobMonth.toLowerCase();
+            char[] dobArray = dobMonth.toCharArray();
+            for (int i = 0; i < dobArray.length; i++) {
+                char ch = dobArray[i];
+                if (ch >= '0' && ch <= '9') {
+                    int dobMonthTest = Integer.parseInt(dobMonth);
+                    if (dobMonthTest >= 1 && dobMonthTest <= 12) {
+                        validDOB = true;
+                    } else {
+
+                        validDOB = false;
+                    }
+                } else {
+                    validDOB = false;
+                }
+
+            }
+        }
+    }
+
+    public void validateDate(String dobDay) {
+
+        if (dobDay.length() != 2) {
+            System.out.println("The date must contain 2 numbers");
+            validDOB = false;
+        } else {
+            dobDay = dobDay.toLowerCase();
+            char[] dobArray = dobDay.toCharArray();
+            for (int i = 0; i < dobArray.length; i++) {
+                char ch = dobArray[i];
+                if (ch >= '0' && ch <= '9') {
+                    int dobDayTest = Integer.parseInt(dobDay);
+                    if (dobDayTest >= 1 && dobDayTest <= 31) {
+                        validDOB = true;
+                    } else {
+                        validDOB = false;
+                    }
+                } else {
+                    validDOB = false;
+                }
+            }
+        }
+    }
+
 
     public static void cleanup_resources()
     {
@@ -728,7 +870,7 @@ public class DeliveryPersonView {
         System.out.println("3: Edit Person's House Number");
         System.out.println("4: Edit Person's Street name");
         System.out.println("5: Edit Person's Town");
-        System.out.println("6: Edit Person's Phone Number'");
+        System.out.println("6: Edit Person's Phone Number");
         System.out.println("7: Edit Person Date of Birth");
         System.out.println("8: Edit Person's Access level");
         System.out.println("9: Edit Person's Status");
