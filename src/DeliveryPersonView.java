@@ -18,7 +18,6 @@ public class DeliveryPersonView {
     String address2 = "";
     String town = "";
     String deliveryPhoneNumber = "";
-    String dateOfBirth = "";
     String dobMonth = "";
     String dobYear = "";
     String dobDay = "";
@@ -223,8 +222,8 @@ public class DeliveryPersonView {
                 deliveryPhoneNumber = in.nextLine();
                 dp.setDeliveryPhoneNumber(deliveryPhoneNumber);
 
-                if (deliveryPhoneNumber.length() != 10) {
-                    System.out.println("The phone number must contain between 7 to 13 digits including prefix");
+                if (!validatePhoneNumber(deliveryPhoneNumber)) {
+                    System.out.println("The phone number must be in the format 087 8888888");
                     validPhone = false;
 
                 } else {
@@ -486,11 +485,20 @@ public class DeliveryPersonView {
     }
 
     public void editPersonPhoneNumber() throws SQLException {
-        System.out.println("Please enter a new Phone Number");
-        String newPhone = in.next();
-        Statement editPerson = dpDB.con.createStatement();
-        editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + newPhone + "' where delivery_person_id = '" +editId+"'");
+        in.nextLine();
+        System.out.println("Please enter a new Phone Number in the format 087 8888888");
+        if (in.hasNextLine()) {
+            String newPhone = in.nextLine();
+
+            if (validatePhoneNumber(newPhone)) {
+                Statement editPerson = dpDB.con.createStatement();
+                editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + newPhone + "' where delivery_person_id = '" + editId + "'");
+            } else {
+                System.out.println("incorrect values entered for phone number");
+            }
+        }
     }
+
 
     public void editPersonDob() throws SQLException {
         do
@@ -647,55 +655,14 @@ public class DeliveryPersonView {
 //    // Beginning of the VALIDATION Section
 //    // ******************************************************************************************************
 //
-//        public static boolean validateString (String name){
-//            name = name.toLowerCase();
-//            char[] nameArray = name.toCharArray();
-//            for (int i = 0; i < nameArray.length; i++) {
-//                char ch = nameArray[i];
-//                if (ch >= 'a' && ch <= 'z') {
-//                    return true;
-//                }
-//            }
-//            return false;
-//        }
-//
-//        public void validatePhoneNumber (String deliveryPhoneNumber){
-//        boolean validPhone = true;
-//            if (deliveryPhoneNumber.length() < 7 || deliveryPhoneNumber.length() > 11) {
-//                System.out.println("The phone number must contain between 7 to 11 digits including prefix");
-//                validPhone = false;
-//            } else {
-//                deliveryPhoneNumber = deliveryPhoneNumber.toLowerCase();
-//                char[] phoneArray = deliveryPhoneNumber.toCharArray();
-//                for (int i = 0; i < phoneArray.length; i++) {
-//                    char ch = phoneArray[i];
-//                    if (ch >= '0' && ch <= '9') {
-//                        validPhone = true;
-//                    } else {
-//                        validPhone = false;
-//                    }
-//                }
-//            }
-//        }
-//
-//    public static boolean validateEntry(String id) {
-//        if (id.length() > 2) {
-//            System.out.println("valid entry, you must enter no more than 2 numbers");
-//            return false;
-//        }
-//        else
-//        {
-//            try {
-//                int tempId = Integer.parseInt(id);
-//            }
-//            catch (Exception e){
-//                System.out.println("valid Text entered, please enter a number");
-//                return false;
-//            }
-//        }return true;
-//    }
-//    }
-
+        public boolean validatePhoneNumber(String deliveryPhoneNumber){
+        if(deliveryPhoneNumber.matches("\\d{3}[ ]?\\d{7}")){
+            return true;
+        }
+        else{
+            return false;
+        }
+        }
 
         public boolean validateEntry (String id){
             if (id.length() > 2) {
