@@ -24,7 +24,7 @@ public class DeliveryPersonView {
     String dobDay = "";
     String userName = "";
     String password = "";
-    boolean validName = true;
+    boolean validName = false;
     boolean validHouseNumber = true;
     boolean validAddress2 = true;
     boolean validTown = true;
@@ -48,7 +48,7 @@ public class DeliveryPersonView {
         try {
             ResultSet rs = stmt.executeQuery(str);
 
-            System.out.printf("\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
+            System.out.printf("\n%-12s %-15s %-20s %-20s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
             while (rs.next()) {
                 int delivery_person_id = rs.getInt("delivery_person_id");
                 String first_name = rs.getString("first_name");
@@ -63,7 +63,7 @@ public class DeliveryPersonView {
                 String user_name = rs.getString("user_name");
                 String password = rs.getString("password");
 
-                System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-20s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
+                System.out.printf("%-12d %-15s %-20s %-20s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
             }
 
         } catch (SQLException sqle) {
@@ -97,7 +97,7 @@ public class DeliveryPersonView {
                 try {
 
                     rs = stmt.executeQuery(str);
-                    System.out.printf("\n\n%-12s %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
+                    System.out.printf("\n\n%-12s %-20s %-20s %-10s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
                     while (rs.next()) {
 
                         int delivery_person_id = rs.getInt("delivery_person_id");
@@ -113,7 +113,7 @@ public class DeliveryPersonView {
                         String user_name = rs.getString("user_name");
                         String password = rs.getString("password");
 
-                        System.out.printf("%-12d %-15s %-20s %-10s %-20s %-10s %-15s %-15s %-15s %-10s %-20s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
+                        System.out.printf("%-12d %-20s %-20s %-10s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
                     }
 
                 } catch (SQLException sqle) {
@@ -138,7 +138,7 @@ public class DeliveryPersonView {
         System.out.println("Please enter the persons FIRST name");
 
         if (in.hasNextLine()) {
-            firstName = in.next();
+            firstName = in.nextLine();
             dp.setFirstName(firstName);
 
 
@@ -154,8 +154,8 @@ public class DeliveryPersonView {
         do {
             System.out.println("Please enter the persons LAST name");
 
-            if (in.hasNext()) {
-                lastName = in.next();
+            if (in.hasNextLine()) {
+                lastName = in.nextLine();
                 dp.setLastName(lastName);
 
                 if (!validateString(lastName)) {
@@ -171,13 +171,12 @@ public class DeliveryPersonView {
         do {
             System.out.println("Please enter the persons House Number");
 
-            if (in.hasNext()) {
-                address1 = in.next();
+            if (in.hasNextLine()) {
+                address1 = in.nextLine();
                 dp.setAddress1(address1);
                 if (!validateHouseNumber(address1)) {
                     System.out.println("The house Number must be between 1 and 99999");
                     validHouseNumber = false;
-
                 } else {
                     validHouseNumber = true;
                 }
@@ -187,11 +186,11 @@ public class DeliveryPersonView {
         do {
             System.out.println("Please enter the persons Street name");
 
-            if (in.hasNext()) {
-                address2 = in.next();
+            if (in.hasNextLine()) {
+                address2 = in.nextLine();
                 dp.setAddress2(address2);
 
-                if (!validateString(address2)) {
+                if (!validateStringWithNumbers(address2)) {
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validAddress2 = false;
                 } else {
@@ -203,11 +202,11 @@ public class DeliveryPersonView {
         do {
             System.out.println("Please enter the persons Town");
 
-            if (in.hasNext()) {
-                town = in.next();
+            if (in.hasNextLine()) {
+                town = in.nextLine();
                 dp.setTown(town);
 
-                if (!validateString(town)) {
+                if (!validateStringWithNumbers(town)) {
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validTown = false;
                 } else {
@@ -220,8 +219,8 @@ public class DeliveryPersonView {
         System.out.println("Please enter the Phone Number i.e. 087 3987656");
 
         do {
-            if (in.hasNext()) {
-                deliveryPhoneNumber = in.next();
+            if (in.hasNextLine()) {
+                deliveryPhoneNumber = in.nextLine();
                 dp.setDeliveryPhoneNumber(deliveryPhoneNumber);
 
                 if (deliveryPhoneNumber.length() != 10) {
@@ -419,7 +418,7 @@ public class DeliveryPersonView {
 
     public void editPersonFirstName() throws SQLException {
         System.out.println("Please enter a new First Name");
-        String newName = in.next();
+        String newName = in.nextLine();
         if (!validateString(newName)) {
             System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
             validName = false;
@@ -458,21 +457,25 @@ public class DeliveryPersonView {
     }
 
     public void editPersonAddress2() throws SQLException {
+        in.nextLine();
         System.out.println("Please enter a new Street Name");
-        String newName = in.next();
-        if (!validateString(newName)) {
-            System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
-            validName = false;
-        } else {
-            validName = true;
-            Statement editPerson = dpDB.con.createStatement();
-            editPerson.executeUpdate("Update delivery_person SET address2 = '" + newName + "' where delivery_person_id = '" + editId + "'");
+        if (in.hasNextLine()) {
+            String newName = in.nextLine();
+            if (!validateStringWithNumbers(newName)) {
+                System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
+                validName = false;
+            } else {
+                validName = true;
+                Statement editPerson = dpDB.con.createStatement();
+                editPerson.executeUpdate("Update delivery_person SET address2 = '" + newName + "' where delivery_person_id = '" + editId + "'");
+            }
         }
     }
     public void editPersonTown() throws SQLException {
+        in.nextLine();
         System.out.println("Please enter a new Town");
-        String newName = in.next();
-        if (!validateString(newName)) {
+        String newName = in.nextLine();
+        if (!validateStringWithNumbers(newName)) {
             System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
             validName = false;
         } else {
@@ -707,8 +710,8 @@ public class DeliveryPersonView {
                 }
             }
             return true;
+
         }
-//TODO fix validate string to include a space
         public boolean validateString (String name){
         if(name.length()>1 && name.length()<20) {
             name = name.toLowerCase();
@@ -725,6 +728,14 @@ public class DeliveryPersonView {
         else
             return false;
         }
+
+    public boolean validateStringWithNumbers (String name){
+        if(name.length()>1 && name.length()<20) {
+            return true;
+                }
+        else
+            return false;
+    }
 
     public boolean validateHouseNumber (String name){
         if(name.length()>=1 && name.length()<5) {
