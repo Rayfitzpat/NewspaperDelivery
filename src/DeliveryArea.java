@@ -1,13 +1,44 @@
 import java.sql.*;
-import java.util.Scanner;
 
 public class DeliveryArea {
 
-    private String description;
-    private String address;
-    private String customer;
     private String dAreaName;
+    private String description;
     private int id, deliveryPersonId;
+
+
+    public DeliveryArea(int id, String dAreaName, String description, int deliveryPersonId) throws DeliveryAreaExceptionHandler
+    {
+
+        try {
+            validateDeliveryAreaName(dAreaName);
+            //validateDescription(description);
+            //validateId(deliveryPersonId);
+            //validateId(id);
+        }
+        catch (DeliveryAreaExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+
+        this.id = id;
+        this.dAreaName = dAreaName;
+        this.description = description;
+        this.deliveryPersonId = deliveryPersonId;
+    }
+
+    public DeliveryArea(String dAreaName, String description, int deliveryPersonId)
+    {
+        this.id = id;
+        this.dAreaName = dAreaName;
+        this.description = description;
+        this.deliveryPersonId = deliveryPersonId;
+    }
+
+    public DeliveryArea()
+    {
+
+    }
+
 
     public int getDeliveryPersonId() {
         return deliveryPersonId;
@@ -35,22 +66,6 @@ public class DeliveryArea {
         this.description = description;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCustomers() {
-        return customer;
-    }
-
-    public void setCustomers(String customers) {
-        this.customer = customers;
-    }
-
     public String getDAreaName() {
         return dAreaName;
     }
@@ -59,15 +74,14 @@ public class DeliveryArea {
         this.dAreaName = DAreaName;
     }
 
-    public DeliveryArea()
-    {
 
+    public void validateDeliveryAreaName(String DAname) throws  DeliveryAreaExceptionHandler {
+        if (DAname.isBlank() || DAname.isEmpty())
+            throw new DeliveryAreaExceptionHandler("Delivery area not specified");
+        else if (DAname.length() < 2)
+            throw new DeliveryAreaExceptionHandler("Delivery area does not meet minimum length requirements");
+        else if (DAname.length() > 19)
+            throw new DeliveryAreaExceptionHandler("Delivery area name exceeds maximum length requirements");
     }
 
-    public DeliveryArea(int id, String dAreaName, String description)
-    {
-        this.id = id;
-        this.dAreaName = dAreaName;
-        this.description = description;
-    }
 }
