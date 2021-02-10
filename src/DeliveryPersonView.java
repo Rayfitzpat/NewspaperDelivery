@@ -234,23 +234,6 @@ public class DeliveryPersonView {
             }
         } while (!validPhone);
 
-//        do {
-//            System.out.println("Enter persons date of birth (yyyy-mm-dd):");
-//            inputValid = false;
-//            if (in.hasNext()) {
-//                try {
-//                    dateOfBirth = in.next();
-//                    dp.setDateOfBirth(dateOfBirth);
-//                    validateDate(dateOfBirth);
-//                    inputValid = true;
-//                } catch (Exception e) {
-//                    System.out.println("Date of Birth incorrect format");
-//                    inputValid = false;
-//                }
-//            }
-//        }
-//        while (!inputValid);
-
 
         System.out.println("Please enter the Persons DOB");
         do {
@@ -722,22 +705,6 @@ public class DeliveryPersonView {
             return false;
     }
 
-//    public boolean validateDate(String date)  {
-//
-//        // setting the format for date 2021-02-29
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//
-//        // checking the format of start date
-//        try {
-//            Date date2 = format.parse(date);
-//            boolean inputValid = true;
-//        }
-//        catch (ParseException e)
-//        {
-//            System.out.println("date format is incorrect");
-//        }
-//        return false;
-//    }
 
     public  void validateYear(String dobYear) {
         if (dobYear.length() != 4) {
@@ -828,6 +795,12 @@ public class DeliveryPersonView {
             System.out.println("Error: failed to close the database");
         }
     }
+
+
+//    ************************************************************************************************************
+//    End of Validation Section
+//    ************************************************************************************************************
+
 
     public static void displayMainMenu()
     {
