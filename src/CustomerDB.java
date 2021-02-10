@@ -107,7 +107,7 @@ public class CustomerDB {
             String insertQuery = "INSERT INTO customer VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             try {
-                PreparedStatement pstmt = con.prepareStatement(insertQuery);
+                PreparedStatement pstmt = DBconnector.con.prepareStatement(insertQuery);
                 pstmt.setString(1, customer.getFirstName());
                 pstmt.setString(2, customer.getLastName());
                 pstmt.setInt(3, customer.getAddress1());
