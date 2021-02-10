@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class CustomerView {
 
     // connection with the database
-    static Connection con = null;
-    static Statement stmt = null;
+//    static Connection con = null;
+//    static Statement stmt = null;
     static Scanner in = new Scanner(System.in);
 
 
@@ -17,7 +17,7 @@ public class CustomerView {
 
     public static void main(String[] args) {
 
-        init_db();  // open the connection to the database
+        DBconnector.init_db();  // open the connection to the database
         int menuChoice = 0; // variable used to store main menu choice
         final int STOP_APP = 7; //value from menu that is used to quit the application
         int customerID; // setting variable to temporary customer info storage
@@ -27,7 +27,7 @@ public class CustomerView {
         try {
             // if view can be initialised with no errors, then connection
             // with db is set correctly
-            customerDB = new CustomerDB(stmt);
+            customerDB = new CustomerDB(DBconnector.stmt);
 
             // running the menu
             while (menuChoice != STOP_APP) {
@@ -35,7 +35,7 @@ public class CustomerView {
                 if (in.hasNextInt()) {
                     //get the menu choice from the user
                     menuChoice = in.nextInt();
-                    customerDB.fetchCustomers(stmt); // resetting local copy of customers
+                    customerDB.fetchCustomers(DBconnector.stmt); // resetting local copy of customers
                     switch (menuChoice) {
                         case 1 -> customerDB.printCustomers();
                         case 2 -> {
@@ -54,7 +54,7 @@ public class CustomerView {
                         }
                         case 9 -> {
                             System.out.println("Program is closing...");
-                            cleanup_resources();  // close the connection to the database when finished program
+                            DBconnector.cleanup_resources();  // close the connection to the database when finished program
                         }
                         default -> System.out.println("You entered an invalid choice, please try again...");
                     }
@@ -99,7 +99,7 @@ public class CustomerView {
                 Customer registerCustomer = new Customer(firstName, lastName, address1, address2, town, eircode, phoneNumber, holidayStartDate, holidayendDate, status, deliveryAreaId);
 
                 // if customer can be created, attempting insert into the db
-                view.insertCustomer(registerCustomer, con);
+                view.insertCustomer(registerCustomer, DBconnector.con);
                 isValid = true;
             }
             catch ( CustomerExceptionHandler e) {
@@ -122,7 +122,7 @@ public class CustomerView {
 
         // before editing the customer, fetch current list of customers
         try {
-            customerDB.fetchCustomers(stmt);
+            customerDB.fetchCustomers(DBconnector.stmt);
         }
         catch (CustomerExceptionHandler e) {
             System.out.println(e.getMessage());
@@ -186,7 +186,7 @@ public class CustomerView {
                     case 99 -> {
                         System.out.println("Finishing update...");
                         try {
-                            customerDB.updateCustomer(customerId, customer, stmt);
+                            customerDB.updateCustomer(customerId, customer, DBconnector.stmt);
                             System.out.println("Returning to main menu ... ");
                         }
                         catch (CustomerExceptionHandler e) {
@@ -574,24 +574,5 @@ public class CustomerView {
         System.out.println("9: Edit delivery area");
         System.out.println("99: Finish editing\n");
         System.out.print("Enter your choice: ");
-    }
-
-    public static void cleanup_resources() {
-        try {
-            con.close();
-        } catch (SQLException sqle) {
-            System.out.println("Error: failed to close the database");
-        }
-    }
-
-    public static void init_db() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-            con = DriverManager.getConnection(url, "root", "admin");
-            stmt = con.createStatement();
-        } catch (Exception e) {
-            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
-        }
     }
 }
