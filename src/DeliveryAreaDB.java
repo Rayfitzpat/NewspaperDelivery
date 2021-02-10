@@ -4,15 +4,15 @@ import java.sql.SQLOutput;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.function.ToDoubleBiFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DeliveryAreaView
+public class DeliveryAreaDB
 {
-    DeliveryAreaMain dam = new DeliveryAreaMain();
     String editId = "";
 
     public void displayAllAreas(Statement stmt)
@@ -36,6 +36,36 @@ public class DeliveryAreaView
             System.out.println(sqle.getMessage());
             System.out.println(str);
         }
+    }
+
+    public ArrayList <DeliveryArea> getAllAreas(Statement stmt)
+    {
+        //1: Query the database for all areas
+        //2: Display the result set in an appropriate manner
+        String str = "Select * from delivery_area";
+        ArrayList <DeliveryArea> deliveryAreas = new ArrayList<>() ;
+
+        try {
+            ResultSet rs = stmt.executeQuery(str);
+            while (rs.next()) {
+                int delivery_person_id = rs.getInt("delivery_person_id");
+                int delivery_area_id = rs.getInt("delivery_area_id");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+
+                // create an object of DeliveryArea and add it into the array list
+                DeliveryArea area = new DeliveryArea(delivery_area_id, name, description, delivery_person_id);
+                deliveryAreas.add(area);
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Error: failed to get areas.");
+            System.out.println(sqle.getMessage());
+            System.out.println(str);
+        }
+        catch (DeliveryAreaExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+        return deliveryAreas;
     }
 
 
@@ -91,7 +121,7 @@ public class DeliveryAreaView
         deliverypersonid = in.nextInt();
         da.setDeliveryPersonId(deliverypersonid);
 
-        Statement addNewArea = dam.con.createStatement();
+        Statement addNewArea = DBconnection.con.createStatement();
         addNewArea.executeUpdate("insert into delivery_area values (null ,'" + da.getDAreaName() + "','" + da.getDescription() + "','" + da.getDeliveryPersonId() + "')");
     }
 
@@ -112,7 +142,7 @@ public class DeliveryAreaView
         if (deleteId > 0)
         {
             str = "Select count(*) as total from delivery_area where delivery_area_id = " + deleteId;
-            Statement deletePerson = dam.con.createStatement();
+            Statement deletePerson = DBconnection.con.createStatement();
             deletePerson.executeUpdate("delete from delivery_area where delivery_area_id ="+deleteId+"");
             System.out.println("Delivery Area with id: "+deleteId+" has been deleted.");
         }

@@ -3,17 +3,14 @@ import java.util.Scanner;
 
 public class DeliveryAreaMain
 {
-    static Connection con = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
     static Scanner in = new Scanner(System.in);
 
 
 
     public static void main(String[] args) throws SQLException
     {
-        init_db(); //Opens the connection to the database.
-        DeliveryAreaView dav = new DeliveryAreaView();
+        DBconnection.init_db(); //Opens the connection to the database.
+        DeliveryAreaDB dav = new DeliveryAreaDB();
 
         // Variable used to store menu choice.
         int menuChoice = 0;
@@ -31,42 +28,26 @@ public class DeliveryAreaMain
                 switch(menuChoice)
                 {
                     case 1:
-                        dav.displayAllCustomers(stmt);
+                        dav.displayAllCustomers(DBconnection.stmt);
                         break;
 
                     case 2:
-                        dav.displayAllAreas(stmt);
+                        dav.displayAllAreas(DBconnection.stmt);
                         break;
 
                     case 3:
-                        dav.createNewDeliveryArea(stmt);
+                        dav.createNewDeliveryArea(DBconnection.stmt);
 
                     case 4:
                         System.out.println("Update Delivery Area Name");
 
                     case 5:
-                        dav.deleteDeliveryArea(stmt);
+                        dav.deleteDeliveryArea(DBconnection.stmt);
                 }
 
             }
         }
 
-    }
-
-
-    public static void init_db()
-    {
-        try
-        {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url="jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-            con = DriverManager.getConnection(url, "root", "admin");
-            stmt = con.createStatement();
-        }
-        catch(Exception e)
-        {
-            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
-        }
     }
 }
 
