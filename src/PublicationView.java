@@ -1,15 +1,13 @@
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 
 public class PublicationView {
-
+    String newPublication_Name ="";
+    boolean validName = true;
+    boolean validCost= true;
     Scanner in = new Scanner(System.in);
     public void displayAllPublication(Statement stmt)
     {
@@ -21,14 +19,14 @@ public class PublicationView {
 
             System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "Publication Name", "Frequency", "Cost", "Stock Level");
             while (rs.next()) {
-                int publicationId = rs.getInt("publicationId");
-                String publicationName = rs.getString("publicationName");
-                String publicationFrequency = rs.getString("publicationFrequency");
-                double publicationCost = rs.getDouble("publicationCost");
-                int publicationStockLevel = rs.getInt("publicationStockLevel");
+                int publication_id = rs.getInt("publication_id");
+                String publication_name = rs.getString("publication_name");
+                String publication_frequency = rs.getString("publication_frequency");
+                double publication_cost = rs.getDouble("publication_cost");
+                int publication_stock_level = rs.getInt("publication_stock_level");
 
 
-                System.out.printf("%-12s %-25s %-15s %-10s %-10s \n", publicationId, publicationName, publicationFrequency, publicationCost, publicationStockLevel);
+                System.out.printf("%-12s %-25s %-15s %-10s %-10s \n", publication_id, publication_name, publication_frequency, publication_cost, publication_stock_level);
             }
 
         } catch (SQLException sqle) {
@@ -44,88 +42,90 @@ public class PublicationView {
      {
          System.out.println("Please enter the ID of the publication you want to display");
          String id = in.next();
-         String str = "Select * from publication where publicationId = " + id;
+         String str = "Select * from publication where publication_id = " + id;
 
          try {
              ResultSet rs = stmt.executeQuery(str);
 
              System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "Publication Name", "Frequency", "Cost", "Stock Level");
              while (rs.next()) {
-                 int publicationId = rs.getInt("publicationId");
-                 String publicationName = rs.getString("publicationName");
-                 String publicationFrequency = rs.getString("publicationFrequency");
-                 double publicationCost = rs.getDouble("publicationCost");
-                 int publicationStockLevel = rs.getInt("publicationStockLevel");
+                 int publication_id = rs.getInt("publication_id");
+                 String publication_name = rs.getString("publication_name");
+                 String publication_frequency = rs.getString("publication_frequency");
+                 double publication_cost = rs.getDouble("publication_cost");
+                 int publication_stock_level = rs.getInt("publication_stock_level");
 
 
-                 System.out.printf("%-12s %-25s %-15s %-10s %-10s \n", publicationId, publicationName, publicationFrequency, publicationCost, publicationStockLevel);
+                 System.out.printf("%-12s %-25s %-15s %-10s %-10s \n", publication_id, publication_name, publication_frequency, publication_cost, publication_stock_level);
              }
 
          } catch (SQLException sqle) {
              System.out.println("Error: failed to display all Delivery People.");
-             System.out.println(sqle.getMessage());
              System.out.println(str);
          }
 
 
      }
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //problem with this method, when a new entry is created it loops around to asking for frequency and cost at the same time.
-    // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
     public void addNewPublication(Statement stmt) throws SQLException {
 
-    String newPublicationName = "";
-        Publication publication = new Publication();
 
         PublicationMain publicationMain = new PublicationMain();
-         System.out.println("Please Enter a name for the new Publication");
-         if (in.hasNextLine()) {
-             //asks the user to enter a name for the new publication
-
-              newPublicationName = in.nextLine();
-             publication.setPublicationName(newPublicationName);
-
-             if (newPublicationName.length() < 2 || newPublicationName.length() > 25)
-             {
-                 System.out.println("The first name must contain between 2 and 25 characters");
-                 addNewPublication(stmt);
-             }
-             else if (!validateString(newPublicationName))
-             {
-                 System.out.println("Names cannot contain numbers");
-                 addNewPublication(stmt);
-             }
-         }
 
 
+        newPublication_Name = "";
+        System.out.println("Please Enter a name for the new Publication\n");
+        newPublication_Name = in.nextLine();
+        validatePublicationName(newPublication_Name);
+        if (validName == true)
+        {
+
+
+            //asks the user to enter a frequency for the new publication, daily or weekly
+            System.out.println("Please enter a frequency for the new publication, either Daily or Weekly\n");
+            String newPublication_Frequency = in.nextLine();
+            validatePublicationFrequency(newPublication_Frequency);
+            if (validName == true)
+            {
+                //asks the user to enter a cost for the new publication
+                System.out.println("Please enter a cost for the new publication\n");
+                double newPublication_Cost = in.nextDouble();
+                validatePublicationCost(newPublication_Cost);
+                if (validCost == true)
+                {
+                    //asks the user to enter a stock level for the new publication");
+                    System.out.println("Please enter the stock level for the new publication\n");
+                    int newPublication_Stock_Level = in.nextInt();
+
+                    Statement addNew = publicationMain.con.createStatement();
+                    addNew.executeUpdate("INSERT INTO publication VALUES (null, '" + newPublication_Name + "','" + newPublication_Frequency + "','" + newPublication_Cost + "','" + newPublication_Stock_Level + "')");
+                    displayAllPublication(stmt);
+                }
+            }
+        }
+                else if (!validCost)
+                {
+                    System.out.println("Please enter a valid number\n");
+                }
+                else if (!validName)
+                {
+                    System.out.println("The frequency you have entered is invalid, please choose either 'Daily' or 'Weekly' and try again\n");
+                    addNewPublication(stmt);
+                }
+
+
+                else if(!validName)
+                {
+                    System.out.println("The String you have entered is incorrect as it contains a number or other illegal character, please enter a correct string and try again\n");
+                    addNewPublication(stmt);
+                }
+    }
 
 
 
 
 
-
-         //asks the user to enter a frequency for the new publication, daily or weekly
-         System.out.println("Please enter a frequency for the new publication, either Daily or Weekly");
-         String newPublicationFrequency = in.nextLine();
-
-         //asks the user to enter a cost for the new publication
-         System.out.println("Please enter a cost for the new publication");
-         double newPublicationCost = in.nextDouble();
-
-         //asks the user to enter a stock level for the new publication");
-         System.out.println("Please enter the stock level for the new publication");
-         int newPublicationStockLevel = in.nextInt();
-
-         Statement addNew = publicationMain.con.createStatement();
-         addNew.executeUpdate("INSERT INTO publication VALUES (null, '"+newPublicationName+"','"+newPublicationFrequency+"','"+newPublicationCost+"','"+newPublicationStockLevel+"')");
-
-
-
-
-
-
-     }
 
 
 
@@ -142,8 +142,8 @@ public class PublicationView {
          displayAllPublication(stmt);
          System.out.println("Please enter the id corresponding to the attribute you would like to edit");
          editId = in.next();
-         if (validateEntry(editId)) {
-             str = "select count(*) as total from publication where publicationiD = " + editId;
+         if (validateId(editId)) {
+             str = "select count(*) as total from publication where publication_id = " + editId;
              ResultSet rs = stmt.executeQuery(str);
              count = 0;
              while (rs.next()) {
@@ -163,16 +163,16 @@ public class PublicationView {
 
                          switch (menuChoiceEditPublication) {
                              case 1:
-                                 editPublicationName(); //The code for this method is already done for you below
+                                 editpublication_name(); //The code for this method is already done for you below
                                  break;
                              case 2:
-                                 editPublicationFrequency(); //You need to code this method below
+                                 editpublication_frequency(); //You need to code this method below
                                  break;
                              case 3:
-                                 editPublicationCost(); //You need to code this method below
+                                 editpublication_cost(); //You need to code this method below
                                  break;
                              case 4:
-                                 editPublicationStockLevel(); //You need to code this method below
+                                 editpublication_stock_level(); //You need to code this method below
                                  break;
                              case 5:
                                  System.out.println("Program is closing...");
@@ -200,37 +200,49 @@ public class PublicationView {
 //    // Beginning of the Edit Person Method Section
 //    // ******************************************************************************************************
 
-         public void editPublicationName() throws SQLException {
+         public void editpublication_name() throws SQLException {
 
-         System.out.println("Please enter a new name for the publication");
-             //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-             //error here, i need this to be in.nextline but if i do that it puts me in a loop of the menu choice popping up and asking me what option I want, I can never edit it.
-             //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+             System.out.println("Please enter a new name for the publication");
+             in.nextLine();
+           newPublication_Name = in.nextLine();
+             validatePublicationName(newPublication_Name);
+             if (validName == true)
+             {
+                 Statement editpublication_name = publicationMain.con.createStatement();
+                 editpublication_name.executeUpdate("Update publication SET publication_name = '" + newPublication_Name + "' where publication_id = '" + editId + "'");
 
-             String newPublicationName = in.next();
-         Statement editPublicationName = publicationMain.con.createStatement();
-         editPublicationName.executeUpdate("Update publication SET publicationName = '" + newPublicationName + "' where publicationId = '"+editId+"'");
-     }
+             } else if(!validName)
+                 System.out.println("The String you have entered is incorrect as it contains a number or other illegal character, please enter a correct string and try again");
+         }
+         public void editpublication_frequency() throws SQLException {
+             System.out.println("Please enter a new frequency for the publication, either daily or weekly");
+             String newPublication_Frequency = in.next();
+             validatePublicationFrequency(newPublication_Frequency);
+             if (validName == true) {
+                 Statement editpublication_frequency = publicationMain.con.createStatement();
+                 editpublication_frequency.executeUpdate("Update publication SET publication_frequency = '" + newPublication_Frequency + "' where publication_id = '" + editId + "'");
+             } else
+                 System.out.println("You have entered an illegal character, please enter only 'Daily' or 'Weekly' and try again ");
+         }
 
-         public void editPublicationFrequency() throws SQLException {
-         System.out.println("Please enter a new frequency for the publication, either daily or weekly");
-         String newPublicationFrequency = in.next();
-         Statement editPublicationFrequency = publicationMain.con.createStatement();
-         editPublicationFrequency.executeUpdate("Update publication SET publicationFrequency = '" + newPublicationFrequency + "' where publicationId = '" +editId+"'");
-     }
-
-         public void editPublicationCost() throws SQLException {
+         public void editpublication_cost() throws SQLException {
          System.out.println("Please enter a new cost for the publication");
-         double newPublicationCost = in.nextDouble();
-         Statement editPublicationCost = publicationMain.con.createStatement();
-         editPublicationCost.executeUpdate("Update publication SET publicationCost = '"+newPublicationCost+"' where publicationId = '"+editId+"'");
+         double newPublication_Cost = in.nextDouble();
+         validatePublicationCost(newPublication_Cost);
+         if(validCost==true)
+         {
+             Statement editpublication_cost = publicationMain.con.createStatement();
+             editpublication_cost.executeUpdate("Update publication SET publication_cost = '" + newPublication_Cost + "' where publication_id = '" + editId + "'");
+         }
+         else
+             System.out.println("You have entered an invalid price, please enter a proper numeric value and try again");
      }
 
-         public void editPublicationStockLevel() throws SQLException {
+         public void editpublication_stock_level() throws SQLException {
          System.out.println("Please enter a new stock level");
-         int newPublicationStockLevel = in.nextInt();
-         Statement editPublicationStockLevel = publicationMain.con.createStatement();
-         editPublicationStockLevel.executeUpdate("Update publication SET publicationStockLevel = '" + newPublicationStockLevel + "' where publicationId = '" +editId+"'");
+         int newPublication_Stock_Level = in.nextInt();
+         Statement editpublication_stock_level = publicationMain.con.createStatement();
+         editpublication_stock_level.executeUpdate("Update publication SET publication_stock_level = '" + newPublication_Stock_Level + "' where publication_id = '" +editId+"'");
      }
 
 
@@ -248,8 +260,8 @@ public class PublicationView {
          System.out.println("Please enter the id of the publication that you want to delete");
 
          String id = in.next();
-         if (validateEntry(id)) {
-             str = "select count(*) as total from publication where publicationId = " + id;
+         if (validateId(id)) {
+             str = "select count(*) as total from publication where publication_id = " + id;
 
              rs = stmt.executeQuery(str);
              deleteCount = 0;
@@ -261,7 +273,7 @@ public class PublicationView {
 
                  try {
                      Statement deletePublication = publicationMain.con.createStatement();
-                     deletePublication.executeUpdate("delete from publication where publicationId =" + id + "");
+                     deletePublication.executeUpdate("delete from publication where publication_id =" + id + "");
                      System.out.println("Publication with id: " + id + " has been deleted");
                  } catch (Exception e) {
                      System.out.println("unable to delete the publication");
@@ -273,20 +285,8 @@ public class PublicationView {
      }
 
 
-    public static boolean validateString (String name){
-        name = name.toLowerCase();
-        char[] nameArray = name.toCharArray();
-        for (int i = 0; i < nameArray.length; i++) {
-            char ch = nameArray[i];
-            if (ch >= 'a' && ch <= 'z') {
-                return true;
-            }
-        }
-        return false;
-    }
 
-
-    public static boolean validateEntry (String id){
+    public static boolean validateId(String id){
         if (id.length() > 2) {
             System.out.println("invalid entry, you must enter no more than 2 numbers");
             return false;
@@ -300,6 +300,41 @@ public class PublicationView {
         }
         return true;
     }
+
+//TODO Make a method to validate stock level, implement it into add and edit, move these validate methods to pulication.java
+    public boolean validatePublicationName(String newPublication_Name){
+        if  (newPublication_Name.matches("[a-zA-Z\\s\'\"]+")){
+            validName=true;
+            return true;
+        }
+        else{
+            validName=false;
+            return false;
+        }
+    }
+
+    public boolean validatePublicationFrequency(String newPublication_Frequency){
+        if  (newPublication_Frequency.matches("[a-zA-Z\\s\'\"]+")){
+            validName=true;
+            return true;
+        }
+        else{
+            validName=false;
+            return false;
+        }
+    }
+
+    public boolean validatePublicationCost(double newPublication_Cost){
+        if  (newPublication_Cost >=0.5 && newPublication_Cost<=5.0)
+        {
+         validCost=true;
+         return true;
+        }
+        else
+            validCost=false;
+        return false;
+    }
+
 
     public static void editPublicationMenu() {
         System.out.println("\nEdit Publication Menu");
