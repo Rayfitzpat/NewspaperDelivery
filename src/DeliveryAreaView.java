@@ -118,6 +118,22 @@ public class DeliveryAreaView
         }
     }
 
+    public void editDeliveryAreas(Statement stmt) throws SQLException
+    {
+        String str;
+        ResultSet rs;
+        Scanner in = new Scanner(System.in);
+        DeliveryAreaMain dam = new DeliveryAreaMain();
+        displayAllAreas(stmt);
+        System.out.println("Please enter the id of the Delivery Area that you would like to edit: ");
+        int editId = in.nextInt();
+
+        if (editId < 0)
+        {
+
+        }
+    }
+
 
 
     public static void displayMainMenu()
@@ -130,7 +146,6 @@ public class DeliveryAreaView
         System.out.println("5: Delete a Delivery Area");
         System.out.println("6: Close the Application");
     }
-
 
 
 }
