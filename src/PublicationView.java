@@ -107,23 +107,23 @@ public class PublicationView {
 
         System.out.println("Please Enter a name for the new Publication\n");
         newPublication_Name = in.nextLine();
-        validatePublicationName(newPublication_Name);
+        boolean validName = validatePublicationName(newPublication_Name);
         if (validName == true) {
 
 
             System.out.println("Please enter a frequency for the new publication, either Daily or Weekly\n");
             String newPublication_Frequency = in.nextLine();
-            validatePublicationFrequency(newPublication_Frequency);
+           boolean validFrequency = validatePublicationFrequency(newPublication_Frequency);
             if (validFrequency == true) {
 
                 System.out.println("Please enter a cost for the new publication\n");
                 String newPublication_Cost = in.next();
-                validatePublicationCost(newPublication_Cost);
+               boolean validCost = validateANumber(newPublication_Cost);
                 if (validCost == true) {
                     //asks the user to enter a stock level for the new publication");
                     System.out.println("Please enter the stock level for the new publication\n");
-                    int newPublication_Stock_Level = in.nextInt();
-                    validatePublicationStockLevel(newPublication_Stock_Level);
+                    String newPublication_Stock_Level = in.next();
+                  boolean validStockLevel =  validateANumber(newPublication_Stock_Level);
                     if (validStockLevel == true) {
 
                         Statement addNew = publicationMain.con.createStatement();
@@ -132,20 +132,9 @@ public class PublicationView {
                     }
                 }
             }
-        } else if (!validStockLevel) {
-            System.out.println("The Stock level you have entered is invalid, please enter a valid stock level and try again");
-            addNewPublication(stmt);
-        } else if (!validCost) {
-            System.out.println("Please enter a valid number\n");
-            addNewPublication(stmt);
-        } else if (!validFrequency) {
-            System.out.println("The frequency you have entered is invalid, please choose either 'Daily' or 'Weekly' and try again\n");
-            addNewPublication(stmt);
-        } else if (!validName) {
-            System.out.println("The String you have entered is incorrect as it contains a number or other illegal character, please enter a correct string and try again\n");
-            addNewPublication(stmt);
         }
     }
+
 
     public void editPublication(Statement stmt) throws SQLException {
 
@@ -238,7 +227,7 @@ public class PublicationView {
     public void editpublication_cost() throws SQLException {
         System.out.println("Please enter a new cost for the publication");
         String newPublication_Cost = in.next();
-       boolean validNumberedString= validatePublicationCost(newPublication_Cost);
+       boolean validNumberedString= validateANumber(newPublication_Cost);
         if (validNumberedString) {
             Statement editpublication_cost = publicationMain.con.createStatement();
             editpublication_cost.executeUpdate("Update publication SET publication_cost = '" + newPublication_Cost + "' where publication_id = '" + editId + "'");
@@ -249,10 +238,13 @@ public class PublicationView {
 
     public void editpublication_stock_level() throws SQLException
     {
-        int newPublication_Stock_Level = askUserToEnterStockLevel();
-            Statement editpublication_stock_level = publicationMain.con.createStatement();
-            editpublication_stock_level.executeUpdate("Update publication SET publication_stock_level = '" + newPublication_Stock_Level + "' where publication_id = '" + editId + "'");
-        System.out.println("Successfully update the frequency to " + newPublication_Stock_Level +"\n\nReturning to edit menu....");
+        String newPublication_Stock_Level = in.next();
+        boolean validStock = validateANumber(newPublication_Stock_Level);
+                if(validStock) {
+                    Statement editpublication_stock_level = publicationMain.con.createStatement();
+                    editpublication_stock_level.executeUpdate("Update publication SET publication_stock_level = '" + newPublication_Stock_Level + "' where publication_id = '" + editId + "'");
+                    System.out.println("Successfully update the frequency to " + newPublication_Stock_Level + "\n\nReturning to edit menu....");
+                }
     }
 
 
@@ -286,35 +278,6 @@ public class PublicationView {
         System.out.println("Returning to Main Menu...");
     }
 
-
-    public  int askUserToEnterStockLevel()
-    {
-
-
-        int stockLevel = 0;
-        boolean inputValid = false;
-
-        while (!inputValid)
-        {
-            System.out.println("Enter the stock level for the publication chosen");
-            if (in.hasNextInt())
-            {
-                stockLevel = in.nextInt();
-                if(validatePublicationStockLevel(stockLevel))
-                {
-                    inputValid=true;
-                }
-            }
-            else
-            {
-                //clear the input buffer and start again
-                in.nextLine();
-                in.nextLine();
-                System.out.println("You entered an invalid stock level, please try again...");
-            }
-        }
-        return stockLevel;
-    }
 
 
 
@@ -372,11 +335,11 @@ public class PublicationView {
     public boolean validatePublicationName(String newPublication_Name) {
         if (newPublication_Name.matches("[a-zA-Z\\s\'\"]+"))
         {
-            validName = true;
+
             return true;
         } else
             System.out.println("You have entered an invalid character(s). Please try again only using valid characters");
-            validName = false;
+
         return false;
 
     }
@@ -399,7 +362,7 @@ public class PublicationView {
 
     }
 
-    public boolean validatePublicationCost(String publicationCost)
+    public boolean validateANumber(String publicationCost)
     {
 
         for (int i = 0; i < publicationCost.length() + 1; i++) {
@@ -417,16 +380,6 @@ public class PublicationView {
 
     }
 
-    public boolean validatePublicationStockLevel(int newPublication_Stock_Level) {
-        if (newPublication_Stock_Level >= 0 && newPublication_Stock_Level <= 1000)
-        {
-            validStockLevel = true;
-            return true;
-        } else
-            System.out.println("The stock level you have entered is invalid, please try again using only numbers.");
-            validStockLevel = false;
-        return false;
-    }
 
 }
 
