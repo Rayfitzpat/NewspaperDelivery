@@ -373,7 +373,7 @@ public class PublicationView {
         return false;
     }
 
-    public boolean validatePublicationStockLevel(double newPublication_Stock_Level) {
+    public boolean validatePublicationStockLevel(int newPublication_Stock_Level) {
         if (newPublication_Stock_Level >= 0 && newPublication_Stock_Level <= 10000)
         {
             validStockLevel = true;
