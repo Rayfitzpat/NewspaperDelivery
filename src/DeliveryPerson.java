@@ -1,3 +1,4 @@
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class DeliveryPerson {
@@ -129,4 +130,158 @@ public class DeliveryPerson {
         this.userName = userName;
         this.password = password;
     }
+
+    public boolean validateDate(String dobDay) {
+
+        boolean validDOB = false;
+        if (dobDay.length() != 2) {
+            System.out.println("The date must contain 2 numbers");
+            validDOB = false;
+        } else {
+            dobDay = dobDay.toLowerCase();
+            char[] dobArray = dobDay.toCharArray();
+            for (int i = 0; i < dobArray.length; i++) {
+                char ch = dobArray[i];
+                if (ch >= '0' && ch <= '9') {
+                    int dobDayTest = Integer.parseInt(dobDay);
+                    if (dobDayTest >= 1 && dobDayTest <= 31) {
+                        validDOB = true;
+                    } else {
+                        validDOB = false;
+                    }
+                } else {
+                    validDOB = false;
+                }
+            }
+        }
+        return validDOB;
+    }
+
+    public boolean validateMonth(String dobMonth) {
+        boolean validDOB = false;
+        if (dobMonth.length() != 2) {
+            System.out.println("The month must contain 2 numbers");
+            validDOB = false;
+
+        } else {
+            dobMonth = dobMonth.toLowerCase();
+            char[] dobArray = dobMonth.toCharArray();
+            for (int i = 0; i < dobArray.length; i++) {
+                char ch = dobArray[i];
+                if (ch >= '0' && ch <= '9') {
+                    int dobMonthTest = Integer.parseInt(dobMonth);
+                    if (dobMonthTest >= 1 && dobMonthTest <= 12) {
+                        validDOB = true;
+                    } else {
+
+                        validDOB = false;
+                    }
+                } else {
+                    validDOB = false;
+                }
+
+            }
+        }
+        return validDOB;
+    }
+
+
+    public boolean validateYear(String dobYear) {
+        boolean validDOB = false;
+        if (dobYear.length() != 4) {
+            System.out.println("The year must contain 4 numbers");
+            validDOB = false;
+
+        } else {
+            dobYear = dobYear.toLowerCase();
+            char[] dobArray = dobYear.toCharArray();
+            for (int i = 0; i < dobArray.length; i++) {
+                char ch = dobArray[i];
+                if (ch >= '0' && ch <= '9') {
+                    int dobYearTest = Integer.parseInt(dobYear);
+                    if (dobYearTest > 1900 && dobYearTest <= Calendar.getInstance().get(Calendar.YEAR)) {
+                        validDOB = true;
+                    } else {
+
+                        validDOB = false;
+                    }
+                } else {
+                    validDOB = false;
+                }
+
+            }
+        }
+        return validDOB;
+    }
+
+    public boolean validateHouseNumber (String name){
+        boolean validHouseNumber;
+        if(name.length()>=1 && name.length()<5) {
+            name = name.toLowerCase();
+            char[] nameArray = name.toCharArray();
+            for (int i = 0; i < nameArray.length; i++) {
+                char ch = nameArray[i];
+                if (ch >= '0' && ch <= '9') {
+                    validHouseNumber = true;
+                    return true;
+                }
+            }
+            return false;
+        }
+        else
+            validHouseNumber = false;
+        return false;
+    }
+
+    public boolean validateStringWithNumbers (String name){
+        if(name.length()>1 && name.length()<20) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public boolean validateString (String name){
+        if(name.length()>1 && name.length()<20) {
+            name = name.toLowerCase();
+            char[] nameArray = name.toCharArray();
+            for (int i = 0; i < nameArray.length; i++) {
+                char ch = nameArray[i];
+                if (ch >= 'a' && ch <= 'z') {
+                    boolean validName = true;
+                    return true;
+                }
+            }
+            return false;
+        }
+        else
+            return false;
+    }
+
+
+    public boolean validateEntry (String id){
+        if (id.length() > 2) {
+            System.out.println("invalid entry, you must enter no more than 2 numbers");
+            return false;
+        } else {
+            try {
+                int tempId = Integer.parseInt(id);
+            } catch (Exception e) {
+                System.out.println("invalid Text entered, please enter a number");
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    public boolean validatePhoneNumber(String deliveryPhoneNumber){
+        if(deliveryPhoneNumber.matches("\\d{3}[ ]?\\d{7}")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }

@@ -1,17 +1,14 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
 
 
 public class DeliveryPersonView {
     DeliveryPersonDB dpDB = new DeliveryPersonDB();
-    String editId = "";
     DeliveryPerson dp = new DeliveryPerson();
+
+    String editId = "";
     String firstName = "";
     String lastName = "";
     String address1 = "";
@@ -31,9 +28,8 @@ public class DeliveryPersonView {
     boolean validUser = true;
     boolean validPw = false;
     boolean validDOB = false;
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     Scanner in = new Scanner(System.in);
-    boolean inputValid = false;
+
 
     // ******************************************************************************************************
     // Beginning of the DISPLAY Delivery Person Section
@@ -83,7 +79,7 @@ public class DeliveryPersonView {
 
 
         String id = in.next();
-        if (validateEntry(id)) {
+        if (dp.validateEntry(id)) {
             str = "select count(*) as total from delivery_Person where delivery_person_id = " + id;
             ResultSet rs = stmt.executeQuery(str);
             count = 0;
@@ -141,7 +137,7 @@ public class DeliveryPersonView {
             dp.setFirstName(firstName);
 
 
-            if (!validateString(firstName)) {
+            if (!dp.validateString(firstName)) {
                 System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                 addNewDeliveryPerson(stmt);
                 validName = false;
@@ -157,7 +153,7 @@ public class DeliveryPersonView {
                 lastName = in.nextLine();
                 dp.setLastName(lastName);
 
-                if (!validateString(lastName)) {
+                if (!dp.validateString(lastName)) {
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validName = false;
                 } else {
@@ -173,7 +169,7 @@ public class DeliveryPersonView {
             if (in.hasNextLine()) {
                 address1 = in.nextLine();
                 dp.setAddress1(address1);
-                if (!validateHouseNumber(address1)) {
+                if (!dp.validateHouseNumber(address1)) {
                     System.out.println("The house Number must be between 1 and 99999");
                     validHouseNumber = false;
                 } else {
@@ -189,7 +185,7 @@ public class DeliveryPersonView {
                 address2 = in.nextLine();
                 dp.setAddress2(address2);
 
-                if (!validateStringWithNumbers(address2)) {
+                if (!dp.validateStringWithNumbers(address2)) {
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validAddress2 = false;
                 } else {
@@ -205,7 +201,7 @@ public class DeliveryPersonView {
                 town = in.nextLine();
                 dp.setTown(town);
 
-                if (!validateStringWithNumbers(town)) {
+                if (!dp.validateStringWithNumbers(town)) {
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validTown = false;
                 } else {
@@ -222,7 +218,7 @@ public class DeliveryPersonView {
                 deliveryPhoneNumber = in.nextLine();
                 dp.setDeliveryPhoneNumber(deliveryPhoneNumber);
 
-                if (!validatePhoneNumber(deliveryPhoneNumber)) {
+                if (!dp.validatePhoneNumber(deliveryPhoneNumber)) {
                     System.out.println("The phone number must be in the format 087 8888888");
                     validPhone = false;
 
@@ -240,7 +236,9 @@ public class DeliveryPersonView {
             System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
             if (in.hasNext()) {
                 dobYear = in.next();
-                validateYear(dobYear);
+                if(dp.validateYear(dobYear)){
+                    validDOB = true;
+                }
 
             }
         } while (!validDOB);
@@ -249,7 +247,9 @@ public class DeliveryPersonView {
             System.out.println("Next, what month were they born in? (1 - 12, 2 Numbers required)");
             if (in.hasNext()) {
                 dobMonth = in.next();
-                validateMonth(dobMonth);
+                if(dp.validateMonth(dobMonth)){
+                    validDOB = true;
+                }
             }
         }
         validDOB = false;
@@ -257,7 +257,7 @@ public class DeliveryPersonView {
             System.out.println("finally the date they were born (1 - 31, 2 numbers required)");
             if (in.hasNext()) {
                 dobDay = in.next();
-                validateDate(dobDay);
+                dp.validateDate(dobDay);
             }
         }
         String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
@@ -271,7 +271,7 @@ public class DeliveryPersonView {
                 userName = in.next();
                 dp.setUserName(userName);
 
-                if (!validateString(userName)) {
+                if (!dp.validateString(userName)) {
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validUser = false;
                 } else {
@@ -322,7 +322,7 @@ public class DeliveryPersonView {
         displayAllDeliveryPerson(stmt);
         System.out.println("Please enter the id of the person you would like to edit");
         editId = in.next();
-        if (validateEntry(editId)) {
+        if (dp.validateEntry(editId)) {
             str = "select count(*) as total from delivery_Person where delivery_person_id = " + editId;
             ResultSet rs = stmt.executeQuery(str);
             count = 0;
@@ -401,7 +401,7 @@ public class DeliveryPersonView {
     public void editPersonFirstName() throws SQLException {
         System.out.println("Please enter a new First Name");
         String newName = in.nextLine();
-        if (!validateString(newName)) {
+        if (!dp.validateString(newName)) {
             System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
             validName = false;
         } else {
@@ -415,7 +415,7 @@ public class DeliveryPersonView {
     public void editPersonLastName () throws SQLException {
         System.out.println("Please enter a new Last Name");
         String newName = in.next();
-        if (!validateString(newName)) {
+        if (!dp.validateString(newName)) {
             System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
             validName = false;
         } else {
@@ -429,7 +429,7 @@ public class DeliveryPersonView {
     public void editPersonAddress1() throws SQLException {
         System.out.println("Please enter a new House Number");
         String newHouse = in.next();
-        if (!validateHouseNumber(newHouse)) {
+        if (!dp.validateHouseNumber(newHouse)) {
             System.out.println("The house Number must be between 1 and 99999");
         }
         else {
@@ -443,7 +443,7 @@ public class DeliveryPersonView {
         System.out.println("Please enter a new Street Name");
         if (in.hasNextLine()) {
             String newName = in.nextLine();
-            if (!validateStringWithNumbers(newName)) {
+            if (!dp.validateStringWithNumbers(newName)) {
                 System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                 validName = false;
             } else {
@@ -457,7 +457,7 @@ public class DeliveryPersonView {
         in.nextLine();
         System.out.println("Please enter a new Town");
         String newName = in.nextLine();
-        if (!validateStringWithNumbers(newName)) {
+        if (!dp.validateStringWithNumbers(newName)) {
             System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
             validName = false;
         } else {
@@ -473,7 +473,7 @@ public class DeliveryPersonView {
         if (in.hasNextLine()) {
             String newPhone = in.nextLine();
 
-            if (validatePhoneNumber(newPhone)) {
+            if (dp.validatePhoneNumber(newPhone)) {
                 Statement editPerson = dpDB.con.createStatement();
                 editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + newPhone + "' where delivery_person_id = '" + editId + "'");
             } else {
@@ -489,7 +489,9 @@ public class DeliveryPersonView {
             System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
             if (in.hasNext()) {
                 dobYear = in.next();
-                validateYear(dobYear);
+                if(dp.validateYear(dobYear)){
+                    validDOB = true;
+                }
             }
         } while (!validDOB);
         validDOB = false;
@@ -497,7 +499,9 @@ public class DeliveryPersonView {
             System.out.println("Next, what month were they born in? (1 - 12, 2 Numbers required)");
             if (in.hasNext()) {
                 dobMonth = in.next();
-                validateMonth(dobMonth);
+                if(dp.validateMonth(dobMonth)){
+                    validDOB = true;
+                }
             }
         }
         validDOB = false;
@@ -505,7 +509,9 @@ public class DeliveryPersonView {
             System.out.println("finally the date they were born (1 - 31, 2 numbers required)");
             if (in.hasNext()) {
                 dobDay = in.next();
-                validateDate(dobDay);
+                if(dp.validateDate(dobDay)){
+                    validDOB = true;
+                }
             }
         }
         String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
@@ -550,7 +556,7 @@ public class DeliveryPersonView {
     public void editPersonUserName() throws SQLException {
         System.out.println("Please enter a new User Name - 20 characters max");
         String newName = in.next();
-        if (!validateString(newName)) {
+        if (!dp.validateString(newName)) {
             System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
             validName = false;
         } else {
@@ -595,7 +601,7 @@ public class DeliveryPersonView {
                    System.out.println("Please enter the id number of the delivery person that you want to delete");
 
                    String id = in.next();
-                   if (validateEntry(id)) {
+                   if (dp.validateEntry(id)) {
                        str = "select count(*) as total from delivery_Person where delivery_person_id = " + id;
 
                        rs = stmt.executeQuery(str);
@@ -638,149 +644,20 @@ public class DeliveryPersonView {
 //    // Beginning of the VALIDATION Section
 //    // ******************************************************************************************************
 //
-        public boolean validatePhoneNumber(String deliveryPhoneNumber){
-        if(deliveryPhoneNumber.matches("\\d{3}[ ]?\\d{7}")){
-            return true;
-        }
-        else{
-            return false;
-        }
-        }
-
-        public boolean validateEntry (String id){
-            if (id.length() > 2) {
-                System.out.println("invalid entry, you must enter no more than 2 numbers");
-                return false;
-            } else {
-                try {
-                    int tempId = Integer.parseInt(id);
-                } catch (Exception e) {
-                    System.out.println("invalid Text entered, please enter a number");
-                    return false;
-                }
-            }
-            return true;
-
-        }
-        public boolean validateString (String name){
-        if(name.length()>1 && name.length()<20) {
-            name = name.toLowerCase();
-            char[] nameArray = name.toCharArray();
-            for (int i = 0; i < nameArray.length; i++) {
-                char ch = nameArray[i];
-                if (ch >= 'a' && ch <= 'z') {
-                    validName = true;
-                    return true;
-                }
-            }
-            return false;
-        }
-        else
-            return false;
-        }
-
-    public boolean validateStringWithNumbers (String name){
-        if(name.length()>1 && name.length()<20) {
-            return true;
-                }
-        else
-            return false;
-    }
-
-    public boolean validateHouseNumber (String name){
-        if(name.length()>=1 && name.length()<5) {
-            name = name.toLowerCase();
-            char[] nameArray = name.toCharArray();
-            for (int i = 0; i < nameArray.length; i++) {
-                char ch = nameArray[i];
-                if (ch >= '0' && ch <= '9') {
-                    validHouseNumber = true;
-                    return true;
-                }
-            }
-            return false;
-        }
-        else
-            validHouseNumber = false;
-            return false;
-    }
 
 
-    public  void validateYear(String dobYear) {
-        if (dobYear.length() != 4) {
-            System.out.println("The year must contain 4 numbers");
-            validDOB = false;
 
-        } else {
-            dobYear = dobYear.toLowerCase();
-            char[] dobArray = dobYear.toCharArray();
-            for (int i = 0; i < dobArray.length; i++) {
-                char ch = dobArray[i];
-                if (ch >= '0' && ch <= '9') {
-                    int dobYearTest = Integer.parseInt(dobYear);
-                    if (dobYearTest > 1900 && dobYearTest <= Calendar.getInstance().get(Calendar.YEAR)) {
-                        validDOB = true;
-                    } else {
 
-                        validDOB = false;
-                    }
-                } else {
-                    validDOB = false;
-                }
 
-            }
-        }
-    }
 
-    public void validateMonth(String dobMonth) {
-        if (dobMonth.length() != 2) {
-            System.out.println("The month must contain 2 numbers");
-            validDOB = false;
 
-        } else {
-            dobMonth = dobMonth.toLowerCase();
-            char[] dobArray = dobMonth.toCharArray();
-            for (int i = 0; i < dobArray.length; i++) {
-                char ch = dobArray[i];
-                if (ch >= '0' && ch <= '9') {
-                    int dobMonthTest = Integer.parseInt(dobMonth);
-                    if (dobMonthTest >= 1 && dobMonthTest <= 12) {
-                        validDOB = true;
-                    } else {
 
-                        validDOB = false;
-                    }
-                } else {
-                    validDOB = false;
-                }
 
-            }
-        }
-    }
 
-    public void validateDate(String dobDay) {
 
-        if (dobDay.length() != 2) {
-            System.out.println("The date must contain 2 numbers");
-            validDOB = false;
-        } else {
-            dobDay = dobDay.toLowerCase();
-            char[] dobArray = dobDay.toCharArray();
-            for (int i = 0; i < dobArray.length; i++) {
-                char ch = dobArray[i];
-                if (ch >= '0' && ch <= '9') {
-                    int dobDayTest = Integer.parseInt(dobDay);
-                    if (dobDayTest >= 1 && dobDayTest <= 31) {
-                        validDOB = true;
-                    } else {
-                        validDOB = false;
-                    }
-                } else {
-                    validDOB = false;
-                }
-            }
-        }
-    }
+
+
+
 
 
     public static void cleanup_resources()

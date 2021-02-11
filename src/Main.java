@@ -7,21 +7,11 @@ public class Main {
     static ResultSet rs = null;
     static Scanner in = new Scanner(System.in);
 
-    public static void init_db() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-            con = DriverManager.getConnection(url, "root", "admin");
-            stmt = con.createStatement();
-        } catch (Exception e) {
-            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
-        }
-    }
 
 
     public static void main(String[] args) throws SQLException {
 
-        init_db();  // open the connection to the database
+        DBconnection.init_db();  // open the connection to the database
 
         int menuChoice = 0; // variable used to store main menu choice
         final int STOP_APP = 6; //value from menu that is used to quit the application

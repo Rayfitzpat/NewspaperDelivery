@@ -2,6 +2,7 @@
 //
 //public class DeliveryPersonTest extends TestCase {
 //    DeliveryPersonView dpv = new DeliveryPersonView();
+//    DeliveryPerson dp = new DeliveryPerson();
 //
 //    //Test #: 1
 //    //Test Objective: To create a Customer Record
@@ -41,73 +42,58 @@
 //    //Inputs: line = "B", nameOfField = "First name"
 //    //Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
 //
-//    public void testValidateName001() {
-//        try {
+//    public void testValidateName001() throws DeliveryPersonExceptionHandler {
 //
-//            //Call method under test
-//            dpv.validateDeliveryName("B", "First name");
-//            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
-//            assertEquals("First name does not meet minimum length requirements", e.getMessage());
-//        }
+//        //Call method under test
+//        dp.validateString("B");
+//        fail("Exception expected");
 //    }
 //
 //    //Test #: 3
 //    //Test Objective: To catch an invalid customer name (more than 25 symbols in a name)
-//    //Inputs: line = "aaaaaaaaaaaaaaaaaaaaaaaaaa", nameOfField = "First name"
+//    //Inputs: line = "aaaaaaaaaaaaaaaaaaaaaaaaaa"
 //    //Expected Output: Exception Message: "First name exceeds maximum length requirements"
-//    public void testValidateName002() {
-//        try {
+//    public void testValidateName002() throws DeliveryPersonExceptionHandler {
 //
-//            //Call method under test
-//            customer.validateName("aaaaaaaaaaaaaaaaaaaaaaaaaa", "First name");
-//            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
-//            assertEquals("First name exceeds maximum length requirements", e.getMessage());
-//        }
+//        //Call method under test
+//        dp.validateString("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+//        fail("Exception expected");
 //    }
 //
 //    //Test #: 4
 //    //Test Objective: To catch an invalid customer name (empty string)
-//    //Inputs: line = "", nameOfField = "First name"
+//    //Inputs: line = ""
 //    //Expected Output: Exception Message: "First name  NOT specified"
-//    public void testValidateName003() {
-//        try {
+//    public void testValidateName003() throws DeliveryPersonExceptionHandler {
 //
-//            //Call method under test
-//            customer.validateName("", "First name");
-//            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
-//            assertEquals("First name NOT specified", e.getMessage());
-//        }
+//        //Call method under test
+//        dp.validateString("");
+//        fail("Exception expected");
 //    }
 //
 //    //Test #: 5
 //    //Test Objective: To catch an invalid customer name (null string)
 //    //Inputs: line = null, nameOfField = "First name"
 //    //Expected Output: Exception Message: "NULL value in the arguments"
-//    public void testValidateName004() {
-//        try {
+//    public void testValidateName004() throws DeliveryPersonExceptionHandler {
 //
-//            //Call method under test
-//            customer.validateName(null, "First name");
-//            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
-//            assertEquals("NULL value in the arguments", e.getMessage());
-//        }
+//        //Call method under test
+//        dp.validateString(null);
+//        fail("Exception expected");
 //    }
 //
 //    //Test #: 6
 //    //Test Objective: To catch an invalid customer name (containing digits)
 //    //Inputs: line = "bbb23", nameOfField = "Last name"
 //    //Expected Output: Exception Message: "Last name cannot include numbers"
-//    public void testValidateName005() {
+//    public void testValidateName005() throws DeliveryPersonExceptionHandler {
 //        try {
 //
 //            //Call method under test
-//            customer.validateName("bbb23", "Last name");
+//            dp.validateString("bbb23");
 //            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //            assertEquals("Last name cannot include numbers", e.getMessage());
 //        }
 //    }
@@ -120,9 +106,10 @@
 //        try {
 //
 //            //Call method under test
-//            customer.validateName("John", "Random string");
+//            dp.validateName("John", "Random string");
 //            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //            assertEquals("nameOfField is invalid", e.getMessage());
 //        }
 //    }
@@ -135,9 +122,10 @@
 //        try {
 //
 //            //Call method under test
-//            customer.validateName("Mary", null);
+//            dp.validateName("Mary", null);
 //            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //            assertEquals("NULL value in the arguments", e.getMessage());
 //        }
 //    }
@@ -150,8 +138,9 @@
 //        try {
 //
 //            //Call method under test
-//            customer.validateName("Martin", "First name");
-//        } catch (CustomerExceptionHandler e) {
+//            dp.validateName("Martin", "First name");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //            fail("Exception not expected");
 //        }
 //    }
@@ -164,25 +153,28 @@
 //        try {
 //
 //            //Call method under test
-//            customer.validateName("O'Connor", "Last name");
-//        } catch (CustomerExceptionHandler e) {
+//            dp.validateName("O'Connor", "Last name");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //            fail("Exception not expected");
 //        }
 //    }
+//
 //
 //
 //    //Test #: 11
 //    //Test Objective: To catch an invalid address exception
 //    //Inputs: address = "b", nameOFField = "Town"
 //    //Expected Output: Town does not meet minimum length requirements
-//    public void testValidateAddress001() {
+//    public void testValidateAddress001() throws DeliveryPersonExceptionHandler{
 //        try {
 //
 //            //Call method under test
-//            customer.validateAddress("b", "Town");
+//            dp.validateHouseNumber("b");
 //            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
-//            assertEquals("Town does not meet minimum length requirements", e.getMessage());
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            assertEquals("INVALID", e.getMessage());
 //        }
 //    }
 //
@@ -194,9 +186,10 @@
 //        try {
 //
 //            //Call method under test
-//            customer.validateAddress("Moate", "Townie");
+//            dp.validateAddress("Moate", "Townie");
 //            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //
 //            assertEquals("Townie is incorrect name of address field", e.getMessage());
 //        }
@@ -210,9 +203,10 @@
 //        try {
 //
 //            //Call method under test
-//            customer.validateAddress("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Town");
+//            dp.validateAddress("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Town");
 //            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //            assertEquals("Town exceeds maximum length requirements", e.getMessage());
 //        }
 //    }
@@ -225,9 +219,10 @@
 //        try {
 //
 //            //Call method under test
-//            customer.validateAddress(null, null);
+//            dp.validateAddress(null, null);
 //            fail("Exception expected");
-//        } catch (CustomerExceptionHandler e) {
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //            assertEquals("NULL value in the arguments", e.getMessage());
 //        }
 //    }
@@ -240,8 +235,9 @@
 //        try {
 //
 //            //Call method under test
-//            customer.validateAddress("Dublin", "Town");
-//        } catch (CustomerExceptionHandler e) {
+//            dp.validateAddress("Dublin", "Town");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //            fail("Exception not expected");
 //        }
 //    }
@@ -254,9 +250,194 @@
 //        try {
 //
 //            //Call method under test
-//            customer.validateAddress("Strand street", "Address line 2");
-//        } catch (CustomerExceptionHandler e) {
+//            dp.validateAddress("Strand street", "Address line 2");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
 //            fail("Exception not expected");
 //        }
 //    }
+//
+//    //Test #: 16
+//    //Test Objective: To check validation of a correct eircode
+//    //Inputs: eircode="A11AA11"
+//    //Expected Output: no exception
+//    public void testValidateEircode001() {
+//        try {
+//            dp.validateEircode("A11AA11");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            fail("Exception not expected");
+//        }
+//    }
+//
+//    //Test #: 17
+//    //Test Objective: To check validation of an incorrect eircode
+//    //Inputs: eircode="a11aa11"
+//    //Expected Output: Eircode does not correspond to the format "A11AA11"
+//    public void testValidateEircode002() {
+//        try {
+//            dp.validateEircode("a11aa11");
+//            fail("Exception expected");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            assertEquals("Eircode does not correspond to the format \"A11AA11\"", e.getMessage());
+//        }
+//    }
+//
+//    //Test #: 18
+//    //Test Objective: To check validation of an incorrect eircode
+//    //Inputs: eircode= null
+//    //Expected Output: NULL value in the argument
+//    public void testValidateEircode003() {
+//        try {
+//            dp.validateEircode(null);
+//            fail("Exception expected");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            assertEquals("NULL value in the argument", e.getMessage());
+//        }
+//    }
+//
+//
+//    //Test #: 19
+//    //Test Objective: To check validation of a correct phone number
+//    //Inputs: phoneNumber = "085 856 7843"
+//    //Expected Output: No exception
+//    public void testValidatePhoneNumber001() {
+//        try {
+//            dp.validatePhoneNumber("085 856 7843");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            fail("Exception not expected");
+//        }
+//    }
+//
+//
+//    //Test #: 20
+//    //Test Objective: To check validation of an incorrect phone number
+//    //Inputs: phoneNumber = "0858567843"
+//    //Expected Output: Phone number does not correspond to the format "000 000 0000"
+//    public void testValidatePhoneNumber002() {
+//        try {
+//            dp.validatePhoneNumber("0858567843");
+//            fail("Exception expected");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            assertEquals("Phone number does not correspond to the format \"000 000 0000\"", e.getMessage());
+//        }
+//    }
+//
+//    //Test #: 21
+//    //Test Objective: To check validation of an incorrect eircode
+//    //Inputs: eircode = null
+//    //Expected Output: NULL value in the argument
+//    public void testValidatePhoneNumber003() {
+//        try {
+//            dp.validateEircode(null);
+//            fail("Exception expected");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            assertEquals("NULL value in the argument", e.getMessage());
+//        }
+//    }
+//
+//    //Test #: 22
+//    //Test Objective: To check validation of a correct address1 (number of house or apartment)
+//    //Inputs: phoneNumber = 1
+//    //Expected Output: no exception
+//    public void testValidateAddress1001() {
+//        try {
+//            dp.validateAddress1(1);
+//
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            fail("Exception not expected");
+//        }
+//    }
+//
+//    //Test #: 23
+//    //Test Objective: To check validation of a correct address1 (number of house or apartment)
+//    //Inputs: phoneNumber = 1000
+//    //Expected Output: no exception
+//    public void testValidateAddress1002() {
+//        try {
+//            dp.validateAddress1(1000);
+//
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            fail("Exception not expected");
+//        }
+//    }
+//
+//    //Test #: 24
+//    //Test Objective: To check validation of an incorrect address1 (number of house or apartment)
+//    //Inputs: phoneNumber = -1
+//    //Expected Output: Address line 1 cannot be a negative number
+//    public void testValidateAddress1003() {
+//        try {
+//            dp.validateAddress1(-1);
+//            fail("Exception expected");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            assertEquals("Address line 1 cannot be a negative number", e.getMessage());
+//        }
+//    }
+//
+//    //Test #: 25
+//    //Test Objective: To check validation of an incorrect address1 (number of house or apartment)
+//    //Inputs: phoneNumber = 1001
+//    //Expected Output: Address line 1 cannot be greater than 1000
+//    public void testValidateAddress1004() {
+//        try {
+//            dp.validateAddress1(1001);
+//            fail("Exception expected");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            assertEquals("Address line 1 cannot be greater than 1000", e.getMessage());
+//        }
+//    }
+//
+//
+//    //Test #: 26
+//    //Test Objective: To check validation of a correct date
+//    //Inputs: date = "2020-11-10"
+//    //Expected Output: no exception
+//    public void testValidateDate001() {
+//        try {
+//            dp.validateDate("2020-11-10");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            fail("Exception not expected");
+//        }
+//    }
+//
+//    //Test #: 27
+//    //Test Objective: To check validation of an incorrect date
+//    //Inputs: date = "10-11-2020"
+//    //Expected Output: Date format is incorrect
+//    public void testValidateDate002() {
+//        try {
+//            dp.validateDate("10 11 2020");
+//            fail("Exception excpected");
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            assertEquals("Date format is incorrect", e.getMessage());
+//        }
+//    }
+//
+//    //Test #: 28
+//    //Test Objective: To check validation of an correct date value of null
+//    //Inputs: date = null
+//    //Expected Output: NULL value in the argument
+//    public void testValidateDate003() {
+//        try {
+//            dp.validateDate(null);
+//
+//        }
+//        catch (DeliveryPersonExceptionHandler e) {
+//            fail("Exception not excpected");
+//        }
+//    }
+//
+//
 //}
