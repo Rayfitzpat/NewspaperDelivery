@@ -117,7 +117,7 @@ public class PublicationView {
             if (validFrequency == true) {
 
                 System.out.println("Please enter a cost for the new publication\n");
-                double newPublication_Cost = in.nextDouble();
+                String newPublication_Cost = in.next();
                 validatePublicationCost(newPublication_Cost);
                 if (validCost == true) {
                     //asks the user to enter a stock level for the new publication");
@@ -149,8 +149,8 @@ public class PublicationView {
 
     public void editPublication(Statement stmt) throws SQLException {
 
-
         displayAllPublication(stmt);
+
 
         String str = "";
         int count;
@@ -158,7 +158,6 @@ public class PublicationView {
         editId = in.next();
        boolean validNumberedString= validatePublicationId(editId);
         if (validNumberedString == true) {
-
             str = "select count(*) as total from publication where publication_id = " + editId;
             ResultSet rs = stmt.executeQuery(str);
             count = 0;
@@ -216,78 +215,107 @@ public class PublicationView {
         System.out.println("Please enter a new name for the publication");
         in.nextLine();
         newPublication_Name = in.nextLine();
-        validatePublicationName(newPublication_Name);
-        if (validName == true) {
+      boolean validName =  validatePublicationName(newPublication_Name);
+        if (validName) {
             Statement editpublication_name = publicationMain.con.createStatement();
             editpublication_name.executeUpdate("Update publication SET publication_name = '" + newPublication_Name + "' where publication_id = '" + editId + "'");
-
-        } else if (!validName)
-            System.out.println("The String you have entered is incorrect as it contains a number or other illegal character, please enter a correct string and try again");
+            System.out.println("Successfully updated the publication name to " + newPublication_Name+"\n\nReturning to edit menu....");
+        }
     }
 
     public void editpublication_frequency() throws SQLException {
-        System.out.println("Please enter a new frequency for the publication, either daily or weekly");
+        System.out.println("Please enter a new frequency for the publication, either Daily or Weekly");
         String newPublication_Frequency = in.next();
         boolean validFrequency = validatePublicationFrequency(newPublication_Frequency);
-        if (validFrequency == true) {
+        if (validFrequency)
+        {
             Statement editpublication_frequency = publicationMain.con.createStatement();
             editpublication_frequency.executeUpdate("Update publication SET publication_frequency = '" + newPublication_Frequency + "' where publication_id = '" + editId + "'");
-        } else
-            System.out.println("You have entered an illegal character, please enter only 'Daily' or 'Weekly' and try again ");
+            System.out.println("Successfully update the frequency to " + newPublication_Frequency +"\n\nReturning to edit menu....");
+        }
     }
 
     public void editpublication_cost() throws SQLException {
         System.out.println("Please enter a new cost for the publication");
         String newPublication_Cost = in.next();
-       boolean validNumberedString= validatePublicationId(newPublication_Cost);
-        if (validNumberedString == true) {
+       boolean validNumberedString= validatePublicationCost(newPublication_Cost);
+        if (validNumberedString) {
             Statement editpublication_cost = publicationMain.con.createStatement();
             editpublication_cost.executeUpdate("Update publication SET publication_cost = '" + newPublication_Cost + "' where publication_id = '" + editId + "'");
-        } else
-            System.out.println("You have entered an invalid price, please enter a proper numeric value and try again");
-    }
-
-    public void editpublication_stock_level() throws SQLException {
-        System.out.println("Please enter a new stock level");
-        int newPublication_Stock_Level = in.nextInt();
-        validatePublicationStockLevel(newPublication_Stock_Level);
-        if (validStockLevel == true) {
-            Statement editpublication_stock_level = publicationMain.con.createStatement();
-            editpublication_stock_level.executeUpdate("Update publication SET publication_stock_level = '" + newPublication_Stock_Level + "' where publication_id = '" + editId + "'");
-        } else if (!validStockLevel) {
-            System.out.println("You have entered and invalid stock level, please enter a different stock level and try again");
+            System.out.println("Successfully update the price to " + newPublication_Cost +"\n\nReturning to edit menu....");
         }
     }
 
-    public void deletePublication(Statement stmt) throws SQLException {
+
+    public void editpublication_stock_level() throws SQLException
+    {
+        int newPublication_Stock_Level = askUserToEnterStockLevel();
+            Statement editpublication_stock_level = publicationMain.con.createStatement();
+            editpublication_stock_level.executeUpdate("Update publication SET publication_stock_level = '" + newPublication_Stock_Level + "' where publication_id = '" + editId + "'");
+        System.out.println("Successfully update the frequency to " + newPublication_Stock_Level +"\n\nReturning to edit menu....");
+    }
+
+
+
+
+
+
+    public void deletePublication(Statement stmt) throws SQLException
+    {
         displayAllPublication(stmt);
 
-
         System.out.println("Please enter the ID of the publication you would like to delete\n");
-
-
         String deleteId = in.next();
+
       boolean validString =  validatePublicationId(deleteId);
         if (validString == true)
         {
 
     boolean confirmDelete = askUserYesOrNo( "Are you sure want to delete this publication. All deliveries, Daily Summaries and orders associated with this publication will also be deleted(yes/no)");
         if(confirmDelete)
-        {
+            {
             Statement deletePublication = publicationMain.con.createStatement();
             deletePublication.executeUpdate("DELETE from publication where publication_id = " + deleteId);
-        }
+            }
 
-
-
-
-        } else
+        }    else
             {
             System.out.println("You have entered an incorrect ID, please check the list of IDs and try again.\n");
             deletePublication(stmt);
-        }
+            }
         System.out.println("Returning to Main Menu...");
+    }
+
+
+    public  int askUserToEnterStockLevel()
+    {
+
+
+        int stockLevel = 0;
+        boolean inputValid = false;
+
+        while (!inputValid)
+        {
+            System.out.println("Enter the stock level for the publication chosen");
+            if (in.hasNextInt())
+            {
+                stockLevel = in.nextInt();
+                if(validatePublicationStockLevel(stockLevel))
+                {
+                    inputValid=true;
+                }
+            }
+            else
+            {
+                //clear the input buffer and start again
+                in.nextLine();
+                in.nextLine();
+                System.out.println("You entered an invalid stock level, please try again...");
+            }
         }
+        return stockLevel;
+    }
+
 
 
     public boolean askUserYesOrNo(String question){
@@ -327,58 +355,75 @@ public class PublicationView {
     }
 
     public boolean validatePublicationId(String publicationId) {
-        boolean validNumberedString = true;
+
         for (int i = 0; i < publicationId.length() + 1; i++) {
 
             if (publicationId.charAt(i) >= '0'
                     && publicationId.charAt(i) <= '9') {
-                validNumberedString = true;
                 return true;
             } else {
-                validNumberedString = false;
                 return false;
             }
         }
-        validNumberedString = false;
         return false;
     }
 
     //TODO Make a method to validate stock level, implement it into add and edit, move these validate methods to pulication.java
     public boolean validatePublicationName(String newPublication_Name) {
-        if (newPublication_Name.matches("[a-zA-Z\\s\'\"]+")) {
+        if (newPublication_Name.matches("[a-zA-Z\\s\'\"]+"))
+        {
             validName = true;
             return true;
         } else
+            System.out.println("You have entered an invalid character(s). Please try again only using valid characters");
             validName = false;
         return false;
 
     }
 
     public boolean validatePublicationFrequency(String newPublication_Frequency) {
-        if (newPublication_Frequency.matches("[a-zA-Z]+")) {
+        if (newPublication_Frequency.matches("[a-zA-Z]+"))
+        {
+            if(newPublication_Frequency.matches("Daily") || newPublication_Frequency.matches("Weekly"))
+            {
+              return true;
+            }
+           else if(newPublication_Frequency.matches("daily") || newPublication_Frequency.matches("weekly"))
 
-            return true;
-        } else
-
+                System.out.println("Publication NOT updated. Please use capitilization, thank you :)");
+            return false;
+        }
+        else
+            System.out.println("Please only enter the words, 'Daily' or 'Weekly'");
         return false;
 
     }
 
-    public boolean validatePublicationCost(double newPublication_Cost) {
-        if (newPublication_Cost >= 0.5 && newPublication_Cost <= 5.0) {
-            validCost = true;
-            return true;
-        } else
-            validCost = false;
+    public boolean validatePublicationCost(String publicationCost)
+    {
+
+        for (int i = 0; i < publicationCost.length() + 1; i++) {
+
+            if (publicationCost.charAt(i) >= '0'
+                    && publicationCost.charAt(i) <= '9') {
+                return true;
+            } else {
+                System.out.println("A character you entered is not a valid number, please try again using only valid numbers.");
+                return false;
+            }
+        }
+        System.out.println("A character you entered is not a valid number, please try again using only valid numbers.");
         return false;
+
     }
 
     public boolean validatePublicationStockLevel(int newPublication_Stock_Level) {
-        if (newPublication_Stock_Level >= 0 && newPublication_Stock_Level <= 10000)
+        if (newPublication_Stock_Level >= 0 && newPublication_Stock_Level <= 1000)
         {
             validStockLevel = true;
             return true;
         } else
+            System.out.println("The stock level you have entered is invalid, please try again using only numbers.");
             validStockLevel = false;
         return false;
     }
