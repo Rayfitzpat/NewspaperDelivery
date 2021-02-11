@@ -270,12 +270,60 @@ public class PublicationView {
       boolean validString =  validatePublicationId(deleteId);
         if (validString == true)
         {
-            System.out.println("Are you sure you want to delete this publication, all orders, invoices and deliveries associated with this publication will also be deleted.");
+
+    boolean confirmDelete = askUserYesOrNo( "Are you sure want to delete this publication. All deliveries, Daily Summaries and orders associated with this publication will also be deleted(yes/no)");
+        if(confirmDelete)
+        {
             Statement deletePublication = publicationMain.con.createStatement();
-            deletePublication.executeUpdate("DELETE from publication where publication_id = " + deleteId );
+            deletePublication.executeUpdate("DELETE from publication where publication_id = " + deleteId);
+        }
+
+
+
+
         } else
+            {
             System.out.println("You have entered an incorrect ID, please check the list of IDs and try again.\n");
-        deletePublication(stmt);
+            deletePublication(stmt);
+        }
+        System.out.println("Returning to Main Menu...");
+        }
+
+
+    public boolean askUserYesOrNo(String question){
+        String answer;
+        boolean inputValid = false;
+        boolean confirm = false;
+
+        while (!inputValid)
+        {
+            System.out.println(question);
+            if (in.hasNextLine())
+            {
+                // if customer reply is "yes" or "no", save it and exit the loo0
+                in.nextLine();
+                answer = in.nextLine();
+                if (answer.equals("yes") || answer.equals("Yes")) {
+                    inputValid = true;
+                    confirm = true;
+
+                }
+                else if(answer.equals("no") || answer.equals("No")) {
+                    inputValid = true;
+                    confirm = false;
+                }
+                else {
+                    System.out.println("You entered an invalid answer, please use \"yes\" or \"no\"...");
+                }
+            }
+            else
+            {
+                //clear the input buffer and start again
+                in.nextLine();
+                System.out.println("You entered an invalid answer, please use \"yes\" or \"no\"...");
+            }
+        }
+        return confirm;
     }
 
     public boolean validatePublicationId(String publicationId) {
