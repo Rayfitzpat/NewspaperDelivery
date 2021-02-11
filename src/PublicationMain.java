@@ -14,7 +14,8 @@ public class PublicationMain {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
             con = DriverManager.getConnection(url, "root", "admin");
-            stmt = con.createStatement();
+            stmt = con.createStatement();         
+
         } catch (Exception e) {
             System.out.println("Error: Failed to connect to database\n" + e.getMessage());
         }
@@ -42,19 +43,19 @@ public class PublicationMain {
 
                 switch (menuChoice) {
                     case 1:
-                        pv.displayAllPublication(stmt); //The code for this method is already done for you below
+                        pv.displayAllPublication(stmt);
                         break;
                     case 2:
-                        pv.displayPublication(stmt); //You need to code this method below
+                        pv.displayPublication(stmt);
                         break;
                     case 3:
-                        pv.addNewPublication(stmt); //You need to code this method below
+                        pv.addNewPublication(stmt);
                         break;
                     case 4:
-                        pv.editPublication(stmt); //You need to code this method below
+                        pv.editPublication(stmt);
                        break;
                     case 5:
-                        pv.deletePublication(stmt); //You need to code this method below
+                        pv.deletePublication(stmt);
                         break;
 //                    case 6:
 //                        System.out.println("Program is closing...");

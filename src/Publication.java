@@ -5,17 +5,17 @@ import java.util.ArrayList;
 
 public class Publication {
 
-    private int publicationId;
-    private String publicationName;
+    private int publication_id;
+    private String publication_name;
     private double cost;
     private String frequency;
     private int stockLevel;
     private ResultSet rs = null;
 
-    public Publication(int publicationId, String name, double cost, String frequency, int stockLevel)
+    public Publication(int publication_id, String name, double cost, String frequency, int stockLevel)
     {
-        this.publicationId = publicationId;
-        this.publicationName = name;
+        this.publication_id = publication_id;
+        this.publication_name = name;
         this.cost = cost;
         this.frequency = frequency;
         this.stockLevel = stockLevel;
@@ -27,19 +27,19 @@ public class Publication {
     }
 
     // Getters and setters
-    public int getPublicationId()
+    public int getpublication_id()
     {
-        return publicationId;
+        return publication_id;
     }
 
-    public void setPublicationId(int id)
+    public void setpublication_id(int id)
     {
-        this.publicationId = id;
+        this.publication_id = id;
     }
 
-    public String getPublicationName()
+    public String getpublication_name()
     {
-        return publicationName;
+        return publication_name;
     }
 
     public double getCost() {
@@ -67,8 +67,8 @@ public class Publication {
         this.stockLevel = stockLevel;
     }
 
-    public void setPublicationName(String publicationName) {
-        this.publicationName = publicationName;
+    public void setpublication_name(String publication_name) {
+        this.publication_name = publication_name;
     }
 
 //
@@ -82,13 +82,13 @@ public class Publication {
 //        try {
 //            rs = stmt.executeQuery(str);
 //            while (rs.next()) {
-//                int spublicationId = rs.getInt("publicationId");
-//                String publicationName = rs.getString("publicationName");
-//                String publicationFrequency = rs.getString("publicationFrequency");
-//                float publicationCost = rs.getFloat("publicationCost");
-//                int stockLevel = rs.getInt("publicationStockLevel");
+//                int spublication_id = rs.getInt("publication_id");
+//                String publication_name = rs.getString("publication_name");
+//                String publication_frequency = rs.getString("publication_frequency");
+//                float publication_cost = rs.getFloat("publication_cost");
+//                int stockLevel = rs.getInt("publication_stock_level");
 //
-//                listOfPublications.add(new Publication(spublicationId, publicationName, publicationCost, publicationFrequency,  stockLevel));
+//                listOfPublications.add(new Publication(spublication_id, publication_name, publication_cost, publication_frequency,  stockLevel));
 //            }
 //
 //        } catch (SQLException sqle) {
@@ -105,7 +105,7 @@ public class Publication {
 //        System.out.printf("\n%-12s %-30s %-20s %-10s %-10s\n", "Col1", "Col2", "Col3", "Col4", "Col5");
 //        for (int i = 0; i < publications.size(); i++)
 //        {
-//            System.out.printf("%-12d %-30s %-20f %-10d %-10s\n", publications.get(i).getPublicationId(), publications.get(i).getPublicationName(), publications.get(i).getCost(), publications.get(i).getStockLevel(), publications.get(i).getFrequency());
+//            System.out.printf("%-12d %-30s %-20f %-10d %-10s\n", publications.get(i).getpublication_id(), publications.get(i).getpublication_name(), publications.get(i).getCost(), publications.get(i).getStockLevel(), publications.get(i).getFrequency());
 //        }
 //    }
 //
@@ -119,7 +119,7 @@ public class Publication {
 //
 //    }
 //
-//    public void deletePublication(int publicationId)
+//    public void deletePublication(int publication_id)
 //    {
 //
 //    }
@@ -128,8 +128,8 @@ public class Publication {
     @Override
     public String toString() {
         return "Publication{" +
-                "publicationId=" + publicationId +
-                ", publicationName='" + publicationName + '\'' +
+                "publication_id=" + publication_id +
+                ", publication_name='" + publication_name + '\'' +
                 ", cost=" + cost +
                 ", frequency='" + frequency + '\'' +
                 ", stockLevel=" + stockLevel +
