@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class PublicationView {
 
 
-    String newPublication_Name = "";
+
     Scanner in = new Scanner(System.in);
     String editId = "";
     PublicationMain publicationMain = new PublicationMain();
@@ -85,37 +85,49 @@ public class PublicationView {
 
         PublicationMain publicationMain = new PublicationMain();
         displayAllPublication(stmt);
-        newPublication_Name = "";
 
 
-        System.out.println("Please Enter a name for the new Publication\n");
-        newPublication_Name = in.nextLine();
+
+        System.out.println("\nPlease Enter a name for the new Publication\n");
+       String newPublication_Name = in.nextLine();
         boolean validName = p.validatePublicationName(newPublication_Name);
-        if (validName == true) {
+        if (validName == true)
+        {
 
 
             System.out.println("Please enter a frequency for the new publication, either Daily or Weekly\n");
             String newPublication_Frequency = in.nextLine();
             boolean validFrequency = p.validatePublicationFrequency(newPublication_Frequency);
-            if (validFrequency == true) {
+            if (validFrequency == true)
+            {
 
                 System.out.println("Please enter a cost for the new publication\n");
                 String newPublication_Cost = in.next();
                 boolean validCost = p.validateANumber(newPublication_Cost);
-                if (validCost == true) {
+                if (validCost == true)
+                {
                     //asks the user to enter a stock level for the new publication");
                     System.out.println("Please enter the stock level for the new publication\n");
                     String newPublication_Stock_Level = in.next();
                     boolean validStockLevel = p.validateANumber(newPublication_Stock_Level);
-                    if (validStockLevel == true) {
+                    if (validStockLevel == true)
+                    {
 
                         Statement addNew = publicationMain.con.createStatement();
                         addNew.executeUpdate("INSERT INTO publication VALUES (null, '" + newPublication_Name + "','" + newPublication_Frequency + "','" + newPublication_Cost + "','" + newPublication_Stock_Level + "')");
                         displayAllPublication(stmt);
                     }
+                    else
+                        addNewPublication(stmt);
                 }
+                else
+                    addNewPublication(stmt);
             }
+            else
+                addNewPublication(stmt);
         }
+        else
+            addNewPublication(stmt);
     }
     // ******************************************************************************************************
     // Beginning of the edit publication method.
@@ -191,7 +203,7 @@ public class PublicationView {
 
         System.out.println("Please enter a new name for the publication");
         in.nextLine();
-        newPublication_Name = in.nextLine();
+        String newPublication_Name = in.nextLine();
         boolean validName = p.validatePublicationName(newPublication_Name);
         if (validName) {
             Statement editpublication_name = publicationMain.con.createStatement();
@@ -244,6 +256,60 @@ public class PublicationView {
     // Beginning of the delete publication method.
     // ******************************************************************************************************
     public void deletePublication(Statement stmt) throws SQLException {
+
+        PublicationMain pm = new PublicationMain();
+
+        int deleteCount;
+        String str;
+        ResultSet rs;
+        displayAllPublication(stmt);
+        System.out.println("Please enter the id number of the publication that you want to delete");
+
+        String id = in.next();
+        boolean validID = p.validatePublicationId(id);
+        if (validID) {
+            str = "select count(*) as total from publication where publication_id = " + id;
+
+            rs = stmt.executeQuery(str);
+            deleteCount = 0;
+            while (rs.next()) {
+                deleteCount = rs.getInt("total");
+            }
+
+            if (deleteCount > 0) {
+
+                try {
+                    Statement deletePerson = pm.con.createStatement();
+                    deletePerson.executeUpdate("delete from publication where publication_id =" + id + "");
+                    System.out.println("Delivery Person with id: " + id + " has been deleted");
+                } catch (Exception e) {
+                    System.out.println("unable to delete delivery person");
+                }
+            } else {
+                System.out.println("That person does not exist, please try again");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         displayAllPublication(stmt);
 
         System.out.println("Please enter the ID of the publication you would like to delete\n");

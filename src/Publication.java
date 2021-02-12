@@ -136,7 +136,7 @@ public class Publication {
 // Validates that the string entered only consists of letters and spaces.
 // *****************************************************************************************
     public boolean validatePublicationName(String newPublication_Name) {
-        if (newPublication_Name.matches("[a-zA-Z\\s\'\"]+"))
+        if (newPublication_Name.matches("/[a-zA-Z ]+/"))
         {
 
             return true;
