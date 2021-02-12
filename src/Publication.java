@@ -13,8 +13,7 @@ public class Publication {
     private int stockLevel;
     private ResultSet rs = null;
 
-    public Publication(int publication_id, String name, double cost, String frequency, int stockLevel)
-    {
+    public Publication(int publication_id, String name, double cost, String frequency, int stockLevel) {
         this.publication_id = publication_id;
         this.publication_name = name;
         this.cost = cost;
@@ -22,24 +21,20 @@ public class Publication {
         this.stockLevel = stockLevel;
     }
 
-    public Publication()
-    {
+    public Publication() {
 
     }
 
     // Getters and setters
-    public int getpublication_id()
-    {
+    public int getpublication_id() {
         return publication_id;
     }
 
-    public void setpublication_id(int id)
-    {
+    public void setpublication_id(int id) {
         this.publication_id = id;
     }
 
-    public String getpublication_name()
-    {
+    public String getpublication_name() {
         return publication_name;
     }
 
@@ -73,38 +68,31 @@ public class Publication {
     }
 
 
-
-// *****************************************************************************************
+    // *****************************************************************************************
 // Method that asks the user to input yes or no. returns a true or false statement based on that
 // *****************************************************************************************
-    public boolean askUserYesOrNo(String question){
+    public boolean askUserYesOrNo(String question) {
         String answer;
         boolean inputValid = false;
         boolean confirm = false;
 
-        while (!inputValid)
-        {
+        while (!inputValid) {
             System.out.println(question);
-            if (in.hasNextLine())
-            {
-                // if customer reply is "yes" or "no", save it and exit the loo0
+            if (in.hasNextLine()) {
+                // if publication reply is "yes" or "no", save it and exit the loo0
                 in.nextLine();
                 answer = in.nextLine();
                 if (answer.equals("yes") || answer.equals("Yes")) {
                     inputValid = true;
                     confirm = true;
 
-                }
-                else if(answer.equals("no") || answer.equals("No")) {
+                } else if (answer.equals("no") || answer.equals("No")) {
                     inputValid = true;
                     confirm = false;
-                }
-                else {
+                } else {
                     System.out.println("You entered an invalid answer, please use \"yes\" or \"no\"...");
                 }
-            }
-            else
-            {
+            } else {
                 //clear the input buffer and start again
                 in.nextLine();
                 System.out.println("You entered an invalid answer, please use \"yes\" or \"no\"...");
@@ -124,12 +112,12 @@ public class Publication {
                     && publicationId.charAt(i) <= '9') {
                 return true;
             } else {
+                System.out.println("Your entry is invalid as it does not contain a whole number");
                 return false;
             }
         }
         return false;
     }
-
 
 
     // *****************************************************************************************
@@ -138,14 +126,22 @@ public class Publication {
     public boolean validatePublicationName(String newPublication_Name) {
         if (newPublication_Name.matches("/[a-zA-Z ]+/"))
         {
-
+        if (newPublication_Name.length() >= 3 && newPublication_Name.length() <= 30)
+        {
             return true;
-        } else
-            System.out.println("You have entered an invalid character(s). Please try again only using valid characters");
+        }
+        else {
+            System.out.println("The Publication Name you entered is not the valid length");
+            return false;
 
-        return false;
-
+        }
     }
+        else
+            {
+            System.out.println("The publication name you have entered contains invalid character(s). Please try again.");
+            return false;
+        }
+}
 
     // *****************************************************************************************
 // Validates that the string entered only consists of the words "Daily" or "Weekly"
