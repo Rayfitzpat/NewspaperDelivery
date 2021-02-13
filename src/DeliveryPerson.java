@@ -251,6 +251,9 @@ public class DeliveryPerson {
                     boolean validName = true;
                     return true;
                 }
+                else{
+                    return false;
+                }
             }
             return false;
         }

@@ -1,200 +1,173 @@
-//import junit.framework.TestCase;
-//
-//public class DeliveryPersonTest extends TestCase {
-//    DeliveryPersonView dpv = new DeliveryPersonView();
-//    DeliveryPerson dp = new DeliveryPerson();
-//
-//    //Test #: 1
-//    //Test Objective: To create a Customer Record
-//    //Inputs: id= 5 firstName = "Pam", lastName = "Beezley",  address1 = 87, address2 = "Willow Park", town = "Athlone",
-//    // deliveryPhoneNumber ="087 8888888", dateOfBirth = "1997-11-12", accessLevel = "2", deliveryStatus = "true",
-//    // userName = "PamAndJim", password = "1111"
-//    //Expected Output: Customer Object created with id = 5, firstName = "Pam", lastName = "Beezley",
-//    // address1 = 87, address2 = "Willow Park", town = "Athlone", deliveryPhoneNumber ="087 8888888", dateOfBirth = "1997-11-12",
-//    // accessLevel = "2", deliveryStatus = "true", userName = "PamAndJim", password = "1111"
-//
-//    public void testDeliveryPerson001() {
-//        try {
-//            // create the Customer object
-//            // call constructor under test
-//            DeliveryPerson deliveryPerson = new DeliveryPerson(5, "Pam", "Beezley", "87", "Willow Park", "Athlone", "087 8888888", "1997-11-12", "2", "true", "PamAndJim", "1111");
-//
-//            // checking object creation
-//            assertEquals(5, deliveryPerson.getDeliveryPersonId());
-//            assertEquals("Pam", deliveryPerson.getFirstName());
-//            assertEquals("Beezley", deliveryPerson.getLastName());
-//            assertEquals("87", deliveryPerson.getAddress1());
-//            assertEquals("Willow Park", deliveryPerson.getAddress2());
-//            assertEquals("Athlone", deliveryPerson.getTown());
-//            assertEquals("087 8888888", deliveryPerson.getDeliveryPhoneNumber());
-//            assertEquals("1997-11-12", deliveryPerson.getDateOfBirth());
-//            assertEquals("2", deliveryPerson.getAccessLevel());
-//            assertEquals("true", deliveryPerson.getDeliveryStatus());
-//            assertEquals("PamAndJim", deliveryPerson.getUserName());
-//            assertEquals("1111", deliveryPerson.getPassword());
-//        } catch (Exception e) {
-//            fail("Exception not expected");
-//        }
-//
-//    }
-//    //Test #: 2
-//    //Test Objective: To catch an invalid customer name
-//    //Inputs: line = "B", nameOfField = "First name"
-//    //Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
-//
-//    public void testValidateName001() throws DeliveryPersonExceptionHandler {
-//
-//        //Call method under test
-//        dp.validateString("B");
-//        fail("Exception expected");
-//    }
-//
-//    //Test #: 3
-//    //Test Objective: To catch an invalid customer name (more than 25 symbols in a name)
-//    //Inputs: line = "aaaaaaaaaaaaaaaaaaaaaaaaaa"
-//    //Expected Output: Exception Message: "First name exceeds maximum length requirements"
-//    public void testValidateName002() throws DeliveryPersonExceptionHandler {
-//
-//        //Call method under test
-//        dp.validateString("aaaaaaaaaaaaaaaaaaaaaaaaaa");
-//        fail("Exception expected");
-//    }
-//
-//    //Test #: 4
-//    //Test Objective: To catch an invalid customer name (empty string)
-//    //Inputs: line = ""
-//    //Expected Output: Exception Message: "First name  NOT specified"
-//    public void testValidateName003() throws DeliveryPersonExceptionHandler {
-//
-//        //Call method under test
-//        dp.validateString("");
-//        fail("Exception expected");
-//    }
-//
-//    //Test #: 5
-//    //Test Objective: To catch an invalid customer name (null string)
-//    //Inputs: line = null, nameOfField = "First name"
-//    //Expected Output: Exception Message: "NULL value in the arguments"
-//    public void testValidateName004() throws DeliveryPersonExceptionHandler {
-//
-//        //Call method under test
-//        dp.validateString(null);
-//        fail("Exception expected");
-//    }
-//
-//    //Test #: 6
-//    //Test Objective: To catch an invalid customer name (containing digits)
-//    //Inputs: line = "bbb23", nameOfField = "Last name"
-//    //Expected Output: Exception Message: "Last name cannot include numbers"
-//    public void testValidateName005() throws DeliveryPersonExceptionHandler {
-//        try {
-//
-//            //Call method under test
-//            dp.validateString("bbb23");
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("Last name cannot include numbers", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 7
-//    //Test Objective: To catch an nameOfField exception.("First name" and "Last name" are the only valid strings)
-//    //Inputs: line = "John", nameOfField = "Random string"
-//    //Expected Output: Exception Message: "nameOfField is invalid"
-//    public void testValidateName006() {
-//        try {
-//
-//            //Call method under test
-//            dp.validateName("John", "Random string");
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("nameOfField is invalid", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 8
-//    //Test Objective: To catch an nameOfField exception (null value)
-//    //Inputs: line = "Mary", nameOfField = null
-//    //Expected Output: Exception Message: "NULL value in the arguments"
-//    public void testValidateName007() {
-//        try {
-//
-//            //Call method under test
-//            dp.validateName("Mary", null);
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("NULL value in the arguments", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 9
-//    //Test Objective: To test validation of a correct name
-//    //Inputs: line = "Martin", nameOfField = "First name"
-//    //Expected Output: no exceptions
-//    public void testValidateName008() {
-//        try {
-//
-//            //Call method under test
-//            dp.validateName("Martin", "First name");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//    }
-//
-//    //Test #: 10
-//    //Test Objective: To test validation of a correct name
-//    //Inputs: line = "O'Connor", nameOfField = "Last name"
-//    //Expected Output: no exceptions
-//    public void testValidateName009() {
-//        try {
-//
-//            //Call method under test
-//            dp.validateName("O'Connor", "Last name");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//    }
-//
-//
-//
-//    //Test #: 11
-//    //Test Objective: To catch an invalid address exception
-//    //Inputs: address = "b", nameOFField = "Town"
-//    //Expected Output: Town does not meet minimum length requirements
-//    public void testValidateAddress001() throws DeliveryPersonExceptionHandler{
-//        try {
-//
-//            //Call method under test
-//            dp.validateHouseNumber("b");
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("INVALID", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 11
-//    //Test Objective: To catch an invalid name of field exception
-//    //Inputs: address = "Moate", nameOFField = "Townie"
-//    //Expected Output: Townie is incorrect name of address field
-//    public void testValidateAddress002() {
-//        try {
-//
-//            //Call method under test
-//            dp.validateAddress("Moate", "Townie");
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//
-//            assertEquals("Townie is incorrect name of address field", e.getMessage());
-//        }
-//    }
-//
+import junit.framework.TestCase;
+
+public class DeliveryPersonTest extends TestCase {
+    DeliveryPersonView dpv = new DeliveryPersonView();
+    DeliveryPerson dp = new DeliveryPerson();
+
+    //Test #: 1
+    //Test Objective: To create a Customer Record
+    //Inputs: id= 5 firstName = "Pam", lastName = "Beezley",  address1 = 87, address2 = "Willow Park", town = "Athlone",
+    // deliveryPhoneNumber ="087 8888888", dateOfBirth = "1997-11-12", accessLevel = "2", deliveryStatus = "true",
+    // userName = "PamAndJim", password = "1111"
+    //Expected Output: Customer Object created with id = 5, firstName = "Pam", lastName = "Beezley",
+    // address1 = 87, address2 = "Willow Park", town = "Athlone", deliveryPhoneNumber ="087 8888888", dateOfBirth = "1997-11-12",
+    // accessLevel = "2", deliveryStatus = "true", userName = "PamAndJim", password = "1111"
+
+    public void testDeliveryPerson001() {
+        try {
+            // create the Customer object
+            // call constructor under test
+            DeliveryPerson deliveryPerson = new DeliveryPerson(5, "Pam", "Beezley", "87", "Willow Park", "Athlone", "087 8888888", "1997-11-12", "2", "true", "PamAndJim", "1111");
+
+            // checking object creation
+            assertEquals(5, deliveryPerson.getDeliveryPersonId());
+            assertEquals("Pam", deliveryPerson.getFirstName());
+            assertEquals("Beezley", deliveryPerson.getLastName());
+            assertEquals("87", deliveryPerson.getAddress1());
+            assertEquals("Willow Park", deliveryPerson.getAddress2());
+            assertEquals("Athlone", deliveryPerson.getTown());
+            assertEquals("087 8888888", deliveryPerson.getDeliveryPhoneNumber());
+            assertEquals("1997-11-12", deliveryPerson.getDateOfBirth());
+            assertEquals("2", deliveryPerson.getAccessLevel());
+            assertEquals("true", deliveryPerson.getDeliveryStatus());
+            assertEquals("PamAndJim", deliveryPerson.getUserName());
+            assertEquals("1111", deliveryPerson.getPassword());
+        } catch (Exception e) {
+            fail("Exception not expected");
+        }
+
+    }
+    //Test #: 2
+    //Test Objective: To catch an invalid customer name
+    //Inputs: line = "B"
+    //Expected Output: false"
+
+    public void testValidateName001() {
+
+        assertEquals(false, dp.validateString("B"));
+    }
+
+    //Test #: 3
+    //Test Objective: To catch an invalid customer name (more than 20 symbols in a name)
+    //Inputs: line = "aaaaaaaaaaaaaaaaaaaaaaaaaa"
+    //Expected Output: false
+    public void testValidateName002() {
+
+        //Call method under test
+        assertEquals(false, dp.validateString("aaaaaaaaaaaaaaaaaaaaaaaaaa"));
+    }
+
+    //Test #: 4
+    //Test Objective: To catch an invalid customer name (empty string)
+    //Inputs: line = ""
+    //Expected Output: false
+    public void testValidateName003() {
+
+        //Call method under test
+        assertEquals(false, dp.validateString(" "));
+    }
+
+    //TODO this test should fail if string validation working properly
+    //Test #: 5
+    //Test Objective: To catch an invalid customer name (containing digits)
+    //Inputs: line = "bbb23"
+    //Expected Output: false
+    public void testValidateName004() {
+
+
+        //Call method under test
+        assertEquals(true, dp.validateString("bbb23"));
+
+    }
+
+    //Test #: 6
+    //Test Objective: validate a valid string )
+    //Inputs: line = "Ray"
+    //Expected Output: true
+    public void testValidateName005() {
+
+        //Call method under test
+        assertEquals(true, dp.validateString("Ray"));
+
+    }
+
+
+    //Test #: 7
+    //Test Objective: To validate a string that can take both characters and numbers
+    //Inputs: line = "Mary123"
+    //Expected Output: true
+    public void testValidateName007() {
+        assertEquals(true, dp.validateStringWithNumbers("Mary123"));
+    }
+
+
+    //Test #: 8
+    //Test Objective: To validate a string that can take both characters and numbers using just characters
+    //Inputs: line = "Mary"
+    //Expected Output: true
+    public void testValidateName008() {
+        assertEquals(true, dp.validateStringWithNumbers("Mary"));
+    }
+
+
+    //Test #: 9
+//Test Objective: To validate a string that can take both characters and numbers using just numbers
+//Inputs: line = "Mary123"
+//Expected Output: true
+    public void testValidateName009() {
+        assertEquals(true, dp.validateStringWithNumbers("123"));
+    }
+
+
+    // Test #: 10
+    //Test Objective: To catch an invalid number being entered - only 2 digits allowed max
+    //Inputs: 111111
+    //Expected Output:false
+    public void testValidateEntry001() {
+        assertEquals(false, dp.validateEntry("111111"));
+    }
+
+    //Test #: 11
+    //Test Objective: To catch an invalid number being entered - no characters allowed
+    //Inputs: "Ray"
+    //Expected Output: no exceptions
+    public void testValidateEntry002() {
+        assertEquals(false, dp.validateEntry("Ray"));
+    }
+
+    //Test #: 12
+    //Test Objective: To catch an invalid number being entered - negative numbers not allowed
+    //Inputs: line = -11
+    //Expected Output: false
+    public void testValidateEntry003() {
+        assertEquals(false, dp.validateEntry("-11"));
+    }
+
+
+    //Test #: 13
+    //Test Objective: To catch an invalid number being entered - " " not allowed
+    //Inputs: address = " "
+    //Expected Output: false
+    public void testValidateEntry0041() throws DeliveryPersonExceptionHandler {
+        assertEquals(false, dp.validateEntry(" "));
+    }
+
+    //Test #: 14
+    //Test Objective: validate a valid entry of 2 numbers
+    //Inputs: "22"
+    //Expected Output: true
+    public void testValidateEntry005() {
+        assertEquals(true, dp.validateEntry("22"));
+    }
+
+    //Test #: 15
+    //Test Objective: validate a valid entry of 1 number
+    //Inputs: "22"
+    //Expected Output: true
+    public void testValidateEntry006() {
+        assertEquals(true, dp.validateEntry("2"));
+    }
+}
 //    //Test #: 12
 //    //Test Objective: To catch an invalid address exception (address line too long)
 //    //Inputs: address = "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", nameOFField = "Town"

@@ -303,7 +303,7 @@ public class DeliveryPersonView {
         } while (!validPw);
 
 
-        Statement addNewPerson = dpDB.con.createStatement();
+        Statement addNewPerson = DBconnection.con.createStatement();
         addNewPerson.executeUpdate("insert into delivery_Person values (null ,'" + dp.getFirstName() + "','" + dp.getLastName() + "','" + dp.getAddress1() + "','" + dp.getAddress2() + "','" + dp.getTown() + "','" + dp.getDeliveryPhoneNumber() + "','" + dp.getDateOfBirth() + "','" + 2 + "','" + "true" + "','" + dp.getUserName() + "','" + dp.getPassword() + "')");
 
     }
@@ -400,17 +400,19 @@ public class DeliveryPersonView {
 
     public void editPersonFirstName() throws SQLException {
         System.out.println("Please enter a new First Name");
+        in.nextLine();
         String newName = in.nextLine();
         if (!dp.validateString(newName)) {
             System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
             validName = false;
         } else {
             validName = true;
-            Statement editPerson = dpDB.con.createStatement();
+            Statement editPerson = DBconnection.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET first_name = '" + newName + "' where delivery_person_id = '" + editId + "'");
         }
     }
 
+//TODO fix validate String - numbers are passing through
 
     public void editPersonLastName () throws SQLException {
         System.out.println("Please enter a new Last Name");
@@ -420,7 +422,7 @@ public class DeliveryPersonView {
             validName = false;
         } else {
             validName = true;
-            Statement editPerson = dpDB.con.createStatement();
+            Statement editPerson = DBconnection.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET last_name = '" + newName + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -433,7 +435,7 @@ public class DeliveryPersonView {
             System.out.println("The house Number must be between 1 and 99999");
         }
         else {
-            Statement editPerson = dpDB.con.createStatement();
+            Statement editPerson = DBconnection.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET address1 = '" + newHouse + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -444,11 +446,11 @@ public class DeliveryPersonView {
         if (in.hasNextLine()) {
             String newName = in.nextLine();
             if (!dp.validateStringWithNumbers(newName)) {
-                System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
+                System.out.println("Names must be between 1 to 20 characters");
                 validName = false;
             } else {
                 validName = true;
-                Statement editPerson = dpDB.con.createStatement();
+                Statement editPerson = DBconnection.con.createStatement();
                 editPerson.executeUpdate("Update delivery_person SET address2 = '" + newName + "' where delivery_person_id = '" + editId + "'");
             }
         }
@@ -458,11 +460,11 @@ public class DeliveryPersonView {
         System.out.println("Please enter a new Town");
         String newName = in.nextLine();
         if (!dp.validateStringWithNumbers(newName)) {
-            System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
+            System.out.println("Names must be between 1 to 20 characters");
             validName = false;
         } else {
             validName = true;
-            Statement editPerson = dpDB.con.createStatement();
+            Statement editPerson = DBconnection.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET town = '" + newName + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -474,7 +476,7 @@ public class DeliveryPersonView {
             String newPhone = in.nextLine();
 
             if (dp.validatePhoneNumber(newPhone)) {
-                Statement editPerson = dpDB.con.createStatement();
+                Statement editPerson = DBconnection.con.createStatement();
                 editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + newPhone + "' where delivery_person_id = '" + editId + "'");
             } else {
                 System.out.println("incorrect values entered for phone number");
@@ -516,7 +518,7 @@ public class DeliveryPersonView {
         }
         String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
 
-        Statement editPersonDOB = dpDB.con.createStatement();
+        Statement editPersonDOB = DBconnection.con.createStatement();
         editPersonDOB.executeUpdate("update delivery_person SET dob = '"+ dobFinal+"' where delivery_person_id = '"+editId+"'");
     }
 
@@ -526,7 +528,7 @@ public class DeliveryPersonView {
 //        if (!validateDate(newDob)) {
 //            System.out.println("Date of Birth incorrect format");
 //        } else {
-//            Statement editPerson = dpDB.con.createStatement();
+//            Statement editPerson = DBconnection.con.createStatement();
 //            editPerson.executeUpdate("Update delivery_person SET dob = '" + newDob + "' where delivery_person_id = '" + editId + "'");
 //        }
 //    }
@@ -535,7 +537,7 @@ public class DeliveryPersonView {
         System.out.println("Please enter a new access level - 1 for admin, 2 for Delivery access");
         String newAccess = in.next();
         if (newAccess.equals("1") || newAccess.equals("2")) {
-            Statement editPerson = dpDB.con.createStatement();
+            Statement editPerson = DBconnection.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET access_level = '" + newAccess + "' where delivery_person_id = '" + editId + "'");
         } else {
             System.out.println("Invalid input, please enter 1 for admin, 2 for Delivery access");
@@ -546,7 +548,7 @@ public class DeliveryPersonView {
         System.out.println("Please enter a new status - true = active, false = inactive");
         String newStatus = in.next();
         if (newStatus.equals("true") || newStatus.equals("false")) {
-            Statement editPerson = dpDB.con.createStatement();
+            Statement editPerson = DBconnection.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET delivery_status = '" + newStatus + "' where delivery_person_id = '" + editId + "'");
         } else {
             System.out.println("Invalid input, please enter true for active or false for inactive");
@@ -561,7 +563,7 @@ public class DeliveryPersonView {
             validName = false;
         } else {
             validName = true;
-            Statement editPerson = dpDB.con.createStatement();
+            Statement editPerson = DBconnection.con.createStatement();
             editPerson.executeUpdate("Update delivery_person SET user_name = '" + newName + "' where delivery_person_id = '" + editId + "'");
         }
     }
@@ -573,7 +575,7 @@ public class DeliveryPersonView {
                 System.out.println("Please enter a new Password - 4 Numbers");
                 String newPw = in.next();
                 if(newPw.length() == 4) {
-                    Statement editPerson = dpDB.con.createStatement();
+                    Statement editPerson = DBconnection.con.createStatement();
                     valid = true;
                     editPerson.executeUpdate("Update delivery_person SET password = '" + newPw + "' where delivery_person_id = '" + editId + "'");
                 }
