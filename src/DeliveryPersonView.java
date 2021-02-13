@@ -131,9 +131,9 @@ public class DeliveryPersonView {
 
         System.out.println("Please enter the persons FIRST name");
 
-        if (in.hasNext()) {
+        if (in.hasNextLine()) {
 
-            firstName = in.next();
+            firstName = in.nextLine();
             dp.setFirstName(firstName);
 
 
@@ -148,7 +148,6 @@ public class DeliveryPersonView {
 
         do {
             System.out.println("Please enter the persons LAST name");
-        in.nextLine();
             if (in.hasNextLine()) {
                 lastName = in.nextLine();
                 dp.setLastName(lastName);

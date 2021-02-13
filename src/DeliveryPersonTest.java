@@ -66,7 +66,7 @@ public class DeliveryPersonTest extends TestCase {
         assertEquals(false, dp.validateString(" "));
     }
 
-    //TODO this test should fail if string validation working properly
+
     //Test #: 5
     //Test Objective: To catch an invalid customer name (containing digits)
     //Inputs: line = "bbb23"
@@ -75,7 +75,7 @@ public class DeliveryPersonTest extends TestCase {
 
 
         //Call method under test
-        assertEquals(true, dp.validateString("bbb23"));
+        assertEquals(false, dp.validateString("bbb23"));
 
     }
 
@@ -110,9 +110,9 @@ public class DeliveryPersonTest extends TestCase {
 
 
     //Test #: 9
-//Test Objective: To validate a string that can take both characters and numbers using just numbers
-//Inputs: line = "Mary123"
-//Expected Output: true
+    //Test Objective: To validate a string that can take both characters and numbers using just numbers
+    //Inputs: line = "Mary123"
+    //Expected Output: true
     public void testValidateName009() {
         assertEquals(true, dp.validateStringWithNumbers("123"));
     }
@@ -239,6 +239,8 @@ public class DeliveryPersonTest extends TestCase {
     public void testValidateHouseNumber005() {
         assertEquals(true, dp.validateHouseNumber("1234"));
     }
+
+
     //Test #: 25
     //Test Objective: To validate a valid house number using correct format of between 1 to 4 digits
     //Inputs: "1"
@@ -247,204 +249,172 @@ public class DeliveryPersonTest extends TestCase {
         assertEquals(true, dp.validateHouseNumber("1"));
     }
 
+
+    //Test #: 26
+    //Test Objective: To catch an invalid year input for Date of Birth - Dob must be between 1901 - present year
+    //Inputs: "1900"
+    //Expected Output: true
+    public void testValidateYear001() {
+        assertEquals(false, dp.validateYear("1900"));
+    }
+
+    //Test #: 27
+    //Test Objective: To catch an invalid year input for Date of Birth - Dob must be between 1901 - present year
+    //Inputs: "2022"
+    //Expected Output: true
+    public void testValidateYear002() {
+        assertEquals(false, dp.validateYear("2022"));
+    }
+
+    //Test #: 28
+    //Test Objective: To catch an invalid year input for Date of Birth - cannot contain characters
+    //Inputs: "ffff"
+    //Expected Output: true
+    public void testValidateYear003() {
+        assertEquals(false, dp.validateYear("ffff"));
+    }
+
+    //Test #: 29
+    //Test Objective: Validate a valid year input for Date of Birth 1901 - present year
+    //Inputs: "1901"
+    //Expected Output: true
+    public void testValidateYear004() {
+        assertEquals(true, dp.validateYear("1901"));
+    }
+
+    //Test #: 30
+    //Test Objective: Validate a valid year input for Date of Birth 1901 - present year
+    //Inputs: "2021"
+    //Expected Output: true
+    public void testValidateYear005() {
+        assertEquals(true, dp.validateYear("2021"));
+    }
+
+    //Test #: 31
+    //Test Objective: catch an empty value passed as a year input for Date of Birth 1901 - present year
+    //Inputs: " "
+    //Expected Output: true
+    public void testValidateYear006() {
+        assertEquals(false, dp.validateYear(" "));
+    }
+
+    //Test #: 32
+    //Test Objective: catch an empty value passed as a month input for Date of Birth
+    //Inputs: " "
+    //Expected Output: true
+    public void testValidateMonth001() {
+        assertEquals(false, dp.validateMonth(" "));
+    }
+
+    //Test #: 33
+    //Test Objective: catch a character value passed as a month input for Date of Birth
+    //Inputs: "ff"
+    //Expected Output: true
+    public void testValidateMonth002() {
+        assertEquals(false, dp.validateMonth("ff"));
+    }
+
+    //Test #: 34
+    //Test Objective: catch a mixed value passed as a month input for Date of Birth
+    //Inputs: "1f"
+    //Expected Output: true
+    public void testValidateMonth003() {
+        assertEquals(false, dp.validateMonth("1f"));
+    }
+
+    //Test #: 35
+    //Test Objective: catch a value of 13 passed as a month input for Date of Birth
+    //Inputs: "13"
+    //Expected Output: true
+    public void testValidateMonth004() {
+        assertEquals(false, dp.validateMonth("13"));
+    }
+
+    //Test #: 36
+    //Test Objective: catch a value of 00 passed as a month input for Date of Birth
+    //Inputs: "00"
+    //Expected Output: true
+    public void testValidateMonth005() {
+        assertEquals(false, dp.validateMonth("00"));
+    }
+
+    //Test #: 37
+    //Test Objective: catch a valid value of 01 passed as a month input for Date of Birth
+    //Inputs: "01"
+    //Expected Output: true
+    public void testValidateMonth006() {
+        assertEquals(true, dp.validateMonth("01"));
+    }
+
+    //Test #: 38
+    //Test Objective: catch a valid value of 12 passed as a month input for Date of Birth
+    //Inputs: "12"
+    //Expected Output: true
+    public void testValidateMonth007() {
+        assertEquals(true, dp.validateMonth("12"));
+    }
+
+    //Test #: 39
+    //Test Objective: catch an empty value passed as a day input for Date of Birth
+    //Inputs: " "
+    //Expected Output: true
+    public void testValidateDay001() {
+        assertEquals(false, dp.validateDate(" "));
+    }
+
+    //Test #: 40
+    //Test Objective: catch a character value passed as a day input for Date of Birth
+    //Inputs: "ff"
+    //Expected Output: true
+    public void testValidateDay002() {
+        assertEquals(false, dp.validateDate("ff"));
+    }
+
+    //Test #: 41
+    //Test Objective: catch a mixed value passed as a day input for Date of Birth
+    //Inputs: "1d"
+    //Expected Output: true
+    public void testValidateDay003() {
+        assertEquals(false, dp.validateDate("1d"));
+    }
+
+    //Test #: 42
+    //Test Objective: catch a mixed value passed as a day input for Date of Birth
+    //Inputs: "d1"
+    //Expected Output: true
+    public void testValidateDay004() {
+        assertEquals(false, dp.validateDate("d1"));
+    }
+
+    //Test #: 42
+    //Test Objective: catch an invlaid value passed as a day input for Date of Birth
+    //Inputs: "32"
+    //Expected Output: true
+    public void testValidateDay005() {
+        assertEquals(false, dp.validateDate("32"));
+    }
+
+    //Test #: 42
+    //Test Objective: catch an invalid value passed as a day input for Date of Birth
+    //Inputs: "00"
+    //Expected Output: true
+    public void testValidateDay006() {
+        assertEquals(false, dp.validateDate("00"));
+    }
+
+    //Test #: 43
+    //Test Objective: validate a valid value passed as a day input for Date of Birth
+    //Inputs: "01"
+    //Expected Output: true
+    public void testValidateDay007() {
+        assertEquals(true, dp.validateDate("01"));
+    }
+
+    //Test #: 44
+    //Test Objective: validate a valid value passed as a day input for Date of Birth
+    //Inputs: "31"
+    //Expected Output: true
+    public void testValidateDay008() {
+        assertEquals(true, dp.validateDate("31"));
+    }
 }
-//
-//    //Test #: 15
-//    //Test Objective: To check validation of a correct data
-//    //Inputs: address = "Strand street", nameOFField = "Address line 2"
-//    //Expected Output: no exception
-//    public void testValidateAddress007() {
-//        try {
-//
-//            //Call method under test
-//            dp.validateAddress("Strand street", "Address line 2");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//    }
-//
-//    //Test #: 16
-//    //Test Objective: To check validation of a correct eircode
-//    //Inputs: eircode="A11AA11"
-//    //Expected Output: no exception
-//    public void testValidateEircode001() {
-//        try {
-//            dp.validateEircode("A11AA11");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//    }
-//
-//    //Test #: 17
-//    //Test Objective: To check validation of an incorrect eircode
-//    //Inputs: eircode="a11aa11"
-//    //Expected Output: Eircode does not correspond to the format "A11AA11"
-//    public void testValidateEircode002() {
-//        try {
-//            dp.validateEircode("a11aa11");
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("Eircode does not correspond to the format \"A11AA11\"", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 18
-//    //Test Objective: To check validation of an incorrect eircode
-//    //Inputs: eircode= null
-//    //Expected Output: NULL value in the argument
-//    public void testValidateEircode003() {
-//        try {
-//            dp.validateEircode(null);
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("NULL value in the argument", e.getMessage());
-//        }
-//    }
-//
-//
-//    //Test #: 19
-//    //Test Objective: To check validation of a correct phone number
-//    //Inputs: phoneNumber = "085 856 7843"
-//    //Expected Output: No exception
-//    public void testValidatePhoneNumber001() {
-//        try {
-//            dp.validatePhoneNumber("085 856 7843");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//    }
-//
-//
-//    //Test #: 20
-//    //Test Objective: To check validation of an incorrect phone number
-//    //Inputs: phoneNumber = "0858567843"
-//    //Expected Output: Phone number does not correspond to the format "000 000 0000"
-//    public void testValidatePhoneNumber002() {
-//        try {
-//            dp.validatePhoneNumber("0858567843");
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("Phone number does not correspond to the format \"000 000 0000\"", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 21
-//    //Test Objective: To check validation of an incorrect eircode
-//    //Inputs: eircode = null
-//    //Expected Output: NULL value in the argument
-//    public void testValidatePhoneNumber003() {
-//        try {
-//            dp.validateEircode(null);
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("NULL value in the argument", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 22
-//    //Test Objective: To check validation of a correct address1 (number of house or apartment)
-//    //Inputs: phoneNumber = 1
-//    //Expected Output: no exception
-//    public void testValidateAddress1001() {
-//        try {
-//            dp.validateAddress1(1);
-//
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//    }
-//
-//    //Test #: 23
-//    //Test Objective: To check validation of a correct address1 (number of house or apartment)
-//    //Inputs: phoneNumber = 1000
-//    //Expected Output: no exception
-//    public void testValidateAddress1002() {
-//        try {
-//            dp.validateAddress1(1000);
-//
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//    }
-//
-//    //Test #: 24
-//    //Test Objective: To check validation of an incorrect address1 (number of house or apartment)
-//    //Inputs: phoneNumber = -1
-//    //Expected Output: Address line 1 cannot be a negative number
-//    public void testValidateAddress1003() {
-//        try {
-//            dp.validateAddress1(-1);
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("Address line 1 cannot be a negative number", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 25
-//    //Test Objective: To check validation of an incorrect address1 (number of house or apartment)
-//    //Inputs: phoneNumber = 1001
-//    //Expected Output: Address line 1 cannot be greater than 1000
-//    public void testValidateAddress1004() {
-//        try {
-//            dp.validateAddress1(1001);
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("Address line 1 cannot be greater than 1000", e.getMessage());
-//        }
-//    }
-//
-//
-//    //Test #: 26
-//    //Test Objective: To check validation of a correct date
-//    //Inputs: date = "2020-11-10"
-//    //Expected Output: no exception
-//    public void testValidateDate001() {
-//        try {
-//            dp.validateDate("2020-11-10");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//    }
-//
-//    //Test #: 27
-//    //Test Objective: To check validation of an incorrect date
-//    //Inputs: date = "10-11-2020"
-//    //Expected Output: Date format is incorrect
-//    public void testValidateDate002() {
-//        try {
-//            dp.validateDate("10 11 2020");
-//            fail("Exception excpected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("Date format is incorrect", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 28
-//    //Test Objective: To check validation of an correct date value of null
-//    //Inputs: date = null
-//    //Expected Output: NULL value in the argument
-//    public void testValidateDate003() {
-//        try {
-//            dp.validateDate(null);
-//
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not excpected");
-//        }
-//    }
-//
-//
-//}

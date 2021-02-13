@@ -142,17 +142,15 @@ public class DeliveryPerson {
             char[] dobArray = dobDay.toCharArray();
             for (int i = 0; i < dobArray.length; i++) {
                 char ch = dobArray[i];
-                if (ch >= '0' && ch <= '9') {
-                    int dobDayTest = Integer.parseInt(dobDay);
-                    if (dobDayTest >= 1 && dobDayTest <= 31) {
-                        validDOB = true;
-                    } else {
-                        validDOB = false;
-                    }
+                if (dobDay.matches("(\\b(0[1-9]|[12][0-9]|3[01])\\b)")) {
+                    return true;
                 } else {
-                    validDOB = false;
+                    return false;
                 }
+
+
             }
+
         }
         return validDOB;
     }
@@ -168,22 +166,20 @@ public class DeliveryPerson {
             char[] dobArray = dobMonth.toCharArray();
             for (int i = 0; i < dobArray.length; i++) {
                 char ch = dobArray[i];
-                if (ch >= '0' && ch <= '9') {
-                    int dobMonthTest = Integer.parseInt(dobMonth);
-                    if (dobMonthTest >= 1 && dobMonthTest <= 12) {
-                        validDOB = true;
-                    } else {
-
-                        validDOB = false;
-                    }
+                if (dobMonth.matches("(^[1-9]$)|(^0[1-9]|1[0-2]$)")) {
+                    return true;
                 } else {
-                    validDOB = false;
+                    return false;
                 }
 
+
             }
-        }
-        return validDOB;
+            validDOB = true;
+        }return false;
+
     }
+
+
 
 
     public boolean validateYear(String dobYear) {
@@ -241,9 +237,15 @@ public class DeliveryPerson {
             return false;
     }
 
-//    public boolean validateString (String name){
-//        if(name.length()>1 && name.length()<20) {
-//            name = name.toLowerCase();
+    public boolean validateString (String name){
+        if(name.length()>1 && name.length()<20) {
+            name = name.toLowerCase();
+            if (name.matches("[a-zA-z\\s]*")){
+                return true;
+            }
+            else {
+                return false;
+            }
 //            char[] nameArray = name.toCharArray();
 //            for (char ch : nameArray) {
 //                if (Character.isDigit(ch)) {
@@ -253,42 +255,41 @@ public class DeliveryPerson {
 //                    return true;
 //                }
 //            }
+        }
+        else
+            return false;
+    }
+
+//    public boolean validateString(String line) {
+//        int minLength = 2;
+//        int maxLength = 20;
+//
+//        if (line == null ) {
 //            return false;
 //        }
-//        else
+//        else if(line.isBlank()){
 //            return false;
+//        }
+//        else if (line.length() < minLength) {
+//            return false;
+//        }
+//        else if (line.length() > maxLength) {
+//            return false;
+//        }
+//        else {
+//            // checking if line has any numbers
+//            char[] charArray = line.toCharArray();
+//            for (char c : charArray) {
+//                if (Character.isDigit(c)) {
+//                    return false;
+//                }
+//                else {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
 //    }
-
-    public boolean validateString(String line) {
-        int minLength = 2;
-        int maxLength = 20;
-
-        if (line == null ) {
-            return false;
-        }
-        else if(line.isBlank()){
-            return false;
-        }
-        else if (line.length() < minLength) {
-            return false;
-        }
-        else if (line.length() > maxLength) {
-            return false;
-        }
-        else {
-            // checking if line has any numbers
-            char[] charArray = line.toCharArray();
-            for (char c : charArray) {
-                if (Character.isDigit(c)) {
-                    return false;
-                }
-                else {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
 
     public boolean validateEntry (String id){
