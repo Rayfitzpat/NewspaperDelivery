@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -7,13 +8,7 @@ import java.util.Scanner;
  */
 public class CustomerView {
 
-    // connection with the database
-//    static Connection con = null;
-//    static Statement stmt = null;
     static Scanner in = new Scanner(System.in);
-
-
-
 
     public static void main(String[] args) {
 
@@ -180,8 +175,15 @@ public class CustomerView {
                         customer.setStatus(status);
                     }
                     case 9 -> {
-                        // edit delivery area
-                        // TODO: finito this
+                        // printing all delivery tables
+                        try {
+                            ArrayList<Integer> IDs = customerDB.printAllDeliveryAreas();
+                            int deliveryAreaId = askUserToEnterDeliveryAreaID(IDs);
+                            customer.setDeliveryAreaId(deliveryAreaId);
+                        }
+                        catch (CustomerExceptionHandler e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                     case 99 -> {
                         System.out.println("Finishing update...");
@@ -235,6 +237,37 @@ public class CustomerView {
             }
         }
         return customerID;
+    }
+
+    public static int askUserToEnterDeliveryAreaID(ArrayList<Integer> deliveryAreaIDs) {
+        Scanner in = new Scanner(System.in);
+        boolean isValid = false;
+        int deliveryAreaID = 0;
+
+        // getting id if the customer
+        while (!isValid)
+        {
+            System.out.println("Enter id of the delivery area: ");
+            if(in.hasNextInt())
+            {
+                deliveryAreaID = in.nextInt();
+                // checking if id exists
+                if(deliveryAreaIDs.contains(deliveryAreaID))
+                {
+                    isValid = true;
+                }
+                else
+                {
+                    System.out.println("Delivery area with id " + deliveryAreaID + " doesn`t exist");
+                }
+            }
+            else
+            {
+                in.nextLine();
+                System.out.println("Delivery area id should be a number");
+            }
+        }
+        return deliveryAreaID;
     }
 
 

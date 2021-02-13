@@ -8,6 +8,8 @@ public class CustomerDB {
      * <p>
      * To be finished if I have time:
      * - actual deleting of the customers
+     * -mysql.server start
+     * -mysql.server stop
      */
 
     private ArrayList<Customer> customers; // local copy of all customers in the db
@@ -220,6 +222,32 @@ public class CustomerDB {
 
         // if return didn't happen in the foreach loop, then this is not duplicate
         return false;
+    }
+
+    public ArrayList<Integer> printAllDeliveryAreas() throws CustomerExceptionHandler{
+
+        String query = "Select * from delivery_area";
+        ResultSet rs;
+        ArrayList<Integer> deliveryAreaIDs = new ArrayList<>();
+        try {
+            rs = DBconnector.stmt.executeQuery(query);
+            System.out.printf("\n%-10s %-25s %-45s\n", "ID", "Delivery area name", "Description");
+            while (rs.next()) {
+
+                int id = rs.getInt("delivery_area_id");
+                String name = rs.getString("name");
+                String desc = rs.getString("description");
+                System.out.printf("\n%-10d %-25s %-45s\n", id, name, desc);
+
+                // saving all delivery area ids
+                deliveryAreaIDs.add(id);
+            }
+
+        } catch (SQLException sqle) {
+            throw new CustomerExceptionHandler(sqle.getMessage() + "\n" + query);
+        }
+
+        return deliveryAreaIDs;
     }
 
     /**
