@@ -1,14 +1,7 @@
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Need to work on
- * - entering delivery areas
- */
 public class CustomerView {
-
-    static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
 
@@ -17,6 +10,8 @@ public class CustomerView {
         final int STOP_APP = 7; //value from menu that is used to quit the application
         int customerID; // setting variable to temporary customer info storage
         CustomerDB customerDB;
+        CustomerView view = new CustomerView();
+        Scanner in = new Scanner(System.in);
 
         // initialising view
         try {
@@ -26,7 +21,7 @@ public class CustomerView {
 
             // running the menu
             while (menuChoice != STOP_APP) {
-                displayCustomerMenu(); //display the primary customer menu
+                view.displayCustomerMenu(); //display the primary customer menu
                 if (in.hasNextInt()) {
                     //get the menu choice from the user
                     menuChoice = in.nextInt();
@@ -34,18 +29,22 @@ public class CustomerView {
                     switch (menuChoice) {
                         case 1 -> customerDB.printCustomers();
                         case 2 -> {
-                            customerID = askUserToEnterCustomerID(customerDB);
+                            customerID = view.askUserToEnterCustomerID(customerDB);
                             System.out.println(customerDB.getCustomers().get(customerID - 1));
                         }
-                        case 3 -> addNewCustomer(customerDB);
+                        case 3 -> view.addNewCustomer(customerDB);
                         case 4 -> {
-                            customerID = askUserToEnterCustomerID(customerDB);
+                            customerID = view.askUserToEnterCustomerID(customerDB);
                             System.out.println(customerDB.getCustomers().get(customerID - 1));    // print customer details
-                            editCustomer(customerID, customerDB); //You need to code this method below
+                            view.editCustomer(customerID, customerDB); //You need to code this method below
                         }
                         case 5 -> {
-                            customerID = askUserToEnterCustomerID(customerDB);
-                            deleteCustomer(customerID); //You need to code this method below
+                            customerID = view.askUserToEnterCustomerID(customerDB);
+                            view.deactivateCustomer(customerID, customerDB); //You need to code this method below
+                        }
+                        case 6 -> {
+                            customerID = view.askUserToEnterCustomerID(customerDB);
+                            view.deleteCustomer(customerID, customerDB); //You need to code this method below
                         }
                         case 9 -> {
                             System.out.println("Program is closing...");
@@ -66,7 +65,13 @@ public class CustomerView {
 
     }
 
-    public static void addNewCustomer(CustomerDB view) {
+    private Scanner in;
+
+    public CustomerView() {
+        in = new Scanner(System.in);
+    }
+
+    public void addNewCustomer(CustomerDB customerDB) {
         boolean isValid = false;
 
         while(!isValid) {
@@ -87,32 +92,53 @@ public class CustomerView {
             }
             // status of a new customer is active by default
             boolean status = true;
-            int deliveryAreaId = askUserToEnterDeliveryAreaId();
 
-            // creating new customer object
             try {
+                ArrayList<Integer> IDs = customerDB.printAllDeliveryAreas();
+                int deliveryAreaId = askUserToEnterDeliveryAreaID(IDs);
+
+                // creating new customer object
                 Customer registerCustomer = new Customer(firstName, lastName, address1, address2, town, eircode, phoneNumber, holidayStartDate, holidayendDate, status, deliveryAreaId);
 
                 // if customer can be created, attempting insert into the db
-                view.insertCustomer(registerCustomer, DBconnector.con);
+                customerDB.insertCustomer(registerCustomer, DBconnector.con);
                 isValid = true;
             }
             catch ( CustomerExceptionHandler e) {
                 System.out.println("***" + e.getMessage() + "***");
                 System.out.println("There was an error with adding new customer. Please try again");
             }
+
         }
 
     }
 
-    public static void deleteCustomer(int customerId) {
-
+    public void deactivateCustomer(int customerId, CustomerDB customerDB) {
+        // soft delete
+        try {
+            customerDB.deactivateCustomer(customerId);
+            System.out.println("Customer with ID " + customerId + " was deactivated successfully");
+        }
+        catch (CustomerExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public static void editCustomer(int customerId, CustomerDB customerDB) {
+    public void deleteCustomer(int customerId, CustomerDB customerDB) {
+        // soft delete
+        try {
+            customerDB.deleteCustomer(customerId);
+            System.out.println("Customer with ID " + customerId + " was deleted successfully");
+        }
+        catch (CustomerExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void editCustomer(int customerId, CustomerDB customerDB) {
 
         int menuChoice = 0;         // variable used to store main menu choice
-        final int STOP_APP = 99;    //value from menu that is used to quit the application
+        final int STOP_APP = 99;    // value from menu that is used to quit the application
 
 
         // before editing the customer, fetch current list of customers
@@ -208,7 +234,7 @@ public class CustomerView {
     }
 
 
-    public static int askUserToEnterCustomerID(CustomerDB view) {
+    public int askUserToEnterCustomerID(CustomerDB view) {
         Scanner in = new Scanner(System.in);
         boolean isValid = false;
         int customerID = 0;
@@ -239,7 +265,7 @@ public class CustomerView {
         return customerID;
     }
 
-    public static int askUserToEnterDeliveryAreaID(ArrayList<Integer> deliveryAreaIDs) {
+    public int askUserToEnterDeliveryAreaID(ArrayList<Integer> deliveryAreaIDs) {
         Scanner in = new Scanner(System.in);
         boolean isValid = false;
         int deliveryAreaID = 0;
@@ -247,7 +273,7 @@ public class CustomerView {
         // getting id if the customer
         while (!isValid)
         {
-            System.out.println("Enter id of the delivery area: ");
+            System.out.println("\nEnter id of the delivery area: ");
             if(in.hasNextInt())
             {
                 deliveryAreaID = in.nextInt();
@@ -271,7 +297,7 @@ public class CustomerView {
     }
 
 
-    public static String askUserToEnterName(String initial)
+    public String askUserToEnterName(String initial)
     {
         Scanner in = new Scanner(System.in);
         Customer c = new Customer();
@@ -302,7 +328,7 @@ public class CustomerView {
     }
 
 
-    public static int askUserToEnterAddress1()
+    public int askUserToEnterAddress1()
     {
         Scanner in = new Scanner(System.in);
         Customer c = new Customer();
@@ -333,7 +359,7 @@ public class CustomerView {
         return address1;
     }
 
-    public static String askUserToEnterEircode() {
+    public String askUserToEnterEircode() {
 
         Scanner in = new Scanner(System.in);
         Customer c = new Customer();
@@ -367,7 +393,7 @@ public class CustomerView {
 
 
     // used for Address line2 and Town inputs
-    public static String askUserToEnterAddress2(String addressType)
+    public String askUserToEnterAddress2(String addressType)
     {
         Scanner in = new Scanner(System.in);
         Customer c = new Customer();
@@ -397,7 +423,7 @@ public class CustomerView {
         return address;
     }
 
-    public static String askUserToEnterPhone() {
+    public String askUserToEnterPhone() {
         Scanner in = new Scanner(System.in);
         Customer c = new Customer();
         String phoneNumber = "";
@@ -428,7 +454,7 @@ public class CustomerView {
     }
 
     // if a customer has a holiday, return true. If not, return false
-    public static boolean askCustomerAboutHoliday() {
+    public boolean askCustomerAboutHoliday() {
         Scanner in = new Scanner(System.in);
         String answer;
         boolean inputValid = false;
@@ -463,7 +489,7 @@ public class CustomerView {
         return hasHoliday;
     }
 
-    public static String askUserToEnterHolidayStart() {
+    public String askUserToEnterHolidayStart() {
         Scanner in = new Scanner(System.in);
         Customer c = new Customer();
         String holidayStart = "";
@@ -493,7 +519,7 @@ public class CustomerView {
         return holidayStart;
     }
 
-    public static String askUserToEnterHolidayEnd() {
+    public String askUserToEnterHolidayEnd() {
         Scanner in = new Scanner(System.in);
         Customer c = new Customer();
         String holidayEnd = "";
@@ -523,32 +549,7 @@ public class CustomerView {
         return holidayEnd;
     }
 
-    // any int is ok for now
-    // Sprint2 - finish this
-    public static int askUserToEnterDeliveryAreaId() {
-        Scanner in = new Scanner(System.in);
-        int deliveryAreaId = 0;
-        boolean inputValid = false;
-
-        while (!inputValid)
-        {
-            System.out.println("Enter customer delivery area id: ");
-            if (in.hasNextInt())
-            {
-                deliveryAreaId = in.nextInt();
-                inputValid = true;
-            }
-            else
-            {
-                //clear the input buffer and start again
-                in.nextLine();
-                System.out.println("You entered an invalid delivery area id, please try again...");
-            }
-        }
-        return deliveryAreaId;
-    }
-
-    public static boolean askUserToEnterStatus(boolean currStatus) {
+    public boolean askUserToEnterStatus(boolean currStatus) {
         Scanner in = new Scanner(System.in);
         Customer c = new Customer();
         String answer;
@@ -584,18 +585,19 @@ public class CustomerView {
         return currStatus;
     }
 
-    public static void displayCustomerMenu () {
+    public void displayCustomerMenu () {
         System.out.println("\nCustomer Menu");
         System.out.println("1: Display all customers");
         System.out.println("2: Display customer by ID");
         System.out.println("3: Create a new customer ");
         System.out.println("4: Edit customer's details ");
-        System.out.println("5: Delete(deactivate) a customer ");
+        System.out.println("5: Deactivate a customer ");
+        System.out.println("6: Delete a customer record");
         System.out.println("9: Exit application\n");
         System.out.print("Enter your choice: ");
     }
 
-    public static void displayCustomerEditMenu () {
+    public void displayCustomerEditMenu () {
         System.out.println("1: Edit first name");
         System.out.println("2: Edit last name");
         System.out.println("3: Edit address1");

@@ -140,9 +140,8 @@ public class CustomerDB {
      * Method is setting customer status to "inactive" or false
      *
      * @param customerId the if of customer that has to be deactivated
-     * @param stmt       Statement object to access the db
      */
-    public void deactivateCustomer(int customerId, Statement stmt) throws CustomerExceptionHandler {
+    public void deactivateCustomer(int customerId) throws CustomerExceptionHandler {
 
         // checking if customer with Id customerId exists in the db
         if (ifCustomerExists(customerId)) {
@@ -150,12 +149,32 @@ public class CustomerDB {
                     "SET customer_status = false " +
                     "WHERE customer_id = " + customerId + ";";
             try {
-                stmt.executeUpdate(updateQuery);
-                System.out.println("Customer with Id " + customerId + " was successfully deactivated");
+                DBconnector.stmt.executeUpdate(updateQuery);
             } catch (SQLException sqle) {
                 System.out.println(sqle.getMessage());
                 System.out.println(updateQuery);
                 throw new CustomerExceptionHandler("Failed to deactivate customer record");
+            }
+        } else {
+            throw new CustomerExceptionHandler("There is no customer with id " + customerId + " in the database");
+        }
+    }
+
+    /**
+     * Method for deleting customer record from DB
+     * @param customerId is the id of the customer record that has to be deleted
+     * @throws CustomerExceptionHandler exception is thrown in case of error with the database
+     */
+    public void deleteCustomer(int customerId) throws CustomerExceptionHandler {
+
+        // checking if customer with Id customerId exists in the db
+        if (ifCustomerExists(customerId)) {
+            String updateQuery = "DELETE FROM customer WHERE customer_id = " + customerId + ";";
+            try {
+                DBconnector.stmt.executeUpdate(updateQuery);
+                System.out.println("Customer with Id " + customerId + " was successfully deleted from the DB");
+            } catch (SQLException sqle) {
+                throw new CustomerExceptionHandler(sqle.getMessage() + "\n" + sqle);
             }
         } else {
             throw new CustomerExceptionHandler("There is no customer with id " + customerId + " in the database");
@@ -237,7 +256,7 @@ public class CustomerDB {
                 int id = rs.getInt("delivery_area_id");
                 String name = rs.getString("name");
                 String desc = rs.getString("description");
-                System.out.printf("\n%-10d %-25s %-45s\n", id, name, desc);
+                System.out.printf("\n%-10d %-25s %-45s", id, name, desc);
 
                 // saving all delivery area ids
                 deliveryAreaIDs.add(id);
