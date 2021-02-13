@@ -248,10 +248,10 @@ public class DeliveryPerson {
             for (int i = 0; i < nameArray.length; i++) {
                 char ch = nameArray[i];
                 if (ch >= 'a' && ch <= 'z') {
-                    boolean validName = true;
                     return true;
                 }
                 else{
+                    System.out.println("numbers are not allowed");
                     return false;
                 }
             }
@@ -279,7 +279,7 @@ public class DeliveryPerson {
     }
 
     public boolean validatePhoneNumber(String deliveryPhoneNumber){
-        if(deliveryPhoneNumber.matches("\\d{3}[ ]?\\d{7}")){
+        if(deliveryPhoneNumber.matches("\\d{3}[ ]\\d{7}")){
             return true;
         }
         else{

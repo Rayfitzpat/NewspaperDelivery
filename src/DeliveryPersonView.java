@@ -129,11 +129,11 @@ public class DeliveryPersonView {
 //
     public void addNewDeliveryPerson(Statement stmt) throws SQLException {
 
-
         System.out.println("Please enter the persons FIRST name");
 
-        if (in.hasNextLine()) {
-            firstName = in.nextLine();
+        if (in.hasNext()) {
+
+            firstName = in.next();
             dp.setFirstName(firstName);
 
 
@@ -148,11 +148,10 @@ public class DeliveryPersonView {
 
         do {
             System.out.println("Please enter the persons LAST name");
-
+        in.nextLine();
             if (in.hasNextLine()) {
                 lastName = in.nextLine();
                 dp.setLastName(lastName);
-
                 if (!dp.validateString(lastName)) {
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validName = false;
@@ -258,6 +257,10 @@ public class DeliveryPersonView {
             if (in.hasNext()) {
                 dobDay = in.next();
                 dp.validateDate(dobDay);
+                validDOB = true;
+            }
+            else {
+                validDOB = false;
             }
         }
         String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
@@ -331,7 +334,7 @@ public class DeliveryPersonView {
             }
             if (count > 0) {
 
-                System.out.println("Please enter the id corresponding to the attribute you would like to edit");
+                System.out.println("Please enter the id of the attribute you would like to edit");
                 int menuChoiceEditPerson = 0; // variable used to store Edit menu choice
                 int stopEdit = 12; //value from menu that is used to close the Edit process
 

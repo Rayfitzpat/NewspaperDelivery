@@ -1,7 +1,6 @@
 import junit.framework.TestCase;
 
 public class DeliveryPersonTest extends TestCase {
-    DeliveryPersonView dpv = new DeliveryPersonView();
     DeliveryPerson dp = new DeliveryPerson();
 
     //Test #: 1
@@ -148,7 +147,7 @@ public class DeliveryPersonTest extends TestCase {
     //Test Objective: To catch an invalid number being entered - " " not allowed
     //Inputs: address = " "
     //Expected Output: false
-    public void testValidateEntry0041() throws DeliveryPersonExceptionHandler {
+    public void testValidateEntry0041()  {
         assertEquals(false, dp.validateEntry(" "));
     }
 
@@ -167,53 +166,88 @@ public class DeliveryPersonTest extends TestCase {
     public void testValidateEntry006() {
         assertEquals(true, dp.validateEntry("2"));
     }
+
+    //Test #: 16
+    //Test Objective: To catch an invalid phone number using text
+    //Inputs: "ffff"
+    //Expected Output: false
+    public void testValidatePhone001() {
+    assertEquals(false, dp.validatePhoneNumber("ffff"));
+    }
+
+    //Test #: 17
+    //Test Objective: To catch an invalid phone number using incorrect format
+    //Inputs: "0877777777"
+    //Expected Output: false
+    public void testValidatePhone002() {
+        assertEquals(false, dp.validatePhoneNumber("0877777777"));
+    }
+
+
+    //Test #: 18
+    //Test Objective: To catch an invalid phone number using incorrect format
+    //Inputs: "0877 777777"
+    //Expected Output: false
+    public void testValidatePhone003() {
+        assertEquals(false, dp.validatePhoneNumber("0877 777777"));
+    }
+
+    //Test #: 19
+    //Test Objective: To validate a valid phone number using correct format
+    //Inputs: "087 1234567"
+    //Expected Output: true
+    public void testValidatePhone004() {
+        assertEquals(true, dp.validatePhoneNumber("087 1234567"));
+    }
+
+    //Test #: 20
+    //Test Objective: To catch an invalid House number using text
+    //Inputs: "gggg"
+    //Expected Output: false
+    public void testValidateHouseNumber001() {
+        assertEquals(false, dp.validateHouseNumber("gggg"));
+    }
+
+    //Test #: 21
+    //Test Objective: To catch an invalid House number using over 4 characters
+    //Inputs: "087 1234567"
+    //Expected Output: false
+    public void testValidateHouseNumber002() {
+        assertEquals(false, dp.validateHouseNumber("12345"));
+    }
+
+    //Test #: 22
+    //Test Objective: To catch an invalid House number using over 0 characters
+    //Inputs: " "
+    //Expected Output: false
+    public void testValidateHouseNumber003() {
+        assertEquals(false, dp.validateHouseNumber(" "));
+    }
+
+    //Test #: 23
+    //Test Objective: To catch an invalid House number using negative number
+    //Inputs: "-1111"
+    //Expected Output: false
+    public void testValidateHouseNumber004() {
+        assertEquals(false, dp.validateHouseNumber("-1111"));
+    }
+
+    //Test #: 24
+    //Test Objective: To validate a valid house number using correct format of between 1 to 4 digits
+    //Inputs: "12345"
+    //Expected Output: true
+    public void testValidateHouseNumber005() {
+        assertEquals(true, dp.validateHouseNumber("1234"));
+    }
+    //Test #: 25
+    //Test Objective: To validate a valid house number using correct format of between 1 to 4 digits
+    //Inputs: "1"
+    //Expected Output: true
+    public void testValidateHouseNumber006() {
+        assertEquals(true, dp.validateHouseNumber("1"));
+    }
+
 }
-//    //Test #: 12
-//    //Test Objective: To catch an invalid address exception (address line too long)
-//    //Inputs: address = "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", nameOFField = "Town"
-//    //Expected Output: Townie is incorrect name of address field
-//    public void testValidateAddress003() {
-//        try {
-//
-//            //Call method under test
-//            dp.validateAddress("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Town");
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("Town exceeds maximum length requirements", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 13
-//    //Test Objective: To catch a null exception
-//    //Inputs: address = "Dublin", nameOFField = null
-//    //Expected Output: NULL value in the arguments
-//    public void testValidateAddress005() {
-//        try {
-//
-//            //Call method under test
-//            dp.validateAddress(null, null);
-//            fail("Exception expected");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            assertEquals("NULL value in the arguments", e.getMessage());
-//        }
-//    }
-//
-//    //Test #: 14
-//    //Test Objective: To check validation of a correct data
-//    //Inputs: address = "Dublin", nameOFField = "Town"
-//    //Expected Output: no exception
-//    public void testValidateAddress006() {
-//        try {
-//
-//            //Call method under test
-//            dp.validateAddress("Dublin", "Town");
-//        }
-//        catch (DeliveryPersonExceptionHandler e) {
-//            fail("Exception not expected");
-//        }
-//    }
 //
 //    //Test #: 15
 //    //Test Objective: To check validation of a correct data
