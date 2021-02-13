@@ -241,24 +241,53 @@ public class DeliveryPerson {
             return false;
     }
 
-    public boolean validateString (String name){
-        if(name.length()>1 && name.length()<20) {
-            name = name.toLowerCase();
-            char[] nameArray = name.toCharArray();
-            for (int i = 0; i < nameArray.length; i++) {
-                char ch = nameArray[i];
-                if (ch >= 'a' && ch <= 'z') {
-                    return true;
-                }
-                else{
-                    System.out.println("numbers are not allowed");
-                    return false;
-                }
-            }
+//    public boolean validateString (String name){
+//        if(name.length()>1 && name.length()<20) {
+//            name = name.toLowerCase();
+//            char[] nameArray = name.toCharArray();
+//            for (char ch : nameArray) {
+//                if (Character.isDigit(ch)) {
+//                    System.out.println("numbers are not allowed");
+//                    return false;
+//                } else {
+//                    return true;
+//                }
+//            }
+//            return false;
+//        }
+//        else
+//            return false;
+//    }
+
+    public boolean validateString(String line) {
+        int minLength = 2;
+        int maxLength = 20;
+
+        if (line == null ) {
             return false;
         }
-        else
+        else if(line.isBlank()){
             return false;
+        }
+        else if (line.length() < minLength) {
+            return false;
+        }
+        else if (line.length() > maxLength) {
+            return false;
+        }
+        else {
+            // checking if line has any numbers
+            char[] charArray = line.toCharArray();
+            for (char c : charArray) {
+                if (Character.isDigit(c)) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
