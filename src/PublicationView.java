@@ -106,6 +106,7 @@ public class PublicationView {
             //prompts the user to enter a new publication frequency
             System.out.println("Please enter a frequency for the new publication, either Daily or Weekly\n");
             String newPublication_Frequency = in.nextLine();
+           newPublication_Frequency = newPublication_Frequency.toLowerCase();
             //checks to see if the frequency is valid, if is it the code moves on to the next step
             boolean validFrequency = p.validatePublicationFrequency(newPublication_Frequency);
             if (validFrequency == true) {
@@ -248,6 +249,7 @@ public class PublicationView {
         //validates the entry by the user, if it is valid, executes the update
         boolean validFrequency = p.validatePublicationFrequency(newPublication_Frequency);
         if (validFrequency) {
+           newPublication_Frequency = newPublication_Frequency.toLowerCase();
             Statement editpublication_frequency = publicationMain.con.createStatement();
             editpublication_frequency.executeUpdate("Update publication SET publication_frequency = '" + newPublication_Frequency + "' where publication_id = '" + editId + "'");
             System.out.println("Successfully update the frequency to " + newPublication_Frequency + "\n\nReturning to edit menu....");

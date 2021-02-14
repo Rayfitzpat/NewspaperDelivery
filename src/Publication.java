@@ -152,12 +152,16 @@ public class Publication {
         //uses regex to check if the entered name is between a-z
         if (newPublication_Frequency.matches("[a-zA-Z]+")) {
             //checks if the users entered either "Daily" or "Weekly"
-            if (newPublication_Frequency.matches("Daily") || newPublication_Frequency.matches("Weekly")) {
-                return true;
-            } else if (newPublication_Frequency.matches("daily") || newPublication_Frequency.matches("weekly"))
 
-                System.out.println("Publication NOT updated. Please use capitilization, thank you :)");
-            return false;
+            if (newPublication_Frequency.matches("daily") || newPublication_Frequency.matches("weekly")|| newPublication_Frequency.matches("Weekly")|| newPublication_Frequency.matches("Daily")) {
+                newPublication_Frequency =  newPublication_Frequency.toLowerCase();
+                return true;
+            }
+            else {
+
+                System.out.println("Please only enter the words, 'Daily' or 'Weekly'");
+                return false;
+            }
         } else
             System.out.println("Please only enter the words, 'Daily' or 'Weekly'");
         return false;
