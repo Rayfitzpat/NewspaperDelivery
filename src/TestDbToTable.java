@@ -21,6 +21,7 @@ public class TestDbToTable extends javax.swing.JFrame {
      */
     public TestDbToTable() {
         initComponents();
+        this.setLocationRelativeTo(null);   // ******************************** VIP SETS SCREEN TO CENTRE OF MONITOR **********************************************//
     }
 
     /**
@@ -31,6 +32,7 @@ public class TestDbToTable extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
+
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();

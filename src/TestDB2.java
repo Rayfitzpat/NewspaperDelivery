@@ -39,6 +39,7 @@ class testDB2 extends javax.swing.JFrame{
      */
     public testDB2() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
