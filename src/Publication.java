@@ -25,7 +25,9 @@ public class Publication {
 
     }
 
-    // Getters and setters
+    // *****************************************************************************************
+// getters and setters
+// *****************************************************************************************
     public int getpublication_id() {
         return publication_id;
     }
@@ -103,69 +105,66 @@ public class Publication {
 
     // *****************************************************************************************
 // Validates that the string entered only consists of numbers.
-// *****************************************************************************************
-    public boolean validatePublicationId(String publicationId) {
+// *********************************************************************************************
 
-        for (int i = 0; i < publicationId.length() + 1; i++) {
+    public boolean validateAWholeNumber(String publicationId) {
+        if (publicationId.matches("[1-9][0-9]*")) {
 
-            if (publicationId.charAt(i) >= '0'
-                    && publicationId.charAt(i) <= '9') {
-                return true;
-            } else {
-                System.out.println("Your entry is invalid as it does not contain a whole number");
-                return false;
-            }
+            return true;
+
+
+        } else {
+            return false;
         }
-        return false;
+
     }
 
 
     // *****************************************************************************************
 // Validates that the string entered only consists of letters and spaces.
 // *****************************************************************************************
-    public boolean validatePublicationName(String newPublication_Name) {
-        if (newPublication_Name.matches( "[a-zA-z\\s]*"))
-        {
-        if (newPublication_Name.length() >= 3 && newPublication_Name.length() <= 30)
-        {
-            return true;
-        }
-        else {
-            System.out.println("The Publication Name you entered is not the valid length");
-            return false;
 
+    public boolean validatePublicationName(String newPublication_Name) {
+        //uses regex to check if the entered name is between a-z and has spaces
+        if (newPublication_Name.matches("[a-zA-z\\s]*")) {
+            //if that is true, the length is then checked, if is between 3 and 30 characters then true is returned.
+            if (newPublication_Name.length() >= 3 && newPublication_Name.length() <= 30) {
+                return true;
+            } else {
+                //this is the statement that is printed if the if statement that checks the length fails.
+                System.out.println("The Publication Name you entered is not the valid length");
+                return false;
+
+            }
         }
-    }
         else
             {
+                //this is the statement that is printed if an entry is invalid.
             System.out.println("The publication name you have entered contains invalid character(s). Please try again.");
             return false;
         }
-}
+    }
 
     // *****************************************************************************************
 // Validates that the string entered only consists of the words "Daily" or "Weekly"
 // *****************************************************************************************
     public boolean validatePublicationFrequency(String newPublication_Frequency) {
-        if (newPublication_Frequency.matches("[a-zA-Z]+"))
-        {
-            if(newPublication_Frequency.matches("Daily") || newPublication_Frequency.matches("Weekly"))
-            {
+        //uses regex to check if the entered name is between a-z
+        if (newPublication_Frequency.matches("[a-zA-Z]+")) {
+            //checks if the users entered either "Daily" or "Weekly"
+            if (newPublication_Frequency.matches("Daily") || newPublication_Frequency.matches("Weekly")) {
                 return true;
-            }
-            else if(newPublication_Frequency.matches("daily") || newPublication_Frequency.matches("weekly"))
+            } else if (newPublication_Frequency.matches("daily") || newPublication_Frequency.matches("weekly"))
 
                 System.out.println("Publication NOT updated. Please use capitilization, thank you :)");
             return false;
-        }
-        else
+        } else
             System.out.println("Please only enter the words, 'Daily' or 'Weekly'");
         return false;
 
     }
 
-    public boolean validateANumber(String publicationCost)
-    {
+    public boolean validateANumber(String publicationCost) {
 
         for (int i = 0; i < publicationCost.length() + 1; i++) {
 
@@ -177,12 +176,9 @@ public class Publication {
                 return false;
             }
         }
-        System.out.println("A character you entered is not a valid number, please try again using only valid numbers.");
         return false;
 
     }
-
-
 
 
     @Override

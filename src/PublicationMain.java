@@ -72,9 +72,6 @@ public class PublicationMain {
         }
     }
 
-
-//        ArrayList<Publication> publicationsList =  publication.readAllPublications(stmt);
-//        publication.displayAllPublications(publicationsList);
     }
 
 

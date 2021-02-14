@@ -198,7 +198,7 @@ public class PublicationTest extends TestCase {
 
 
             //Call method under test
-            publication.validatePublicationId("sixteen");
+            publication.validateAWholeNumber("sixteen");
         assertEquals("Your entry is invalid as it does not contain a whole number", "Your entry is invalid as it does not contain a whole number");
 
     }
@@ -211,7 +211,7 @@ public class PublicationTest extends TestCase {
 
 
             //Call method under test
-        assertEquals(true, publication.validateANumber("1"));
+        assertEquals(true, publication.validateAWholeNumber("1"));
 
     }
 
@@ -223,10 +223,28 @@ public class PublicationTest extends TestCase {
 
 
             //Call method under test
-        assertEquals(true, publication.validateANumber("9"));
+        assertEquals(true, publication.validateAWholeNumber("9"));
+
+    }
+
+
+
+    //Test #: 16
+    //Test Objective:  To test an ID entered is a valid number
+    //Inputs: 15.5
+    //Expected Output: PASS
+    public void testValidateID004() {
+
+
+        //Call method under test
+        assertEquals(false, publication.validateAWholeNumber("15.5"));
 
     }
 
 }
+
+
+
+
 
 
