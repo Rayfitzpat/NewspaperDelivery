@@ -88,7 +88,8 @@ public class DeliveryArea {
             throw new DeliveryAreaExceptionHandler("Delivery area name exceeds maximum length requirements");
     }
 
-    public boolean validateString(String line) {
+    public boolean validateString(String line)
+    {
         int minLength = 2;
         int maxLength = 20;
 
@@ -110,6 +111,7 @@ public class DeliveryArea {
                     return true;
                 }
             }
+            return true;
         }
     }
 
@@ -145,6 +147,7 @@ public class DeliveryArea {
                     return true;
                 }
             }
+            return true;
         }
     }
 
@@ -162,5 +165,6 @@ public class DeliveryArea {
                 return false;
             }
         }
+        return true;
     }
 }

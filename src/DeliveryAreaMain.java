@@ -7,8 +7,7 @@ public class DeliveryAreaMain
 
 
 
-    public static void main(String[] args) throws SQLException
-    {
+    public static void main(String[] args) throws SQLException, DeliveryAreaExceptionHandler {
         DBconnection.init_db(); //Opens the connection to the database.
         DeliveryAreaDB dav = new DeliveryAreaDB();
 

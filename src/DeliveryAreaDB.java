@@ -271,20 +271,16 @@ public class DeliveryAreaDB
     }
 
 
-    public void editDeliveryPersonId (int pId) throws SQLException {
+    public void editDeliveryPersonId () throws SQLException //NEEDS VALIDATION
+    {
         DeliveryArea da = new DeliveryArea();
         Scanner in = new Scanner(System.in);
-        System.out.println("Please enter a new Last Name");
+        System.out.println("Please enter the new delivery person id: ");
         int replacementId = in.nextInt();
-        if (!da.validateEntry(replacementId)) {
-            System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
-            validName = false;
-        } else {
-            validName = true;
-            Statement editPerson = dpDB.con.createStatement();
-            editPerson.executeUpdate("Update delivery_person SET last_name = '" + newName + "' where delivery_person_id = '" + editId + "'");
-        }
+        Statement editPerson = DBconnection.con.createStatement();
+        editPerson.executeUpdate("Update delivery_person SET delivery_person_id = '" + replacementId + "' where delivery_area_id = '" + editId + "'");
     }
+
 
 
 
