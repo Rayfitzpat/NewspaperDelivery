@@ -386,7 +386,7 @@ public class DeliveryPersonTest extends TestCase {
         assertEquals(false, dp.validateDate("d1"));
     }
 
-    //Test #: 42
+    //Test #: 43
     //Test Objective: catch an invlaid value passed as a day input for Date of Birth
     //Inputs: "32"
     //Expected Output: true
@@ -394,7 +394,7 @@ public class DeliveryPersonTest extends TestCase {
         assertEquals(false, dp.validateDate("32"));
     }
 
-    //Test #: 42
+    //Test #: 44
     //Test Objective: catch an invalid value passed as a day input for Date of Birth
     //Inputs: "00"
     //Expected Output: true
@@ -402,7 +402,7 @@ public class DeliveryPersonTest extends TestCase {
         assertEquals(false, dp.validateDate("00"));
     }
 
-    //Test #: 43
+    //Test #: 45
     //Test Objective: validate a valid value passed as a day input for Date of Birth
     //Inputs: "01"
     //Expected Output: true
@@ -410,7 +410,7 @@ public class DeliveryPersonTest extends TestCase {
         assertEquals(true, dp.validateDate("01"));
     }
 
-    //Test #: 44
+    //Test #: 46
     //Test Objective: validate a valid value passed as a day input for Date of Birth
     //Inputs: "31"
     //Expected Output: true

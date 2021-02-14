@@ -314,8 +314,8 @@ public class DeliveryPersonView {
     // Beginning of the EDIT Delivery Person Section
     // ******************************************************************************************************
 
-    //TODO Validate all edit methods
-    //TODO Transfer all validation to DP.java
+
+
 
     public void editDeliveryPerson(Statement stmt) throws SQLException {
         DeliveryPersonView dpv = new DeliveryPersonView();
@@ -414,7 +414,6 @@ public class DeliveryPersonView {
         }
     }
 
-//TODO fix validate String - numbers are passing through
 
     public void editPersonLastName () throws SQLException {
         System.out.println("Please enter a new Last Name");
