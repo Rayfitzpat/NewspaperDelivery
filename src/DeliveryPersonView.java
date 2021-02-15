@@ -505,7 +505,11 @@ public class DeliveryPersonView {
                 if(dp.validateMonth(dobMonth)){
                     validDOB = true;
                 }
-            }
+                else{
+                    validDOB = false;
+                }
+
+            }else validDOB = false;
         }
         validDOB = false;
         while (!validDOB) {
@@ -515,7 +519,9 @@ public class DeliveryPersonView {
                 if(dp.validateDate(dobDay)){
                     validDOB = true;
                 }
+                else validDOB = false;
             }
+            else validDOB = false;
         }
         String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
 
