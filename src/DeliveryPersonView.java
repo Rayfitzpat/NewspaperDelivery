@@ -43,7 +43,7 @@ public class DeliveryPersonView {
         try {
             ResultSet rs = stmt.executeQuery(str);
 
-            System.out.printf("\n%-12s %-15s %-20s %-20s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
+            System.out.printf("\n%-12s %-15s %-20s %-20s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "House No.", "Street Name", "Town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
             while (rs.next()) {
                 int delivery_person_id = rs.getInt("delivery_person_id");
                 String first_name = rs.getString("first_name");
@@ -92,7 +92,7 @@ public class DeliveryPersonView {
                 try {
 
                     rs = stmt.executeQuery(str);
-                    System.out.printf("\n\n%-12s %-20s %-20s %-10s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
+                    System.out.printf("\n\n%-12s %-20s %-20s %-10s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "House No.", "Street Name", "Town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
                     while (rs.next()) {
 
                         int delivery_person_id = rs.getInt("delivery_person_id");
