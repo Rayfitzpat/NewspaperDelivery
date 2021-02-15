@@ -14,7 +14,7 @@ public class PublicationTest extends TestCase {
     //Inputs: publication_Name = "Rays Thoughts",  publication_Frequency = Daily, publication_Cost = "2.50", publication_Stock_Level= "30",
     //Expected Output: Publication Object created with id = 0, publication_Name = "Rays Thoughts", publication_Cost = 2.50,  publication_Frequency= "Daily", publication_Stock_Level =35
 
-    public void testPublication001() throws PublicationExceptionHandler {
+    public void testPublication001()  {
 
         // create the Publication object
 
@@ -36,10 +36,11 @@ public class PublicationTest extends TestCase {
     //Inputs: Publication name = "JJ",
     //Expected Output: Exception Message: "The Publication Name you entered is not the valid length"
 
-    public void testValidateName001() throws PublicationExceptionHandler
+    public void testValidateName001()
     {
 
         //Call method
+
         publication.validatePublicationName("JJ");
         assertEquals("The Publication Name you entered is not the valid length", "The Publication Name you entered is not the valid length");
     }
@@ -48,7 +49,7 @@ public class PublicationTest extends TestCase {
     //Test Objective: To catch an invalid publication name (31 symbols in a name)
     //Inputs: publication_Name = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     //Expected Output: Exception Message: "The Publication Name you entered is not the valid length"
-    public void testValidateName002() throws PublicationExceptionHandler {
+    public void testValidateName002()  {
 
         //Call method under test
         publication.validatePublicationName("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
