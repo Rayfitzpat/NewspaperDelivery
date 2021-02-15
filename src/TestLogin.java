@@ -53,35 +53,35 @@ public class TestLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 51));
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 51));
+        jPanel1.setBackground(new java.awt.Color(52, 68, 94, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(123,138,156,255));
         jLabel1.setText("SIGN IN");
 
-        jSeparator1.setBackground(new java.awt.Color(0, 102, 255));
+        jSeparator1.setBackground(new java.awt.Color(123,138,156,255));
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(123,138,156,255));
         jLabel2.setText("USERNAME");
 
         jTextField1.setBackground(new java.awt.Color(151, 148, 148, 25));
         jTextField1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setForeground(new java.awt.Color(123,138,156,255));
         jTextField1.setBorder(null);
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(123,138,156,255));
         jLabel3.setText("PASSWORD");
 
         jPasswordField1.setBackground(new java.awt.Color(153, 153, 153, 25));
         jPasswordField1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
+        jPasswordField1.setForeground(new java.awt.Color(123,138,156,255));
         jPasswordField1.setText("jPasswordField1");
         jPasswordField1.setBorder(null);
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 255));
+        jButton1.setBackground(new java.awt.Color(23,127,157,255));
         jButton1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(255,255,255,255));
         jButton1.setText("SIGN IN");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -91,12 +91,12 @@ public class TestLogin extends javax.swing.JFrame {
         });
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(123,138,156,255));
         jLabel4.setText("(c) 2021 Team Dunder Mifflin ");
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 51));
+        jButton2.setBackground(new java.awt.Color(55,189,180,255));
         jButton2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setForeground(new java.awt.Color(255,255,255,255));
         jButton2.setText("X");
         jButton2.setBorder(null);
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -110,7 +110,7 @@ public class TestLogin extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Niagara Engraved", 0, 100)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setForeground(new java.awt.Color(55,189,180,255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("NO NEWS IS GOOD NEWS");
 
