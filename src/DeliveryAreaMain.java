@@ -7,8 +7,7 @@ public class DeliveryAreaMain
 
 
 
-    public static void main(String[] args) throws SQLException
-    {
+    public static void main(String[] args) throws SQLException, DeliveryAreaExceptionHandler {
         DBconnection.init_db(); //Opens the connection to the database.
         DeliveryAreaDB dav = new DeliveryAreaDB();
 
@@ -39,7 +38,7 @@ public class DeliveryAreaMain
                         dav.createNewDeliveryArea(DBconnection.stmt);
 
                     case 4:
-                        System.out.println("Update Delivery Area Name");
+                        dav.editDeliveryArea(DBconnection.stmt);
 
                     case 5:
                         dav.deleteDeliveryArea(DBconnection.stmt);

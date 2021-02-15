@@ -1,6 +1,7 @@
 import java.sql.*;
 
-public class DeliveryArea {
+public class DeliveryArea
+{
 
     private String dAreaName;
     private String description;
@@ -10,11 +11,9 @@ public class DeliveryArea {
     boolean validDesc = false;
 
 
-
     public DeliveryArea(int id, String dAreaName, String description, int deliveryPersonId) throws DeliveryAreaExceptionHandler
     {
-        try
-        {
+        try {
             validateDeliveryAreaName(dAreaName);
             //validateDescription(description);
             //validateId(deliveryPersonId);
@@ -31,7 +30,8 @@ public class DeliveryArea {
         this.deliveryPersonId = deliveryPersonId;
     }
 
-    public DeliveryArea(String dAreaName, String description, int deliveryPersonId) {
+    public DeliveryArea(String dAreaName, String description, int deliveryPersonId)
+    {
         this.id = id;
         this.dAreaName = dAreaName;
         this.description = description;
@@ -79,7 +79,8 @@ public class DeliveryArea {
 
 // START OF Validation
 
-    public void validateDeliveryAreaName(String DAname) throws DeliveryAreaExceptionHandler {
+    public void validateDeliveryAreaName(String DAname) throws DeliveryAreaExceptionHandler
+    {
         if (DAname.isBlank() || DAname.isEmpty())
             throw new DeliveryAreaExceptionHandler("Delivery area not specified");
         else if (DAname.length() < 2)
@@ -88,79 +89,60 @@ public class DeliveryArea {
             throw new DeliveryAreaExceptionHandler("Delivery area name exceeds maximum length requirements");
     }
 
-    public boolean validateString(String line) {
-        int minLength = 2;
-        int maxLength = 20;
-
-        if (line == null) {
-            return false;
-        } else if (line.isBlank()) {
-            return false;
-        } else if (line.length() < minLength) {
-            return false;
-        } else if (line.length() > maxLength) {
-            return false;
-        } else {
-            // checking if line has any numbers
-            char[] charArray = line.toCharArray();
-            for (char c : charArray) {
-                if (Character.isDigit(c)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        }
-    }
-
-
-
-    public boolean validateDesc(String desc)
+    public boolean validateEntry(String id)
     {
-        int minLength = 2;
-        int maxLength = 14;
-
-        if (desc == null)
+        if (id.length() > 2)
         {
-            return false;
-        }
-        else if (desc.isBlank()) {
-            return false;
-        }
-        else if (desc.length() < minLength) {
-            return false;
-        }
-        else if (desc.length() > maxLength) {
+            System.out.println("invalid entry, you must enter no more than 2 numbers");
             return false;
         }
         else
             {
-            //Checking for numbers
-            char[] charArray = desc.toCharArray();
-            for (char c : charArray) {
-                if (Character.isDigit(c)) {
-                    return false;
-                }
-                else {
-                    return true;
-                }
-            }
-        }
-    }
-
-
-    public boolean validateEntry(String id)
-        {
-        if (id.length() > 2) {
-            System.out.println("invalid entry, you must enter no more than 2 numbers");
-            return false;
-        } else {
-            try {
+            try
+            {
                 int tempId = Integer.parseInt(id);
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 System.out.println("invalid Text entered, please enter a number");
                 return false;
             }
         }
+        return true;
+    }
+
+    public boolean validateString (String name)
+    {
+        if(name.length()>1 && name.length()<20)
+        {
+            name = name.toLowerCase();
+            if (name.matches("[a-zA-z\\s]*"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+            return false;
+    }
+
+    public boolean validateDesc (String name)
+    {
+        if(name.length()>1 && name.length()<14)
+        {
+            name = name.toLowerCase();
+            if (name.matches("[a-zA-z\\s]*"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+            return false;
     }
 }

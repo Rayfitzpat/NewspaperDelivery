@@ -183,7 +183,6 @@ public class DeliveryAreaDB
             }
             if (count > 0)
             {
-
                 System.out.println("Please enter the id corresponding to the attribute you would like to edit");
                 int deliveryAreaEditMenu = 0; // variable used to store Edit menu choice
                 int stopEdit = 4; //value from menu that is used to close the Edit process
@@ -226,8 +225,6 @@ public class DeliveryAreaDB
         }
     }
 
-
-
     // ******************************************************************************************************
     // Beginning of the Edit Area Method Section
     // ******************************************************************************************************
@@ -260,7 +257,7 @@ public class DeliveryAreaDB
         if (!da.validateDesc(newDesc))
         {
             System.out.println("Descriptions cannot contain numbers and must be between 1 to 14 characters");
-            da.validName = false;
+            da.validDesc = false;
         }
         else
         {
@@ -271,23 +268,24 @@ public class DeliveryAreaDB
     }
 
 
-    public void editDeliveryPersonId (int pId) throws SQLException {
+    public void editDeliveryPersonId() throws SQLException
+    {
         DeliveryArea da = new DeliveryArea();
         Scanner in = new Scanner(System.in);
-        System.out.println("Please enter a new Last Name");
-        int replacementId = in.nextInt();
-        if (!da.validateEntry(replacementId)) {
+        System.out.println("Please enter the new Delivery Person id: ");
+        String replacementId = in.nextLine();
+        if (!da.validateEntry(replacementId))
+        {
             System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
-            validName = false;
-        } else {
-            validName = true;
-            Statement editPerson = dpDB.con.createStatement();
-            editPerson.executeUpdate("Update delivery_person SET last_name = '" + newName + "' where delivery_person_id = '" + editId + "'");
+            da.validName = false;
+        }
+        else
+        {
+            da.validName = true;
+            Statement editPerson = DBconnection.con.createStatement();
+            editPerson.executeUpdate("Update delivery_area SET delivery_person_id = '" + replacementId + "' where delivery_area_id = '" + editId + "'");
         }
     }
-
-
-
 
     public static void displayMainMenu()
     {
