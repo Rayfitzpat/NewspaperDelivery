@@ -4,9 +4,6 @@ import java.util.Scanner;
 
 public class DeliveryPersonDB {
 
-    static Connection con = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
     static Scanner in = new Scanner(System.in);
 
 
@@ -14,7 +11,7 @@ public class DeliveryPersonDB {
 
 //    public static void main(String[] args) throws SQLException {
     public void deliveryPersonMainPage() throws SQLException{
-        DBconnection.init_db();  // open the connection to the database
+        //DBconnection.init_db();  // open the connection to the database
         DeliveryPersonView dpv = new DeliveryPersonView();
         Main main = new Main();
         int menuChoice = 0; // variable used to store main menu choice
@@ -48,8 +45,9 @@ public class DeliveryPersonDB {
                         dpv.deleteDeliveryPerson(DBconnection.stmt); //You need to code this method below
                        break;
                     case 6:
-                        main.displayMainMenu(); // close the connection to the database when finished program
-                        break;
+                        return;
+//                        main.displayMainMenu(); // close the connection to the database when finished program
+//                        break;
                     default:
                         System.out.println("You entered an invalid choice, please try again...");
                }

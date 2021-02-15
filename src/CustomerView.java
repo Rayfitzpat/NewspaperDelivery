@@ -5,7 +5,7 @@ public class CustomerView {
 
     public static void main(String[] args) {
 
-        DBconnector.init_db();  // open the connection to the database
+        DBconnection.init_db();  // open the connection to the database
         int menuChoice = 0; // variable used to store main menu choice
         final int STOP_APP = 7; //value from menu that is used to quit the application
         int customerID; // setting variable to temporary customer info storage
@@ -17,7 +17,7 @@ public class CustomerView {
         try {
             // if view can be initialised with no errors, then connection
             // with db is set correctly
-            customerDB = new CustomerDB(DBconnector.stmt);
+            customerDB = new CustomerDB(DBconnection.stmt);
 
             // running the menu
             while (menuChoice != STOP_APP) {
@@ -25,7 +25,7 @@ public class CustomerView {
                 if (in.hasNextInt()) {
                     //get the menu choice from the user
                     menuChoice = in.nextInt();
-                    customerDB.fetchCustomers(DBconnector.stmt); // resetting local copy of customers
+                    customerDB.fetchCustomers(DBconnection.stmt); // resetting local copy of customers
                     switch (menuChoice) {
                         case 1 -> customerDB.printCustomers();
                         case 2 -> {
@@ -48,7 +48,7 @@ public class CustomerView {
                         }
                         case 9 -> {
                             System.out.println("Program is closing...");
-                            DBconnector.cleanup_resources();  // close the connection to the database when finished program
+                            DBconnection.cleanup_resources();  // close the connection to the database when finished program
                         }
                         default -> System.out.println("You entered an invalid choice, please try again...");
                     }
@@ -69,6 +69,68 @@ public class CustomerView {
 
     public CustomerView() {
         in = new Scanner(System.in);
+    }
+
+
+    public void customerMainPage() {
+        int menuChoice = 0; // variable used to store main menu choice
+        final int STOP_APP = 7; //value from menu that is used to quit the application
+        int customerID; // setting variable to temporary customer info storage
+        CustomerDB customerDB;
+        CustomerView view = new CustomerView();
+        Main main = new Main();
+        Scanner in = new Scanner(System.in);
+
+        // initialising view
+        try {
+            // if view can be initialised with no errors, then connection
+            // with db is set correctly
+            customerDB = new CustomerDB(DBconnection.stmt);
+
+            // running the menu
+            while (menuChoice != STOP_APP) {
+                view.displayCustomerMenu(); //display the primary customer menu
+                if (in.hasNextInt()) {
+                    //get the menu choice from the user
+                    menuChoice = in.nextInt();
+                    customerDB.fetchCustomers(DBconnection.stmt); // resetting local copy of customers
+                    switch (menuChoice) {
+                        case 1 -> customerDB.printCustomers();
+                        case 2 -> {
+                            customerID = view.askUserToEnterCustomerID(customerDB);
+                            System.out.println(customerDB.getCustomers().get(customerID - 1));
+                        }
+                        case 3 -> view.addNewCustomer(customerDB);
+                        case 4 -> {
+                            customerID = view.askUserToEnterCustomerID(customerDB);
+                            System.out.println(customerDB.getCustomers().get(customerID - 1));    // print customer details
+                            view.editCustomer(customerID, customerDB); //You need to code this method below
+                        }
+                        case 5 -> {
+                            customerID = view.askUserToEnterCustomerID(customerDB);
+                            view.deactivateCustomer(customerID, customerDB); //You need to code this method below
+                        }
+                        case 6 -> {
+                            customerID = view.askUserToEnterCustomerID(customerDB);
+                            view.deleteCustomer(customerID, customerDB); //You need to code this method below
+                        }
+                        case 9 -> {
+                            return;
+//                            System.out.println("Program is closing...");
+//                            DBconnection.cleanup_resources();  // close the connection to the database when finished program
+                        }
+                        default -> System.out.println("You entered an invalid choice, please try again...");
+                    }
+                } else {
+                    //clear the input buffer and start again
+                    System.out.println("You entered an invalid choice, please try again...");
+                }
+            }
+        }
+        catch (CustomerExceptionHandler e) {
+            System.out.println("Error in the first menu");
+            System.out.println(e.getMessage());
+        }
     }
 
     public void addNewCustomer(CustomerDB customerDB) {
@@ -101,7 +163,7 @@ public class CustomerView {
                 Customer registerCustomer = new Customer(firstName, lastName, address1, address2, town, eircode, phoneNumber, holidayStartDate, holidayendDate, status, deliveryAreaId);
 
                 // if customer can be created, attempting insert into the db
-                customerDB.insertCustomer(registerCustomer, DBconnector.con);
+                customerDB.insertCustomer(registerCustomer, DBconnection.con);
                 isValid = true;
             }
             catch ( CustomerExceptionHandler e) {
@@ -143,7 +205,7 @@ public class CustomerView {
 
         // before editing the customer, fetch current list of customers
         try {
-            customerDB.fetchCustomers(DBconnector.stmt);
+            customerDB.fetchCustomers(DBconnection.stmt);
         }
         catch (CustomerExceptionHandler e) {
             System.out.println(e.getMessage());
@@ -214,7 +276,7 @@ public class CustomerView {
                     case 99 -> {
                         System.out.println("Finishing update...");
                         try {
-                            customerDB.updateCustomer(customerId, customer, DBconnector.stmt);
+                            customerDB.updateCustomer(customerId, customer, DBconnection.stmt);
                             System.out.println("Returning to main menu ... ");
                         }
                         catch (CustomerExceptionHandler e) {
@@ -587,27 +649,27 @@ public class CustomerView {
 
     public void displayCustomerMenu () {
         System.out.println("\nCustomer Menu");
-        System.out.println("1: Display all customers");
-        System.out.println("2: Display customer by ID");
-        System.out.println("3: Create a new customer ");
-        System.out.println("4: Edit customer's details ");
-        System.out.println("5: Deactivate a customer ");
-        System.out.println("6: Delete a customer record");
-        System.out.println("9: Exit application\n");
+        System.out.println("1: Display all Customers");
+        System.out.println("2: Display Customer by ID");
+        System.out.println("3: Create a New Customer ");
+        System.out.println("4: Edit Customer's Details ");
+        System.out.println("5: Deactivate a Customer ");
+        System.out.println("6: Delete a Customer Record");
+        System.out.println("9: Return to Main Menu\n");
         System.out.print("Enter your choice: ");
     }
 
     public void displayCustomerEditMenu () {
-        System.out.println("1: Edit first name");
-        System.out.println("2: Edit last name");
-        System.out.println("3: Edit address1");
-        System.out.println("4: Edit address2 ");
-        System.out.println("5: Edit towm");
-        System.out.println("6: Edit eircode");
-        System.out.println("7: Edit phone number");
-        System.out.println("8: Edit status");
-        System.out.println("9: Edit delivery area");
-        System.out.println("99: Finish editing\n");
+        System.out.println("1: Edit First Name");
+        System.out.println("2: Edit Last Name");
+        System.out.println("3: Edit House/Apartment No");
+        System.out.println("4: Edit Street");
+        System.out.println("5: Edit Town");
+        System.out.println("6: Edit Eircode");
+        System.out.println("7: Edit Phone Number");
+        System.out.println("8: Edit Status");
+        System.out.println("9: Edit Delivery Area");
+        System.out.println("99: Finish Editing\n");
         System.out.print("Enter your choice: ");
     }
 }

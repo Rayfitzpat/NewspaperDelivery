@@ -168,9 +168,9 @@ public class GUItest extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         if (!customerInitialised) {
             try {
-                DBconnector.init_db();
+                DBconnection.init_db();
                 String sql = "Select * from customer";
-                ResultSet rs = DBconnector.stmt.executeQuery(sql);
+                ResultSet rs = DBconnection.stmt.executeQuery(sql);
 
                 while(rs.next()){
 
@@ -195,7 +195,7 @@ public class GUItest extends javax.swing.JFrame {
 
                     customerInitialised = true;
                 }
-                DBconnector.con.close();
+                DBconnection.con.close();
 
             } catch (Exception e) {
                 System.out.println("Error: Failed to connect to database\n" + e.getMessage());

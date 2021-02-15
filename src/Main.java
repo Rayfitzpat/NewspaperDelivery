@@ -15,28 +15,30 @@ public class Main {
 
         int menuChoice = 0; // variable used to store main menu choice
         final int STOP_APP = 6; //value from menu that is used to quit the application
-        DeliveryPersonDB dpm = new DeliveryPersonDB();
-//        dpm.deliveryPersonMainPage();
+        DeliveryPersonDB deliveryPersonMenu = new DeliveryPersonDB();
+        PublicationMain publicationMenu = new PublicationMain();
+        CustomerView customerMenu = new CustomerView();
+        Main main = new Main();
 
         while (menuChoice != STOP_APP) {
-            displayMainMenu(); //display the primary menu
+            main.displayMainMenu(); //display the primary menu
             if (in.hasNextInt()) {
                 //get the menu choice from the user
                 menuChoice = in.nextInt();
 
                 switch (menuChoice) {
-//                    case 1:
-//                        customer(stmt); //The code for this method is already done for you below
-//                        break;
+                    case 1:
+                        customerMenu.customerMainPage(); //The code for this method is already done for you below
+                        break;
                     case 2:
-                        dpm.deliveryPersonMainPage();  //You need to code this method below
+                        deliveryPersonMenu.deliveryPersonMainPage();  //You need to code this method below
                         break;
 //                    case 3:
 //                        deliveryArea(stmt); //You need to code this method below
 //                        break;
-//                    case 4:
-//                        publications(stmt); //You need to code this method below
-//                        break;
+                    case 4:
+                        publicationMenu.publicationMainPage(); //You need to code this method below
+                        break;
 //                    case 5:
 //                        order(stmt); //You need to code this method below
 //                        break;
@@ -46,12 +48,12 @@ public class Main {
 //                    case 7:
 //                        customerSupport(stmt); //You need to code this method below
 //                        break;
-//                    case 8:
-//                        System.out.println("Program is closing...");
-//                        cleanup_resources();  // close the connection to the database when finished program
-//                        break;
-//                    default:
-//                        System.out.println("You entered an invalid choice, please try again...");
+                    case 8:
+                        System.out.println("Program is closing...");
+                        DBconnection.cleanup_resources();  // close the connection to the database when finished program
+                        break;
+                    default:
+                        System.out.println("You entered an invalid choice, please try again...");
                 }
             } else {
                 //clear the input buffer and start again

@@ -82,7 +82,6 @@ public class Publication {
             System.out.println(question);
             if (in.hasNextLine()) {
                 // if publication reply is "yes" or "no", save it and exit the loo0
-                in.nextLine();
                 answer = in.nextLine();
                 if (answer.equals("yes") || answer.equals("Yes")) {
                     inputValid = true;
@@ -96,7 +95,7 @@ public class Publication {
                 }
             } else {
                 //clear the input buffer and start again
-                in.nextLine();
+                in.next();
                 System.out.println("You entered an invalid answer, please use \"yes\" or \"no\"...");
             }
         }

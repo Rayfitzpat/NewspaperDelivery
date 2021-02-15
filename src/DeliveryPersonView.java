@@ -616,7 +616,7 @@ public class DeliveryPersonView {
                        if (deleteCount > 0) {
 
                            try {
-                               Statement deletePerson = dpm.con.createStatement();
+                               Statement deletePerson = DBconnection.con.createStatement();
                                deletePerson.executeUpdate("delete from delivery_Person where delivery_person_id =" + id + "");
                                System.out.println("Delivery Person with id: " + id + " has been deleted");
                            } catch (Exception e) {
@@ -662,19 +662,19 @@ public class DeliveryPersonView {
 
 
 
-
-    public static void cleanup_resources()
-    {
-        DeliveryPersonDB dpm = new DeliveryPersonDB();
-        try
-        {
-            dpm.con.close();
-        }
-        catch (SQLException sqle)
-        {
-            System.out.println("Error: failed to close the database");
-        }
-    }
+//
+//    public static void cleanup_resources()
+//    {
+//        DeliveryPersonDB dpm = new DeliveryPersonDB();
+//        try
+//        {
+//            dpm.con.close();
+//        }
+//        catch (SQLException sqle)
+//        {
+//            System.out.println("Error: failed to close the database");
+//        }
+//    }
 
 
 //    ************************************************************************************************************

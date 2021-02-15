@@ -18,12 +18,12 @@ public class PublicationView {
     // Beginning of display all publications
     // ******************************************************************************************************
     //Prints out the publication table
-    public void displayAllPublication(Statement stmt) {
+    public void displayAllPublication() {
         String str = "Select * from publication";
 
 
         try {
-            ResultSet rs = stmt.executeQuery(str);
+            ResultSet rs = DBconnection.stmt.executeQuery(str);
 
             System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "Publication Name", "Frequency", "Cost", "Stock Level");
             while (rs.next()) {
@@ -49,7 +49,7 @@ public class PublicationView {
     // Beginning of display a certain publication with entered ID.
     // ******************************************************************************************************
 
-    public void displayPublication(Statement stmt) {
+    public void displayPublication() {
         System.out.println("Please enter the ID of the publication you want to display");
 
         String id = in.next();
@@ -60,7 +60,7 @@ public class PublicationView {
             String str = "Select * from publication where publication_id = " + id;
 
             try {
-                ResultSet rs = stmt.executeQuery(str);
+                ResultSet rs = DBconnection.stmt.executeQuery(str);
 
 
                 System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "Publication Name", "Frequency", "Cost", "Stock Level");
@@ -91,10 +91,8 @@ public class PublicationView {
     // Beginning of the add a new publication method
     // ******************************************************************************************************
 
-    public void addNewPublication(Statement stmt) throws SQLException {
+    public void addNewPublication() throws SQLException {
 
-
-        PublicationMain publicationMain = new PublicationMain();
 
         //prompts the user to enter a new publication name.
         System.out.println("\nPlease Enter a name for the new Publication\n");
@@ -126,36 +124,36 @@ public class PublicationView {
                     boolean validStockLevel = p.validateAWholeNumber(newPublication_Stock_Level);
                     if (validStockLevel == true) {
 
-                        Statement addNew = publicationMain.con.createStatement();
+                        Statement addNew = DBconnection.con.createStatement();
                         addNew.executeUpdate("INSERT INTO publication VALUES (null, '" + newPublication_Name + "','" + newPublication_Frequency + "','" + newPublication_Cost + "','" + newPublication_Stock_Level + "')");
                         //displays all publications to show you the new update.
-                        displayAllPublication(stmt);
+                        displayAllPublication();
                         // --------------------------------
                         //error handling.
                         //-------------------------------
                     } else {
                         System.out.println("The number you entered is invalid, please try again using a whole number.");
-                        addNewPublication(stmt);
+                        addNewPublication();
                     }
                 } else {
                     System.out.println("The number you entered is invalid, please try again using a valid number.");
-                    addNewPublication(stmt);
+                    addNewPublication();
                 }
             } else {
-                addNewPublication(stmt);
+                addNewPublication();
             }
         } else {
-            addNewPublication(stmt);
+            addNewPublication();
         }
     }
     // ******************************************************************************************************
     // Beginning of the edit publication method.
     // ******************************************************************************************************
 
-    public void editPublication(Statement stmt) throws SQLException {
+    public void editPublication() throws SQLException {
 
         //displays all publications so the user can see which publication they want to update.
-        displayAllPublication(stmt);
+        displayAllPublication();
 
 
         String str = "";
@@ -168,7 +166,7 @@ public class PublicationView {
         if (validNumberedString == true) {
             //checks to see if the entered number is a real entry on the database. if it is, move on.
             str = "select count(*) as total from publication where publication_id = " + editId;
-            ResultSet rs = stmt.executeQuery(str);
+            ResultSet rs = DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs.next()) {
                 count = rs.getInt("total");
@@ -203,7 +201,7 @@ public class PublicationView {
                                 break;
                             case 5:
                                 System.out.println("Program is closing...");
-                                displayAllPublication(stmt);  // close the connection to the database when finished program
+                                displayAllPublication();  // close the connection to the database when finished program
                                 break;
                             default:
                                 System.out.println("You entered an invalid choice, please try again...");
@@ -234,7 +232,7 @@ public class PublicationView {
         //validates the entry by the user, if it is valid, executes the update
         boolean validName = p.validatePublicationName(newPublication_Name);
         if (validName) {
-            Statement editpublication_name = publicationMain.con.createStatement();
+            Statement editpublication_name = DBconnection.con.createStatement();
             editpublication_name.executeUpdate("Update publication SET publication_name = '" + newPublication_Name + "' where publication_id = '" + editId + "'");
             System.out.println("Successfully updated the publication name to " + newPublication_Name + "\n\nReturning to edit menu....");
         }
@@ -250,7 +248,7 @@ public class PublicationView {
         boolean validFrequency = p.validatePublicationFrequency(newPublication_Frequency);
         if (validFrequency) {
            newPublication_Frequency = newPublication_Frequency.toLowerCase();
-            Statement editpublication_frequency = publicationMain.con.createStatement();
+            Statement editpublication_frequency = DBconnection.con.createStatement();
             editpublication_frequency.executeUpdate("Update publication SET publication_frequency = '" + newPublication_Frequency + "' where publication_id = '" + editId + "'");
             System.out.println("Successfully update the frequency to " + newPublication_Frequency + "\n\nReturning to edit menu....");
         }
@@ -265,7 +263,7 @@ public class PublicationView {
         //validates the entry by the user, if it is valid, executes the update
         boolean validNumberedString = p.validateANumber(newPublication_Cost);
         if (validNumberedString) {
-            Statement editpublication_cost = publicationMain.con.createStatement();
+            Statement editpublication_cost = DBconnection.con.createStatement();
             editpublication_cost.executeUpdate("Update publication SET publication_cost = '" + newPublication_Cost + "' where publication_id = '" + editId + "'");
             System.out.println("Successfully update the price to " + newPublication_Cost + "\n\nReturning to edit menu....");
         } else System.out.println("Your entry is not a valid number, please try again using a valid number.");
@@ -279,7 +277,7 @@ public class PublicationView {
         //validates the entry by the user, if it is valid, executes the update
         boolean validStock = p.validateANumber(newPublication_Stock_Level);
         if (validStock) {
-            Statement editpublication_stock_level = publicationMain.con.createStatement();
+            Statement editpublication_stock_level = DBconnection.con.createStatement();
             editpublication_stock_level.executeUpdate("Update publication SET publication_stock_level = '" + newPublication_Stock_Level + "' where publication_id = '" + editId + "'");
             System.out.println("Successfully update the frequency to " + newPublication_Stock_Level + "\n\nReturning to edit menu....");
         } else System.out.println("Your entry is not a valid number, please try again using a valid whole number.");
@@ -289,13 +287,13 @@ public class PublicationView {
     // ******************************************************************************************************
     // Beginning of the delete publication method.
     // ******************************************************************************************************
-    public void deletePublication(Statement stmt) throws SQLException {
+    public void deletePublication() throws SQLException {
 
         PublicationMain pm = new PublicationMain();
         int deleteCount;
         String str;
         ResultSet rs;
-        displayAllPublication(stmt);
+        displayAllPublication();
 
         System.out.println("Please enter the ID of the publication you would like to delete\n");
         String id = in.next();
@@ -305,7 +303,7 @@ public class PublicationView {
 
             //validates that the chosen entry is in the database.
             str = "select count(*) as total from publication where publication_id = " + id;
-            rs = stmt.executeQuery(str);
+            rs = DBconnection.stmt.executeQuery(str);
             deleteCount = 0;
             while (rs.next()) {
                 deleteCount = rs.getInt("total");
@@ -316,7 +314,7 @@ public class PublicationView {
                 boolean confirmDelete = p.askUserYesOrNo("Are you sure want to delete this publication. All deliveries, Daily Summaries and orders associated with this publication will also be deleted(yes/no)");
                 if (confirmDelete) {
                     //if the user choses yes, the entry is deleted.
-                    Statement deletePublication = publicationMain.con.createStatement();
+                    Statement deletePublication = DBconnection.con.createStatement();
                     deletePublication.executeUpdate("DELETE from publication where publication_id = " + id);
                     System.out.println("The Publication with the id of " + id + " has been deleted...... \n\nReturning to menu......");
                 } else {
@@ -328,7 +326,7 @@ public class PublicationView {
         } else {
             //Tells the user the ID they have entered is invalid, brings them to the start of the method
             System.out.println("You have entered an incorrect ID, please check the list of IDs and try again.\n");
-            deletePublication(stmt);
+            deletePublication();
         }
 
 
@@ -340,10 +338,10 @@ public class PublicationView {
     // ******************************************************************************************************
     public static void editPublicationMenu() {
         System.out.println("\nEdit Publication Menu");
-        System.out.println("1: Edit Publication name");
-        System.out.println("2: Edit Publication frequency");
-        System.out.println("3: Edit Publication cost");
-        System.out.println("4: Edit Publication stock level");
+        System.out.println("1: Edit Publication Name");
+        System.out.println("2: Edit Publication Frequency");
+        System.out.println("3: Edit Publication Cost");
+        System.out.println("4: Edit Publication Stock level");
         System.out.println("5: Exit to Main Menu\n");
         System.out.print("Enter your choice: ");
     }
@@ -353,12 +351,12 @@ public class PublicationView {
     // ******************************************************************************************************
     public static void displayMainMenu() {
         System.out.println("\nMain Menu");
-        System.out.println("1: Display all publications");
-        System.out.println("2: Display a publication with ID ");
-        System.out.println("3: Add new publication");
+        System.out.println("1: Display all Publications");
+        System.out.println("2: Display a Publication with ID ");
+        System.out.println("3: Add new Publication");
         System.out.println("4: Edit Publication");
         System.out.println("5: Delete Publication");
-        System.out.println("6: Exit Programme\n");
+        System.out.println("6: Return to Main Menu\n");
         System.out.print("Enter your choice: ");
     }
 }

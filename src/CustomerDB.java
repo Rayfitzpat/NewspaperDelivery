@@ -109,7 +109,7 @@ public class CustomerDB {
             String insertQuery = "INSERT INTO customer VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             try {
-                PreparedStatement pstmt = DBconnector.con.prepareStatement(insertQuery);
+                PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
                 pstmt.setString(1, customer.getFirstName());
                 pstmt.setString(2, customer.getLastName());
                 pstmt.setInt(3, customer.getAddress1());
@@ -149,7 +149,7 @@ public class CustomerDB {
                     "SET customer_status = false " +
                     "WHERE customer_id = " + customerId + ";";
             try {
-                DBconnector.stmt.executeUpdate(updateQuery);
+                DBconnection.stmt.executeUpdate(updateQuery);
             } catch (SQLException sqle) {
                 System.out.println(sqle.getMessage());
                 System.out.println(updateQuery);
@@ -171,7 +171,7 @@ public class CustomerDB {
         if (ifCustomerExists(customerId)) {
             String updateQuery = "DELETE FROM customer WHERE customer_id = " + customerId + ";";
             try {
-                DBconnector.stmt.executeUpdate(updateQuery);
+                DBconnection.stmt.executeUpdate(updateQuery);
                 System.out.println("Customer with Id " + customerId + " was successfully deleted from the DB");
             } catch (SQLException sqle) {
                 throw new CustomerExceptionHandler(sqle.getMessage() + "\n" + sqle);
@@ -249,7 +249,7 @@ public class CustomerDB {
         ResultSet rs;
         ArrayList<Integer> deliveryAreaIDs = new ArrayList<>();
         try {
-            rs = DBconnector.stmt.executeQuery(query);
+            rs = DBconnection.stmt.executeQuery(query);
             System.out.printf("\n%-10s %-25s %-45s\n", "ID", "Delivery area name", "Description");
             while (rs.next()) {
 

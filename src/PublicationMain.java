@@ -4,28 +4,9 @@ import java.util.Scanner;
 
 public class PublicationMain {
 
-    static Connection con = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
-    static Scanner in = new Scanner(System.in);
+    public void publicationMainPage() throws  SQLException{
 
-    public static void init_db() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-            con = DriverManager.getConnection(url, "root", "admin");
-            stmt = con.createStatement();         
-
-        } catch (Exception e) {
-            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
-        }
-    }
-
-
-
-    public static void main(String[] args) throws SQLException {
-
-        init_db();  // open the connection to the database
+        Scanner in  = new Scanner(System.in);
 
         Publication publication = new Publication();
 
@@ -43,19 +24,67 @@ public class PublicationMain {
 
                 switch (menuChoice) {
                     case 1:
-                        pv.displayAllPublication(stmt);
+                        pv.displayAllPublication();
                         break;
                     case 2:
-                        pv.displayPublication(stmt);
+                        pv.displayPublication();
                         break;
                     case 3:
-                        pv.addNewPublication(stmt);
+                        pv.addNewPublication();
                         break;
                     case 4:
-                        pv.editPublication(stmt);
+                        pv.editPublication();
+                        break;
+                    case 5:
+                        pv.deletePublication();
+                        break;
+                    case 6:
+                        return;
+                    default:
+                        System.out.println("You entered an invalid choice, please try again...");
+                }
+            } else {
+                //clear the input buffer and start again
+                in.nextLine();
+                System.out.println("You entered an invalid choice, please try again...");
+            }
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
+
+        DBconnection.init_db();  // open the connection to the database
+        Scanner in  = new Scanner(System.in);
+
+        Publication publication = new Publication();
+
+        PublicationView pv = new PublicationView();
+
+        int menuChoice = 0;
+
+        final int STOP_APP = 7;
+
+        while (menuChoice != STOP_APP) {
+            pv.displayMainMenu(); //display the primary menu
+            if (in.hasNextInt()) {
+                //get the menu choice from the user
+                menuChoice = in.nextInt();
+
+                switch (menuChoice) {
+                    case 1:
+                        pv.displayAllPublication();
+                        break;
+                    case 2:
+                        pv.displayPublication();
+                        break;
+                    case 3:
+                        pv.addNewPublication();
+                        break;
+                    case 4:
+                        pv.editPublication();
                        break;
                     case 5:
-                        pv.deletePublication(stmt);
+                        pv.deletePublication();
                         break;
 //                    case 6:
 //                        System.out.println("Program is closing...");
