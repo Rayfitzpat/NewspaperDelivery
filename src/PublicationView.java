@@ -54,40 +54,62 @@ public class PublicationView {
     // Beginning of display a certain publication with entered ID.
     // ******************************************************************************************************
 
-    public void displayPublication() {
+    public void displayPublication() throws SQLException {
+        displayAllPublication();
         System.out.println("Please enter the ID of the publication you want to display");
 
+
+
+        String st="";
+        int count;
+
+
         String id = in.next();
+
         //checks if the entered id is a whole number.
         boolean validId = p.validateAWholeNumber(id);
         if (validId) {
-            //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-            String str = "Select * from publication where publication_id = " + id;
-
-            try {
-                ResultSet rs = DBconnection.stmt.executeQuery(str);
 
 
-                System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "Publication Name", "Frequency", "Cost", "Stock Level");
-                while (rs.next()) {
-                    int publication_id = rs.getInt("publication_id");
-                    String publication_name = rs.getString("publication_name");
-                    String publication_frequency = rs.getString("publication_frequency");
-                    double publication_cost = rs.getDouble("publication_cost");
-                    int publication_stock_level = rs.getInt("publication_stock_level");
-
-
-                    System.out.printf("%-12s %-25s %-15s %-10s %-10s \n", publication_id, publication_name, publication_frequency, publication_cost, publication_stock_level);
-                }
-
-            } catch (SQLException sqle) {
-                System.out.println("Error: failed to display all Publications.");
-                System.out.println(str);
+            st = "select count(*) as total from publication where publication_id = " + id;
+            ResultSet rss = DBconnection.stmt.executeQuery(st);
+            count = 0;
+            while (rss.next()) {
+                count = rss.getInt("total");
             }
-        } else {
-            //if the valid ID check fails, the below is printed.
-            System.out.println("You have entered an invalid ID, please try again");
+            if (count > 0) {
+
+
+                //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
+                String str = "Select * from publication where publication_id = " + id;
+
+                try {
+                    ResultSet rs = DBconnection.stmt.executeQuery(str);
+
+
+                    System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "Publication Name", "Frequency", "Cost", "Stock Level");
+                    while (rs.next()) {
+                        int publication_id = rs.getInt("publication_id");
+                        String publication_name = rs.getString("publication_name");
+                        String publication_frequency = rs.getString("publication_frequency");
+                        double publication_cost = rs.getDouble("publication_cost");
+                        int publication_stock_level = rs.getInt("publication_stock_level");
+
+
+                        System.out.printf("%-12s %-25s %-15s %-10s %-10s \n", publication_id, publication_name, publication_frequency, publication_cost, publication_stock_level);
+                    }
+
+                } catch (SQLException sqle) {
+                    System.out.println("Error: failed to display all Publications.");
+                    System.out.println(str);
+                }
+            } else {
+                //if the valid ID check fails, the below is printed.
+                System.out.println("You have entered an invalid ID, please try again");
+                displayPublication();
+            }
         }
+
 
 
     }
@@ -99,10 +121,10 @@ public class PublicationView {
     public void addNewPublication() throws SQLException {
 
         System.out.println("Please enter the new publication name");
-String newPublication_Name ="";
-String newPublication_Frequency="";
-String newPublication_Cost = "";
-String newPublication_Stock_Level="";
+    String newPublication_Name ="";
+    String newPublication_Frequency="";
+    String newPublication_Cost = "";
+    String newPublication_Stock_Level="";
         if (in.hasNextLine()) {
 
             newPublication_Name = in.nextLine();
@@ -188,7 +210,8 @@ String newPublication_Stock_Level="";
         editId = in.next();
         //checks if the entery is a valid whole number. if it is, move on.
         boolean validNumberedString = p.validateAWholeNumber(editId);
-        if (validNumberedString == true) {
+        if (validNumberedString == true)
+        {
             //checks to see if the entered number is a real entry on the database. if it is, move on.
             str = "select count(*) as total from publication where publication_id = " + editId;
             ResultSet rs = DBconnection.stmt.executeQuery(str);
@@ -330,7 +353,8 @@ String newPublication_Stock_Level="";
             str = "select count(*) as total from publication where publication_id = " + id;
             rs = DBconnection.stmt.executeQuery(str);
             deleteCount = 0;
-            while (rs.next()) {
+            while (rs.next())
+            {
                 deleteCount = rs.getInt("total");
             }
 
