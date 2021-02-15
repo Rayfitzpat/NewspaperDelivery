@@ -83,8 +83,10 @@ public class DeliveryArea
     {
         if (DAname.isBlank() || DAname.isEmpty())
             throw new DeliveryAreaExceptionHandler("Delivery area not specified");
+
         else if (DAname.length() < 2)
             throw new DeliveryAreaExceptionHandler("Delivery area does not meet minimum length requirements");
+
         else if (DAname.length() > 19)
             throw new DeliveryAreaExceptionHandler("Delivery area name exceeds maximum length requirements");
     }
