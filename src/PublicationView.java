@@ -1,3 +1,4 @@
+import javax.xml.validation.Validator;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,6 +9,10 @@ public class PublicationView {
 
     //imports scanner
     Scanner in = new Scanner(System.in);
+    boolean validPubName = false;
+    boolean validFrequency = false;
+    boolean validCost = false;
+    boolean validStockLevel = false;
     String editId = "";
     //creates an object from publication main and publication class for use in this class..
     PublicationMain publicationMain = new PublicationMain();
@@ -93,58 +98,78 @@ public class PublicationView {
 
     public void addNewPublication() throws SQLException {
 
+        System.out.println("Please enter the new publication name");
+String newPublication_Name ="";
+String newPublication_Frequency="";
+String newPublication_Cost = "";
+String newPublication_Stock_Level="";
+        if (in.hasNextLine()) {
 
-        //prompts the user to enter a new publication name.
-        System.out.println("\nPlease Enter a name for the new Publication\n");
-        String newPublication_Name = in.nextLine();
-        //checks if the name is valid, if it is, the code moves on to the next step
-        boolean validName = p.validatePublicationName(newPublication_Name);
-        if (validName == true) {
-
-            //prompts the user to enter a new publication frequency
-            System.out.println("Please enter a frequency for the new publication, either Daily or Weekly\n");
-            String newPublication_Frequency = in.nextLine();
-           newPublication_Frequency = newPublication_Frequency.toLowerCase();
-            //checks to see if the frequency is valid, if is it the code moves on to the next step
-            boolean validFrequency = p.validatePublicationFrequency(newPublication_Frequency);
-            if (validFrequency == true) {
-
-                //prompts the user to enter a new publication cost
-                System.out.println("Please enter a cost for the new publication\n");
-                String newPublication_Cost = in.next();
-                //checks to see if the cost is valid, if is it the code moves on to the next step
-                boolean validCost = p.validateANumber(newPublication_Cost);
-                if (validCost == true) {
+            newPublication_Name = in.nextLine();
+            boolean validName = p.validatePublicationName(newPublication_Name);
 
 
-                    //prompts the user to enter a new publication stock level
-                    System.out.println("Please enter the stock level for the new publication\n");
-                    String newPublication_Stock_Level = in.next();
-                    //checks to see if the stock level is valid, if is it the code applies the update
-                    boolean validStockLevel = p.validateAWholeNumber(newPublication_Stock_Level);
-                    if (validStockLevel == true) {
-
-                        Statement addNew = DBconnection.con.createStatement();
-                        addNew.executeUpdate("INSERT INTO publication VALUES (null, '" + newPublication_Name + "','" + newPublication_Frequency + "','" + newPublication_Cost + "','" + newPublication_Stock_Level + "')");
-                        //displays all publications to show you the new update.
-                        displayAllPublication();
-                        // --------------------------------
-                        //error handling.
-                        //-------------------------------
-                    } else {
-                        System.out.println("The number you entered is invalid, please try again using a whole number.");
-                        addNewPublication();
-                    }
-                } else {
-                    System.out.println("The number you entered is invalid, please try again using a valid number.");
-                    addNewPublication();
-                }
-            } else {
+            if (!p.validatePublicationName(newPublication_Name))
+            {
                 addNewPublication();
+                validName = false;
+            } else {
+                validName = true;
             }
-        } else {
-            addNewPublication();
         }
+
+        do {
+            System.out.println("Please enter the publication frequency, either 'Daily' or 'Weekly'");
+            if (in.hasNextLine())
+            {
+               newPublication_Frequency = in.nextLine();
+
+                if (!p.validatePublicationFrequency(newPublication_Frequency)) {
+                    validFrequency = false;
+                } else {
+                    validFrequency = true;
+                }
+            }
+        } while (!validFrequency);
+
+
+        do {
+            System.out.println("Please enter the publication cost");
+            if (in.hasNextLine()) {
+                newPublication_Cost  = in.nextLine();
+                if (!p.validateANumber(newPublication_Cost)) {
+                    validCost = false;
+                } else {
+                    validCost = true;
+                }
+            }
+        } while (!validCost);
+
+        do {
+            System.out.println("Please enter the publication stock level");
+
+            if (in.hasNextLine()) {
+                 newPublication_Stock_Level = in.nextLine();
+                p.validateAWholeNumber(newPublication_Stock_Level );
+
+                if (!p.validateAWholeNumber(newPublication_Stock_Level )) {
+                    System.out.println("Please enter a valid whole number for stock level");
+                    validStockLevel = false;
+                } else {
+                    validStockLevel = true;
+
+                }
+            }
+        } while (!validStockLevel);
+
+        Statement addNew = DBconnection.con.createStatement();
+        addNew.executeUpdate("INSERT INTO publication VALUES (null, '" + newPublication_Name + "','" + newPublication_Frequency + "','" + newPublication_Cost + "','" + newPublication_Stock_Level + "')");
+        displayAllPublication();
+
+
+
+
+
     }
     // ******************************************************************************************************
     // Beginning of the edit publication method.
@@ -321,8 +346,10 @@ public class PublicationView {
                     //if the user choses no, they are returned to the main menu
                     System.out.println("Returning to Main Menu...");
                 }
-            }
 
+            }
+            System.out.println("Please choose an entry that is in the database.");
+            deletePublication();
         } else {
             //Tells the user the ID they have entered is invalid, brings them to the start of the method
             System.out.println("You have entered an incorrect ID, please check the list of IDs and try again.\n");
