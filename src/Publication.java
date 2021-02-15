@@ -2,44 +2,42 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Publication {
-
-    private int publicationId;
-    private String publicationName;
+    Scanner in = new Scanner(System.in);
+    private int publication_id;
+    private String publication_name;
     private double cost;
     private String frequency;
     private int stockLevel;
     private ResultSet rs = null;
 
-    public Publication(int publicationId, String name, double cost, String frequency, int stockLevel)
-    {
-        this.publicationId = publicationId;
-        this.publicationName = name;
+    public Publication(int publication_id, String name, double cost, String frequency, int stockLevel) {
+        this.publication_id = publication_id;
+        this.publication_name = name;
         this.cost = cost;
         this.frequency = frequency;
         this.stockLevel = stockLevel;
     }
 
-    public Publication()
-    {
+    public Publication() {
 
     }
 
-    // Getters and setters
-    public int getPublicationId()
-    {
-        return publicationId;
+    // *****************************************************************************************
+// getters and setters
+// *****************************************************************************************
+    public int getpublication_id() {
+        return publication_id;
     }
 
-    public void setPublicationId(int id)
-    {
-        this.publicationId = id;
+    public void setpublication_id(int id) {
+        this.publication_id = id;
     }
 
-    public String getPublicationName()
-    {
-        return publicationName;
+    public String getpublication_name() {
+        return publication_name;
     }
 
     public double getCost() {
@@ -67,60 +65,122 @@ public class Publication {
         this.stockLevel = stockLevel;
     }
 
-    public void setPublicationName(String publicationName) {
-        this.publicationName = publicationName;
+    public void setpublication_name(String publication_name) {
+        this.publication_name = publication_name;
     }
 
 
-    public ArrayList<Publication> readAllPublications(Statement stmt) {
-        //1: Query the database for all students
-        //2: Display the result set in an appropriate manner
-        String str = "Select * from publication";
+    // *****************************************************************************************
+// Method that asks the user to input yes or no. returns a true or false statement based on that
+// *****************************************************************************************
+    public boolean askUserYesOrNo(String question) {
+        String answer;
+        boolean inputValid = false;
+        boolean confirm = false;
 
-        ArrayList listOfPublications = new ArrayList<Publication>();
+        while (!inputValid) {
+            System.out.println(question);
+            if (in.hasNextLine()) {
+                // if publication reply is "yes" or "no", save it and exit the loo0
+                in.nextLine();
+                answer = in.nextLine();
+                if (answer.equals("yes") || answer.equals("Yes")) {
+                    inputValid = true;
+                    confirm = true;
 
-        try {
-            rs = stmt.executeQuery(str);
-            while (rs.next()) {
-                int spublicationId = rs.getInt("publicationId");
-                String publicationName = rs.getString("publicationName");
-                String publicationFrequency = rs.getString("publicationFrequency");
-                float publicationCost = rs.getFloat("publicationCost");
-                int stockLevel = rs.getInt("publicationStockLevel");
-
-                listOfPublications.add(new Publication(spublicationId, publicationName, publicationCost, publicationFrequency,  stockLevel));
+                } else if (answer.equals("no") || answer.equals("No")) {
+                    inputValid = true;
+                    confirm = false;
+                } else {
+                    System.out.println("You entered an invalid answer, please use \"yes\" or \"no\"...");
+                }
+            } else {
+                //clear the input buffer and start again
+                in.nextLine();
+                System.out.println("You entered an invalid answer, please use \"yes\" or \"no\"...");
             }
+        }
+        return confirm;
+    }
 
-        } catch (SQLException sqle) {
-            System.out.println("Error: failed to read all students.");
-            System.out.println(sqle.getMessage());
-            System.out.println(str);
+    // *****************************************************************************************
+// Validates that the string entered only consists of numbers.
+// *********************************************************************************************
+
+    public boolean validateAWholeNumber(String publicationId) {
+        if (publicationId.matches("[1-9][0-9]*")) {
+
+            return true;
+
+
+        } else {
+            return false;
         }
 
-        return listOfPublications;
     }
 
-    public void displayAllPublications (ArrayList<Publication> publications)
-    {
-        System.out.printf("\n%-12s %-30s %-20s %-10s %-10s\n", "Col1", "Col2", "Col3", "Col4", "Col5");
-        for (int i = 0; i < publications.size(); i++)
-        {
-            System.out.printf("%-12d %-30s %-20f %-10d %-10s\n", publications.get(i).getPublicationId(), publications.get(i).getPublicationName(), publications.get(i).getCost(), publications.get(i).getStockLevel(), publications.get(i).getFrequency());
+
+    // *****************************************************************************************
+// Validates that the string entered only consists of letters and spaces.
+// *****************************************************************************************
+
+    public boolean validatePublicationName(String newPublication_Name) {
+        //uses regex to check if the entered name is between a-z and has spaces
+        if (newPublication_Name.matches("[a-zA-z\\s]*")) {
+            //if that is true, the length is then checked, if is between 3 and 30 characters then true is returned.
+            if (newPublication_Name.length() >= 3 && newPublication_Name.length() <= 30) {
+                return true;
+            } else {
+                //this is the statement that is printed if the if statement that checks the length fails.
+                System.out.println("The Publication Name you entered is not the valid length");
+                return false;
+
+            }
+        }
+        else
+            {
+                //this is the statement that is printed if an entry is invalid.
+            System.out.println("The publication name you have entered contains invalid character(s). Please try again.");
+            return false;
         }
     }
 
-    public void createPublication(Publication publication)
-    {
+    // *****************************************************************************************
+// Validates that the string entered only consists of the words "Daily" or "Weekly"
+// *****************************************************************************************
+    public boolean validatePublicationFrequency(String newPublication_Frequency) {
+        //uses regex to check if the entered name is between a-z
+        if (newPublication_Frequency.matches("[a-zA-Z]+")) {
+            //checks if the users entered either "Daily" or "Weekly"
+
+            if (newPublication_Frequency.matches("daily") || newPublication_Frequency.matches("weekly")|| newPublication_Frequency.matches("Weekly")|| newPublication_Frequency.matches("Daily")) {
+                newPublication_Frequency =  newPublication_Frequency.toLowerCase();
+                return true;
+            }
+            else {
+
+                System.out.println("Please only enter the words, 'Daily' or 'Weekly'");
+                return false;
+            }
+        } else
+            System.out.println("Please only enter the words, 'Daily' or 'Weekly'");
+        return false;
 
     }
 
-    public void updatePublication(Publication publication)
-    {
+    public boolean validateANumber(String publicationCost) {
 
-    }
+        for (int i = 0; i < publicationCost.length() + 1; i++) {
 
-    public void deletePublication(int publicationId)
-    {
+            if (publicationCost.charAt(i) >= '0'
+                    && publicationCost.charAt(i) <= '9') {
+                return true;
+            } else {
+                System.out.println("A character you entered is not a valid number, please try again using only valid numbers.");
+                return false;
+            }
+        }
+        return false;
 
     }
 
@@ -128,8 +188,8 @@ public class Publication {
     @Override
     public String toString() {
         return "Publication{" +
-                "publicationId=" + publicationId +
-                ", publicationName='" + publicationName + '\'' +
+                "publication_id=" + publication_id +
+                ", publication_name='" + publication_name + '\'' +
                 ", cost=" + cost +
                 ", frequency='" + frequency + '\'' +
                 ", stockLevel=" + stockLevel +
