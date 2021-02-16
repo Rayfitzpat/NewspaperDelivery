@@ -27,34 +27,42 @@ public class CustomerView {
                     menuChoice = in.nextInt();
                     customerDB.fetchCustomers(DBconnection.stmt); // resetting local copy of customers
                     switch (menuChoice) {
-                        case 1 -> customerDB.printCustomers();
-                        case 2 -> {
+                        case 1:
+                            customerDB.printCustomers();
+                            break;
+                        case 2 :
                             customerID = view.askUserToEnterCustomerID(customerDB);
                             System.out.println(customerDB.getCustomers().get(customerID - 1));
-                        }
-                        case 3 -> view.addNewCustomer(customerDB);
-                        case 4 -> {
+                            break;
+                        case 3 :
+                            view.addNewCustomer(customerDB);
+                            break;
+                        case 4 :
                             customerID = view.askUserToEnterCustomerID(customerDB);
                             System.out.println(customerDB.getCustomers().get(customerID - 1));    // print customer details
                             view.editCustomer(customerID, customerDB); //You need to code this method below
-                        }
-                        case 5 -> {
+                            break;
+
+                        case 5 :
                             customerID = view.askUserToEnterCustomerID(customerDB);
                             view.deactivateCustomer(customerID, customerDB); //You need to code this method below
-                        }
-                        case 6 -> {
+                            break;
+                        case 6 :
                             customerID = view.askUserToEnterCustomerID(customerDB);
                             view.deleteCustomer(customerID, customerDB); //You need to code this method below
-                        }
-                        case 9 -> {
+                            break;
+                        case 9 :
                             System.out.println("Program is closing...");
                             DBconnection.cleanup_resources();  // close the connection to the database when finished program
-                        }
-                        default -> System.out.println("You entered an invalid choice, please try again...");
+                            break;
+                        default :
+                            System.out.println("You entered an invalid choice, please try again...");
                     }
                 } else {
                     //clear the input buffer and start again
+                    in.nextLine();
                     System.out.println("You entered an invalid choice, please try again...");
+                    //in.nextLine();
                 }
             }
         }
@@ -74,11 +82,10 @@ public class CustomerView {
 
     public void customerMainPage() {
         int menuChoice = 0; // variable used to store main menu choice
-        final int STOP_APP = 7; //value from menu that is used to quit the application
+        final int STOP_APP = 9; //value from menu that is used to quit the application
         int customerID; // setting variable to temporary customer info storage
         CustomerDB customerDB;
         CustomerView view = new CustomerView();
-        Main main = new Main();
         Scanner in = new Scanner(System.in);
 
         // initialising view
@@ -115,14 +122,13 @@ public class CustomerView {
                             view.deleteCustomer(customerID, customerDB); //You need to code this method below
                         }
                         case 9 -> {
-                            return;
-//                            System.out.println("Program is closing...");
-//                            DBconnection.cleanup_resources();  // close the connection to the database when finished program
+                            System.out.println("Returning to the Main Menu...");
                         }
                         default -> System.out.println("You entered an invalid choice, please try again...");
                     }
                 } else {
                     //clear the input buffer and start again
+                    in.nextLine();
                     System.out.println("You entered an invalid choice, please try again...");
                 }
             }
@@ -342,7 +348,7 @@ public class CustomerView {
             }
             else
             {
-                in.nextLine();
+                in.next();
                 System.out.println("Customer id should be a number");
             }
         }
