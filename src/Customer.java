@@ -334,6 +334,7 @@ public class Customer {
                 // checking the format of start date
                 try {
                     Date start = format.parse(date);
+
                 }
                 catch (ParseException e)
                 {
@@ -379,7 +380,7 @@ public class Customer {
     public String toString() {
 
         // simplifying holiday and status display
-        String holiday = holidayStartDate == null ? "not specified" : ("from" + holidayStartDate + " to " + holidayEndDate);
+        String holiday = holidayStartDate == null ? "not specified" : ("from " + holidayStartDate + " to " + holidayEndDate);
         String customerStatus = status ? "active" : "inactive";
 
         return "\n*********************************\n" + customerId +

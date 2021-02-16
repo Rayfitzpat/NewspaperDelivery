@@ -15,8 +15,8 @@ public class CustomerDB {
     private ArrayList<Customer> customers; // local copy of all customers in the db
 
     // constructor
-    public CustomerDB(Statement stmt)  throws CustomerExceptionHandler{
-        fetchCustomers(stmt);
+    public CustomerDB()  throws CustomerExceptionHandler{
+        fetchCustomers();
     }
 
 
@@ -33,17 +33,16 @@ public class CustomerDB {
     /**
      * Method is retrieving the data about the customers and returns ArrayList of Customer objects
      *
-     * @param stmt Connection statement
      * @return an ArrayList of Customer objects from the database
      */
-    public ArrayList<Customer> fetchCustomers(Statement stmt) throws CustomerExceptionHandler {
+    public ArrayList<Customer> fetchCustomers() throws CustomerExceptionHandler {
         // array list for saving all the objects of the Customer class
         ArrayList<Customer> customersList = new ArrayList<>();
 
         String query = "Select * from customer";
         ResultSet rs;
         try {
-            rs = stmt.executeQuery(query);
+            rs = DBconnection.stmt.executeQuery(query);
             while (rs.next()) {
 
                 int id = rs.getInt("customer_id");
@@ -193,6 +192,15 @@ public class CustomerDB {
         // checking if customer with Id customerId exists in the db
         if (ifCustomerExists(customerId)) {
 
+            // setting holidays
+            String holidayStart = null;
+            String holidayEnd = null;
+
+            if (c.getHolidayStartDate() != null)
+                holidayStart = "\"" + c.getHolidayStartDate() + "\"";
+            if (c.getHolidayEndDate() != null)
+                holidayEnd = "\"" + c.getHolidayEndDate() + "\"";
+
             // if customer exists, then update is possible
             String updateQuery = "UPDATE customer " +
                     "SET first_name = \"" + c.getFirstName() +
@@ -202,8 +210,8 @@ public class CustomerDB {
                     "\", town = \"" + c.getTown() +
                     "\", eircode = \"" + c.getEircode() +
                     "\", phone_number = \"" + c.getPhoneNumber() +
-                    "\", holiday_start_date = " + c.getHolidayStartDate() +
-                    ", holiday_end_date = " + c.getHolidayEndDate() +
+                    "\", holiday_start_date = " + holidayStart +
+                    ", holiday_end_date = " + holidayEnd +
                     ", customer_status = \"" + c.getStatus() +
                     "\", delivery_area_id = " + c.getDeliveryAreaId() +
                     " WHERE customer_id = " + customerId + ";";
@@ -285,6 +293,22 @@ public class CustomerDB {
 
         // if return didn't happen in the foreach loop, then this is not duplicate
         return false;
+    }
+
+    /**
+     * Method is checking if customer with customerId  already exists
+     *
+     * @param customerId customer if from the db
+     * @return true if this customer already exists in the db, false if not
+     */
+    public Customer getCustomerById(int customerId) {
+
+        for (Customer c : customers) {
+            if (c.getCustomerId() == customerId) {
+                return c;
+            }
+        }
+        return null;
     }
 
     /**

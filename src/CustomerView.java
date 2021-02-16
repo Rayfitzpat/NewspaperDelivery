@@ -17,7 +17,7 @@ public class CustomerView {
         try {
             // if view can be initialised with no errors, then connection
             // with db is set correctly
-            customerDB = new CustomerDB(DBconnection.stmt);
+            customerDB = new CustomerDB();
 
             // running the menu
             while (menuChoice != STOP_APP) {
@@ -25,7 +25,7 @@ public class CustomerView {
                 if (in.hasNextInt()) {
                     //get the menu choice from the user
                     menuChoice = in.nextInt();
-                    customerDB.fetchCustomers(DBconnection.stmt); // resetting local copy of customers
+                    customerDB.fetchCustomers(); // resetting local copy of customers
                     switch (menuChoice) {
                         case 1:
                             customerDB.printCustomers();
@@ -92,7 +92,7 @@ public class CustomerView {
         try {
             // if view can be initialised with no errors, then connection
             // with db is set correctly
-            customerDB = new CustomerDB(DBconnection.stmt);
+            customerDB = new CustomerDB();
 
             // running the menu
             while (menuChoice != STOP_APP) {
@@ -100,17 +100,17 @@ public class CustomerView {
                 if (in.hasNextInt()) {
                     //get the menu choice from the user
                     menuChoice = in.nextInt();
-                    customerDB.fetchCustomers(DBconnection.stmt); // resetting local copy of customers
+                    customerDB.fetchCustomers(); // resetting local copy of customers
                     switch (menuChoice) {
                         case 1 -> customerDB.printCustomers();
                         case 2 -> {
                             customerID = view.askUserToEnterCustomerID(customerDB);
-                            System.out.println(customerDB.getCustomers().get(customerID - 1));
+                            System.out.println(customerDB.getCustomerById(customerID));
                         }
                         case 3 -> view.addNewCustomer(customerDB);
                         case 4 -> {
                             customerID = view.askUserToEnterCustomerID(customerDB);
-                            System.out.println(customerDB.getCustomers().get(customerID - 1));    // print customer details
+                            System.out.println(customerDB.getCustomerById(customerID));    // print customer details
                             view.editCustomer(customerID, customerDB); //You need to code this method below
                         }
                         case 5 -> {
@@ -233,92 +233,129 @@ public class CustomerView {
 
         // before editing the customer, fetch current list of customers
         try {
-            customerDB.fetchCustomers(DBconnection.stmt);
+            customerDB.fetchCustomers();
         }
         catch (CustomerExceptionHandler e) {
             System.out.println(e.getMessage());
         }
 
         // accessing the object of customer that has to be edited
-        Customer customer = customerDB.getCustomers().get(customerId-1);
+        Customer customer = customerDB.getCustomerById(customerId);
 
-        // running the menu
-        while (menuChoice != STOP_APP) {
-            displayCustomerEditMenu(); //display the primary customer menu
-            if (in.hasNextInt())
-            {
-                //get the menu choice from the user
-                menuChoice = in.nextInt();
-                switch (menuChoice) {
-                    case 1 -> {
-                        // edit first name
-                        String fname = askUserToEnterName("first name");
-                        customer.setFirstName(fname);
-                    }
-                    case 2 -> {
-                        // edit first name
-                        String lname = askUserToEnterName("last name");
-                        customer.setLastName(lname);
-                    }
-                    case 3 -> {
-                        // edit address1
-                        int addless1 = askUserToEnterAddress1();
-                        customer.setAddress1(addless1);
-                    }
-                    case 4 -> {
-                        // edit address2
-                        String address2 = askUserToEnterAddress2("address line 2");
-                        customer.setAddress2(address2);
-                    }
-                    case 5 -> {
-                        // edit town
-                        String town = askUserToEnterAddress2("town");
-                        customer.setTown(town);
-                    }
-                    case 6 -> {
-                        // edit eircode
-                        String eircode = askUserToEnterEircode();
-                        customer.setEircode(eircode);
-                    }
-                    case 7 -> {
-                        // edit phone number
-                        String phone = askUserToEnterPhone();
-                        customer.setPhoneNumber(phone);
-                    }
-                    case 8 -> {
-                        // edit status
-                        boolean status = askUserToEnterStatus(customer.getStatus());
-                        customer.setStatus(status);
-                    }
-                    case 9 -> {
-                        // printing all delivery tables
-                        try {
-                            ArrayList<Integer> IDs = customerDB.printAllDeliveryAreas();
-                            int deliveryAreaId = askUserToEnterDeliveryAreaID(IDs);
-                            customer.setDeliveryAreaId(deliveryAreaId);
+        // if customer was found
+        if (customer != null) {
+
+            // running the menu
+            while (menuChoice != STOP_APP) {
+                displayCustomerEditMenu(); //display the primary customer menu
+                if (in.hasNextInt())
+                {
+                    //get the menu choice from the user
+                    menuChoice = in.nextInt();
+                    switch (menuChoice) {
+                        case 1 -> {
+                            // edit first name
+                            String fname = askUserToEnterName("first name");
+                            customer.setFirstName(fname);
                         }
-                        catch (CustomerExceptionHandler e) {
-                            System.out.println(e.getMessage());
+                        case 2 -> {
+                            // edit first name
+                            String lname = askUserToEnterName("last name");
+                            customer.setLastName(lname);
                         }
+                        case 3 -> {
+                            // edit address1
+                            int addless1 = askUserToEnterAddress1();
+                            customer.setAddress1(addless1);
+                        }
+                        case 4 -> {
+                            // edit address2
+                            String address2 = askUserToEnterAddress2("address line 2");
+                            customer.setAddress2(address2);
+                        }
+                        case 5 -> {
+                            // edit town
+                            String town = askUserToEnterAddress2("town");
+                            customer.setTown(town);
+                        }
+                        case 6 -> {
+                            // edit eircode
+                            String eircode = askUserToEnterEircode();
+                            customer.setEircode(eircode);
+                        }
+                        case 7 -> {
+                            // edit phone number
+                            String phone = askUserToEnterPhone();
+                            customer.setPhoneNumber(phone);
+                        }
+                        case 8 -> {
+                            // edit status
+                            boolean status = askUserToEnterStatus(customer.getStatus());
+                            customer.setStatus(status);
+                        }
+                        case 9 -> {
+                            // printing all delivery tables
+                            try {
+                                ArrayList<Integer> IDs = customerDB.printAllDeliveryAreas();
+                                int deliveryAreaId = askUserToEnterDeliveryAreaID(IDs);
+                                customer.setDeliveryAreaId(deliveryAreaId);
+                            }
+                            catch (CustomerExceptionHandler e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                        case 10 -> {
+                            // editing holidays
+                            boolean keepAskingHoliday = true;
+                            String holidayStartDate = null;
+                            String holidayendDate = null;
+                            while (keepAskingHoliday) {
+                                // if customer has a holiday in the future, initialise the holiday fields
+                                if (askCustomerAboutHoliday()) {
+                                    holidayStartDate = askUserToEnterHolidayStart();
+                                    holidayendDate = askUserToEnterHolidayEnd();
+
+                                    // validating date start and end
+                                    Customer c = new Customer();
+                                    try {
+                                        c.validateHoliday(holidayStartDate, holidayendDate);
+                                        keepAskingHoliday = false;
+                                    }
+                                    catch (CustomerExceptionHandler e) {
+                                        System.out.println(e.getMessage());
+                                    }
+
+                                }
+                                else {
+                                    // customer doesn't have a holiday
+                                    keepAskingHoliday = false;
+                                    holidayStartDate = null;
+                                    holidayendDate = null;
+                                }
+                            }
+                            // setting new holidays
+                            customer.setHolidayStartDate(holidayStartDate);
+                            customer.setHolidayEndDate(holidayendDate);
+                        }
+                        case 99 -> {
+                            System.out.println("Finishing update...");
+                            try {
+                                customerDB.updateCustomer(customerId, customer, DBconnection.stmt);
+                                System.out.println("Returning to main menu ... ");
+                            }
+                            catch (CustomerExceptionHandler e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                        default -> System.out.println("You entered an invalid choice, please try again...");
                     }
-                    case 99 -> {
-                        System.out.println("Finishing update...");
-                        try {
-                            customerDB.updateCustomer(customerId, customer, DBconnection.stmt);
-                            System.out.println("Returning to main menu ... ");
-                        }
-                        catch (CustomerExceptionHandler e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                    default -> System.out.println("You entered an invalid choice, please try again...");
                 }
-            }
-            else {
-                //clear the input buffer and start again
-                System.out.println("You entered an invalid choice, please try again...");
-            }
+                else {
+                    //clear the input buffer and start again
+                    System.out.println("You entered an invalid choice, please try again...");
+                }
 
+            }
         }
 
     }
@@ -697,6 +734,7 @@ public class CustomerView {
         System.out.println("7: Edit Phone Number");
         System.out.println("8: Edit Status");
         System.out.println("9: Edit Delivery Area");
+        System.out.println("10: Edit Holiday Dates");
         System.out.println("99: Finish Editing\n");
         System.out.print("Enter your choice: ");
     }
