@@ -140,18 +140,40 @@ public class CustomerView {
             String firstName = askUserToEnterName("first name");
             String lastName = askUserToEnterName("last name");
             int address1 = askUserToEnterAddress1();
-            String address2 = askUserToEnterAddress2("address line 2");
+            String address2 = askUserToEnterAddress2("street");
             String town = askUserToEnterAddress2("town");
             String eircode = askUserToEnterEircode();
             String phoneNumber = askUserToEnterPhone();
             String holidayStartDate = null;
             String holidayendDate = null;
 
-            // if customer has a holiday in the future, initialise the holiday fields
-            if (askCustomerAboutHoliday()) {
-                holidayStartDate = askUserToEnterHolidayStart();
-                holidayendDate = askUserToEnterHolidayEnd();
+            // getting holiday info
+            boolean keepAskingHoliday = true;
+            while (keepAskingHoliday) {
+                // if customer has a holiday in the future, initialise the holiday fields
+                if (askCustomerAboutHoliday()) {
+                    holidayStartDate = askUserToEnterHolidayStart();
+                    holidayendDate = askUserToEnterHolidayEnd();
+
+                    // validating date start and end
+                    Customer c = new Customer();
+                    try {
+                        c.validateHoliday(holidayStartDate, holidayendDate);
+                        keepAskingHoliday = false;
+                    }
+                    catch (CustomerExceptionHandler e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+                else {
+                    // customer doesn't have a holiday
+                    keepAskingHoliday = false;
+                    holidayStartDate = null;
+                    holidayendDate = null;
+                }
             }
+
             // status of a new customer is active by default
             boolean status = true;
 
@@ -367,7 +389,7 @@ public class CustomerView {
         boolean inputValid = false;
         while (!inputValid)
         {
-            System.out.println("Enter customer " + initial + " name(25 chars or less): ");
+            System.out.println("Enter customer " + initial + " (25 chars or less): ");
             if (in.hasNextLine())
             {
                 name = in.nextLine();
