@@ -531,16 +531,6 @@ public class DeliveryPersonView {
         editPersonDOB.executeUpdate("update delivery_person SET dob = '"+ dobFinal+"' where delivery_person_id = '"+editId+"'");
     }
 
-//    public void editPersonDoB() throws SQLException {
-//        System.out.println("Please enter a new Date of Birth YYYY-MM-DD");
-//        String newDob = in.next();
-//        if (!validateDate(newDob)) {
-//            System.out.println("Date of Birth incorrect format");
-//        } else {
-//            Statement editPerson = DBconnection.con.createStatement();
-//            editPerson.executeUpdate("Update delivery_person SET dob = '" + newDob + "' where delivery_person_id = '" + editId + "'");
-//        }
-//    }
 
     public void editPersonAccessLevel() throws SQLException {
         System.out.println("Please enter a new access level - 1 for admin, 2 for Delivery access");
@@ -637,58 +627,7 @@ public class DeliveryPersonView {
 
                }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    // ******************************************************************************************************
-//    // Beginning of the VALIDATION Section
-//    // ******************************************************************************************************
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//    public static void cleanup_resources()
-//    {
-//        DeliveryPersonDB dpm = new DeliveryPersonDB();
-//        try
-//        {
-//            dpm.con.close();
-//        }
-//        catch (SQLException sqle)
-//        {
-//            System.out.println("Error: failed to close the database");
-//        }
-//    }
-
-
-//    ************************************************************************************************************
-//    End of Validation Section
-//    ************************************************************************************************************
-
+//********************* MENU DISPLAYS ****************************************
 
     public static void displayMainMenu()
     {
