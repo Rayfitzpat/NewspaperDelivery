@@ -108,7 +108,8 @@ public class PublicationView {
                 System.out.println("You have entered an invalid ID, please try again");
                 displayPublication();
             }
-        }
+        }else System.out.println("You have entered an invalid ID, please try again");
+            displayPublication();
 
 
 
@@ -149,6 +150,7 @@ public class PublicationView {
                 if (!p.validatePublicationFrequency(newPublication_Frequency)) {
                     validFrequency = false;
                 } else {
+                    newPublication_Frequency=newPublication_Frequency.toLowerCase();
                     validFrequency = true;
                 }
             }
@@ -180,6 +182,7 @@ public class PublicationView {
                 } else {
                     validStockLevel = true;
 
+
                 }
             }
         } while (!validStockLevel);
@@ -187,6 +190,7 @@ public class PublicationView {
         Statement addNew = DBconnection.con.createStatement();
         addNew.executeUpdate("INSERT INTO publication VALUES (null, '" + newPublication_Name + "','" + newPublication_Frequency + "','" + newPublication_Cost + "','" + newPublication_Stock_Level + "')");
         displayAllPublication();
+
 
 
 
@@ -248,25 +252,30 @@ public class PublicationView {
                                 editpublication_stock_level(); //You need to code this method below
                                 break;
                             case 5:
-                                System.out.println("Program is closing...");
-                                displayAllPublication();  // close the connection to the database when finished program
-                                break;
-                            default:
-                                System.out.println("You entered an invalid choice, please try again...");
+                                System.out.println("Edit menu is closing...");
+                                return;
+
+//
                         }
                     } else {
                         //clear the input buffer and start again
                         in.nextLine();
                         //error handling
                         System.out.println("You entered an invalid choice, please try again...");
+                        editPublication();
                     }
                 }
 
 
             }
-        } else if (!validNumberedString) {
+            else
+                System.out.println("You have entered an incorrect ID, please choose a valid ID and try again");
+         editPublication();
+        } else {
             System.out.println("you have entered an incorrect ID, please enter a correct ID and try again");
+            editPublication();
         }
+
     }
 
     // ******************************************************************************************************
@@ -321,13 +330,15 @@ public class PublicationView {
     // Edit Publication stock level method
     // ------------------------------------------------------------------------------------------------------
     public void editpublication_stock_level() throws SQLException {
+        System.out.println("Please enter a new stock level");
         String newPublication_Stock_Level = in.next();
+
         //validates the entry by the user, if it is valid, executes the update
         boolean validStock = p.validateANumber(newPublication_Stock_Level);
         if (validStock) {
             Statement editpublication_stock_level = DBconnection.con.createStatement();
             editpublication_stock_level.executeUpdate("Update publication SET publication_stock_level = '" + newPublication_Stock_Level + "' where publication_id = '" + editId + "'");
-            System.out.println("Successfully update the frequency to " + newPublication_Stock_Level + "\n\nReturning to edit menu....");
+            System.out.println("Successfully update the stock level to " + newPublication_Stock_Level + "\n\nReturning to edit menu....");
         } else System.out.println("Your entry is not a valid number, please try again using a valid whole number.");
     }
 
