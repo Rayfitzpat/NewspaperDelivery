@@ -212,7 +212,7 @@ public class CustomerView {
         // soft delete
         try {
             customerDB.deleteCustomer(customerId);
-            System.out.println("Customer with ID " + customerId + " was deleted successfully");
+            //System.out.println("Customer with ID " + customerId + " was deleted successfully");
         }
         catch (CustomerExceptionHandler e) {
             System.out.println(e.getMessage());
