@@ -317,11 +317,16 @@ public class CustomerDB {
      * Method for printing customer objects out into console window
      */
     public void printCustomers() {
-        System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
+        System.out.printf("\n%-5s %-25s %-35s %-15s %-10s %-20s %-20s %-20s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID", "Holiday start", "Holiday end");
         for (int i = 0; i < customers.size(); i++) {
             String status = customers.get(i).getStatus() ? "active" : "inactive";
-
-            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), status, customers.get(i).getDeliveryAreaId());
+            String holidayStart = "n/a";
+            String holidayEnd = "n/a";
+            if (customers.get(i).getHolidayStartDate() != null) {
+                holidayStart = customers.get(i).getHolidayStartDate();
+                holidayEnd = customers.get(i).getHolidayEndDate();
+            }
+            System.out.printf("%-5d %-25s %-35s %-15s %-10s %-20d %-20s %-20s\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), status, customers.get(i).getDeliveryAreaId(), holidayStart, holidayEnd);
         }
     }
 
