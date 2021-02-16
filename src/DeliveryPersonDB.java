@@ -28,6 +28,7 @@ public class DeliveryPersonDB {
                         break;
                     case 3:
                         dpv.addNewDeliveryPerson(DBconnection.stmt);
+                        break;
                    case 4:
                         dpv.editDeliveryPerson(DBconnection.stmt);
                         break;
