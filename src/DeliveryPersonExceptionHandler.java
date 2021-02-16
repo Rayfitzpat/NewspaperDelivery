@@ -1,3 +1,6 @@
+
+// Not used currently, may be implemented for use with test validation
+
 public class DeliveryPersonExceptionHandler extends Throwable {
 
         private String message;
