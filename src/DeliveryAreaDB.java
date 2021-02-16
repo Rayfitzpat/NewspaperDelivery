@@ -11,6 +11,8 @@ import java.util.function.ToDoubleBiFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.Integer.parseInt;
+
 public class DeliveryAreaDB
 {
     String editId = "";
@@ -23,13 +25,13 @@ public class DeliveryAreaDB
 
         try {
             ResultSet rs = stmt.executeQuery(str);
-            System.out.printf("\n%-12s %-15s %-20s\n", "delivery_area_id", "name", "description");
+            System.out.printf("\n%-20s %-25s %-20s\n", "Delivery Area ID", "Name", "Description");
             while (rs.next()) {
                 int delivery_area_id = rs.getInt("delivery_area_id");
                 String name = rs.getString("name");
                 String description = rs.getString("description");
 
-                System.out.printf("%-12d %-15s %-20s\n", delivery_area_id, name, description);
+                System.out.printf("%-20s %-25s %-20s\n", delivery_area_id, name, description);
             }
         } catch (SQLException sqle) {
             System.out.println("Error: failed to areas.");
@@ -62,9 +64,6 @@ public class DeliveryAreaDB
             System.out.println(sqle.getMessage());
             System.out.println(str);
         }
-        catch (DeliveryAreaExceptionHandler e) {
-            System.out.println(e.getMessage());
-        }
         return deliveryAreas;
     }
 
@@ -77,7 +76,7 @@ public class DeliveryAreaDB
 
         try {
             ResultSet rs = stmt.executeQuery(str);
-            System.out.printf("\n%-12s %-15s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-15s %-12s\n", "customer_id", "first_name", "last_name", "address1", "address2", "town", "eircode", "phone_number", "holiday_start_date", "holiday_end_date", "customer_status");
+            System.out.printf("\n%-12s %-15s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-15s %-12s\n", "Customer id", "First Name", "Last Name", "House no.", "Estate", "Town", "Eircode", "Phone Number", "Holiday Start Date", "Holiday End Date", "Customer Status");
             while (rs.next()) {
                 int customer_id = rs.getInt("customer_id");
                 String first_name = rs.getString("first_name");
@@ -104,25 +103,76 @@ public class DeliveryAreaDB
     {
         DeliveryAreaMain dam = new DeliveryAreaMain();
         DeliveryArea da = new DeliveryArea();
-        String dAreaName, description;
-        int id, deliverypersonid;
+        String newName, description, editId;
         Scanner in = new Scanner(System.in);
 
+        do {
+            System.out.println("Please enter Delivery Area name: ");
+            if (in.hasNextLine()) {
+                newName = in.nextLine();
+                da.validateString(newName);
+                if (!da.validateString(newName)) {
+                    System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
+                    da.validName = false;
+                } else {
+                    da.validName = true;
+                    da.setDAreaName(newName);
+                }
+            }
+        } while (!da.validName);
 
-        System.out.println("Please enter Delivery Area name: ");   //Needs Validation
-        dAreaName = in.nextLine();
-        da.setDAreaName(dAreaName);
+        do {
+            System.out.println("Please enter an Area Description: ");
+            description = in.nextLine();
+            if (!da.validateDesc(description))
+            {
+                System.out.println("Descriptions cannot contain numbers and must be between 1 to 14 characters");
+                da.validDesc = false;
+            }
+            else
+            {
+                da.validDesc = true;
+                da.setDescription(description);
+            }
+        }  while (!da.validDesc);
 
-        System.out.println("Please enter an Area Description: ");   //Needs Validation
-        description = in.nextLine();
-        da.setDescription(description);
+        do {
+            System.out.println("Please enter the delivery person's id: ");
+            editId = in.next();
 
-        System.out.println("Please enter the delivery person's id: ");
-        deliverypersonid = in.nextInt();
-        da.setDeliveryPersonId(deliverypersonid);
+            if (!da.validateEntry(editId))
+            {
+                System.out.println();
+                da.validEntry = false;
+            }
+            else
+                {
+                int id = parseInt(editId);
+                da.setDeliveryPersonId(id);
+                String str = "select count(*) as total from delivery_Person where delivery_person_id = " + id;
+                ResultSet rs = stmt.executeQuery(str);
+                int count = 0;
+                while (rs.next())
+                {
+                    count = rs.getInt("total");
+                }
+                if (count > 0) {
+                    str = "Select * from delivery_person where delivery_person_id = " + id;
 
-        Statement addNewArea = DBconnection.con.createStatement();
-        addNewArea.executeUpdate("insert into delivery_area values (null ,'" + da.getDAreaName() + "','" + da.getDescription() + "','" + da.getDeliveryPersonId() + "')");
+                    try
+                    {
+                        da.validEntry = true;
+                        Statement addNewArea = DBconnection.con.createStatement();
+                        addNewArea.executeUpdate("insert into delivery_area values (null ,'" + da.getDAreaName() + "','" + da.getDescription() + "','" + da.getDeliveryPersonId() + "')");
+                    }
+                    catch (SQLException sqle)
+                    {
+                        System.out.println("invalid input detected - please use only 1 or 2 numbers");
+                        displayAllAreas(stmt);
+                    }
+                }
+            }
+        }   while (!da.validEntry);
     }
 
     public void deleteDeliveryArea(Statement stmt) throws SQLException // NEEDS VALIDATION
@@ -148,29 +198,13 @@ public class DeliveryAreaDB
         }
     }
 
-//    public void editDeliveryAreas(Statement stmt) throws SQLException
-//    {
-//        String str;
-//        ResultSet rs;
-//        Scanner in = new Scanner(System.in);
-//        DeliveryAreaMain dam = new DeliveryAreaMain();
-//        displayAllAreas(stmt);
-//        System.out.println("Please enter the id of the Delivery Area that you would like to edit: ");
-//        int editId = in.nextInt();
-//
-//        if (editId < 0)
-//        {
-//
-//        }
-//    }
-
-    public void editDeliveryArea(Statement stmt) throws SQLException, DeliveryAreaExceptionHandler {
+    public void editDeliveryArea(Statement stmt) throws SQLException {
         DeliveryArea da = new DeliveryArea();
         String str;
         int count;
         Scanner in = new Scanner(System.in);
         displayAllAreas(stmt);
-        System.out.println("Please enter the id of the person you would like to edit");
+        System.out.println("Please enter the id of the area you would like to edit");
         editId = in.next();
         if (da.validateEntry(editId))
         {
@@ -204,7 +238,7 @@ public class DeliveryAreaDB
                                 editDeliveryAreaDescription(); //You need to code this method below
                                 break;
                             case 3:
-                                editDeliveryPersonId(); //You need to code this method below
+                                editDeliveryPersonId(stmt); //You need to code this method below
                                 break;
                             case 4:
                                 System.out.println("Returning to main Delivery Menu......");
@@ -229,7 +263,7 @@ public class DeliveryAreaDB
     // Beginning of the Edit Area Method Section
     // ******************************************************************************************************
 
-    public void editDeliveryAreaName() throws SQLException, DeliveryAreaExceptionHandler
+    public void editDeliveryAreaName() throws SQLException
     {
         DeliveryArea da = new DeliveryArea();
         System.out.println("Please enter a new Delivery Area Name: ");
@@ -248,7 +282,7 @@ public class DeliveryAreaDB
         }
     }
 
-    public void editDeliveryAreaDescription() throws SQLException, DeliveryAreaExceptionHandler
+    public void editDeliveryAreaDescription() throws SQLException
     {
         DeliveryArea da = new DeliveryArea();
         System.out.println("Please enter a new Delivery Area Description: ");
@@ -268,23 +302,47 @@ public class DeliveryAreaDB
     }
 
 
-    public void editDeliveryPersonId() throws SQLException
+    public void editDeliveryPersonId(Statement stmt) throws SQLException
     {
         DeliveryArea da = new DeliveryArea();
-        Scanner in = new Scanner(System.in);
-        System.out.println("Please enter the new Delivery Person id: ");
-        String replacementId = in.nextLine();
-        if (!da.validateEntry(replacementId))
-        {
-            System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
-            da.validName = false;
+        do {
+            Scanner in = new Scanner(System.in);
+            System.out.println("Please enter the new Delivery Person id: ");
+            String replacementId = in.nextLine();
+            if (!da.validateEntry(replacementId))
+            {
+                da.validEntry = false;
+            }
+            else
+                {
+                int id = parseInt(replacementId);
+                if(id < 0 || id > 100)
+                {
+                    System.out.println("ID must be greater than 0 and less than 100");
+                    da.validEntry = false;
+                }
+                String str = "select count(*) as total from delivery_area where delivery_person_id = " + id;
+                ResultSet rs = stmt.executeQuery(str);
+                int count = 0;
+                while (rs.next())
+                {
+                    count = rs.getInt("total");
+
+                    if (count > 0)
+                    {
+                        da.validEntry = true;
+                        Statement editPerson = DBconnection.con.createStatement();
+                        editPerson.executeUpdate("Update delivery_area SET delivery_person_id = '" + id + "' where delivery_area_id = '" + editId + "'");
+                    }
+                    else
+                    {
+                        System.out.println("That Delivery ID does not exist.");
+                        da.validEntry = false;
+                    }
+                }
+            }
         }
-        else
-        {
-            da.validName = true;
-            Statement editPerson = DBconnection.con.createStatement();
-            editPerson.executeUpdate("Update delivery_area SET delivery_person_id = '" + replacementId + "' where delivery_area_id = '" + editId + "'");
-        }
+        while (!da.validEntry) ;
     }
 
     public static void displayMainMenu()
@@ -303,5 +361,6 @@ public class DeliveryAreaDB
         System.out.println("1: Edit Delivery Area Name: ");
         System.out.println("2: Edit Delivery Area Descriptions: ");
         System.out.println("3: Edit Delivery Area, Delivery Person: ");
+        System.out.println("4: Return to main menu: ");
     }
 }

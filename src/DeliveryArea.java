@@ -2,35 +2,16 @@ import java.sql.*;
 
 public class DeliveryArea
 {
-
     private String dAreaName;
     private String description;
     private String desc = "";
     private int id, deliveryPersonId, minLength, maxLength;
     boolean validName = false;
     boolean validDesc = false;
+    boolean validEntry = false;
 
 
-    public DeliveryArea(int id, String dAreaName, String description, int deliveryPersonId) throws DeliveryAreaExceptionHandler
-    {
-        try {
-            validateDeliveryAreaName(dAreaName);
-            //validateDescription(description);
-            //validateId(deliveryPersonId);
-            //validateId(id);
-        }
-        catch (DeliveryAreaExceptionHandler e)
-        {
-            System.out.println(e.getMessage());
-        }
-
-        this.id = id;
-        this.dAreaName = dAreaName;
-        this.description = description;
-        this.deliveryPersonId = deliveryPersonId;
-    }
-
-    public DeliveryArea(String dAreaName, String description, int deliveryPersonId)
+    public DeliveryArea(int id, String dAreaName, String description, int deliveryPersonId)
     {
         this.id = id;
         this.dAreaName = dAreaName;
@@ -79,16 +60,22 @@ public class DeliveryArea
 
 // START OF Validation
 
-    public void validateDeliveryAreaName(String DAname) throws DeliveryAreaExceptionHandler
+    public boolean validateDeliveryAreaName (String name)
     {
-        if (DAname.isBlank() || DAname.isEmpty())
-            throw new DeliveryAreaExceptionHandler("Delivery area not specified");
-
-        else if (DAname.length() < 2)
-            throw new DeliveryAreaExceptionHandler("Delivery area does not meet minimum length requirements");
-
-        else if (DAname.length() > 19)
-            throw new DeliveryAreaExceptionHandler("Delivery area name exceeds maximum length requirements");
+        if(name.length()>1 && name.length()<20)
+        {
+            name = name.toLowerCase();
+            if (name.matches("[a-zA-z\\s]*"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+            return false;
     }
 
     public boolean validateEntry(String id)
@@ -135,7 +122,7 @@ public class DeliveryArea
         if(name.length()>1 && name.length()<14)
         {
             name = name.toLowerCase();
-            if (name.matches("[a-zA-z\\s]*"))
+            if (name.matches("[a-zA-z0-9\\s]*"))
             {
                 return true;
             }

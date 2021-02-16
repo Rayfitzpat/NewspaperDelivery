@@ -1,24 +1,15 @@
 import junit.framework.TestCase;
 
 public class DeliveryAreaTest extends TestCase {
-
-
     DeliveryArea da = new DeliveryArea();
-
 
     //Test #: 1
     //Test Objective: To test validation of a correct delivery area name
     //Inputs: name="Wu"
     //Expected Output: no exception
     public void testValidateDeliveryAreaName001() {
-        try {
-
-            //Call method under test
-            da.validateDeliveryAreaName("Wu");
-        }
-        catch (DeliveryAreaExceptionHandler e) {
-            fail("Exception not expected");
-        }
+        //Call method under test
+        assertEquals(true, da.validateDesc("Wu"));
     }
 
     //Test #: 2
@@ -27,59 +18,69 @@ public class DeliveryAreaTest extends TestCase {
     //Expected Output: Exception thrown
     public void testValidateDeliveryAreaName002()
     {
-        try
-        {
-
-            //Call method under test
-            da.validateDeliveryAreaName("Aaaaaaaaaaaaaaaaaaaa");
-            fail("Exception expected");
-        }
-        catch (DeliveryAreaExceptionHandler e)
-        {
-            assertEquals("Delivery area name exceeds maximum length requirements", e.getMessage());
-        }
+        //Call method under test
+        assertEquals(false, da.validateDesc("Aaaaaaaaaaaaaaaaaaaa"));
     }
 
     //Test #: 3
-    //Test Objective: To catch an invalid customer name (more than 20 symbols in a name)
-    //Inputs: line = "aaaaaaaaaaaaaaaaaaaaaaaaaa"
+    //Test Objective: To test validation of an incorrect delivery area name (No entry)
+    //Inputs: line = ""
     //Expected Output: false
     public void testValidateName003() {
 
         //Call method under test
-        assertEquals(false, da.validateString(""));
+        assertEquals(false, da.validateDeliveryAreaName(""));
     }
 
     //Test #: 4
-    //Test Objective: To catch an invalid customer name (containing digits)
+    //Test Objective: To catch an invalid delivery area name (containing digits)
     //Inputs: line = "bbb23"
     //Expected Output: false
     public void testValidateName004() {
 
-
         //Call method under test
-        assertEquals(false, da.validateString("bbb23"));
+        assertEquals(false, da.validateDeliveryAreaName("bbb23"));
     }
 
     //Test #: 5
-    //Test Objective: validate a valid string )
+    //Test Objective: Test for valid delivery area name
     //Inputs: line = "marty"
     //Expected Output: true
     public void testValidateName005() {
 
     //Call method under test
-    assertEquals(true, da.validateString("marty"));
+    assertEquals(true, da.validateDeliveryAreaName("marty"));
 
     }
 
     //Test #: 6
-    //Test Objective: To catch an invalid Delivery Area Description (no entry)
-    //Inputs: line = ""
+    //Test Objective: To catch an invalid Delivery Area name (-2)
+    //Inputs: line = "-2"
     //Expected Output: false
     public void testValidateName006() {
 
         //Call method under test
-        assertEquals(false, da.validateDesc(""));
+        assertEquals(false, da.validateDeliveryAreaName("-2"));
+    }
+
+    //Test #: 6
+    //Test Objective: To catch an invalid Delivery Area name (22)
+    //Inputs: line = "22"
+    //Expected Output: false
+    public void testValidateName007() {
+
+        //Call method under test
+        assertEquals(false, da.validateDeliveryAreaName("22"));
+    }
+
+    //Test #: 7
+    //Test Objective: To catch an invalid Delivery Area name (22)
+    //Inputs: line = "-J"
+    //Expected Output: false
+    public void testValidateName008() {
+
+        //Call method under test
+        assertEquals(false, da.validateDeliveryAreaName("-J"));
     }
 
     //Test #: 7
@@ -103,13 +104,13 @@ public class DeliveryAreaTest extends TestCase {
     }
 
     //Test #: 9
-    //Test Objective: To catch aan invalid Delivery Area Description (more than 0 and less than 14 with numbers.)
+    //Test Objective: To catch a valid Delivery Area Description (more than 0 and less than 14 with numbers.)
     //Inputs: line = "Marty Test"
     //Expected Output: false
     public void testValidateDesc003() {
 
         //Call method under test
-        assertEquals(false, da.validateDesc("Test 123"));
+        assertEquals(true, da.validateDesc("Test 123"));
     }
 
     //Test #: 10
@@ -121,7 +122,6 @@ public class DeliveryAreaTest extends TestCase {
         //Call method under test
         assertEquals(false, da.validateDesc("!!!!"));
     }
-
 
     //Test #: 11
     //Test Objective: To catch an invalid number being entered - no characters allowed
@@ -144,7 +144,7 @@ public class DeliveryAreaTest extends TestCase {
     //Test Objective: To catch an invalid number being entered - " " not allowed
     //Inputs: address = " "
     //Expected Output: false
-    public void testValidateEntry0041()  {
+    public void testValidateEntry004()  {
         assertEquals(false, da.validateEntry(" "));
     }
 
@@ -158,17 +158,17 @@ public class DeliveryAreaTest extends TestCase {
 
     //Test #: 15
     //Test Objective: validate a valid entry of 1 number
-    //Inputs: "22"
+    //Inputs: "99"
     //Expected Output: true
     public void testValidateEntry006() {
-        assertEquals(true, da.validateEntry("2"));
+        assertEquals(true, da.validateEntry("99"));
     }
 
     // Test #: 16
     //Test Objective: To catch an invalid number being entered - only 2 digits allowed max
-    //Inputs: 111111
+    //Inputs: 100
     //Expected Output:false
     public void testValidateEntry001() {
-        assertEquals(false, da.validateEntry("111111"));
+        assertEquals(false, da.validateEntry("100"));
     }
 }
