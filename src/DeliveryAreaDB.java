@@ -25,13 +25,14 @@ public class DeliveryAreaDB
 
         try {
             ResultSet rs = stmt.executeQuery(str);
-            System.out.printf("\n%-20s %-25s %-20s\n", "Delivery Area ID", "Name", "Description");
+            System.out.printf("\n%-20s %-25s %-20s %-20s\n", "Delivery Area ID", "Name", "Description", "Delivery Person Id");
             while (rs.next()) {
                 int delivery_area_id = rs.getInt("delivery_area_id");
                 String name = rs.getString("name");
                 String description = rs.getString("description");
+                String dpID = rs.getString("delivery_person_id");
 
-                System.out.printf("%-20s %-25s %-20s\n", delivery_area_id, name, description);
+                System.out.printf("%-20s %-25s %-20s %-20s\n", delivery_area_id, name, description, dpID);
             }
         } catch (SQLException sqle) {
             System.out.println("Error: failed to areas.");
@@ -321,6 +322,21 @@ public class DeliveryAreaDB
                     System.out.println("ID must be greater than 0 and less than 100");
                     da.validEntry = false;
                 }
+
+                if(doesDeliveryPersonExist(id))
+                {
+                    Statement editPerson = DBconnection.con.createStatement();
+                    editPerson.executeUpdate("Update delivery_area SET delivery_person_id = '" + id + "' where delivery_area_id = '" + editId + "'");
+                    System.out.println("DB was updated");
+                    da.validEntry = true;
+                }
+                else
+                {
+                    System.out.println("That Delivery ID does not exist.");
+                    da.validEntry = false;
+                }
+
+/*
                 String str = "select count(*) as total from delivery_area where delivery_person_id = " + id;
                 ResultSet rs = stmt.executeQuery(str);
                 int count = 0;
@@ -340,9 +356,32 @@ public class DeliveryAreaDB
                         da.validEntry = false;
                     }
                 }
+*/
+
             }
         }
         while (!da.validEntry) ;
+    }
+
+    public boolean doesDeliveryPersonExist(int deliveryPersonId) {
+        String str = "Select * from delivery_area";
+
+        try {
+            ResultSet rs = DBconnection.stmt.executeQuery(str);
+            while (rs.next()) {
+
+                if(deliveryPersonId == rs.getInt("delivery_area_id"))
+                {
+                    return true;
+                }
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Error: failed to areas.");
+            System.out.println(sqle.getMessage());
+            System.out.println(str);
+        }
+
+        return false;
     }
 
     public static void displayMainMenu()
