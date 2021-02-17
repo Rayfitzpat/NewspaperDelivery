@@ -4,10 +4,10 @@ import java.util.Scanner;
 public class DeliveryAreaMain
 {
     static Scanner in = new Scanner(System.in);
+    DeliveryArea da = new DeliveryArea();
 
 
-
-    public static void main(String[] args) throws SQLException, DeliveryAreaExceptionHandler {
+    public static void main(String[] args) throws SQLException {
         DBconnection.init_db(); //Opens the connection to the database.
         DeliveryAreaDB dav = new DeliveryAreaDB();
 
@@ -15,7 +15,7 @@ public class DeliveryAreaMain
         int menuChoice = 0;
 
         // value that wil close the application.
-        final int STOP_APP = 5;
+        final int STOP_APP = 6;
 
         while (menuChoice != STOP_APP)
         {
@@ -36,17 +36,29 @@ public class DeliveryAreaMain
 
                     case 3:
                         dav.createNewDeliveryArea(DBconnection.stmt);
+                        break;
 
                     case 4:
                         dav.editDeliveryArea(DBconnection.stmt);
+                        break;
 
                     case 5:
                         dav.deleteDeliveryArea(DBconnection.stmt);
-                }
+                        break;
 
+                    case 6:
+                        return;
+
+                    default:
+                        System.out.println("You entered an invalid choice please try again.");
+                }
+            }
+            else
+            {
+                in.nextLine();
+                System.out.println("You entered an invalid choice please try again.");
             }
         }
-
     }
 }
 
