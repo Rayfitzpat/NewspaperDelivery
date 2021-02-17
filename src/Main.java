@@ -12,10 +12,11 @@ public class Main {
         DBconnection.init_db();  //open the connection to the database
 
         int menuChoice = 0; // variable used to store main menu choice
-        final int STOP_APP = 6; //value from menu that is used to quit the application
+        final int STOP_APP = 8; //value from menu that is used to quit the application
         DeliveryPersonDB deliveryPersonMenu = new DeliveryPersonDB();
         PublicationMain publicationMenu = new PublicationMain();
         CustomerView customerMenu = new CustomerView();
+        DeliveryAreaMain deliveryArea = new DeliveryAreaMain();
         Main main = new Main();
 
         while (menuChoice != STOP_APP) {
@@ -31,9 +32,9 @@ public class Main {
                     case 2:
                         deliveryPersonMenu.deliveryPersonMainPage();
                         break;
-//                    case 3:
-//                        deliveryArea(stmt); //You need to code this method below
-//                        break;
+                    case 3:
+                        deliveryArea.runDeliveryAreaMenu();
+                        break;
                     case 4:
                         publicationMenu.publicationMainPage();
                         break;
