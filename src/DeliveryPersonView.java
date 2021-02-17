@@ -42,8 +42,8 @@ public class DeliveryPersonView {
 
         try {
             ResultSet rs = stmt.executeQuery(str);
-
-            System.out.printf("\n%-12s %-15s %-20s %-20s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
+            // Sets the headings and returns the data from the DB
+            System.out.printf("\n%-12s %-15s %-20s %-20s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "House No.", "Street Name", "Town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
             while (rs.next()) {
                 int delivery_person_id = rs.getInt("delivery_person_id");
                 String first_name = rs.getString("first_name");
@@ -90,9 +90,9 @@ public class DeliveryPersonView {
                 str = "Select * from delivery_person where delivery_person_id = " + id;
 
                 try {
-
+                // Only prints out the required data for the entered Id
                     rs = stmt.executeQuery(str);
-                    System.out.printf("\n\n%-12s %-20s %-20s %-10s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "address1", "address2", "town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
+                    System.out.printf("\n\n%-12s %-20s %-20s %-10s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", "DP ID", "First Name", "Last Name", "House No.", "Street Name", "Town", "Phone Number", "Date of Birth", "Access Level", "Status", "User Name", "Password");
                     while (rs.next()) {
 
                         int delivery_person_id = rs.getInt("delivery_person_id");
@@ -110,7 +110,6 @@ public class DeliveryPersonView {
 
                         System.out.printf("%-12d %-20s %-20s %-10s %-20s %-20s %-15s %-15s %-15s %-10s %-20s %-10s\n", delivery_person_id, first_name, last_name, address1, address2, town, delivery_phone_number, dateOfBirth, access_level, delivery_status, user_name, password);
                     }
-
                 } catch (SQLException sqle) {
                     System.out.println("valid input detected - please use only 1 or 2 numbers");
                     displayDeliveryPerson(stmt);
@@ -119,6 +118,9 @@ public class DeliveryPersonView {
                 System.out.println("That person does not exist, please try again");
                 displayDeliveryPerson(stmt);
             }
+        }else
+        {
+            displayDeliveryPerson(stmt);
         }
     }
 
@@ -137,7 +139,7 @@ public class DeliveryPersonView {
             dp.setFirstName(firstName);
 
 
-            if (!dp.validateString(firstName)) {
+            if (!dp.validateString(firstName)) {  // checks entered string and validates using validateString method
                 System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                 addNewDeliveryPerson(stmt);
                 validName = false;
@@ -146,12 +148,14 @@ public class DeliveryPersonView {
             }
         }
 
+        // do while loops below used to check if entered information validates and if not, it will request the info again
+
         do {
             System.out.println("Please enter the persons LAST name");
             if (in.hasNextLine()) {
                 lastName = in.nextLine();
                 dp.setLastName(lastName);
-                if (!dp.validateString(lastName)) {
+                if (!dp.validateString(lastName)) {  // checks entered string and validates using validateString method
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validName = false;
                 } else {
@@ -167,7 +171,7 @@ public class DeliveryPersonView {
             if (in.hasNextLine()) {
                 address1 = in.nextLine();
                 dp.setAddress1(address1);
-                if (!dp.validateHouseNumber(address1)) {
+                if (!dp.validateHouseNumber(address1)) { // checks entered string and validates using validateHouseNumber method
                     System.out.println("The house Number must be between 1 and 99999");
                     validHouseNumber = false;
                 } else {
@@ -183,7 +187,7 @@ public class DeliveryPersonView {
                 address2 = in.nextLine();
                 dp.setAddress2(address2);
 
-                if (!dp.validateStringWithNumbers(address2)) {
+                if (!dp.validateStringWithNumbers(address2)) { // checks entered string and validates using validateStringWithNumbers method
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validAddress2 = false;
                 } else {
@@ -199,7 +203,7 @@ public class DeliveryPersonView {
                 town = in.nextLine();
                 dp.setTown(town);
 
-                if (!dp.validateStringWithNumbers(town)) {
+                if (!dp.validateStringWithNumbers(town)) {  // checks entered string and validates using validateString method
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validTown = false;
                 } else {
@@ -216,7 +220,7 @@ public class DeliveryPersonView {
                 deliveryPhoneNumber = in.nextLine();
                 dp.setDeliveryPhoneNumber(deliveryPhoneNumber);
 
-                if (!dp.validatePhoneNumber(deliveryPhoneNumber)) {
+                if (!dp.validatePhoneNumber(deliveryPhoneNumber)) { // checks entered string and validates using validatePhoneNumber method
                     System.out.println("The phone number must be in the format 087 8888888");
                     validPhone = false;
 
@@ -234,10 +238,9 @@ public class DeliveryPersonView {
             System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
             if (in.hasNext()) {
                 dobYear = in.next();
-                if(dp.validateYear(dobYear)){
+                if(dp.validateYear(dobYear)){ // checks entered string and validates using validateYear method
                     validDOB = true;
                 }
-
             }
         } while (!validDOB);
         validDOB = false;
@@ -245,7 +248,7 @@ public class DeliveryPersonView {
             System.out.println("Next, what month were they born in? (1 - 12, 2 Numbers required)");
             if (in.hasNext()) {
                 dobMonth = in.next();
-                if(dp.validateMonth(dobMonth)){
+                if(dp.validateMonth(dobMonth)){  // checks entered string and validates using validateMonth method
                     validDOB = true;
                 }
             }
@@ -255,12 +258,15 @@ public class DeliveryPersonView {
             System.out.println("finally the date they were born (1 - 31, 2 numbers required)");
             if (in.hasNext()) {
                 dobDay = in.next();
-                dp.validateDate(dobDay);
-                validDOB = true;
+                if(dp.validateDate(dobDay)){ // checks entered string and validates using validateDate method
+                    validDOB = true;
+                }
+                else {
+                    validDOB = false;
+                }
             }
-            else {
-                validDOB = false;
-            }
+
+            else validDOB = false;
         }
         String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
         dp.setDateOfBirth(dobFinal);
@@ -273,7 +279,7 @@ public class DeliveryPersonView {
                 userName = in.next();
                 dp.setUserName(userName);
 
-                if (!dp.validateString(userName)) {
+                if (!dp.validateString(userName)) {  // checks entered string and validates using validateString method
                     System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
                     validUser = false;
                 } else {
@@ -284,7 +290,7 @@ public class DeliveryPersonView {
 
         do {
             System.out.println("Please enter the persons Password - must be 4 characters");
-//            try {
+
                 if (in.hasNext()) {
                     password = in.next();
                     dp.setPassword(password);
@@ -298,10 +304,6 @@ public class DeliveryPersonView {
                     System.out.println("\"Invalid entry - please enter 4 characters");
                     validPw = false;
                 }
-//            } catch (Exception e) {
-//                System.out.println("Invalid entry - please enter 4 characters");
-//                validPw = false;
-//            }
         } while (!validPw);
 
 
@@ -505,7 +507,11 @@ public class DeliveryPersonView {
                 if(dp.validateMonth(dobMonth)){
                     validDOB = true;
                 }
-            }
+                else{
+                    validDOB = false;
+                }
+
+            }else validDOB = false;
         }
         validDOB = false;
         while (!validDOB) {
@@ -515,7 +521,9 @@ public class DeliveryPersonView {
                 if(dp.validateDate(dobDay)){
                     validDOB = true;
                 }
+                else validDOB = false;
             }
+            else validDOB = false;
         }
         String dobFinal = dobYear + "-" + dobMonth + "-" + dobDay;
 
@@ -523,16 +531,6 @@ public class DeliveryPersonView {
         editPersonDOB.executeUpdate("update delivery_person SET dob = '"+ dobFinal+"' where delivery_person_id = '"+editId+"'");
     }
 
-//    public void editPersonDoB() throws SQLException {
-//        System.out.println("Please enter a new Date of Birth YYYY-MM-DD");
-//        String newDob = in.next();
-//        if (!validateDate(newDob)) {
-//            System.out.println("Date of Birth incorrect format");
-//        } else {
-//            Statement editPerson = DBconnection.con.createStatement();
-//            editPerson.executeUpdate("Update delivery_person SET dob = '" + newDob + "' where delivery_person_id = '" + editId + "'");
-//        }
-//    }
 
     public void editPersonAccessLevel() throws SQLException {
         System.out.println("Please enter a new access level - 1 for admin, 2 for Delivery access");
@@ -629,58 +627,7 @@ public class DeliveryPersonView {
 
                }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    // ******************************************************************************************************
-//    // Beginning of the VALIDATION Section
-//    // ******************************************************************************************************
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//    public static void cleanup_resources()
-//    {
-//        DeliveryPersonDB dpm = new DeliveryPersonDB();
-//        try
-//        {
-//            dpm.con.close();
-//        }
-//        catch (SQLException sqle)
-//        {
-//            System.out.println("Error: failed to close the database");
-//        }
-//    }
-
-
-//    ************************************************************************************************************
-//    End of Validation Section
-//    ************************************************************************************************************
-
+//********************* MENU DISPLAYS ****************************************
 
     public static void displayMainMenu()
     {
