@@ -1,37 +1,76 @@
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static Connection con = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
+
     static Scanner in = new Scanner(System.in);
 
-    public static void init_db() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-            con = DriverManager.getConnection(url, "root", "admin");
-            stmt = con.createStatement();
-        } catch (Exception e) {
-            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+
+
+    public static void main(String[] args) throws SQLException {
+
+        DBconnection.init_db();  //open the connection to the database
+
+        int menuChoice = 0; // variable used to store main menu choice
+        final int STOP_APP = 6; //value from menu that is used to quit the application
+        DeliveryPersonDB deliveryPersonMenu = new DeliveryPersonDB();
+        PublicationMain publicationMenu = new PublicationMain();
+        CustomerView customerMenu = new CustomerView();
+        Main main = new Main();
+
+        while (menuChoice != STOP_APP) {
+            main.displayMainMenu(); //display the primary menu
+            if (in.hasNextInt()) {
+                //get the menu choice from the user
+                menuChoice = in.nextInt();
+
+                switch (menuChoice) {
+                    case 1:
+                        customerMenu.customerMainPage();
+                        break;
+                    case 2:
+                        deliveryPersonMenu.deliveryPersonMainPage();
+                        break;
+//                    case 3:
+//                        deliveryArea(stmt); //You need to code this method below
+//                        break;
+                    case 4:
+                        publicationMenu.publicationMainPage();
+                        break;
+//                    case 5:
+//                        order(stmt);
+//                        break;
+//                    case 6:
+//                        invoice(stmt);
+//                        break;
+//                    case 7:
+//                        customerSupport(stmt);
+//                        break;
+                    case 8:
+                        System.out.println("Program is closing...");
+                        DBconnection.cleanup_resources();  // close the connection to the database when finished program
+                        break;
+                    default:
+                        System.out.println("You entered an invalid choice, please try again...");
+                }
+            } else {
+                in.nextLine();
+                System.out.println("You entered an invalid choice, please try again...");
+            }
         }
     }
-
-
-    public static void main(String[] args) {
-
-        init_db();  // open the connection to the database
-
-        System.out.println("First Commit");
-
-        Publication publication = new Publication();
-
-        ArrayList<Publication> publicationsList =  publication.readAllPublications(stmt);
-        publication.displayAllPublications(publicationsList);
-    }
-
-
-
-}
+    // Display MAIN MENU
+                    public static void displayMainMenu()
+                    {
+                        System.out.println("\nMain Menu");
+                        System.out.println("1: Customers");
+                        System.out.println("2: Delivery Person");
+                        System.out.println("3: Delivery Area");
+                        System.out.println("4: Publications ");
+                        System.out.println("5: Order");
+                        System.out.println("6: Invoice");
+                        System.out.println("7: Customer Support");
+                        System.out.println("8: Exit Application\n");
+                        System.out.print("Enter your choice: ");
+                    }
+                }
