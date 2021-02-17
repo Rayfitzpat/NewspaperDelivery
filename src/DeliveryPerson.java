@@ -1,5 +1,4 @@
 import java.util.Calendar;
-import java.util.Scanner;
 
 public class DeliveryPerson {
 
@@ -16,7 +15,7 @@ public class DeliveryPerson {
     private String userName;
     private String password;
 
-    Scanner in = new Scanner(System.in);
+   // Getters & Setters
 
     public String getUserName() {
         return userName;
@@ -116,6 +115,8 @@ public class DeliveryPerson {
 
     }
 
+
+// constructor
     public DeliveryPerson(int deliveryPersonId, String firstName, String lastName, String address1, String address2, String town, String deliveryPhoneNumber, String dateOfBirth, String accessLevel, String deliveryStatus, String userName, String password) {
         this.deliveryPersonId = deliveryPersonId;
         this.firstName = firstName;
@@ -130,6 +131,10 @@ public class DeliveryPerson {
         this.userName = userName;
         this.password = password;
     }
+
+
+
+//    *******************************************  VALIDATION *********************************************************
 
     public boolean validateDate(String dobDay) {
 
@@ -147,10 +152,7 @@ public class DeliveryPerson {
                 } else {
                     return false;
                 }
-
-
             }
-
         }
         return validDOB;
     }
@@ -171,15 +173,11 @@ public class DeliveryPerson {
                 } else {
                     return false;
                 }
-
-
             }
             validDOB = true;
         }return false;
 
     }
-
-
 
 
     public boolean validateYear(String dobYear) {
@@ -189,26 +187,28 @@ public class DeliveryPerson {
             validDOB = false;
 
         } else {
-            dobYear = dobYear.toLowerCase();
-            char[] dobArray = dobYear.toCharArray();
-            for (int i = 0; i < dobArray.length; i++) {
-                char ch = dobArray[i];
-                if (ch >= '0' && ch <= '9') {
-                    int dobYearTest = Integer.parseInt(dobYear);
-                    if (dobYearTest > 1900 && dobYearTest <= Calendar.getInstance().get(Calendar.YEAR)) {
-                        validDOB = true;
-                    } else {
-
-                        validDOB = false;
-                    }
+//            dobYear = dobYear.toLowerCase();
+//            char[] dobArray = dobYear.toCharArray();
+//            for (int i = 0; i < dobArray.length; i++) {
+//                char ch = dobArray[i];
+            if (dobYear.matches("[0-9\\d]*")) {
+                int dobYearTest = Integer.parseInt(dobYear);
+                if (dobYearTest > 1900 && dobYearTest <= Calendar.getInstance().get(Calendar.YEAR)) {
+                    validDOB = true;
+                    return true;
                 } else {
                     validDOB = false;
+                    return false;
                 }
-
+            } else {
+                validDOB = false;
+                return false;
             }
-        }
-        return validDOB;
+        }validDOB = false;
+        return false;
+
     }
+
 
     public boolean validateHouseNumber (String name){
         boolean validHouseNumber;
@@ -246,67 +246,43 @@ public class DeliveryPerson {
             else {
                 return false;
             }
-//            char[] nameArray = name.toCharArray();
-//            for (char ch : nameArray) {
-//                if (Character.isDigit(ch)) {
-//                    System.out.println("numbers are not allowed");
-//                    return false;
-//                } else {
-//                    return true;
-//                }
-//            }
         }
         else
             return false;
     }
 
-//    public boolean validateString(String line) {
-//        int minLength = 2;
-//        int maxLength = 20;
-//
-//        if (line == null ) {
-//            return false;
-//        }
-//        else if(line.isBlank()){
-//            return false;
-//        }
-//        else if (line.length() < minLength) {
-//            return false;
-//        }
-//        else if (line.length() > maxLength) {
-//            return false;
-//        }
-//        else {
-//            // checking if line has any numbers
-//            char[] charArray = line.toCharArray();
-//            for (char c : charArray) {
-//                if (Character.isDigit(c)) {
-//                    return false;
-//                }
-//                else {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
-
 
     public boolean validateEntry (String id){
-        if (id.length() > 2) {
+        if(id.length()>2) {
+
             System.out.println("invalid entry, you must enter no more than 2 numbers");
             return false;
-        } else {
-            try {
-                int tempId = Integer.parseInt(id);
-            } catch (Exception e) {
-                System.out.println("invalid Text entered, please enter a number");
+        }
+        else if (id.matches("[0-9\\d]*")){
+                return true;
+            }
+            else {
+            System.out.println("Invalid entry, please enter a valid ID");
                 return false;
             }
         }
-        return true;
 
-    }
+
+//    public boolean validateEntry (String id){
+//        if (id.length() > 2) {
+//            System.out.println("invalid entry, you must enter no more than 2 numbers");
+//            return false;
+//        } else {
+//            try {
+//
+//            } catch (Exception e) {
+//                System.out.println("invalid Text entered, please enter a number");
+//                return false;
+//            }
+//        }
+//        return true;
+//
+//    }
 
     public boolean validatePhoneNumber(String deliveryPhoneNumber){
         if(deliveryPhoneNumber.matches("\\d{3}[ ]\\d{7}")){
@@ -316,5 +292,4 @@ public class DeliveryPerson {
             return false;
         }
     }
-
 }

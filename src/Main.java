@@ -2,16 +2,14 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
-    static Connection con = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
+
     static Scanner in = new Scanner(System.in);
 
 
 
     public static void main(String[] args) throws SQLException {
 
-        DBconnection.init_db();  // open the connection to the database
+        DBconnection.init_db();  //open the connection to the database
 
         int menuChoice = 0; // variable used to store main menu choice
         final int STOP_APP = 6; //value from menu that is used to quit the application
@@ -28,25 +26,25 @@ public class Main {
 
                 switch (menuChoice) {
                     case 1:
-                        customerMenu.customerMainPage(); //The code for this method is already done for you below
+                        customerMenu.customerMainPage();
                         break;
                     case 2:
-                        deliveryPersonMenu.deliveryPersonMainPage();  //You need to code this method below
+                        deliveryPersonMenu.deliveryPersonMainPage();
                         break;
 //                    case 3:
 //                        deliveryArea(stmt); //You need to code this method below
 //                        break;
                     case 4:
-                        publicationMenu.publicationMainPage(); //You need to code this method below
+                        publicationMenu.publicationMainPage();
                         break;
 //                    case 5:
-//                        order(stmt); //You need to code this method below
+//                        order(stmt);
 //                        break;
 //                    case 6:
-//                        invoice(stmt); //You need to code this method below
+//                        invoice(stmt);
 //                        break;
 //                    case 7:
-//                        customerSupport(stmt); //You need to code this method below
+//                        customerSupport(stmt);
 //                        break;
                     case 8:
                         System.out.println("Program is closing...");
@@ -56,12 +54,12 @@ public class Main {
                         System.out.println("You entered an invalid choice, please try again...");
                 }
             } else {
-                //clear the input buffer and start again
                 in.nextLine();
                 System.out.println("You entered an invalid choice, please try again...");
             }
         }
     }
+    // Display MAIN MENU
                     public static void displayMainMenu()
                     {
                         System.out.println("\nMain Menu");
