@@ -15,8 +15,8 @@ public class CustomerDB {
     private ArrayList<Customer> customers; // local copy of all customers in the db
 
     // constructor
-    public CustomerDB(Statement stmt)  throws CustomerExceptionHandler{
-        fetchCustomers(stmt);
+    public CustomerDB()  throws CustomerExceptionHandler{
+        fetchCustomers();
     }
 
 
@@ -33,17 +33,16 @@ public class CustomerDB {
     /**
      * Method is retrieving the data about the customers and returns ArrayList of Customer objects
      *
-     * @param stmt Connection statement
      * @return an ArrayList of Customer objects from the database
      */
-    public ArrayList<Customer> fetchCustomers(Statement stmt) throws CustomerExceptionHandler {
+    public ArrayList<Customer> fetchCustomers() throws CustomerExceptionHandler {
         // array list for saving all the objects of the Customer class
         ArrayList<Customer> customersList = new ArrayList<>();
 
         String query = "Select * from customer";
         ResultSet rs;
         try {
-            rs = stmt.executeQuery(query);
+            rs = DBconnection.stmt.executeQuery(query);
             while (rs.next()) {
 
                 int id = rs.getInt("customer_id");
@@ -193,6 +192,15 @@ public class CustomerDB {
         // checking if customer with Id customerId exists in the db
         if (ifCustomerExists(customerId)) {
 
+            // setting holidays
+            String holidayStart = null;
+            String holidayEnd = null;
+
+            if (c.getHolidayStartDate() != null)
+                holidayStart = "\"" + c.getHolidayStartDate() + "\"";
+            if (c.getHolidayEndDate() != null)
+                holidayEnd = "\"" + c.getHolidayEndDate() + "\"";
+
             // if customer exists, then update is possible
             String updateQuery = "UPDATE customer " +
                     "SET first_name = \"" + c.getFirstName() +
@@ -202,8 +210,8 @@ public class CustomerDB {
                     "\", town = \"" + c.getTown() +
                     "\", eircode = \"" + c.getEircode() +
                     "\", phone_number = \"" + c.getPhoneNumber() +
-                    "\", holiday_start_date = " + c.getHolidayStartDate() +
-                    ", holiday_end_date = " + c.getHolidayEndDate() +
+                    "\", holiday_start_date = " + holidayStart +
+                    ", holiday_end_date = " + holidayEnd +
                     ", customer_status = \"" + c.getStatus() +
                     "\", delivery_area_id = " + c.getDeliveryAreaId() +
                     " WHERE customer_id = " + customerId + ";";
@@ -288,6 +296,22 @@ public class CustomerDB {
     }
 
     /**
+     * Method is checking if customer with customerId  already exists
+     *
+     * @param customerId customer if from the db
+     * @return true if this customer already exists in the db, false if not
+     */
+    public Customer getCustomerById(int customerId) {
+
+        for (Customer c : customers) {
+            if (c.getCustomerId() == customerId) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Method for printing customer objects out into console window
      *
      * @param customers collection of objects that will be printed to console
@@ -317,11 +341,16 @@ public class CustomerDB {
      * Method for printing customer objects out into console window
      */
     public void printCustomers() {
-        System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
+        System.out.printf("\n%-5s %-25s %-35s %-15s %-10s %-20s %-20s %-20s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID", "Holiday start", "Holiday end");
         for (int i = 0; i < customers.size(); i++) {
             String status = customers.get(i).getStatus() ? "active" : "inactive";
-
-            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), status, customers.get(i).getDeliveryAreaId());
+            String holidayStart = "n/a";
+            String holidayEnd = "n/a";
+            if (customers.get(i).getHolidayStartDate() != null) {
+                holidayStart = customers.get(i).getHolidayStartDate();
+                holidayEnd = customers.get(i).getHolidayEndDate();
+            }
+            System.out.printf("%-5d %-25s %-35s %-15s %-10s %-20d %-20s %-20s\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), status, customers.get(i).getDeliveryAreaId(), holidayStart, holidayEnd);
         }
     }
 

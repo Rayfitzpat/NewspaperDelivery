@@ -106,12 +106,6 @@ public class Customer {
     }
 
     public void setAddress1(int address1) {
-//        try {
-//            validateAddress1(address1);
-//        }
-//        catch (CustomerExceptionHandler e) {
-//            throw e;
-//        }
         this.address1 = address1;
     }
 
@@ -120,12 +114,6 @@ public class Customer {
     }
 
     public void setFirstName(String firstName) {
-//        try {
-//            validateName(firstName, "First name");
-//        }
-//        catch (CustomerExceptionHandler e) {
-//            throw e;
-//        }
         this.firstName = firstName;
     }
 
@@ -134,12 +122,6 @@ public class Customer {
     }
 
     public void setLastName(String lastName) {
-//        try {
-//            validateName(lastName, "Last name");
-//        }
-//        catch (CustomerExceptionHandler e) {
-//            throw e;
-//        }
         this.lastName = lastName;
     }
 
@@ -148,12 +130,6 @@ public class Customer {
     }
 
     public void setAddress2(String address2) {
-//        try{
-//            validateAddress(address2, "Address line 2" );
-//        }
-//        catch (CustomerExceptionHandler e) {
-//            throw e;
-//        }
         this.address2 = address2;
     }
 
@@ -162,12 +138,6 @@ public class Customer {
     }
 
     public void setTown(String town) {
-//        try {
-//            validateAddress(town, "Town");
-//        }
-//        catch (CustomerExceptionHandler e) {
-//            throw  e;
-//        }
         this.town = town;
     }
 
@@ -176,12 +146,6 @@ public class Customer {
     }
 
     public void setEircode(String eircode) {
-//        try {
-//            validateEircode(eircode);
-//        }
-//        catch (CustomerExceptionHandler e) {
-//            throw e;
-//        }
         this.eircode = eircode;
     }
 
@@ -190,11 +154,6 @@ public class Customer {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-//        try {
-//            validatePhoneNumber(phoneNumber);
-//        } catch (CustomerExceptionHandler e) {
-//            throw e;
-//        }
         this.phoneNumber = phoneNumber;
     }
 
@@ -203,12 +162,6 @@ public class Customer {
     }
 
     public void setHolidayStartDate(String holidayStartDate){
-//        try {
-//            validateDate(holidayStartDate);
-//        }
-//        catch (CustomerExceptionHandler e) {
-//            throw e;
-//        }
         this.holidayStartDate = holidayStartDate;
     }
 
@@ -217,12 +170,6 @@ public class Customer {
     }
 
     public void setHolidayEndDate(String holidayEndDate) {
-//        try {
-//            validateDate(holidayEndDate);
-//        }
-//        catch (CustomerExceptionHandler e) {
-//            throw e;
-//        }
         this.holidayEndDate = holidayEndDate;
     }
 
@@ -293,7 +240,7 @@ public class Customer {
         if (address == null && nameOfField == null) {
             throw new CustomerExceptionHandler("NULL value in the arguments");
         }
-        else if (!(nameOfField.equals("Town") || nameOfField.equals("Address line 2") || nameOfField.equals("town") || nameOfField.equals("address line 2"))) {
+        else if (!(nameOfField.equals("Town") || nameOfField.equals("Address line 2") || nameOfField.equals("town") || nameOfField.equals("address line 2") || nameOfField.equals("street"))) {
             throw new CustomerExceptionHandler(nameOfField + " is incorrect name of address field");
         }
         else if(address.isBlank() || address.isEmpty()){
@@ -387,6 +334,7 @@ public class Customer {
                 // checking the format of start date
                 try {
                     Date start = format.parse(date);
+
                 }
                 catch (ParseException e)
                 {
@@ -432,7 +380,7 @@ public class Customer {
     public String toString() {
 
         // simplifying holiday and status display
-        String holiday = holidayStartDate == null ? "not specified" : ("from" + holidayStartDate + " to " + holidayEndDate);
+        String holiday = holidayStartDate == null ? "not specified" : ("from " + holidayStartDate + " to " + holidayEndDate);
         String customerStatus = status ? "active" : "inactive";
 
         return "\n*********************************\n" + customerId +
