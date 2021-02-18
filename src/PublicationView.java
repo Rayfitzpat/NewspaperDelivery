@@ -108,9 +108,10 @@ public class PublicationView {
                 System.out.println("You have entered an invalid ID, please try again");
                 displayPublication();
             }
-        }else System.out.println("You have entered an invalid ID, please try again");
+        }else {
+            System.out.println("You have entered an invalid ID, please try again");
             displayPublication();
-
+        }
 
 
     }
@@ -120,26 +121,35 @@ public class PublicationView {
     // ******************************************************************************************************
 
     public void addNewPublication() throws SQLException {
-
-        System.out.println("Please enter the new publication name");
-    String newPublication_Name ="";
-    String newPublication_Frequency="";
-    String newPublication_Cost = "";
-    String newPublication_Stock_Level="";
-        if (in.hasNextLine()) {
-
-            newPublication_Name = in.nextLine();
-            boolean validName = p.validatePublicationName(newPublication_Name);
+        String newPublication_Name = "";
+        String newPublication_Frequency = "";
+        String newPublication_Cost = "";
+        String newPublication_Stock_Level = "";
+        do {
+            System.out.println("Please enter the new publication name");
 
 
-            if (!p.validatePublicationName(newPublication_Name))
+            if (in.hasNextLine())
             {
-                addNewPublication();
-                validName = false;
-            } else {
-                validName = true;
+
+                newPublication_Name = in.nextLine();
+
+
+                if (!p.validatePublicationName(newPublication_Name))
+                {
+                    validPubName=false;
+
+
+                }
+                else {
+                    validPubName=true;
+                }
             }
-        }
+
+        } while (!validPubName);
+
+
+
 
         do {
             System.out.println("Please enter the publication frequency, either 'Daily' or 'Weekly'");
@@ -147,13 +157,16 @@ public class PublicationView {
             {
                newPublication_Frequency = in.nextLine();
 
-                if (!p.validatePublicationFrequency(newPublication_Frequency)) {
+                if (!p.validatePublicationFrequency(newPublication_Frequency))
+                {
                     validFrequency = false;
-                } else {
-                    newPublication_Frequency=newPublication_Frequency.toLowerCase();
+                }
+                else {
+//                    newPublication_Frequency=newPublication_Frequency.toLowerCase();
                     validFrequency = true;
                 }
             }
+
         } while (!validFrequency);
 
 
@@ -182,14 +195,14 @@ public class PublicationView {
                 } else {
                     validStockLevel = true;
 
+                    Statement addNew = DBconnection.con.createStatement();
+                    addNew.executeUpdate("INSERT INTO publication VALUES (null, '" + newPublication_Name + "','" + newPublication_Frequency + "','" + newPublication_Cost + "','" + newPublication_Stock_Level + "')");
+                    displayAllPublication();
+
 
                 }
             }
         } while (!validStockLevel);
-
-        Statement addNew = DBconnection.con.createStatement();
-        addNew.executeUpdate("INSERT INTO publication VALUES (null, '" + newPublication_Name + "','" + newPublication_Frequency + "','" + newPublication_Cost + "','" + newPublication_Stock_Level + "')");
-        displayAllPublication();
 
 
 
@@ -377,9 +390,13 @@ public class PublicationView {
                     Statement deletePublication = DBconnection.con.createStatement();
                     deletePublication.executeUpdate("DELETE from publication where publication_id = " + id);
                     System.out.println("The Publication with the id of " + id + " has been deleted...... \n\nReturning to menu......");
-                } else {
+                    return;
+                }
+                else
+                    {
                     //if the user choses no, they are returned to the main menu
                     System.out.println("Returning to Main Menu...");
+                    return;
                 }
 
             }
