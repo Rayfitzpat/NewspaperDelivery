@@ -131,7 +131,9 @@ public class DeliveryPersonView {
     // ******************************************************************************************************
 //
     public void addNewDeliveryPerson(Statement stmt) throws SQLException {
+
         do {
+
         System.out.println("Please enter the persons FIRST name");
 
         if (in.hasNextLine()) {
@@ -497,6 +499,9 @@ public class DeliveryPersonView {
                 dobYear = in.next();
                 if(dp.validateYear(dobYear)){
                     validDOB = true;
+                }
+                else{
+                    validDOB = false;
                 }
             }
         } while (!validDOB);
