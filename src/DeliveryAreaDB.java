@@ -392,7 +392,7 @@ public class DeliveryAreaDB
         System.out.println("3: Create New Delivery Area");
         System.out.println("4: Update Delivery Area Name");
         System.out.println("5: Delete a Delivery Area");
-        System.out.println("6: Close the Application");
+        System.out.println("6: Return to Main Menu");
     }
 
     public static void editDeliveryAreaMenu() {
