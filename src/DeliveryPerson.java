@@ -237,18 +237,16 @@ public class DeliveryPerson {
             return false;
     }
 
-    public boolean validateString (String name){
-        if(name.length()>1 && name.length()<20) {
-            name = name.toLowerCase();
-            if (name.matches("[a-zA-z\\s]*")){
+    public boolean validateString (String name) {
+        if (name.length() > 1 && name.length() < 20) {
+            if (name.matches("[a-zA-z\\s]*")) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
-        }
-        else
+        } else {
             return false;
+        }
     }
 
 

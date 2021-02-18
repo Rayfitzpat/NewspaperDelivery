@@ -21,6 +21,7 @@ public class DeliveryPersonView {
     String userName = "";
     String password = "";
     boolean validName = false;
+    boolean validFName = false;
     boolean validHouseNumber = true;
     boolean validAddress2 = true;
     boolean validTown = true;
@@ -130,7 +131,7 @@ public class DeliveryPersonView {
     // ******************************************************************************************************
 //
     public void addNewDeliveryPerson(Statement stmt) throws SQLException {
-
+        do {
         System.out.println("Please enter the persons FIRST name");
 
         if (in.hasNextLine()) {
@@ -141,12 +142,12 @@ public class DeliveryPersonView {
 
             if (!dp.validateString(firstName)) {  // checks entered string and validates using validateString method
                 System.out.println("Names cannot contain numbers and must be between 1 to 20 characters");
-                addNewDeliveryPerson(stmt);
-                validName = false;
+                validFName = false;
             } else {
-                validName = true;
+                validFName = true;
             }
         }
+        } while (!validFName);
 
         // do while loops below used to check if entered information validates and if not, it will request the info again
 
@@ -235,7 +236,7 @@ public class DeliveryPersonView {
 
         System.out.println("Please enter the Persons DOB");
         do {
-            System.out.println("First, what year were they born  (1900 to current year, 4 numbers required)");
+            System.out.println("First, what year were they born  (1901 to current year, 4 numbers required)");
             if (in.hasNext()) {
                 dobYear = in.next();
                 if(dp.validateYear(dobYear)){ // checks entered string and validates using validateYear method
