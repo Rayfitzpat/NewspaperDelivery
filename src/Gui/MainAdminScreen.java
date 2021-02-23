@@ -11,6 +11,8 @@ package Gui;
  */
 public class MainAdminScreen extends javax.swing.JFrame {
 
+
+
     /**
      * Creates new form MainScreen
      */
@@ -80,6 +82,8 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
         jLabel3.setText("(c) 2021 Team Dunder Mifflin");
 
+
+        //************************Customer Support Button *******************************
         jButton1.setBackground(new java.awt.Color(19, 28, 33));
         jButton1.setFont(new java.awt.Font("sansserif", 0, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(6, 187, 163));
@@ -88,20 +92,33 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+                System.out.println("hello Customer Support");
             }
         });
 
+
+        //***************************** Customer Button  **************************************
         jButton2.setBackground(new java.awt.Color(19, 28, 33));
         jButton2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(6, 187, 163));
         jButton2.setText("Customer");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+                CustomerMainGUI customerMainGUI = new CustomerMainGUI();
+                dispose();
                 jButton2ActionPerformed(evt);
+                System.out.println("hello Customer");
+
+                customerMainGUI.setVisible(true);
             }
         });
 
+
+        //***************************** Employees Button  **************************************
         jButton3.setBackground(new java.awt.Color(19, 28, 33));
         jButton3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton3.setForeground(new java.awt.Color(6, 187, 163));
@@ -110,9 +127,12 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+                System.out.println("hello Delivery Person");
             }
         });
 
+
+        //***************************** Delivery Area Button  **************************************
         jButton5.setBackground(new java.awt.Color(19, 28, 33));
         jButton5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton5.setForeground(new java.awt.Color(6, 187, 163));
@@ -121,9 +141,12 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
+                System.out.println("hello Delivery Area");
             }
         });
 
+
+        //***************************** Publication Button  **************************************
         jButton6.setBackground(new java.awt.Color(19, 28, 33));
         jButton6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(6, 187, 163));
@@ -132,9 +155,12 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
+                System.out.println("hello Publications");
             }
         });
 
+
+        //***************************** Order Button  **************************************
         jButton7.setBackground(new java.awt.Color(19, 28, 33));
         jButton7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton7.setForeground(new java.awt.Color(6, 187, 163));
@@ -143,9 +169,12 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
+                System.out.println("hello Order");
             }
         });
 
+
+        //***************************** Invoice Button  **************************************
         jButton8.setBackground(new java.awt.Color(19, 28, 33));
         jButton8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton8.setForeground(new java.awt.Color(6, 187, 163));
@@ -154,6 +183,7 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
+                System.out.println("hello Invoice");
             }
         });
 
