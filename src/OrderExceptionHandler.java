@@ -1,5 +1,3 @@
-package Order;
-
 public class OrderExceptionHandler extends Exception {
 
     private String message;
