@@ -91,8 +91,11 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerSupportGUI customerSupportGUI = new CustomerSupportGUI();
+                dispose();
                 jButton1ActionPerformed(evt);
                 System.out.println("hello Customer Support");
+                customerSupportGUI.setVisible(true);
             }
         });
 
@@ -111,8 +114,6 @@ public class MainAdminScreen extends javax.swing.JFrame {
                 CustomerMainGUI customerMainGUI = new CustomerMainGUI();
                 dispose();
                 jButton2ActionPerformed(evt);
-                System.out.println("hello Customer");
-
                 customerMainGUI.setVisible(true);
             }
         });

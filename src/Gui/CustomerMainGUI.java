@@ -6,6 +6,12 @@ package Gui;
  * and open the template in the editor.
  */
 
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  *
  * @author Ray
@@ -50,16 +56,65 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(19, 28, 33));
 
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+
+                },
+                new String[]{
+                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "UserName", "Delivery Area Id"
+                }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         jButton1.setBackground(new java.awt.Color(19, 28, 33));
         jButton1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(49, 117, 108));
         jButton1.setText("Display All");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+                                       public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                           jButton1ActionPerformed(evt);
+                                           try {
+                                               Class.forName("com.mysql.cj.jdbc.Driver");
+                                               String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
+                                               Connection con = DriverManager.getConnection(url, "root", "admin");
+                                               Statement stmt = con.createStatement();
+                                               String sql = "Select * from customer";
+                                               ResultSet rs = stmt.executeQuery(sql);
+
+                                               while (rs.next()) {
+
+                                                   int id = rs.getInt("customer_id");
+
+                                                   String firstName = rs.getString("first_name");
+                                                   String lastName = rs.getString("last_name");
+                                                   int address1 = rs.getInt("address1");
+                                                   String address2 = rs.getString("address2");
+                                                   String town = rs.getString("town");
+                                                   String eircode = rs.getString("eircode");
+                                                   String phonenumber = rs.getString("phone_number");
+                                                   String holidayStartDate = rs.getString("holiday_start_date");
+                                                   String holidayEndDate = rs.getString("holiday_end_date");
+                                                   boolean status = rs.getBoolean("customer_status");
+                                                   int deliveryAreaId = rs.getInt("delivery_area_id");
+
+                                                   String tbData[] = {id+"",firstName, lastName,address1+"",address2,town,eircode,phonenumber,holidayStartDate, holidayEndDate, status+"",deliveryAreaId+""};
+                                                   DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+
+                                                   tblModel.addRow(tbData);
+
+                                        //TODO change size of Db
+                                               }
+                                               con.close();
+
+                                           } catch (Exception e) {
+                                               System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+                                           }
+                                       }
+
+                                       ;
+                                   });
 
         jButton2.setBackground(new java.awt.Color(19, 28, 33));
         jButton2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -201,20 +256,10 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(19, 28, 33));
 
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
-        jTable1.setForeground(new java.awt.Color(19, 28, 33));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
+
         jTable1.setGridColor(new java.awt.Color(49, 117, 108));
-        jScrollPane1.setViewportView(jTable1);
+//        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
