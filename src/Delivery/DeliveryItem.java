@@ -1,5 +1,8 @@
 package Delivery;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /*Base class for all items that must be included in the delivery docket.
 * I created this class to ba able to store these items in the same list and reduce amount of code,
 * but still separate invoice and publication deliveries*/
@@ -53,7 +56,24 @@ public class DeliveryItem {
     }
 
     public void validateCustomerId(int customerID) throws DeliveryDocketExceptionHandler {
-        // check if exists in db
+        String query = "select count(*) as total from customer where customer_id = " + customerID + ";";
+        ResultSet rs;
+        int count = - 1;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count == 0)
+            {
+                throw new DeliveryDocketExceptionHandler("Customer with id " + customerID + " does not exist");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+        }
     }
 
 
