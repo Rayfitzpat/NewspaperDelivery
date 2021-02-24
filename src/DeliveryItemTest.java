@@ -1,5 +1,3 @@
-package Delivery;
-
 import junit.framework.TestCase;
 
 public class DeliveryItemTest extends TestCase {
@@ -8,10 +6,11 @@ public class DeliveryItemTest extends TestCase {
     private PublicationDeliveryItem publicationDeliveryItem;
     private InvoiceDeliveryItem invoiceDeliveryItem;
 
-    public void testValidateCustomerAddress() {
+    public DeliveryItemTest() {
         deliveryItem = new DeliveryItem();
         publicationDeliveryItem = new PublicationDeliveryItem();
         invoiceDeliveryItem = new InvoiceDeliveryItem();
+        DBconnection.init_db();
     }
 
 
@@ -159,20 +158,36 @@ public class DeliveryItemTest extends TestCase {
     }
 
     //Test #: 10
-    //Test Objective: To test validation of a correct name
+    //Test Objective: To test validation of a correct name (max valid)
     //Inputs: customerName = "Aaaaaaaaaaaaaaaaaaaaaaaaaa Aaaaaaaaaaaaaaaaaaaaaaaaaa"
     //Expected Output: No Exception
     public void testValidateCustomerName006() {
         try {
 
             //Call method under test
-            deliveryItem.validateCustomerName("Aaaaaaaaaaaaaaaaaaaaaaaaaa Aaaaaaaaaaaaaaaaaaaaaaaaaa");
+            deliveryItem.validateCustomerName("Aaaaaaaaaaaaaaaaaaaaaaaaaa Aaaaaaaaaaaaaaaaaaaaaaaaa");
 
         }
         catch (DeliveryDocketExceptionHandler e) {
             fail("Exception not expected");
         }
     }
+    //Test #: 8
+    //Test Objective: To catch an invalid customer name exception
+    //Inputs: customerName = ""
+    //Expected Output: Exception Message: "Customer name cannot consist of numbers"
+    public void testValidateCustomerName007() {
+        try {
+
+            //Call method under test
+            deliveryItem.validateCustomerName("");
+            fail("Exception expected");
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            assertEquals("Customer name cannot be empty", e.getMessage());
+        }
+    }
+
 
     //Test #: 11
     //Test Objective: To catch an invalid address exception (One char less than min)
@@ -198,7 +213,7 @@ public class DeliveryItemTest extends TestCase {
         try {
 
             //Call method under test
-            deliveryItem.validateCustomerName("1234, StreetStreetStreetStreetStreetStree, TownTownTownTownTownTownTownTownTown, Y77EG48");
+            deliveryItem.validateCustomerAddress("1234, StreetStreetStreetStreetStreetStree, TownTownTownTownTownTownTownTownTown, Y77EG48");
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -214,11 +229,11 @@ public class DeliveryItemTest extends TestCase {
         try {
 
             //Call method under test
-            deliveryItem.validateCustomerName(null);
+            deliveryItem.validateCustomerAddress(null);
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("Address exceeds the maximum length requirements", e.getMessage());
+            assertEquals("Address cannot be null", e.getMessage());
         }
     }
 
@@ -230,7 +245,7 @@ public class DeliveryItemTest extends TestCase {
         try {
 
             //Call method under test
-            deliveryItem.validateCustomerName("1, So, To, Y77EG48");
+            deliveryItem.validateCustomerAddress("1, So, To, Y77EG48");
 
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -246,10 +261,26 @@ public class DeliveryItemTest extends TestCase {
         try {
 
             //Call method under test
-            deliveryItem.validateCustomerName("1234, StreetStreetStreetStreetStreetStree, TownTownTownTownTownTownTownTownTow, Y77EG48");
+            deliveryItem.validateCustomerAddress("1234, StreetStreetStreetStreetStreetStree, TownTownTownTownTownTownTownTownTow, Y77EG48");
         }
         catch (DeliveryDocketExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 12
+    //Test Objective: To catch an invalid address exception (empty string)
+    //Inputs: customerAddress = ""
+    //Expected Output: Exception Message: "Address cannot be empty"
+    public void testValidateCustomerAddress006() {
+        try {
+
+            //Call method under test
+            deliveryItem.validateCustomerAddress("");
             fail("Exception expected");
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            assertEquals("Address cannot be empty", e.getMessage());
         }
     }
 
@@ -356,7 +387,6 @@ public class DeliveryItemTest extends TestCase {
 
             //Call method under test
             publicationDeliveryItem.validatePublicationId(1);
-            fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
             fail("Exception not expected");
@@ -372,7 +402,6 @@ public class DeliveryItemTest extends TestCase {
 
             //Call method under test
             publicationDeliveryItem.validatePublicationId(14);
-            fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
             fail("Exception not expected");

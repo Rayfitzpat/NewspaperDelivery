@@ -1,5 +1,3 @@
-package Delivery;
-
 public class DeliveryDocketExceptionHandler extends Exception{
     private String message;
 

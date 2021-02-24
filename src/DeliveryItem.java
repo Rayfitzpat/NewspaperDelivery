@@ -1,5 +1,3 @@
-package Delivery;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -46,13 +44,49 @@ public class DeliveryItem {
     }
 
     public void validateCustomerAddress(String customerAddress) throws DeliveryDocketExceptionHandler{
-        // can validate for length
-        // max 87
-        // min
+
+        int minLength = 18;
+        int maxLength = 87;
+
+        if (customerAddress ==  null) {
+            throw new DeliveryDocketExceptionHandler("Address cannot be null");
+        }
+        else if(customerAddress.isBlank() || customerAddress.isEmpty()){
+            throw new DeliveryDocketExceptionHandler("Address cannot be empty");
+        }
+        else if (customerAddress.length() < minLength) {
+            throw new DeliveryDocketExceptionHandler("Address does not meet the minimum length requirements");
+        }
+        else if (customerAddress.length() > maxLength) {
+            throw new DeliveryDocketExceptionHandler("Address exceeds the maximum length requirements");
+        }
     }
 
     public void validateCustomerName(String customerName) throws DeliveryDocketExceptionHandler {
-        // check if exists in db
+        int minLength = 5;
+        int maxLength = 52;
+
+        if (customerName ==  null) {
+            throw new DeliveryDocketExceptionHandler("Customer name cannot be null");
+        }
+        else if(customerName.isBlank() || customerName.isEmpty()){
+            throw new DeliveryDocketExceptionHandler("Customer name cannot be empty");
+        }
+        else if (customerName.length() < minLength) {
+            throw new DeliveryDocketExceptionHandler("Customer name does not meet the minimum length requirements");
+        }
+        else if (customerName.length() > maxLength) {
+            throw new DeliveryDocketExceptionHandler("Customer name exceeds the maximum length requirements");
+        }
+        else {
+            // checking if line has any numbers
+            char[] charArray = customerName.toCharArray();
+            for (char c : charArray) {
+                if (Character.isDigit(c)) {
+                    throw new DeliveryDocketExceptionHandler("Customer name cannot consist of numbers");
+                }
+            }
+        }
     }
 
     public void validateCustomerId(int customerID) throws DeliveryDocketExceptionHandler {
