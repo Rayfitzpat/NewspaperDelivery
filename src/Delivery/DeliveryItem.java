@@ -4,7 +4,7 @@ package Delivery;
 * I created this class to ba able to store these items in the same list and reduce amount of code,
 * but still separate invoice and publication deliveries*/
 public class DeliveryItem {
-    private int id;
+
     private int customerID;
     private String customerName;
     private String customerAddress;
@@ -14,7 +14,6 @@ public class DeliveryItem {
     // constructor with no id
     public DeliveryItem( int customerID, String customerName, String customerAddress, String type, boolean isDelivered) throws DeliveryDocketExceptionHandler {
 
-        id = 0;
         // validating the input, if all ok, the exception will not be thrown
         // and the values will be initialised
         try {
@@ -34,13 +33,19 @@ public class DeliveryItem {
         this.isDelivered = isDelivered;
     }
 
+    public DeliveryItem() {
+
+    }
+
 
     private void validateType(String type) {
         // can be either invoice or publication
     }
 
-    public void validateCustomerAddress(String customerAddress) {
+    public void validateCustomerAddress(String customerAddress) throws DeliveryDocketExceptionHandler{
         // can validate for length
+        // max 87
+        // min
     }
 
     public void validateCustomerName(String customerName) throws DeliveryDocketExceptionHandler {
@@ -52,14 +57,6 @@ public class DeliveryItem {
     }
 
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getCustomerID() {
         return customerID;
