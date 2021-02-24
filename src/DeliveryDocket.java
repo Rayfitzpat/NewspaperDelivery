@@ -1,4 +1,9 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DeliveryDocket {
     private ArrayList<DeliveryItem> deliveryItems;
@@ -37,10 +42,48 @@ public class DeliveryDocket {
     }
 
     public void validateDeliveryAreaID(int deliveryAreaId) throws DeliveryDocketExceptionHandler {
+        String query = "select count(*) as total from delivery_area where delivery_area_id = " + deliveryAreaId + ";";
+        ResultSet rs;
+        int count = - 1;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count == 0)
+            {
+                throw new DeliveryDocketExceptionHandler("Delivery area with id " + deliveryAreaId + " does not exist");
+            }
 
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+        }
     }
 
     public void validateDate(String date) throws DeliveryDocketExceptionHandler{
+        // check for null values
+        if (date == null) {
+            throw new DeliveryDocketExceptionHandler("Delivery docket date cannot be null");
+        }
+        else {
+            // setting the format for date 2021-02-29
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+            // null is acceptable for holiday
+            if (date != null) {
+                // checking the format of start date
+                try {
+                    Date start = format.parse(date);
+
+                }
+                catch (ParseException e)
+                {
+                    throw new DeliveryDocketExceptionHandler("Date format is incorrect");
+                }
+            }
+        }
     }
 
 

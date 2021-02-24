@@ -21,13 +21,13 @@ public class DeliveryDocketTest extends TestCase {
     public void testDeliveryDocket001() {
         try {
 
-            DeliveryDocket docket = new DeliveryDocket(null, "2021-03-20", 1, "Willow Park", "Cherey Parren");
+            DeliveryDocket d = new DeliveryDocket(null, "2021-03-20", 1, "Willow Park", "Cherey Parren");
             // checking object creation
-            assertEquals(null, docket.getDeliveryItems());
-            assertEquals("2021-03-20", docket.getDate());
-            assertEquals(1, docket.getDeliveryAreaId());
-            assertEquals("Willow Park", docket.getDeliveryAreaName());
-            assertEquals("Cherey Parren", docket.getDeliveryPersonName());
+            assertEquals(null, d.getDeliveryItems());
+            assertEquals("2021-03-20", d.getDate());
+            assertEquals(1, d.getDeliveryAreaId());
+            assertEquals("Willow Park", d.getDeliveryAreaName());
+            assertEquals("Cherey Parren", d.getDeliveryPersonName());
         }
         catch (DeliveryDocketExceptionHandler e) {
             fail("Exception not expected");
@@ -45,7 +45,7 @@ public class DeliveryDocketTest extends TestCase {
     public void testDeliveryDocket002() {
         try {
 
-            DeliveryDocket docket = new DeliveryDocket(null, "2021-03-20", -1, "Willow Park", "Cherey Parren");
+            DeliveryDocket d = new DeliveryDocket(null, "2021-03-20", -1, "Willow Park", "Cherey Parren");
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -300,7 +300,8 @@ public class DeliveryDocketTest extends TestCase {
     //Expected Output: Date format is incorrect
     public void testValidateDate001() {
         try {
-            docket.validateDate("10 11 2020");
+            DeliveryDocket d = new DeliveryDocket();
+            d.validateDate("10 11 2020");
             fail("Exception excpected");
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -314,7 +315,8 @@ public class DeliveryDocketTest extends TestCase {
     //Expected Output: Delivery docket date cannot be null
     public void testValidateDate002() {
         try {
-            docket.validateDate(null);
+            DeliveryDocket d = new DeliveryDocket();
+            d.validateDate(null);
             fail("Exception excpected");
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -328,7 +330,8 @@ public class DeliveryDocketTest extends TestCase {
     //Expected Output: Delivery docket date cannot be null
     public void testValidateDate003() {
         try {
-            docket.validateDate("2021-03-07");
+            DeliveryDocket d = new DeliveryDocket();
+            d.validateDate("2021-03-07");
         }
         catch (DeliveryDocketExceptionHandler e) {
             fail("Exception not excpected");
