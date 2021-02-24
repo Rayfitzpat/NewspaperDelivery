@@ -13,7 +13,7 @@ public class DeliveryDocket {
             validateDate(date);
             validateDeliveryAreaID(deliveryAreaId);
             validateDeliveryAreaName(deliveryAreaName);
-            validateDeliveryPerson();
+            validateDeliveryPersonName(deliveryPersonName);
         }
         catch (DeliveryDocketExceptionHandler e) {
             throw e;
@@ -26,13 +26,18 @@ public class DeliveryDocket {
         this.deliveryPersonName = deliveryPersonName;
     }
 
-    public void validateDeliveryPerson() {
+    public DeliveryDocket() {
+
+    }
+
+    public void validateDeliveryPersonName(String name) throws DeliveryDocketExceptionHandler{
     }
 
     public void validateDeliveryAreaName(String deliveryAreaName) throws DeliveryDocketExceptionHandler{
     }
 
     public void validateDeliveryAreaID(int deliveryAreaId) throws DeliveryDocketExceptionHandler {
+
     }
 
     public void validateDate(String date) throws DeliveryDocketExceptionHandler{
