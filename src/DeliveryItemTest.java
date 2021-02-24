@@ -15,6 +15,118 @@ public class DeliveryItemTest extends TestCase {
 
 
     //Test #: 1
+    //Test Objective: To create a DeliveryItem Record
+    //Inputs:  customerID = 1, customerName = "John Martin", customerAddress = "5 Custume Pier, Athlone", type = "invoice", isDelivered = false
+    //Expected Output: DeliveryItem object created with no exceptions
+
+    public void testDeliveryItem001() {
+        try {
+
+            DeliveryItem item = new DeliveryItem(1, "John Martin", "5 Custume Pier, Athlone", "invoice", false);
+
+            // checking object creation
+            assertEquals(1, item.getCustomerID());
+            assertEquals("John Martin", item.getCustomerName());
+            assertEquals("5 Custume Pier, Athlone", item.getCustomerAddress());
+            assertEquals("invoice", item.getType());
+            assertEquals(false, item.isDelivered());
+
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 2
+    //Test Objective: To create a DeliveryItem Record with invalid parameters
+    //Inputs:  customerID = 1, customerName = "Jo", customerAddress = "5 Custume Pier, Athlone", type = "invoice", isDelivered = false
+    //Expected Output: Exception message: "Customer name does not meet the minimum length requirements"
+
+    public void testDeliveryItem002() {
+        try {
+            DeliveryItem item = new DeliveryItem(1, "Jo M", "5 Custume Pier, Athlone", "invoice", false);
+            fail("Exception expected");
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            assertEquals("Customer name does not meet the minimum length requirements", e.getMessage());
+        }
+    }
+
+    //Test #: 3
+    //Test Objective: To create a PublicationDeliveryItem Record
+    //Inputs:  customerID = 1, customerName = "John Martin", customerAddress = "5 Custume Pier, Athlone", type = "invoice", isDelivered = false
+    //Expected Output: DeliveryItem object created with no exceptions
+
+    public void testPublicationDeliveryItem001() {
+        try {
+            PublicationDeliveryItem item = new PublicationDeliveryItem(2, 1, "John Martin", "5 Custume Pier, Athlone", false);
+
+            // checking object creation
+            assertEquals(1, item.getCustomerID());
+            assertEquals("John Martin", item.getCustomerName());
+            assertEquals("5 Custume Pier, Athlone", item.getCustomerAddress());
+            assertEquals("publication", item.getType());
+            assertEquals(false, item.isDelivered());
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 4
+    //Test Objective: To create a DeliveryItem Record with invalid parameters
+    //Inputs:  customerID = -8, customerName = "Mary Collins", customerAddress = "56 Dublin Road, Athlone", type = "invoice", isDelivered = false
+    //Expected Output: Exception message: "Customer name does not meet the minimum length requirements"
+
+    public void testPublicationDeliveryItem002() {
+        try {
+            PublicationDeliveryItem item = new PublicationDeliveryItem(-8, 3, "Mary Collins", "56 Dublin Road, Athlone", false);
+            fail("Exception expected");
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            assertEquals("Publication with id -8 does not exist", e.getMessage());
+        }
+    }
+
+
+    //Test #: 5
+    //Test Objective: To create a InvoiceDeliveryItem Record
+    //Inputs:  customerID = 1, customerName = "John Martin", customerAddress = "5 Custume Pier, Athlone", type = "invoice", isDelivered = false
+    //Expected Output: DeliveryItem object created with no exceptions
+
+    public void testInvoiceDeliveryItem001() {
+        try {
+            InvoiceDeliveryItem item = new InvoiceDeliveryItem(2, 1, "John Martin", "5 Custume Pier, Athlone", false);
+
+            // checking object creation
+            assertEquals(1, item.getCustomerID());
+            assertEquals("John Martin", item.getCustomerName());
+            assertEquals("5 Custume Pier, Athlone", item.getCustomerAddress());
+            assertEquals("invoice", item.getType());
+            assertEquals(false, item.isDelivered());
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            fail("Exception not expected");
+        }
+    }
+
+    //Test #: 6
+    //Test Objective: To create a InvoiceDeliveryItem Record with invalid parameters
+    //Inputs:  customerID = -8, customerName = "Mary Collins", customerAddress = "56 Dublin Road, Athlone", type = "invoice", isDelivered = false
+    //Expected Output: Exception message: "Customer name does not meet the minimum length requirements"
+
+    public void testInvoiceDeliveryItem002() {
+        try {
+            InvoiceDeliveryItem item = new InvoiceDeliveryItem(-8, 3, "Mary Collins", "56 Dublin Road, Athlone", false);
+            fail("Exception expected");
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            assertEquals("Invoice with id -8 does not exist", e.getMessage());
+        }
+    }
+
+
+    //Test #: 7
     //Test Objective: To catch a customer does not exist in the DB
     //Inputs: customerID = 0
     //Expected Output: Exception Message: "Customer with id 0 does not exist"
@@ -31,7 +143,7 @@ public class DeliveryItemTest extends TestCase {
     }
 
 
-    //Test #: 2
+    //Test #: 8
     //Test Objective: To catch a customer does not exist in the DB
     //Inputs: customerID = 22
     //Expected Output: Exception Message: "Customer with id 22 does not exist"
@@ -47,7 +159,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 3
+    //Test #: 9
     //Test Objective: To catch validation of a correct data
     //Inputs: customerID = 21
     //Expected Output: no exception
@@ -62,7 +174,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 4
+    //Test #: 10
     //Test Objective: To catch validation of a correct data
     //Inputs: customerID = 1
     //Expected Output: no exception
@@ -77,7 +189,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 5
+    //Test #: 11
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = "P B"
     //Expected Output: Exception Message: "Customer name does not meet the minimum length requirements"
@@ -93,7 +205,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 6
+    //Test #: 12
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = "Aaaaaaaaaaaaaaaaaaaaaaaaaaa Aaaaaaaaaaaaaaaaaaaaaaaaaa"
     //Expected Output: Exception Message: "Customer name exceeds the maximum length requirements"
@@ -109,7 +221,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 7
+    //Test #: 13
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = null
     //Expected Output: Exception Message: "Customer name cannot be null"
@@ -125,7 +237,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 8
+    //Test #: 14
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = ""John6 Martin""
     //Expected Output: Exception Message: "Customer name cannot consist of numbers"
@@ -141,7 +253,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 9
+    //Test #: 15
     //Test Objective: To test validation of a correct name
     //Inputs: customerName = "Jo Ma"
     //Expected Output: No Exception
@@ -157,7 +269,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 10
+    //Test #: 16
     //Test Objective: To test validation of a correct name (max valid)
     //Inputs: customerName = "Aaaaaaaaaaaaaaaaaaaaaaaaaa Aaaaaaaaaaaaaaaaaaaaaaaaaa"
     //Expected Output: No Exception
@@ -172,7 +284,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception not expected");
         }
     }
-    //Test #: 8
+    //Test #: 17
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = ""
     //Expected Output: Exception Message: "Customer name cannot consist of numbers"
@@ -189,7 +301,7 @@ public class DeliveryItemTest extends TestCase {
     }
 
 
-    //Test #: 11
+    //Test #: 18
     //Test Objective: To catch an invalid address exception (One char less than min)
     //Inputs: customerAddress = "1, S, To, Y77EG48"
     //Expected Output: Exception Message: "Address does not meet the minimum length requirements"
@@ -205,7 +317,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 12
+    //Test #: 19
     //Test Objective: To catch an invalid address exception (One char more than max)
     //Inputs: customerAddress = "1234, StreetStreetStreetStreetStreetStree, TownTownTownTownTownTownTownTownTown, Y77EG48"
     //Expected Output: Exception Message: "Address exceeds the maximum length requirements"
@@ -221,7 +333,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 13
+    //Test #: 20
     //Test Objective: To catch an invalid address exception
     //Inputs: customerAddress = null
     //Expected Output: Exception Message: "Address cannot be null"
@@ -237,7 +349,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 13
+    //Test #: 21
     //Test Objective: To test validation of a minimum possible address
     //Inputs: customerAddress = "1, So, To, Y77EG48"
     //Expected Output: No Exception
@@ -253,7 +365,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 14
+    //Test #: 22
     //Test Objective: To test validation of a maximum possible address
     //Inputs: customerAddress = "1234, StreetStreetStreetStreetStreetStree, TownTownTownTownTownTownTownTownTown, Y77EG48"
     //Expected Output: No Exception
@@ -268,7 +380,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 12
+    //Test #: 23
     //Test Objective: To catch an invalid address exception (empty string)
     //Inputs: customerAddress = ""
     //Expected Output: Exception Message: "Address cannot be empty"
@@ -284,7 +396,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 14
+    //Test #: 24
     //Test Objective: To catch an invalid invoice ID
     //Inputs: invoiceId = 0
     //Expected Output: Exception Message: "Invoice with id 0 does not exist"
@@ -300,7 +412,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 15
+    //Test #: 25
     //Test Objective: To catch an invalid invoice ID
     //Inputs: invoiceId = 2000
     //Expected Output: Exception Message: "Invoice with id 2000 does not exist"
@@ -316,7 +428,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 16
+    //Test #: 26
     //Test Objective: To test a validation of valid invoice id
     //Inputs: invoiceId = 1
     //Expected Output: No Exception
@@ -331,7 +443,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 17
+    //Test #: 27
     //Test Objective: To test a validation of valid invoice id
     //Inputs: invoiceId = 51
     //Expected Output: No Exception
@@ -346,7 +458,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 18
+    //Test #: 28
     //Test Objective: To catch an invalid publication ID
     //Inputs: invoiceId = 0
     //Expected Output: Exception Message: "Publication with id 0 does not exist"
@@ -362,7 +474,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 19
+    //Test #: 29
     //Test Objective: To catch an invalid publication ID
     //Inputs: invoiceId = 20000
     //Expected Output: Exception Message: "Publication with id 20000 does not exist"
@@ -378,7 +490,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 20
+    //Test #: 30
     //Test Objective: To test validation of a correct publication id
     //Inputs: invoiceId = 1
     //Expected Output: No Exception
@@ -393,7 +505,7 @@ public class DeliveryItemTest extends TestCase {
         }
     }
 
-    //Test #: 21
+    //Test #: 31
     //Test Objective: To test validation of a correct publication id
     //Inputs: invoiceId = 14
     //Expected Output: No Exception

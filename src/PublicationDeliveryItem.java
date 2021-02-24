@@ -5,8 +5,8 @@ import java.sql.SQLException;
 public class PublicationDeliveryItem extends DeliveryItem {
 
     private int publicationId;
-    public PublicationDeliveryItem(int publicationId, int customerID, String customerName, String customerAddress, String type, boolean isDelivered) throws DeliveryDocketExceptionHandler {
-        super(customerID, customerName, customerAddress, type, isDelivered);
+    public PublicationDeliveryItem(int publicationId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
+        super(customerID, customerName, customerAddress, "publication", isDelivered);
 
         try {
             validatePublicationId(publicationId);
