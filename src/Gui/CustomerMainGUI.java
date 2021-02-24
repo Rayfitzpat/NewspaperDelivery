@@ -6,7 +6,10 @@ package Gui;
  * and open the template in the editor.
  */
 
+import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -254,11 +257,18 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(19, 28, 33));
+        jPanel2.setForeground(new java.awt.Color(19, 28, 33));
 
+
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
         jTable1.setForeground(new java.awt.Color(255, 255, 255));
-
+        jTable1.setShowGrid(true);
         jTable1.setGridColor(new java.awt.Color(49, 117, 108));
+
+        jTable1.setRowHeight(30);
+
 //        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -274,7 +284,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
