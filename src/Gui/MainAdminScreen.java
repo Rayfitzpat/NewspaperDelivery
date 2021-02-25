@@ -127,8 +127,11 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+                DeliveryPersonMainGUI deliveryPersonMainGUI = new DeliveryPersonMainGUI();
+                dispose();
                 jButton3ActionPerformed(evt);
-                System.out.println("hello Delivery Person");
+                deliveryPersonMainGUI.setVisible(true);
             }
         });
 
