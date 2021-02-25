@@ -97,9 +97,8 @@ public class CustomerDB {
      * @param customer object containing all the data about the customer.
      *                 This data is accessed through getters and setters
      *                 and inserted into the db
-     * @param con      Conncetion object to establish connection to db and perform the insert
      */
-    public void insertCustomer(Customer customer, Connection con) throws CustomerExceptionHandler{
+    public void insertCustomer(Customer customer) throws CustomerExceptionHandler{
 
         // checking if the new record is not duplicate
         if (!ifCustomerExists(customer)) { // if false
@@ -311,47 +310,5 @@ public class CustomerDB {
         return null;
     }
 
-    /**
-     * Method for printing customer objects out into console window
-     *
-     * @param customers collection of objects that will be printed to console
-     */
-    public void printCustomers(ArrayList<Customer> customers) {
-        System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
-        for (int i = 0; i < customers.size(); i++) {
-            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), customers.get(i).getStatus(), customers.get(i).getDeliveryAreaId());
-        }
-    }
-
-    /**
-     * Method for printing all customer objects out into console window
-     */
-    public void printAllActiveCustomers() {
-        System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getStatus() == true) {
-                String customerStatus = "active";
-                System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), customerStatus, customers.get(i).getDeliveryAreaId());
-            }
-
-        }
-    }
-
-    /**
-     * Method for printing customer objects out into console window
-     */
-    public void printCustomers() {
-        System.out.printf("\n%-5s %-25s %-35s %-15s %-10s %-20s %-20s %-20s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID", "Holiday start", "Holiday end");
-        for (int i = 0; i < customers.size(); i++) {
-            String status = customers.get(i).getStatus() ? "active" : "inactive";
-            String holidayStart = "n/a";
-            String holidayEnd = "n/a";
-            if (customers.get(i).getHolidayStartDate() != null) {
-                holidayStart = customers.get(i).getHolidayStartDate();
-                holidayEnd = customers.get(i).getHolidayEndDate();
-            }
-            System.out.printf("%-5d %-25s %-35s %-15s %-10s %-20d %-20s %-20s\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), status, customers.get(i).getDeliveryAreaId(), holidayStart, holidayEnd);
-        }
-    }
 
 }
