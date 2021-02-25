@@ -8,6 +8,7 @@ package com.newspaper.gui;
 import com.newspaper.db.DBconnection;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -461,6 +462,11 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jButton8.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton8.setForeground(new java.awt.Color(0, 0, 0));
         jButton8.setText("Submit");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setBackground(new java.awt.Color(19, 28, 39));
         jTextField2.setForeground(new java.awt.Color(18, 30, 49));
@@ -1630,6 +1636,64 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         MainAdminScreenGUI mainAdminScreenGUI = new MainAdminScreenGUI();
         dispose();
         mainAdminScreenGUI.setVisible(true);
+    }
+
+    boolean[] personOneDBInitialised = {false};
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+
+//        jTable2.setRowCount(0);
+
+//        if(!personOneDBInitialised[0]) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
+                Connection con = DriverManager.getConnection(url, "root", "admin");
+                Statement stmt = con.createStatement();
+                String DPID = jTextField1.getText();
+                int result = Integer.parseInt(DPID);
+                if (result > 0 && result < 16) {
+
+                    //TODO FIX validation of entry
+
+                    jTextField2.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField2.setText("Sucessfully displayed ID: " + DPID);
+                    String sql = "Select * from customer where customer_id = " + DPID;
+                    ResultSet rs = stmt.executeQuery(sql);
+
+                    while (rs.next()) {
+//
+                        int id = rs.getInt("customer_id");
+
+                        String firstName = rs.getString("first_name");
+                        String lastName = rs.getString("last_name");
+                        int address1 = rs.getInt("address1");
+                        String address2 = rs.getString("address2");
+                        String town = rs.getString("town");
+                        String eircode = rs.getString("eircode");
+                        String phonenumber = rs.getString("phone_number");
+                        String holidayStartDate = rs.getString("holiday_start_date");
+                        String holidayEndDate = rs.getString("holiday_end_date");
+                        boolean status = rs.getBoolean("customer_status");
+                        int deliveryAreaId = rs.getInt("delivery_area_id");
+
+                        String tbData[] = {id + "", firstName, lastName, address1 + "", address2, town, eircode, phonenumber, holidayStartDate, holidayEndDate, status + "", deliveryAreaId + ""};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
+
+                        tblModel.addRow(tbData);
+                        personOneDBInitialised[0] = true;
+                    }
+                    con.close();
+                }else{
+                    jTextField2.setForeground(new java.awt.Color(255,0,0));
+                    jTextField2.setText("ID: " + DPID+ " is invalid please enter a Valid ID");
+                }
+                } catch(Exception e){
+                    System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+//            }
+                }
+
+
     }
 
     /**

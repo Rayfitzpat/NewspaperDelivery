@@ -5,6 +5,9 @@
  */
 package com.newspaper.gui;
 
+import com.newspaper.deliveryperson.DeliveryPerson;
+import com.newspaper.deliveryperson.DeliveryPersonView;
+
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
@@ -167,6 +170,8 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jButton22 = new javax.swing.JButton();
         jTextField30 = new javax.swing.JTextField();
         final boolean[] personDBInitialised = {false};
+        final boolean[] personOneDBInitialised = {false};
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(19, 28, 33));
@@ -207,7 +212,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                             String password = rs.getString("password");
 
 
-                            String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number,dob,access_level, status, user_name, password +""};
+                            String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
                             DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
 
                             tblModel.addRow(tbData);
@@ -231,13 +236,56 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jButton3.setText("Display by Id");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
-            private boolean PersonDBInitialised;
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
-            }
+
+                    try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
+                        Connection con = DriverManager.getConnection(url, "root", "admin");
+                        Statement stmt = con.createStatement();
+                        String sql = "Select * from delivery_person where delivery_person_id = 5";
+                        ResultSet rs = stmt.executeQuery(sql);
+
+
+                        while (rs.next()) {
+//
+
+                            int id = rs.getInt("delivery_person_id");
+
+                            String firstName = rs.getString("first_name");
+                            String lastName = rs.getString("last_name");
+                            String address1 = rs.getString("address1");
+                            String address2 = rs.getString("address2");
+                            String town = rs.getString("town");
+                            String phone_number = rs.getString("delivery_phone_number");
+                            String dob = rs.getString("dob");
+                            String access_level = rs.getString("access_level");
+                            String status = rs.getString("delivery_status");
+                            String user_name = rs.getString("user_name");
+                            String password = rs.getString("password");
+
+
+                            String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                            DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+
+                            tblModel.addRow(tbData);
+                            personOneDBInitialised[0] = true;
+
+                        }
+
+                        con.close();
+
+                    } catch (Exception e) {
+                        System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+                    }
+
+                }
+
+
         });
-                
+
 
         jButton4.setBackground(new java.awt.Color(19, 28, 33));
         jButton4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -386,11 +434,11 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
         jTable1.setForeground(new java.awt.Color(49, 117, 108));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
-                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number","dob","access_level", "status", "user_name", "password"
+                new String[]{
+                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number", "dob", "access_level", "status", "user_name", "password"
                 }
         ));
         jTable1.setShowGrid(true);
@@ -429,28 +477,35 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jButton8.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton8.setForeground(new java.awt.Color(0, 0, 0));
         jButton8.setText("Submit");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setBackground(new java.awt.Color(19, 28, 39));
-        jTextField2.setForeground(new java.awt.Color(18, 30, 49));
+        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
         jTextField2.setBorder(null);
-        jTextField2.setDisabledTextColor(new java.awt.Color(19, 28, 33));
-        jTextField2.setFocusable(false);
+        jTextField2.setDisabledTextColor(new java.awt.Color(0, 255, 255));
         jTextField2.setSelectedTextColor(new java.awt.Color(19, 28, 33));
 
         jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
 
+        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
         jTable2.setForeground(new java.awt.Color(49, 117, 108));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
-                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number","dob","access_level", "status", "user_name", "password"
+                new String[]{
+                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number", "dob", "access_level", "status", "user_name", "password"
                 }
         ));
+        jTable2.setShowGrid(true);
         jTable2.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane2.setViewportView(jTable2);
+        jTable2.setRowHeight(40);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1280,11 +1335,11 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTable5.setBackground(new java.awt.Color(19, 28, 33));
         jTable5.setForeground(new java.awt.Color(49, 117, 108));
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
-                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number","dob","access_level", "status", "user_name", "password"
+                new String[]{
+                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number", "dob", "access_level", "status", "user_name", "password"
                 }
         ));
         jTable5.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1390,11 +1445,11 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setForeground(new java.awt.Color(49, 117, 108));
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
-                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number","dob","access_level", "status", "user_name", "password"
+                new String[]{
+                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number", "dob", "access_level", "status", "user_name", "password"
                 }
         ));
         jTable3.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1514,7 +1569,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if(evt.getSource() == jButton1){
+        if (evt.getSource() == jButton1) {
             DisplayAll.setVisible(true);
             DisplayOne.setVisible(false);
             AddNew.setVisible(false);
@@ -1526,7 +1581,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if(evt.getSource() == jButton3){
+        if (evt.getSource() == jButton3) {
             DisplayAll.setVisible(false);
             DisplayOne.setVisible(true);
             AddNew.setVisible(false);
@@ -1538,7 +1593,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if(evt.getSource() == jButton4){
+        if (evt.getSource() == jButton4) {
             DisplayAll.setVisible(false);
             DisplayOne.setVisible(false);
             AddNew.setVisible(true);
@@ -1550,7 +1605,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if(evt.getSource() == jButton5){
+        if (evt.getSource() == jButton5) {
             DisplayAll.setVisible(false);
             DisplayOne.setVisible(false);
             AddNew.setVisible(false);
@@ -1562,7 +1617,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if(evt.getSource() == jButton6){
+        if (evt.getSource() == jButton6) {
             DisplayAll.setVisible(false);
             DisplayOne.setVisible(false);
             AddNew.setVisible(false);
@@ -1578,6 +1633,63 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         dispose();
         mainAdminScreenGUI.setVisible(true);
     }
+    boolean[] personOneDBInitialised = {false};
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+
+
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
+                Connection con = DriverManager.getConnection(url, "root", "admin");
+                Statement stmt = con.createStatement();
+                String DPID = jTextField1.getText();
+                DeliveryPerson dp = new DeliveryPerson();
+                int result = Integer.parseInt(DPID);
+                if(result> 0 && result < 16) {
+
+                    //TODO FIX validation of entry
+
+                    jTextField2.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField2.setText("Sucessfully displayed ID: " + DPID);
+                    String sql = "Select * from delivery_person where delivery_person_id = " + DPID;
+                    ResultSet rs = stmt.executeQuery(sql);
+
+                    while (rs.next()) {
+//
+                        int id = rs.getInt("delivery_person_id");
+
+                        String firstName = rs.getString("first_name");
+                        String lastName = rs.getString("last_name");
+                        String address1 = rs.getString("address1");
+                        String address2 = rs.getString("address2");
+                        String town = rs.getString("town");
+                        String phone_number = rs.getString("delivery_phone_number");
+                        String dob = rs.getString("dob");
+                        String access_level = rs.getString("access_level");
+                        String status = rs.getString("delivery_status");
+                        String user_name = rs.getString("user_name");
+                        String password = rs.getString("password");
+
+                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
+
+                        tblModel.addRow(tbData);
+                        personOneDBInitialised[0] = true;
+                    }
+                    con.close();
+                }else{
+                    jTextField2.setForeground(new java.awt.Color(255,0,0));
+                    jTextField2.setText("ID: " + DPID+ " is invalid please enter a Valid ID");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+
+        }
+
+        }
+
 
 
 
