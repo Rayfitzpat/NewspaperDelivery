@@ -3,8 +3,8 @@ package com.newspaper.order;
 import com.newspaper.db.DBconnection;
 import junit.framework.TestCase;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+//import static junit.framework.Assert.assertEquals;
+//import static junit.framework.Assert.fail;
 
 public class OrderTest extends TestCase {
 
@@ -18,7 +18,7 @@ public class OrderTest extends TestCase {
     //Test #: 2
     //Test Objective: To catch an invalid customer name
     //Inputs: line = "B", nameOfField = "First name"
-    //Expected Output: Exception Message: "com.newspaper.customer.Customer Name does not meet minimum length requirements"
+    //Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
 
 
 
@@ -29,7 +29,7 @@ public class OrderTest extends TestCase {
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
-            assertEquals("com.newspaper.customer.Customer id does not exist", e.getMessage());
+            assertEquals("Customer id does not exist", e.getMessage());
         }
     }
 

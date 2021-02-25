@@ -67,7 +67,7 @@ public class Order {
             }
             if(count == 0)
             {
-                throw new OrderExceptionHandler("com.newspaper.customer.Customer id does not exist");
+                throw new OrderExceptionHandler("Customer id does not exist");
             }
 
         } catch (SQLException sqle) {
