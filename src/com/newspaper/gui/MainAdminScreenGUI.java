@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Gui;
+package com.newspaper.gui;
 
 /**
  *
  * @author Ray
  */
-public class MainAdminScreen extends javax.swing.JFrame {
+public class MainAdminScreenGUI extends javax.swing.JFrame {
 
 
 
     /**
      * Creates new form MainScreen
      */
-    public MainAdminScreen() {
+    public MainAdminScreenGUI() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -83,28 +83,28 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jLabel3.setText("(c) 2021 Team Dunder Mifflin");
 
 
-        //************************com.newspaper.customer.Customer Support Button *******************************
+        //************************Customer Support Button *******************************
         jButton1.setBackground(new java.awt.Color(19, 28, 33));
         jButton1.setFont(new java.awt.Font("sansserif", 0, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(6, 187, 163));
-        jButton1.setText("com.newspaper.customer.Customer Support");
+        jButton1.setText("Customer Support");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CustomerSupportGUI customerSupportGUI = new CustomerSupportGUI();
                 dispose();
                 jButton1ActionPerformed(evt);
-                System.out.println("hello com.newspaper.customer.Customer Support");
+                System.out.println("hello Customer Support");
                 customerSupportGUI.setVisible(true);
             }
         });
 
 
-        //***************************** com.newspaper.customer.Customer Button  **************************************
+        //***************************** Customer Button  **************************************
         jButton2.setBackground(new java.awt.Color(19, 28, 33));
         jButton2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(6, 187, 163));
-        jButton2.setText("com.newspaper.customer.Customer");
+        jButton2.setText("Customer");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
 
@@ -150,7 +150,7 @@ public class MainAdminScreen extends javax.swing.JFrame {
         });
 
 
-        //***************************** com.newspaper.publication.Publication Button  **************************************
+        //***************************** Publication Button  **************************************
         jButton6.setBackground(new java.awt.Color(19, 28, 33));
         jButton6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(6, 187, 163));
@@ -164,30 +164,30 @@ public class MainAdminScreen extends javax.swing.JFrame {
         });
 
 
-        //***************************** com.newspaper.order.Order Button  **************************************
+        //***************************** Button  **************************************
         jButton7.setBackground(new java.awt.Color(19, 28, 33));
         jButton7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton7.setForeground(new java.awt.Color(6, 187, 163));
-        jButton7.setText("com.newspaper.order.Order");
+        jButton7.setText("Order");
         jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
-                System.out.println("hello com.newspaper.order.Order");
+                System.out.println("hello Order");
             }
         });
 
 
-        //***************************** com.newspaper.invoice.Invoice Button  **************************************
+        //***************************** Invoice Button  **************************************
         jButton8.setBackground(new java.awt.Color(19, 28, 33));
         jButton8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton8.setForeground(new java.awt.Color(6, 187, 163));
-        jButton8.setText("com.newspaper.invoice.Invoice");
+        jButton8.setText("Invoice");
         jButton8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
-                System.out.println("hello com.newspaper.invoice.Invoice");
+                System.out.println("hello Invoice");
             }
         });
 
@@ -295,20 +295,20 @@ public class MainAdminScreen extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainAdminScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainAdminScreenGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainAdminScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainAdminScreenGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainAdminScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainAdminScreenGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainAdminScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainAdminScreenGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainAdminScreen().setVisible(true);
+                new MainAdminScreenGUI().setVisible(true);
             }
         });
     }
