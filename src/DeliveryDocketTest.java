@@ -2,9 +2,7 @@ import junit.framework.TestCase;
 
 public class DeliveryDocketTest extends TestCase {
 
-    DeliveryDocket docket;
-    public void testValidateDeliveryPersonName() {
-        docket = new DeliveryDocket();
+    public DeliveryDocketTest() {
 
         // needed because some of the validation methods need the connection to DB
         DBconnection.init_db();
@@ -50,7 +48,7 @@ public class DeliveryDocketTest extends TestCase {
         }
         catch (DeliveryDocketExceptionHandler e) {
 
-            assertEquals("Delivery Area name with id -1 does not exist", e.getMessage());
+            assertEquals("Delivery area with id -1 does not exist", e.getMessage());
         }
     }
 
@@ -63,6 +61,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryPersonName("Jo M");
             fail("Exception expected");
         }
@@ -79,6 +78,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryPersonName("JonathanJonathanJona JonathanJonathanJonan");
             fail("Exception expected");
         }
@@ -95,6 +95,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryPersonName("");
             fail("Exception expected");
         }
@@ -111,6 +112,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryPersonName(null);
             fail("Exception expected");
         }
@@ -127,6 +129,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryPersonName("Jo Mo");
 
         }
@@ -143,6 +146,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryPersonName("JonathanJonathanJona JonathanJonathanJona");
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -158,6 +162,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryAreaName("B");
             fail("Exception expected");
         }
@@ -174,6 +179,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryAreaName("A nice area name yes");
             fail("Exception expected");
         }
@@ -190,6 +196,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryAreaName("");
             fail("Exception expected");
         }
@@ -206,6 +213,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryAreaName(null);
             fail("Exception expected");
         }
@@ -222,6 +230,7 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
+            DeliveryDocket docket = new DeliveryDocket();
             docket.validateDeliveryAreaName("Ar");
 
         }
@@ -238,7 +247,8 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
-            docket.validateDeliveryAreaName("ArealArealArealArea");
+            DeliveryDocket d = new DeliveryDocket();
+            d.validateDeliveryAreaName("ArealArealArealArea");
 
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -254,7 +264,8 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
-            docket.validateDeliveryAreaID(0);
+            DeliveryDocket d = new DeliveryDocket();
+            d.validateDeliveryAreaID(0);
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -270,7 +281,8 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
-            docket.validateDeliveryAreaID(2000);
+            DeliveryDocket d = new DeliveryDocket();
+            d.validateDeliveryAreaID(2000);
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -286,7 +298,8 @@ public class DeliveryDocketTest extends TestCase {
         try {
 
             //Call method under test
-            docket.validateDeliveryAreaID(1);
+            DeliveryDocket d = new DeliveryDocket();
+            d.validateDeliveryAreaID(1);
 
         }
         catch (DeliveryDocketExceptionHandler e) {
