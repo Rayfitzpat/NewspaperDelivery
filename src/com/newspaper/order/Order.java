@@ -76,4 +76,25 @@ public class Order {
 
         }
     }
+
+    public void validatePublicationId(int publication_id) throws OrderExceptionHandler {
+        String query = "select count(*) as total from publication where publication_id = " + publication_id + ";";
+        ResultSet rs;
+        int count = 0;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count == 0)
+            {
+                throw new OrderExceptionHandler("Publication id does not exist");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+        }
+    }
 }
