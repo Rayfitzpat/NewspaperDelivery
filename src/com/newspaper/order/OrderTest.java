@@ -15,12 +15,10 @@ public class OrderTest extends TestCase {
         DBconnection.init_db();
     }
 
-    //Test #: 2
-    //Test Objective: To catch an invalid customer name
-    //Inputs: line = "B", nameOfField = "First name"
-    //Expected Output: Exception Message: "Customer Name does not meet minimum length requirements"
-
-
+    //Test #: 1
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: customer_id = 100, nameOfField = "Customer ID"
+    //Expected Output: Exception Message: "Customer id does not exist"
 
     public void testValidateCustomerId001() {
         try {
@@ -30,6 +28,37 @@ public class OrderTest extends TestCase {
         }
         catch (OrderExceptionHandler e) {
             assertEquals("Customer id does not exist", e.getMessage());
+        }
+    }
+
+    //Test #: 2
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: customer_id = -2, nameOfField = "Customer ID"
+    //Expected Output: Exception Message: "Customer id does not exist"
+
+    public void testValidateCustomerId002() {
+        try {
+            //Call method under test
+            order.validateCustomerId(-2);
+            fail("Exception expected");
+        }
+        catch (OrderExceptionHandler e) {
+            assertEquals("Customer id does not exist", e.getMessage());
+        }
+    }
+
+    //Test #: 3
+    //Test Objective: To check validation on a correct ID
+    //Inputs: customer_id = 10, nameOfField = "Customer ID"
+    //Expected Output: No Exception
+
+    public void testValidateCustomerId003() {
+        try {
+            //Call method under test
+            order.validateCustomerId(10);
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
         }
     }
 
