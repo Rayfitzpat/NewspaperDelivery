@@ -16,6 +16,7 @@ public class TestLogin extends javax.swing.JFrame {
      */
     public TestLogin() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
