@@ -308,7 +308,7 @@ public class DeliveryAreaDB
         DeliveryArea da = new DeliveryArea();
         do {
             Scanner in = new Scanner(System.in);
-            System.out.println("Please enter the new Delivery Person id: ");
+            System.out.println("Please   enter the new Delivery Person id: ");
             String replacementId = in.nextLine();
             if (!da.validateEntry(replacementId))
             {
