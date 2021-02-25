@@ -1,4 +1,4 @@
-package Gui;
+package com.newspaper.gui;
 public class LoginGUI extends javax.swing.JFrame {
 
     /**
