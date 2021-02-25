@@ -1227,8 +1227,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(19, 28, 33));
 
         jLabel53.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel53.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel53.setText("Please enter the id of the com.newspaper.customer.Customer that you would like to DELETE");
+        jLabel53.setText("Please enter the id of the Customer that you would like to DELETE");
 
         jTextField29.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -1398,9 +1397,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        MainAdminScreen mainAdminScreen = new MainAdminScreen();
+        MainAdminScreenGUI mainAdminScreenGUI = new MainAdminScreenGUI();
         dispose();
-        mainAdminScreen.setVisible(true);
+        mainAdminScreenGUI.setVisible(true);
     }
 
     private void mouseclicked(java.awt.event.MouseEvent evt){
