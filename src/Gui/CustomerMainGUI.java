@@ -52,13 +52,13 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         DisplayOne = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton8 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         AddNew = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -419,14 +419,15 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         DisplayAll.setLayout(DisplayAllLayout);
         DisplayAllLayout.setHorizontalGroup(
                 DisplayAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1318, Short.MAX_VALUE)
+                        .addGroup(DisplayAllLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1312, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         DisplayAllLayout.setVerticalGroup(
                 DisplayAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DisplayAllLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         CentrePanel.add(DisplayAll, "card2");
@@ -466,6 +467,21 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jTextField2.setFocusable(false);
         jTextField2.setSelectedTextColor(new java.awt.Color(19, 28, 33));
 
+        jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
+
+        jTable2.setBackground(new java.awt.Color(19, 28, 33));
+        jTable2.setForeground(new java.awt.Color(49, 117, 108));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
+                }
+        ));
+        jTable2.setGridColor(new java.awt.Color(49, 117, 108));
+        jScrollPane2.setViewportView(jTable2);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -481,6 +497,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 340, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2)
         );
         jPanel4Layout.setVerticalGroup(
                 jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,23 +512,22 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(16, 16, 16))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout DisplayOneLayout = new javax.swing.GroupLayout(DisplayOne);
         DisplayOne.setLayout(DisplayOneLayout);
         DisplayOneLayout.setHorizontalGroup(
                 DisplayOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1318, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         DisplayOneLayout.setVerticalGroup(
                 DisplayOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DisplayOneLayout.createSequentialGroup()
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         CentrePanel.add(DisplayOne, "card3");
@@ -1290,6 +1306,8 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         CentrePanel.add(Edit, "card5");
 
+        DisplayOne3.setBackground(new java.awt.Color(19, 28, 33));
+
         jScrollPane5.setBackground(new java.awt.Color(19, 28, 33));
 
         jTable5.setBackground(new java.awt.Color(19, 28, 33));
@@ -1361,37 +1379,16 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         DisplayOne3.setLayout(DisplayOne3Layout);
         DisplayOne3Layout.setHorizontalGroup(
                 DisplayOne3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1318, Short.MAX_VALUE)
                         .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5)
         );
         DisplayOne3Layout.setVerticalGroup(
                 DisplayOne3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DisplayOne3Layout.createSequentialGroup()
                                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout DeleteLayout = new javax.swing.GroupLayout(Delete);
-        Delete.setLayout(DeleteLayout);
-        DeleteLayout.setHorizontalGroup(
-                DeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 1319, Short.MAX_VALUE)
-                        .addGroup(DeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(DeleteLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(DisplayOne1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        DeleteLayout.setVerticalGroup(
-                DeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 837, Short.MAX_VALUE)
-                        .addGroup(DeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(DeleteLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(DisplayOne1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout DeactivateLayout = new javax.swing.GroupLayout(Deactivate);
@@ -1407,7 +1404,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         );
         DeactivateLayout.setVerticalGroup(
                 DeactivateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 843, Short.MAX_VALUE)
+                        .addGap(0, 776, Short.MAX_VALUE)
                         .addGroup(DeactivateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(DeactivateLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
@@ -1416,6 +1413,10 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         );
 
         CentrePanel.add(Deactivate, "card6");
+
+        Delete.setBackground(new java.awt.Color(19, 28, 33));
+
+        DisplayOne1.setBackground(new java.awt.Color(19, 28, 33));
 
         jScrollPane3.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -1485,10 +1486,9 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         DisplayOne1Layout.setHorizontalGroup(
                 DisplayOne1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DisplayOne1Layout.createSequentialGroup()
-                                .addGap(0, 0, 0)
                                 .addGroup(DisplayOne1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jScrollPane3)
-                                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane3))
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
         DisplayOne1Layout.setVerticalGroup(
@@ -1496,11 +1496,30 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                         .addGroup(DisplayOne1Layout.createSequentialGroup()
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 17, Short.MAX_VALUE))
         );
 
-
+        javax.swing.GroupLayout DeleteLayout = new javax.swing.GroupLayout(Delete);
+        Delete.setLayout(DeleteLayout);
+        DeleteLayout.setHorizontalGroup(
+                DeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 1319, Short.MAX_VALUE)
+                        .addGroup(DeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(DeleteLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(DisplayOne1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        DeleteLayout.setVerticalGroup(
+                DeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 776, Short.MAX_VALUE)
+                        .addGroup(DeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(DeleteLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(DisplayOne1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         CentrePanel.add(Delete, "card7");
 
