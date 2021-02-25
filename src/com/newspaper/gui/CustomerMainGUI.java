@@ -5,6 +5,8 @@
  */
 package com.newspaper.gui;
 
+import com.newspaper.db.DBconnection;
+
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
