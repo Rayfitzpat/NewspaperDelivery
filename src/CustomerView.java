@@ -4,72 +4,73 @@ import java.util.Scanner;
 public class CustomerView {
 
     public static void main(String[] args) {
-
-        DBconnection.init_db();  // open the connection to the database
-        int menuChoice = 0; // variable used to store main menu choice
-        final int STOP_APP = 7; //value from menu that is used to quit the application
-        int customerID; // setting variable to temporary customer info storage
-        CustomerDB customerDB;
-        CustomerView view = new CustomerView();
-        Scanner in = new Scanner(System.in);
-
-        // initialising view
-        try {
-            // if view can be initialised with no errors, then connection
-            // with db is set correctly
-            customerDB = new CustomerDB();
-
-            // running the menu
-            while (menuChoice != STOP_APP) {
-                view.displayCustomerMenu(); //display the primary customer menu
-                if (in.hasNextInt()) {
-                    //get the menu choice from the user
-                    menuChoice = in.nextInt();
-                    customerDB.fetchCustomers(); // resetting local copy of customers
-                    switch (menuChoice) {
-                        case 1:
-                            customerDB.printCustomers();
-                            break;
-                        case 2 :
-                            customerID = view.askUserToEnterCustomerID(customerDB);
-                            System.out.println(customerDB.getCustomers().get(customerID - 1));
-                            break;
-                        case 3 :
-                            view.addNewCustomer(customerDB);
-                            break;
-                        case 4 :
-                            customerID = view.askUserToEnterCustomerID(customerDB);
-                            System.out.println(customerDB.getCustomers().get(customerID - 1));    // print customer details
-                            view.editCustomer(customerID, customerDB); //You need to code this method below
-                            break;
-
-                        case 5 :
-                            customerID = view.askUserToEnterCustomerID(customerDB);
-                            view.deactivateCustomer(customerID, customerDB); //You need to code this method below
-                            break;
-                        case 6 :
-                            customerID = view.askUserToEnterCustomerID(customerDB);
-                            view.deleteCustomer(customerID, customerDB); //You need to code this method below
-                            break;
-                        case 9 :
-                            System.out.println("Program is closing...");
-                            DBconnection.cleanup_resources();  // close the connection to the database when finished program
-                            break;
-                        default :
-                            System.out.println("You entered an invalid choice, please try again...");
-                    }
-                } else {
-                    //clear the input buffer and start again
-                    in.nextLine();
-                    System.out.println("You entered an invalid choice, please try again...");
-                    //in.nextLine();
-                }
-            }
-        }
-        catch (CustomerExceptionHandler e) {
-            System.out.println("Error in the first menu");
-            System.out.println(e.getMessage());
-        }
+//
+//        DBconnection.init_db();  // open the connection to the database
+//        int menuChoice = 0; // variable used to store main menu choice
+//        final int STOP_APP = 7; //value from menu that is used to quit the application
+//        int customerID; // setting variable to temporary customer info storage
+//        CustomerDB customerDB;
+//        CustomerView view = new CustomerView();
+//        Scanner in = new Scanner(System.in);
+//
+//        // initialising view
+//        try {
+//            // if view can be initialised with no errors, then connection
+//            // with db is set correctly
+//            customerDB = new CustomerDB();
+//
+//            // running the menu
+//            while (menuChoice != STOP_APP) {
+//                view.displayCustomerMenu(); //display the primary customer menu
+//                if (in.hasNextInt()) {
+//                    //get the menu choice from the user
+//                    menuChoice = in.nextInt();
+//                    customerDB.fetchCustomers(); // resetting local copy of customers
+//                    switch (menuChoice) {
+//                        case 1:
+//                            ArrayList<Customer> customers = customerDB.fetchCustomers();
+//                            printCustomers(customers);
+//                            break;
+//                        case 2 :
+//                            customerID = view.askUserToEnterCustomerID(customerDB);
+//                            System.out.println(customerDB.getCustomers().get(customerID - 1));
+//                            break;
+//                        case 3 :
+//                            view.addNewCustomer(customerDB);
+//                            break;
+//                        case 4 :
+//                            customerID = view.askUserToEnterCustomerID(customerDB);
+//                            System.out.println(customerDB.getCustomers().get(customerID - 1));    // print customer details
+//                            view.editCustomer(customerID, customerDB); //You need to code this method below
+//                            break;
+//
+//                        case 5 :
+//                            customerID = view.askUserToEnterCustomerID(customerDB);
+//                            view.deactivateCustomer(customerID, customerDB); //You need to code this method below
+//                            break;
+//                        case 6 :
+//                            customerID = view.askUserToEnterCustomerID(customerDB);
+//                            view.deleteCustomer(customerID, customerDB); //You need to code this method below
+//                            break;
+//                        case 9 :
+//                            System.out.println("Program is closing...");
+//                            DBconnection.cleanup_resources();  // close the connection to the database when finished program
+//                            break;
+//                        default :
+//                            System.out.println("You entered an invalid choice, please try again...");
+//                    }
+//                } else {
+//                    //clear the input buffer and start again
+//                    in.nextLine();
+//                    System.out.println("You entered an invalid choice, please try again...");
+//                    //in.nextLine();
+//                }
+//            }
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            System.out.println("Error in the first menu");
+//            System.out.println(e.getMessage());
+//        }
 
     }
 
@@ -102,10 +103,14 @@ public class CustomerView {
                     menuChoice = in.nextInt();
                     customerDB.fetchCustomers(); // resetting local copy of customers
                     switch (menuChoice) {
-                        case 1 -> customerDB.printCustomers();
+                        case 1 -> {
+                            ArrayList<Customer> customers = customerDB.fetchCustomers();
+                            printCustomers(customers);
+                        }
                         case 2 -> {
                             customerID = view.askUserToEnterCustomerID(customerDB);
                             System.out.println(customerDB.getCustomerById(customerID));
+                            break;
                         }
                         case 3 -> view.addNewCustomer(customerDB);
                         case 4 -> {
@@ -191,7 +196,7 @@ public class CustomerView {
                 Customer registerCustomer = new Customer(firstName, lastName, address1, address2, town, eircode, phoneNumber, holidayStartDate, holidayendDate, status, deliveryAreaId);
 
                 // if customer can be created, attempting insert into the db
-                customerDB.insertCustomer(registerCustomer, DBconnection.con);
+                customerDB.insertCustomer(registerCustomer);
                 isValid = true;
             }
             catch ( CustomerExceptionHandler e) {
@@ -711,6 +716,52 @@ public class CustomerView {
 
         return currStatus;
     }
+
+//    /**
+//     * Method for printing customer objects out into console window
+//     *
+//     * @param customers collection of objects that will be printed to console
+//     */
+//    public void printCustomers(ArrayList<Customer> customers) {
+//        System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
+//        for (int i = 0; i < customers.size(); i++) {
+//            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), customers.get(i).getStatus(), customers.get(i).getDeliveryAreaId());
+//        }
+//    }
+
+
+
+    /**
+     * Method for printing all customer objects out into console window
+     */
+    public void printAllActiveCustomers(ArrayList<Customer> customers) {
+        System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
+        for (int i = 0; i < customers.size(); i++) {
+            if (customers.get(i).getStatus() == true) {
+                String customerStatus = "active";
+                System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), customerStatus, customers.get(i).getDeliveryAreaId());
+            }
+
+        }
+    }
+
+    /**
+     * Method for printing customer objects out into console window
+     */
+    public void printCustomers(ArrayList<Customer> customers) {
+        System.out.printf("\n%-5s %-25s %-35s %-15s %-10s %-20s %-20s %-20s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID", "Holiday start", "Holiday end");
+        for (int i = 0; i < customers.size(); i++) {
+            String status = customers.get(i).getStatus() ? "active" : "inactive";
+            String holidayStart = "n/a";
+            String holidayEnd = "n/a";
+            if (customers.get(i).getHolidayStartDate() != null) {
+                holidayStart = customers.get(i).getHolidayStartDate();
+                holidayEnd = customers.get(i).getHolidayEndDate();
+            }
+            System.out.printf("%-5d %-25s %-35s %-15s %-10s %-20d %-20s %-20s\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), status, customers.get(i).getDeliveryAreaId(), holidayStart, holidayEnd);
+        }
+    }
+
 
     public void displayCustomerMenu () {
         System.out.println("\nCustomer Menu");
