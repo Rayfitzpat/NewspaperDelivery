@@ -1227,7 +1227,6 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(19, 28, 33));
 
         jLabel53.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel53.setForeground(new java.awt.Color(6, 187, 163));
         jLabel53.setText("Please enter the id of the Customer that you would like to DELETE");
 
         jTextField29.setBackground(new java.awt.Color(0, 102, 102));
