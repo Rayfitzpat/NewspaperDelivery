@@ -83,28 +83,28 @@ public class MainAdminScreen extends javax.swing.JFrame {
         jLabel3.setText("(c) 2021 Team Dunder Mifflin");
 
 
-        //************************Customer Support Button *******************************
+        //************************com.newspaper.customer.Customer Support Button *******************************
         jButton1.setBackground(new java.awt.Color(19, 28, 33));
         jButton1.setFont(new java.awt.Font("sansserif", 0, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(6, 187, 163));
-        jButton1.setText("Customer Support");
+        jButton1.setText("com.newspaper.customer.Customer Support");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CustomerSupportGUI customerSupportGUI = new CustomerSupportGUI();
                 dispose();
                 jButton1ActionPerformed(evt);
-                System.out.println("hello Customer Support");
+                System.out.println("hello com.newspaper.customer.Customer Support");
                 customerSupportGUI.setVisible(true);
             }
         });
 
 
-        //***************************** Customer Button  **************************************
+        //***************************** com.newspaper.customer.Customer Button  **************************************
         jButton2.setBackground(new java.awt.Color(19, 28, 33));
         jButton2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(6, 187, 163));
-        jButton2.setText("Customer");
+        jButton2.setText("com.newspaper.customer.Customer");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
 
@@ -150,7 +150,7 @@ public class MainAdminScreen extends javax.swing.JFrame {
         });
 
 
-        //***************************** Publication Button  **************************************
+        //***************************** com.newspaper.publication.Publication Button  **************************************
         jButton6.setBackground(new java.awt.Color(19, 28, 33));
         jButton6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(6, 187, 163));
@@ -164,30 +164,30 @@ public class MainAdminScreen extends javax.swing.JFrame {
         });
 
 
-        //***************************** Order Button  **************************************
+        //***************************** com.newspaper.order.Order Button  **************************************
         jButton7.setBackground(new java.awt.Color(19, 28, 33));
         jButton7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton7.setForeground(new java.awt.Color(6, 187, 163));
-        jButton7.setText("Order");
+        jButton7.setText("com.newspaper.order.Order");
         jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
-                System.out.println("hello Order");
+                System.out.println("hello com.newspaper.order.Order");
             }
         });
 
 
-        //***************************** Invoice Button  **************************************
+        //***************************** com.newspaper.invoice.Invoice Button  **************************************
         jButton8.setBackground(new java.awt.Color(19, 28, 33));
         jButton8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton8.setForeground(new java.awt.Color(6, 187, 163));
-        jButton8.setText("Invoice");
+        jButton8.setText("com.newspaper.invoice.Invoice");
         jButton8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
-                System.out.println("hello Invoice");
+                System.out.println("hello com.newspaper.invoice.Invoice");
             }
         });
 

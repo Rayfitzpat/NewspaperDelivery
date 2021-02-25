@@ -63,7 +63,7 @@ public class CustomerSupportGUI extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Niagara Engraved", 0, 75)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel4.setText("Customer Support");
+        jLabel4.setText("com.newspaper.customer.Customer Support");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

@@ -367,7 +367,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Niagara Engraved", 0, 140)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(49, 117, 108));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Customer Menu");
+        jLabel2.setText("com.newspaper.customer.Customer Menu");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -451,7 +451,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel3.setText("Please enter the id of the Customer that you would like to display");
+        jLabel3.setText("Please enter the id of the com.newspaper.customer.Customer that you would like to display");
 
         jTextField1.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -1327,7 +1327,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel4.setText("Please enter the id of the Customer that you would like to deactivate");
+        jLabel4.setText("Please enter the id of the com.newspaper.customer.Customer that you would like to deactivate");
 
         jTextField16.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -1437,7 +1437,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel53.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel53.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel53.setText("Please enter the id of the Customer that you would like to DELETE");
+        jLabel53.setText("Please enter the id of the com.newspaper.customer.Customer that you would like to DELETE");
 
         jTextField29.setBackground(new java.awt.Color(0, 102, 102));
 
