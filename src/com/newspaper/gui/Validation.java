@@ -56,4 +56,44 @@ public class Validation {
             return false;
     }
 
+    public boolean validatePhoneNumber(String deliveryPhoneNumber){
+        if(deliveryPhoneNumber.matches("\\d{3}[ ]\\d{7}")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean validateDoB(String dateOfBirth){
+        if(dateOfBirth.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean validateAccess(String access ){
+        if(access.equals("1") || access.equals("2")){
+            return true;
+        }
+        else return false;
+        }
+
+    public boolean validateStatus(String status ){
+        if(status.equals("true") || status.equals("false")){
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean validatePassword(String password ){
+        if(password.length() == 4){
+            return true;
+        }
+        else return false;
+    }
+
+
 }

@@ -214,7 +214,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-                if (!personDBInitialised[0]) {
+//                if (!personDBInitialised[0]) {
                     try {
                         Class.forName("com.mysql.cj.jdbc.Driver");
                         String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
@@ -245,7 +245,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
                             tblModel.addRow(tbData);
                             personDBInitialised[0] = true;
-                            //TODO change size of Db
+
                         }
                         con.close();
 
@@ -254,7 +254,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                     }
 
                 }
-            }
+//            }
         });
 
         jButton3.setBackground(new java.awt.Color(19, 28, 33));
@@ -609,6 +609,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField9.setForeground(new java.awt.Color(6, 187, 163));
         jTextField9.setText("123");
 
+
         jLabel11.setForeground(new java.awt.Color(49, 117, 108));
         jLabel11.setText("1-20 characters, no numbers");
 
@@ -942,23 +943,29 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField37.setForeground(new java.awt.Color(6, 187, 163));
         jTextField37.setText("123");
 
+         //        Edit First Name  help text label
         jLabel61.setForeground(new java.awt.Color(49, 117, 108));
         jLabel61.setText("1-20 characters, no numbers");
 
+        //        Edit Last Name  help text label
         jLabel62.setForeground(new java.awt.Color(49, 117, 108));
         jLabel62.setText("1-20 characters, no numbers");
 
+        //        Edit House Number  help text label
         jLabel63.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel63.setText("1-20 characters, no numbers");
+        jLabel63.setText("1-4 Numbers");
 
+        //        Edit Street Name  help text label
         jLabel64.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel64.setText("1-20 characters, no numbers");
+        jLabel64.setText("1-20 characters");
 
+        //        Edit Town Name  help text label
         jLabel65.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel65.setText("1-20 characters, no numbers");
+        jLabel65.setText("1-20 characters");
 
+        //        Edit DoB  help text label
         jLabel66.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel66.setText("1-20 characters, no numbers");
+        jLabel66.setText("Must follow pattern YYYY-MM-DD");
 
         jLabel67.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel67.setForeground(new java.awt.Color(6, 187, 163));
@@ -987,11 +994,13 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField40.setForeground(new java.awt.Color(6, 187, 163));
         jTextField40.setText("123");
 
+        //        Edit Access Level help text label
         jLabel72.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel72.setText("1-20 characters, no numbers");
+        jLabel72.setText("1 for Admin, 2 for Employee");
 
+        //        Edit Status Level help text label
         jLabel73.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel73.setText("1-20 characters, no numbers");
+        jLabel73.setText("true for active or false for inactive");
 
         jLabel74.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(6, 187, 163));
@@ -1011,12 +1020,15 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField43.setForeground(new java.awt.Color(6, 187, 163));
         jTextField43.setText("123");
 
+        //        Edit Password help text label
         jLabel76.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel76.setText("1-20 characters, no numbers");
+        jLabel76.setText("4 characters only");
 
+        // EDIT Phone Number help label
         jLabel77.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel77.setText("1-20 characters, no numbers");
+        jLabel77.setText("Must follow pattern 0## #######");
 
+        //        Edit User Name help text label
         jLabel78.setForeground(new java.awt.Color(49, 117, 108));
         jLabel78.setText("1-20 characters, no numbers");
 
@@ -1056,6 +1068,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             }
         }
     });
+
     // Submit button EDIT - House Number ******************************************************
         jButton12.setBackground(new java.awt.Color(49, 117, 108));
         jButton12.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -1071,10 +1084,20 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             }
         });
 
+        // Submit button EDIT - Town Name ******************************************************
         jButton13.setBackground(new java.awt.Color(49, 117, 108));
         jButton13.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton13.setForeground(new java.awt.Color(0, 0, 0));
         jButton13.setText("Submit");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton13ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
 
         // Submit button EDIT - Street Name ******************************************************
@@ -1092,35 +1115,95 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             }
         });
 
+        // Submit button EDIT - Phone Number ******************************************************
         jButton15.setBackground(new java.awt.Color(49, 117, 108));
         jButton15.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton15.setForeground(new java.awt.Color(0, 0, 0));
         jButton15.setText("Submit");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton15ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
+
+        // Submit button EDIT - Date Of Birth ******************************************************
         jButton16.setBackground(new java.awt.Color(49, 117, 108));
         jButton16.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton16.setForeground(new java.awt.Color(0, 0, 0));
         jButton16.setText("Submit");
-
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton16ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+        // Submit button EDIT - Access Level ******************************************************
         jButton17.setBackground(new java.awt.Color(49, 117, 108));
         jButton17.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton17.setForeground(new java.awt.Color(0, 0, 0));
         jButton17.setText("Submit");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton17ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
+        // Submit button EDIT - Status  ******************************************************
         jButton18.setBackground(new java.awt.Color(49, 117, 108));
         jButton18.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton18.setForeground(new java.awt.Color(0, 0, 0));
         jButton18.setText("Submit");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton18ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
+        // Submit button EDIT - User Name  ******************************************************
         jButton19.setBackground(new java.awt.Color(49, 117, 108));
         jButton19.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton19.setForeground(new java.awt.Color(0, 0, 0));
         jButton19.setText("Submit");
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton19ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
+        // Submit button EDIT - Password  ******************************************************
         jButton20.setBackground(new java.awt.Color(49, 117, 108));
         jButton20.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton20.setForeground(new java.awt.Color(0, 0, 0));
         jButton20.setText("Submit");
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton20ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
         jLabel24.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 0, 0));
@@ -1594,8 +1677,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
         if (evt.getSource() == jButton1) {
+
             DisplayAll.setVisible(true);
             DisplayOne.setVisible(false);
             AddNew.setVisible(false);
@@ -1606,7 +1690,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
         if (evt.getSource() == jButton3) {
             DisplayAll.setVisible(false);
             DisplayOne.setVisible(true);
@@ -1618,7 +1702,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
         if (evt.getSource() == jButton4) {
             DisplayAll.setVisible(false);
             DisplayOne.setVisible(false);
@@ -1630,7 +1714,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
         if (evt.getSource() == jButton5) {
             DisplayAll.setVisible(false);
             DisplayOne.setVisible(false);
@@ -1642,7 +1726,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     }
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
         if (evt.getSource() == jButton6) {
             DisplayAll.setVisible(false);
             DisplayOne.setVisible(false);
@@ -1654,16 +1738,13 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     }
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
         MainAdminScreenGUI mainAdminScreenGUI = new MainAdminScreenGUI();
         dispose();
         mainAdminScreenGUI.setVisible(true);
     }
     boolean[] personOneDBInitialised = {false};
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-
-
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -1675,7 +1756,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             int result = Integer.parseInt(DPID);
             if(result> 0 && result < 16) {
 
-                //TODO FIX validation of entry
+                //TODO FIX validation of entry - create validation method and use for edit & Delete also
 
                 jTextField2.setForeground(new java.awt.Color(6, 187, 163));
                 jTextField2.setText("Sucessfully displayed ID: " + DPID);
@@ -1765,7 +1846,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         }
     }
 
-    //        Submit Button - EDIT - LHouse Number *****************************
+    //        Submit Button - EDIT - House Number *****************************
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -1789,7 +1870,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         }
     }
 
-    //        Submit Button - EDIT - House Number *****************************
+    //        Submit Button - EDIT - Street Name *****************************
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -1813,6 +1894,168 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         }
     }
 
+    //        Submit Button - EDIT - Town *****************************
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        Validation validation = new Validation();
+        String editID = jTextField18.getText();
+        String town = jTextField42.getText();
+        if(!validation.validateEntry(editID)) {
+            jTextField31.setForeground(new java.awt.Color(255,0,0));
+            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
+        }
+        else {
+            if (!validation.validateStringWithNumbers(town)) {
+                jTextField31.setForeground(new java.awt.Color(255,0,0));
+                jTextField31.setText("Town Names must be between 1 to 20 characters");
+            } else {
+
+                Statement editPerson = con.createStatement();
+                editPerson.executeUpdate("Update delivery_person SET town = '" + town + "' where delivery_person_id = '" + editID + "'");
+                jTextField31.setForeground(new java.awt.Color(6,187,163));
+                jTextField31.setText("You have successfully updated Town Name for ID: " + editID + " to " + town);
+            }
+        }
+    }
+
+    //        Submit Button - EDIT - Phone Number *****************************
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        Validation validation = new Validation();
+        String editID = jTextField18.getText();
+        String phoneNumber = jTextField36.getText();
+        if(!validation.validateEntry(editID)) {
+            jTextField31.setForeground(new java.awt.Color(255,0,0));
+            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
+        }
+        else {
+            if (!validation.validatePhoneNumber(phoneNumber)) {
+                jTextField31.setForeground(new java.awt.Color(255,0,0));
+                jTextField31.setText("Phone Numbers follow the pattern of 0## #######  e.g. 087 1234567");
+            } else {
+
+                Statement editPerson = con.createStatement();
+                editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + phoneNumber + "' where delivery_person_id = '" + editID + "'");
+                jTextField31.setForeground(new java.awt.Color(6,187,163));
+                jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
+            }
+        }
+    }
+
+//        Submit Button - EDIT - Phone Number *****************************
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        Validation validation = new Validation();
+        String editID = jTextField18.getText();
+        String dateOfBirth = jTextField37.getText();
+        if(!validation.validateEntry(editID)) {
+            jTextField31.setForeground(new java.awt.Color(255,0,0));
+            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
+        }
+        else {
+            if (!validation.validateDoB(dateOfBirth)) {
+                jTextField31.setForeground(new java.awt.Color(255,0,0));
+                jTextField31.setText("Date of Birth must follow the pattern of YYYY-MM-DD or YYYY-M-D  e.g. 1995-11-26");
+            } else {
+
+                Statement editPerson = con.createStatement();
+                editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + dateOfBirth + "' where delivery_person_id = '" + editID + "'");
+                jTextField31.setForeground(new java.awt.Color(6,187,163));
+                jTextField31.setText("You have successfully updated Date of Birth for ID: " + editID + " to " + dateOfBirth);
+            }
+        }
+    }
+
+    //        Submit Button - EDIT - Access Level *****************************
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        Validation validation = new Validation();
+        String editID = jTextField18.getText();
+        String accessLevel = jTextField38.getText();
+        if(!validation.validateEntry(editID)) {
+            jTextField31.setForeground(new java.awt.Color(255,0,0));
+            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
+        }
+        else {
+            if (!validation.validateAccess(accessLevel)) {
+                jTextField31.setForeground(new java.awt.Color(255,0,0));
+                jTextField31.setText("Access Level must be either 1 or 2");
+            } else {
+
+                Statement editPerson = con.createStatement();
+                editPerson.executeUpdate("Update delivery_person SET access_level = '" + accessLevel + "' where delivery_person_id = '" + editID + "'");
+                jTextField31.setForeground(new java.awt.Color(6,187,163));
+                jTextField31.setText("You have successfully updated Access Level for ID: " + editID + " to " + accessLevel);
+            }
+        }
+    }
+
+    //        Submit Button - EDIT - Status *****************************
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        Validation validation = new Validation();
+        String editID = jTextField18.getText();
+        String status = jTextField40.getText();
+        if(!validation.validateEntry(editID)) {
+            jTextField31.setForeground(new java.awt.Color(255,0,0));
+            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
+        }
+        else {
+            if (!validation.validateStatus(status)) {
+                jTextField31.setForeground(new java.awt.Color(255,0,0));
+                jTextField31.setText("Status must be either true or false");
+            } else {
+                Statement editPerson = con.createStatement();
+                editPerson.executeUpdate("Update delivery_person SET delivery_status = '" + status + "' where delivery_person_id = '" + editID + "'");
+                jTextField31.setForeground(new java.awt.Color(6,187,163));
+                jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
+            }
+        }
+    }
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        Validation validation = new Validation();
+        String editID = jTextField18.getText();
+        String userName = jTextField39.getText();
+        if(!validation.validateEntry(editID)) {
+            jTextField31.setForeground(new java.awt.Color(255,0,0));
+            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
+        }
+        else {
+            if (!validation.validateString(userName)) {
+                jTextField31.setForeground(new java.awt.Color(255,0,0));
+                jTextField31.setText("User Names cannot contain numbers and must be between 1 to 20 characters");
+            } else {
+
+                Statement editPerson = con.createStatement();
+                editPerson.executeUpdate("Update delivery_person SET user_name = '" + userName + "' where delivery_person_id = '" + editID + "'");
+                jTextField31.setForeground(new java.awt.Color(6,187,163));
+                jTextField31.setText("You have successfully updated User Name for ID: " + editID + " to " + userName);
+            }
+        }
+    }
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        Validation validation = new Validation();
+        String editID = jTextField18.getText();
+        String password = jTextField43.getText();
+        if(!validation.validateEntry(editID)) {
+            jTextField31.setForeground(new java.awt.Color(255,0,0));
+            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
+        }
+        else {
+            if (!validation.validatePassword(password)) {
+                jTextField31.setForeground(new java.awt.Color(255,0,0));
+                jTextField31.setText("passwords must 4 characters in length");
+            } else {
+
+                Statement editPerson = con.createStatement();
+                editPerson.executeUpdate("Update delivery_person SET password = '" + password + "' where delivery_person_id = '" + editID + "'");
+                jTextField31.setForeground(new java.awt.Color(6,187,163));
+                jTextField31.setText("You have successfully updated Password for ID: " + editID + " to " + password);
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
