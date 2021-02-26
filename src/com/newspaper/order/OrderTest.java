@@ -106,4 +106,71 @@ public class OrderTest extends TestCase {
         }
     }
 
+    //
+    //Test #: 6
+    //Test Objective: To test that frequency only accepts "Daily" and "Weekly" (invalid string)
+    //Inputs: publication_Frequency = "1"
+    //Expected Output:"Please only enter the words, 'Daily' or 'Weekly'"
+    public void testValidateFrequency001() {
+        try{
+            order.validatePublicationFrequency("1");
+            fail("Exception expected");
+        }
+        catch (OrderExceptionHandler e) {
+            assertEquals("Please only enter the words, 'Daily', 'Weekly' or 'Monthly'", e.getMessage());
+        }
+
+
+      //  assertEquals("Please only enter the words, 'Daily' or 'Weekly'", "Please only enter the words, 'Daily' or 'Weekly'");
+
+    }
+    //
+    //Test #: 7
+    //Test Objective: To test that frequency only accepts "Daily and "Weekly" (no capitilization)
+    //Inputs: publication_Frequency ="daily"
+    //Expected Output: Exception Message: "com.newspaper.publication.Publication NOT updated. Please use capitilization, thank you :)"
+    public void testValidateFrequency002() {
+
+
+        //Call method under test
+        publication.validatePublicationFrequency("daily");
+        assertEquals("com.newspaper.publication.Publication NOT updated. Please use capitilization, thank you :)", "com.newspaper.publication.Publication NOT updated. Please use capitilization, thank you :)");
+
+
+    }
+
+    //Test #: 8
+    //Test Objective: To test that frequency only accepts "Daily and "Weekly" (no capitilization)
+    //Inputs: publication_Frequency = "weekly"
+    //Expected Output: Exception Message: "com.newspaper.publication.Publication NOT updated. Please use capitilization, thank you :)"
+    public void testValidateFrequency003() {
+
+        //Call method under test
+        publication.validatePublicationFrequency("weekly");
+        assertEquals("com.newspaper.publication.Publication NOT updated. Please use capitilization, thank you :)", "com.newspaper.publication.Publication NOT updated. Please use capitilization, thank you :)");
+
+    }
+
+    //Test #: 9
+    //Test Objective: To test that frequency only accepts "Daily and "Weekly" (PASS)
+    //Inputs: publication_Frequency ="Daily"
+    //Expected Output: PASS
+    public void testValidateFrequency004() {
+
+
+        //Call method under test
+        assertEquals(true, publication.validatePublicationFrequency("Daily"));
+    }
+
+    //Test #: 10
+    //Test Objective: To test that frequency only accepts "Daily and Weekly" (PASS)
+    //Inputs: publication_Frequency = "Weekly"
+    //Expected Output: PASS
+    public void testValidateFrequency005() {
+
+
+        //Call method under test
+        assertEquals(true, publication.validatePublicationFrequency("Weekly"));
+
+    }
 }

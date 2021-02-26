@@ -10,24 +10,23 @@ import java.sql.SQLException;
 public class Order {
     private int customer_id;
     private int publication_id;
-    private int frequency;
+    private String frequency;
 
     //constructor
 
-    public Order(int customer_id, int publication_id, int frequency) throws OrderExceptionHandler {
+    public Order(int customer_id, int publication_id, String frequency) throws OrderExceptionHandler {
         this.customer_id = customer_id;
         this.publication_id = publication_id;
         this.frequency = frequency;
 
         try {
             validateCustomerId(customer_id);
-        }
-        catch (OrderExceptionHandler e){
+        } catch (OrderExceptionHandler e) {
             throw e;
         }
     }
 
-    public Order(){
+    public Order() {
 
     }
 
@@ -47,11 +46,11 @@ public class Order {
         this.publication_id = publication_id;
     }
 
-    public int getFrequency() {
+    public String getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(int frequency) {
+    public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
 
@@ -65,8 +64,7 @@ public class Order {
             while (rs.next()) {
                 count = rs.getInt("total");
             }
-            if(count == 0)
-            {
+            if (count == 0) {
                 throw new OrderExceptionHandler("Customer id does not exist");
             }
 
@@ -86,8 +84,7 @@ public class Order {
             while (rs.next()) {
                 count = rs.getInt("total");
             }
-            if(count == 0)
-            {
+            if (count == 0) {
                 throw new OrderExceptionHandler("Publication id does not exist");
             }
 
@@ -97,4 +94,34 @@ public class Order {
 
         }
     }
+
+    // *****************************************************************************************
+// Validates that the string entered only consists of the words "Daily" or "Weekly"
+// *****************************************************************************************
+    public void validatePublicationFrequency(String frequency) throws OrderExceptionHandler
+    {
+        //uses regex to check if the entered name is between a-z
+        try {
+            if (frequency.matches("[a-zA-Z]+"))
+            {
+                //checks if the users entered either "Daily" or "Weekly" or "Monthly"
+
+                if (frequency.matches("daily") || frequency.matches("weekly") || frequency.matches("monthly") || frequency.matches("Weekly") || frequency.matches("Daily") || frequency.matches("Monthly"))
+                {
+                    frequency = frequency.toLowerCase();
+                }
+                else
+                {
+                    throw new OrderExceptionHandler("Please only enter the words, 'Daily', 'Weekly' or 'Monthly'");
+                }
+            }
+
+
+            }
+            catch(SQLException sqle) {
+                System.out.println(sqle.getMessage());
+            }
+
+    }
+
 }
