@@ -8,7 +8,9 @@ package com.newspaper.gui;
 import com.newspaper.db.DBconnection;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -393,14 +395,16 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         );
 
         CentrePanel.setLayout(new java.awt.CardLayout());
-
+CentrePanel.setBackground(new java.awt.Color(19, 28, 33));
         DisplayAll.setBackground(new java.awt.Color(19, 28, 33));
 
         jScrollPane1.setBackground(new java.awt.Color(19, 28, 33));
 
 
 
-
+        JTableHeader tableHeader1 = jTable1.getTableHeader();
+        tableHeader1.setBackground(new java.awt.Color(19, 28, 33));
+        tableHeader1.setForeground(new java.awt.Color(6, 187, 163));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
         jTable1.setForeground(new java.awt.Color(49, 117, 108));
@@ -434,9 +438,16 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         );
 
         CentrePanel.add(DisplayAll, "card2");
+        DisplayOne.setBackground(new java.awt.Color(19, 28, 33));
+
+        jPanel4.setBackground(new java.awt.Color(19, 28, 33));
 
         jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
 
+
+        JTableHeader tableHeader2 = jTable2.getTableHeader();
+        tableHeader2.setBackground(new java.awt.Color(19, 28, 33));
+        tableHeader2.setForeground(new java.awt.Color(6, 187, 163));
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
         jTable2.setForeground(new java.awt.Color(49, 117, 108));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -477,18 +488,6 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable2.setBackground(new java.awt.Color(19, 28, 33));
-        jTable2.setForeground(new java.awt.Color(49, 117, 108));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
-                }
-        ));
-        jTable2.setGridColor(new java.awt.Color(49, 117, 108));
-        jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1427,6 +1426,9 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         DisplayOne1.setBackground(new java.awt.Color(19, 28, 33));
 
         jScrollPane3.setBackground(new java.awt.Color(19, 28, 33));
+        JTableHeader tableHeader3 = jTable3.getTableHeader();
+        tableHeader3.setBackground(new java.awt.Color(19, 28, 33));
+        tableHeader3.setForeground(new java.awt.Color(6, 187, 163));
 
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setForeground(new java.awt.Color(49, 117, 108));
@@ -1549,6 +1551,8 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                                         .addComponent(CentrePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+
 
         pack();
     }// </editor-fold>

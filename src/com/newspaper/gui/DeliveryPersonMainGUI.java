@@ -9,6 +9,7 @@ import com.newspaper.deliveryperson.DeliveryPerson;
 import com.newspaper.deliveryperson.DeliveryPersonView;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.sql.*;
 
 /**
@@ -237,54 +238,14 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
 
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+       public void actionPerformed(java.awt.event.ActionEvent evt) {
+           jButton3ActionPerformed(evt);
 
-                    try {
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-                        Connection con = DriverManager.getConnection(url, "root", "admin");
-                        Statement stmt = con.createStatement();
-                        String sql = "Select * from delivery_person where delivery_person_id = 5";
-                        ResultSet rs = stmt.executeQuery(sql);
+       }
+         });
 
 
-                        while (rs.next()) {
-//
 
-                            int id = rs.getInt("delivery_person_id");
-
-                            String firstName = rs.getString("first_name");
-                            String lastName = rs.getString("last_name");
-                            String address1 = rs.getString("address1");
-                            String address2 = rs.getString("address2");
-                            String town = rs.getString("town");
-                            String phone_number = rs.getString("delivery_phone_number");
-                            String dob = rs.getString("dob");
-                            String access_level = rs.getString("access_level");
-                            String status = rs.getString("delivery_status");
-                            String user_name = rs.getString("user_name");
-                            String password = rs.getString("password");
-
-
-                            String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
-                            DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
-
-                            tblModel.addRow(tbData);
-                            personOneDBInitialised[0] = true;
-
-                        }
-
-                        con.close();
-
-                    } catch (Exception e) {
-                        System.out.println("Error: Failed to connect to database\n" + e.getMessage());
-                    }
-
-                }
-
-
-        });
 
 
         jButton4.setBackground(new java.awt.Color(19, 28, 33));
@@ -430,6 +391,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(19, 28, 33));
 
+        JTableHeader tableHeader1 = jTable1.getTableHeader();
+        tableHeader1.setBackground(new java.awt.Color(19, 28, 33));
+        tableHeader1.setForeground(new java.awt.Color(6, 187, 163));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
         jTable1.setForeground(new java.awt.Color(49, 117, 108));
@@ -491,6 +455,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
 
+        JTableHeader tableHeader2 = jTable2.getTableHeader();
+        tableHeader2.setBackground(new java.awt.Color(19, 28, 33));
+        tableHeader2.setForeground(new java.awt.Color(6, 187, 163));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
         jTable2.setForeground(new java.awt.Color(49, 117, 108));
@@ -1441,7 +1408,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         DisplayOne1.setBackground(new java.awt.Color(19, 28, 33));
 
         jScrollPane3.setBackground(new java.awt.Color(19, 28, 33));
-
+        JTableHeader tableHeader3 = jTable3.getTableHeader();
+        tableHeader3.setBackground(new java.awt.Color(19, 28, 33));
+        tableHeader3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setForeground(new java.awt.Color(49, 117, 108));
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
