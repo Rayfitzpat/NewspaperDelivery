@@ -10,6 +10,7 @@ import com.newspaper.deliveryperson.DeliveryPersonView;
 import com.newspaper.db.DBconnection;
 import jdk.swing.interop.SwingInterOpUtils;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.sql.*;
@@ -106,12 +107,12 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+//        jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
+//        jTextField13 = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -121,7 +122,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
-        jLabel29 = new javax.swing.JLabel();
+//        jLabel29 = new javax.swing.JLabel();
         jLabel54 = new javax.swing.JLabel();
         Edit = new javax.swing.JPanel();
         AddNew2 = new javax.swing.JPanel();
@@ -546,9 +547,10 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
         AddNew.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTextField3.setBackground(new java.awt.Color(19, 28, 39));
+        jTextField3.setBackground(new java.awt.Color(19, 28, 33));
         jTextField3.setForeground(java.awt.Color.red);
-        jTextField3.setText("This area will display error or success messages");
+        jTextField3.setText("");
+        jTextField3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTextField3.setBorder(null);
         jTextField3.setDisabledTextColor(new java.awt.Color(19, 28, 33));
         jTextField3.setFocusable(false);
@@ -561,7 +563,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField4.setBackground(new java.awt.Color(19, 28, 33));
         jTextField4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField4.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField4.setText("123");
+        jTextField4.setText("");
         jTextField4.setDisabledTextColor(new java.awt.Color(19, 28, 33));
 
         jLabel6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -571,7 +573,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField5.setBackground(new java.awt.Color(19, 28, 33));
         jTextField5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField5.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField5.setText("123");
+        jTextField5.setText("");
 
         jLabel7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(6, 187, 163));
@@ -584,12 +586,12 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField6.setBackground(new java.awt.Color(19, 28, 33));
         jTextField6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField6.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField6.setText("123");
+        jTextField6.setText("");
 
         jTextField7.setBackground(new java.awt.Color(19, 28, 33));
         jTextField7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField7.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField7.setText("123");
+        jTextField7.setText("");
 
         jLabel9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(6, 187, 163));
@@ -598,7 +600,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField8.setBackground(new java.awt.Color(19, 28, 33));
         jTextField8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField8.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField8.setText("123");
+        jTextField8.setText("");
 
         jLabel10.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(6, 187, 163));
@@ -607,9 +609,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField9.setBackground(new java.awt.Color(19, 28, 33));
         jTextField9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField9.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField9.setText("123");
+        jTextField9.setText("");
 
-
+//TODO change these to respective text
         jLabel11.setForeground(new java.awt.Color(49, 117, 108));
         jLabel11.setText("1-20 characters, no numbers");
 
@@ -635,14 +637,14 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField10.setBackground(new java.awt.Color(19, 28, 33));
         jTextField10.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField10.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField10.setText("123");
+        jTextField10.setText("");
 
         jLabel18.setForeground(new java.awt.Color(49, 117, 108));
         jLabel18.setText("1-20 characters, no numbers");
 
-        jLabel19.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel19.setText("??????");
+//        jLabel19.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel19.setForeground(new java.awt.Color(6, 187, 163));
+//        jLabel19.setText("??????");
 
         jLabel20.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(6, 187, 163));
@@ -655,17 +657,17 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField11.setBackground(new java.awt.Color(19, 28, 33));
         jTextField11.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField11.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField11.setText("123");
+        jTextField11.setText("");
 
         jTextField12.setBackground(new java.awt.Color(19, 28, 33));
         jTextField12.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField12.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField12.setText("123");
+        jTextField12.setText("");
 
-        jTextField13.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField13.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField13.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField13.setText("123");
+//        jTextField13.setBackground(new java.awt.Color(19, 28, 33));
+//        jTextField13.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jTextField13.setForeground(new java.awt.Color(6, 187, 163));
+//        jTextField13.setText("");
 
         jLabel22.setForeground(new java.awt.Color(49, 117, 108));
         jLabel22.setText("1-20 characters, no numbers");
@@ -680,7 +682,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField14.setBackground(new java.awt.Color(19, 28, 33));
         jTextField14.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField14.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField14.setText("123");
+        jTextField14.setText("");
 
         jLabel26.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(6, 187, 163));
@@ -689,7 +691,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField15.setBackground(new java.awt.Color(19, 28, 33));
         jTextField15.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField15.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField15.setText("123");
+        jTextField15.setText("");
 
         jLabel27.setForeground(new java.awt.Color(49, 117, 108));
         jLabel27.setText("1-20 characters, no numbers");
@@ -701,9 +703,18 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jButton9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton9.setForeground(new java.awt.Color(6, 187, 163));
         jButton9.setText("Submit");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton9ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
-        jLabel29.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel29.setText("1-20 characters, no numbers");
+//        jLabel29.setForeground(new java.awt.Color(49, 117, 108));
+//        jLabel29.setText("1-20 characters, no numbers");
 
         jLabel54.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel54.setForeground(new java.awt.Color(6, 187, 163));
@@ -752,7 +763,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                                                                                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                         .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                                                                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                                         .addGroup(AddNewLayout.createSequentialGroup()
                                                                 .addGap(3, 3, 3)
@@ -775,8 +786,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                                                                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+//                                                        .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                                                        .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                ))
                                         .addGroup(AddNewLayout.createSequentialGroup()
                                                 .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -860,16 +872,19 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                                                                 .addGroup(AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+//                                                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                ))
                                                         .addGroup(AddNewLayout.createSequentialGroup()
                                                                 .addGap(6, 6, 6)
                                                                 .addComponent(jLabel27)
                                                                 .addGap(24, 24, 24)
-                                                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+//                                                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        ))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel15)
-                                        .addComponent(jLabel29))
+//                                        .addComponent(jLabel29)
+                                )
                                 .addGap(25, 25, 25)
                                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27))
@@ -882,7 +897,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField31.setBackground(new java.awt.Color(19, 28, 33));
         jTextField31.setForeground(java.awt.Color.red);
         jTextField31.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField31.setText("This area will display error or success messages");
+        jTextField31.setText("");
         jTextField31.setBorder(null);
         jTextField31.setDisabledTextColor(new java.awt.Color(19, 28, 33));
         jTextField31.setFocusable(false);
@@ -895,7 +910,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField32.setBackground(new java.awt.Color(19, 28, 33));
         jTextField32.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField32.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField32.setText("123");
+        jTextField32.setText("");
         jTextField32.setDisabledTextColor(new java.awt.Color(19, 28, 33));
 
         jLabel56.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -905,7 +920,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField33.setBackground(new java.awt.Color(19, 28, 33));
         jTextField33.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField33.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField33.setText("123");
+        jTextField33.setText("");
 
         jLabel57.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(6, 187, 163));
@@ -918,12 +933,12 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField34.setBackground(new java.awt.Color(19, 28, 33));
         jTextField34.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField34.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField34.setText("123");
+        jTextField34.setText("");
 
         jTextField35.setBackground(new java.awt.Color(19, 28, 33));
         jTextField35.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField35.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField35.setText("123");
+        jTextField35.setText("");
 
         jLabel59.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel59.setForeground(new java.awt.Color(6, 187, 163));
@@ -932,7 +947,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField36.setBackground(new java.awt.Color(19, 28, 33));
         jTextField36.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField36.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField36.setText("123");
+        jTextField36.setText("");
 
         jLabel60.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(6, 187, 163));
@@ -941,7 +956,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField37.setBackground(new java.awt.Color(19, 28, 33));
         jTextField37.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField37.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField37.setText("123");
+        jTextField37.setText("");
 
          //        Edit First Name  help text label
         jLabel61.setForeground(new java.awt.Color(49, 117, 108));
@@ -974,7 +989,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField38.setBackground(new java.awt.Color(19, 28, 33));
         jTextField38.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField38.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField38.setText("123");
+        jTextField38.setText("");
 
         jLabel70.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel70.setForeground(new java.awt.Color(6, 187, 163));
@@ -987,12 +1002,12 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField39.setBackground(new java.awt.Color(19, 28, 33));
         jTextField39.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField39.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField39.setText("123");
+        jTextField39.setText("");
 
         jTextField40.setBackground(new java.awt.Color(19, 28, 33));
         jTextField40.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField40.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField40.setText("123");
+        jTextField40.setText("");
 
         //        Edit Access Level help text label
         jLabel72.setForeground(new java.awt.Color(49, 117, 108));
@@ -1009,7 +1024,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField42.setBackground(new java.awt.Color(19, 28, 33));
         jTextField42.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField42.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField42.setText("123");
+        jTextField42.setText("");
 
         jLabel75.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel75.setForeground(new java.awt.Color(6, 187, 163));
@@ -1018,7 +1033,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField43.setBackground(new java.awt.Color(19, 28, 33));
         jTextField43.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField43.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField43.setText("123");
+        jTextField43.setText("");
 
         //        Edit Password help text label
         jLabel76.setForeground(new java.awt.Color(49, 117, 108));
@@ -1035,7 +1050,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jLabel79.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(6, 187, 163));
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel79.setText("Please change ALL the attributes and THEN press Submit");
+        jLabel79.setText("Enter ID, THEN edit one attribute at a time");
 
 
         // Submit button EDIT - First Name ******************************************************
@@ -1213,7 +1228,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField18.setBackground(new java.awt.Color(19, 28, 33));
         jTextField18.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextField18.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField18.setText("ID Here");
+        jTextField18.setText("  ID Here");
         jTextField18.setToolTipText("");
 
         javax.swing.GroupLayout AddNew2Layout = new javax.swing.GroupLayout(AddNew2);
@@ -1572,9 +1587,16 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
         jTextField29.setBackground(new java.awt.Color(0, 102, 102));
 
+
+//        Submit button for Delete Functionality
         jButton22.setBackground(new java.awt.Color(49, 117, 108));
         jButton22.setForeground(new java.awt.Color(0, 0, 0));
         jButton22.setText("Submit");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
 
         jTextField30.setBackground(new java.awt.Color(19, 28, 39));
         jTextField30.setForeground(new java.awt.Color(18, 30, 49));
@@ -1743,6 +1765,8 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         dispose();
         mainAdminScreenGUI.setVisible(true);
     }
+
+
     boolean[] personOneDBInitialised = {false};
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -1794,7 +1818,68 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             System.out.println("Error: Failed to connect to database\n" + e.getMessage());
 
         }
+    }
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+          if(validation.validateString(jTextField4.getText())){
+              if(validation.validateString(jTextField5.getText())){
+                 if(validation.validateHouseNumber(jTextField6.getText())){
+                     if(validation.validateStringWithNumbers(jTextField7.getText())){
+                         if(validation.validateStringWithNumbers(jTextField14.getText())){
+                             if(validation.validatePhoneNumber(jTextField8.getText())){
+                                 if(validation.validateDoB(jTextField9.getText())){
+                                     if(validation.validateAccess(jTextField10.getText())){
+                                         if(validation.validateStatus(jTextField12.getText())){
+                                             if(validation.validateString(jTextField11.getText())){
+                                                 if(validation.validatePassword(jTextField15.getText())){
+                                                     Statement addNewPerson = con.createStatement();
+                                                     addNewPerson.executeUpdate("insert into delivery_Person values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
+                                                     jTextField3.setForeground(new java.awt.Color(6,187,163));
+                                                     jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database" );
+                                                 }
+                                                 else{
+                                                     jTextField3.setText("Invalid Password");
+                                                 }
+                                             }
+                                             else{
+                                                 jTextField3.setText("Invalid User Name");
+                                             }
+                                         }
+                                         else{
+                                             jTextField3.setText("Invalid Status level");
+                                         }
+                                     }
+                                     else{
+                                         jTextField3.setText("Invalid Access level");
+                                     }
+                                 }
+                                 else{
+                                     jTextField3.setText("Invalid Date of Birth");
+                                 }
+                             }
+                             else{
+                                 jTextField3.setText("Invalid Phone Number");
+                             }
+                         }
+                         else{
+                             jTextField3.setText("Invalid Town Name");
+                         }
+                     }
+                     else{
+                         jTextField3.setText("Invalid Street Name");
+                     }
+                  }
+                 else{
+                     jTextField3.setText("Invalid House Number");
+                 }
+              }
+              else{
+                  jTextField3.setText("Invalid Last Name");
+              }
+          }
+          else{
+              jTextField3.setText("Invalid First Name");
+          }
     }
 
 
@@ -1942,7 +2027,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         }
     }
 
-//        Submit Button - EDIT - Phone Number *****************************
+//        Submit Button - EDIT - DoB *****************************
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -1959,7 +2044,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             } else {
 
                 Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + dateOfBirth + "' where delivery_person_id = '" + editID + "'");
+                editPerson.executeUpdate("Update delivery_person SET dob = '" + dateOfBirth + "' where delivery_person_id = '" + editID + "'");
                 jTextField31.setForeground(new java.awt.Color(6,187,163));
                 jTextField31.setText("You have successfully updated Date of Birth for ID: " + editID + " to " + dateOfBirth);
             }
@@ -2013,6 +2098,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         }
     }
 
+    //        Submit Button - EDIT - User Name *****************************
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
@@ -2035,6 +2121,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         }
     }
 
+    //        Submit Button - EDIT - Password *****************************
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
@@ -2056,10 +2143,76 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             }
         }
     }
+//TODO fix font size for Delete table
 
-    /**
-     * @param args the command line arguments
-     */
+//    Delete - Submit Button Fuctionality
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
+//            Connection con = DriverManager.getConnection(url, "root", "admin");
+//            Statement stmt = con.createStatement();
+            String DeleteID = jTextField29.getText();
+            DeliveryPerson dp = new DeliveryPerson();
+            int result = Integer.parseInt(DeleteID);
+            if(result> 0 && result < 16) {
+
+                //TODO FIX validation of entry - create validation method and use for edit & Delete also
+
+                jTextField30.setForeground(new java.awt.Color(6, 187, 163));
+                jTextField30.setText("Sucessfully Deleted ID: " + DeleteID);
+                Statement statement = con.createStatement();
+                statement.executeUpdate("DELETE from delivery_person where delivery_person_id = " + DeleteID);
+                System.out.println("fhgjjjjjjjjjjjjjjjjjjj");
+                Statement DeleteStmt = con.createStatement();
+                String sql = "Select * from delivery_person";
+                ResultSet rs = DeleteStmt.executeQuery(sql);
+
+                while (rs.next()) {
+//
+                    int id = rs.getInt("delivery_person_id");
+
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    String address1 = rs.getString("address1");
+                    String address2 = rs.getString("address2");
+                    String town = rs.getString("town");
+                    String phone_number = rs.getString("delivery_phone_number");
+                    String dob = rs.getString("dob");
+                    String access_level = rs.getString("access_level");
+                    String status = rs.getString("delivery_status");
+                    String user_name = rs.getString("user_name");
+                    String password = rs.getString("password");
+
+                    String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                    DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
+
+                    tblModel.addRow(tbData);
+                    personOneDBInitialised[0] = true;
+                }
+
+            }else{
+                jTextField30.setForeground(new java.awt.Color(255,0,0));
+                jTextField30.setText("ID: " + DeleteID+ " is invalid please enter a Valid ID");
+                System.out.println("delete error");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+
+        }
+
+    }
+
+
+
+
+
+
+
+        /**
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -2125,7 +2278,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
+//    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -2136,7 +2289,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
+//    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2188,7 +2341,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
+//    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
@@ -2216,5 +2369,23 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+
+
+    public JTextField getjTextField3() {
+        return jTextField3;
+    }
+    public void setjTextField3(JTextField jTextField3) {
+        this.jTextField3 = jTextField3;
+    }
+
+    public JTextField getjTextField31() {
+        return jTextField31;
+    }
+
+    public void setjTextField31(JTextField jTextField31) {
+        this.jTextField31 = jTextField31;
+    }
+
+
     // End of variables declaration
 }

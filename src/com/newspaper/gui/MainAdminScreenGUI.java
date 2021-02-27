@@ -112,9 +112,12 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 
                 CustomerMainGUI customerMainGUI = new CustomerMainGUI();
+
                 dispose();
                 jButton2ActionPerformed(evt);
                 customerMainGUI.setVisible(true);
+
+
             }
         });
 
