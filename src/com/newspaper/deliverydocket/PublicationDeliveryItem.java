@@ -38,7 +38,7 @@ public class PublicationDeliveryItem extends DeliveryItem {
             }
             if(count == 0)
             {
-                throw new DeliveryDocketExceptionHandler("com.newspaper.publication.Publication with id " + publicationId + " does not exist");
+                throw new DeliveryDocketExceptionHandler("Publication with id " + publicationId + " does not exist");
             }
 
         } catch (SQLException sqle) {

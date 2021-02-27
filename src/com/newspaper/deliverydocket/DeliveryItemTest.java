@@ -51,7 +51,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.customer.Customer name does not meet the minimum length requirements", e.getMessage());
+            assertEquals("Customer name does not meet the minimum length requirements", e.getMessage());
         }
     }
 
@@ -141,7 +141,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.customer.Customer with id 0 does not exist", e.getMessage());
+            assertEquals("Customer with id 0 does not exist", e.getMessage());
         }
     }
 
@@ -149,16 +149,16 @@ public class DeliveryItemTest extends TestCase {
     //Test #: 8
     //Test Objective: To catch a customer does not exist in the DB
     //Inputs: customerID = 22
-    //Expected Output: Exception Message: "com.newspaper.customer.Customer with id 22 does not exist"
+    //Expected Output: Exception Message: "Customer with id 22 does not exist"
     public void testValidateCustomerId002() {
         try {
 
             //Call method under test
-            deliveryItem.validateCustomerId(22);
+            deliveryItem.validateCustomerId(3000);
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.customer.Customer with id 22 does not exist", e.getMessage());
+            assertEquals("Customer with id 3000 does not exist", e.getMessage());
         }
     }
 
@@ -195,7 +195,7 @@ public class DeliveryItemTest extends TestCase {
     //Test #: 11
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = "P B"
-    //Expected Output: Exception Message: "com.newspaper.customer.Customer name does not meet the minimum length requirements"
+    //Expected Output: Exception Message: "Customer name does not meet the minimum length requirements"
     public void testValidateCustomerName001() {
         try {
 
@@ -204,14 +204,14 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.customer.Customer name does not meet the minimum length requirements", e.getMessage());
+            assertEquals("Customer name does not meet the minimum length requirements", e.getMessage());
         }
     }
 
     //Test #: 12
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = "Aaaaaaaaaaaaaaaaaaaaaaaaaaa Aaaaaaaaaaaaaaaaaaaaaaaaaa"
-    //Expected Output: Exception Message: "com.newspaper.customer.Customer name exceeds the maximum length requirements"
+    //Expected Output: Exception Message: "Customer name exceeds the maximum length requirements"
     public void testValidateCustomerName002() {
         try {
 
@@ -220,14 +220,14 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.customer.Customer name exceeds the maximum length requirements", e.getMessage());
+            assertEquals("Customer name exceeds the maximum length requirements", e.getMessage());
         }
     }
 
     //Test #: 13
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = null
-    //Expected Output: Exception Message: "com.newspaper.customer.Customer name cannot be null"
+    //Expected Output: Exception Message: "Customer name cannot be null"
     public void testValidateCustomerName003() {
         try {
 
@@ -236,14 +236,14 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.customer.Customer name cannot be null", e.getMessage());
+            assertEquals("Customer name cannot be null", e.getMessage());
         }
     }
 
     //Test #: 14
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = ""John6 Martin""
-    //Expected Output: Exception Message: "com.newspaper.customer.Customer name cannot consist of numbers"
+    //Expected Output: Exception Message: "Customer name cannot consist of numbers"
     public void testValidateCustomerName004() {
         try {
 
@@ -252,7 +252,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.customer.Customer name cannot consist of numbers", e.getMessage());
+            assertEquals("Customer name cannot consist of numbers", e.getMessage());
         }
     }
 
@@ -290,7 +290,7 @@ public class DeliveryItemTest extends TestCase {
     //Test #: 17
     //Test Objective: To catch an invalid customer name exception
     //Inputs: customerName = ""
-    //Expected Output: Exception Message: "com.newspaper.customer.Customer name cannot consist of numbers"
+    //Expected Output: Exception Message: "Customer name cannot consist of numbers"
     public void testValidateCustomerName007() {
         try {
 
@@ -299,7 +299,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.customer.Customer name cannot be empty", e.getMessage());
+            assertEquals("Customer name cannot be empty", e.getMessage());
         }
     }
 

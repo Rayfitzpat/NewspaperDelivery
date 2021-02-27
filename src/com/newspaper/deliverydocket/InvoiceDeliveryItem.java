@@ -38,7 +38,7 @@ public class InvoiceDeliveryItem extends DeliveryItem {
             }
             if(count == 0)
             {
-                throw new DeliveryDocketExceptionHandler("com.newspaper.invoice.Invoice with id " + invoiceId + " does not exist");
+                throw new DeliveryDocketExceptionHandler("Invoice with id " + invoiceId + " does not exist");
             }
 
         } catch (SQLException sqle) {

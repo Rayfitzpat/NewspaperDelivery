@@ -12,13 +12,13 @@ public class DeliveryDocketTest extends TestCase {
     }
 
     //Test #: 1
-    //Test Objective: To create a com.newspaper.deliverydocket.DeliveryDocket Record with the valid data
-    //Inputs: ArrayList<com.newspaper.deliverydocket.DeliveryItem> deliveryItems = null,
+    //Test Objective: To create a DeliveryDocket Record with the valid data
+    //Inputs: ArrayList<DeliveryItem> deliveryItems = null,
     //                                date = '2021-03-20',
     //                                deliveryAreaId = 1,
     //                                deliveryAreaName = Willow Park,
     //                                deliveryPersonName = "Cherey Parren"
-    //Expected Output: com.newspaper.deliverydocket.DeliveryDocket object created with no exceptions
+    //Expected Output: DeliveryDocket object created with no exceptions
     public void testDeliveryDocket001() {
         try {
 
@@ -36,8 +36,8 @@ public class DeliveryDocketTest extends TestCase {
     }
 
     //Test #: 2
-    //Test Objective: To test creation of a com.newspaper.deliverydocket.DeliveryDocket Record with the invalid data
-    //Inputs: ArrayList<com.newspaper.deliverydocket.DeliveryItem> deliveryItems = null,
+    //Test Objective: To test creation of a DeliveryDocket Record with the invalid data
+    //Inputs: ArrayList<DeliveryItem> deliveryItems = null,
     //                                date = '2021-03-20',
     //                                deliveryAreaId = -1,
     //                                deliveryAreaName = Willow Park,
@@ -82,7 +82,9 @@ public class DeliveryDocketTest extends TestCase {
 
             //Call method under test
             DeliveryDocket docket = new DeliveryDocket();
-            docket.validateDeliveryPersonName("JonathanJonathanJona JonathanJonathanJonan");
+            String name = "JonathanJonathanJonathan JonathanJonathanJonatanJonat";
+            System.out.println(name.length());
+            docket.validateDeliveryPersonName(name);
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {

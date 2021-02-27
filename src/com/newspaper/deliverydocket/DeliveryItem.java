@@ -71,23 +71,23 @@ public class DeliveryItem {
         int maxLength = 52;
 
         if (customerName ==  null) {
-            throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name cannot be null");
+            throw new DeliveryDocketExceptionHandler("Customer name cannot be null");
         }
         else if(customerName.isBlank() || customerName.isEmpty()){
-            throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name cannot be empty");
+            throw new DeliveryDocketExceptionHandler("Customer name cannot be empty");
         }
         else if (customerName.length() < minLength) {
-            throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name does not meet the minimum length requirements");
+            throw new DeliveryDocketExceptionHandler("Customer name does not meet the minimum length requirements");
         }
         else if (customerName.length() > maxLength) {
-            throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name exceeds the maximum length requirements");
+            throw new DeliveryDocketExceptionHandler("Customer name exceeds the maximum length requirements");
         }
         else {
             // checking if line has any numbers
             char[] charArray = customerName.toCharArray();
             for (char c : charArray) {
                 if (Character.isDigit(c)) {
-                    throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name cannot consist of numbers");
+                    throw new DeliveryDocketExceptionHandler("Customer name cannot consist of numbers");
                 }
             }
         }
@@ -104,7 +104,7 @@ public class DeliveryItem {
             }
             if(count == 0)
             {
-                throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer with id " + customerID + " does not exist");
+                throw new DeliveryDocketExceptionHandler("Customer with id " + customerID + " does not exist");
             }
 
         } catch (SQLException sqle) {

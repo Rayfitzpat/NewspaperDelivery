@@ -40,9 +40,49 @@ public class DeliveryDocket {
     }
 
     public void validateDeliveryPersonName(String name) throws DeliveryDocketExceptionHandler{
+        int minLength = 5;
+        int maxLength = 52;
+
+        if (name ==  null) {
+            throw new DeliveryDocketExceptionHandler("Delivery Person name cannot be null");
+        }
+        else if(name.isBlank() || name.isEmpty()){
+            throw new DeliveryDocketExceptionHandler("Delivery Person name cannot be empty");
+        }
+        else if (name.length() < minLength) {
+            throw new DeliveryDocketExceptionHandler("Delivery Person name does not meet the minimum length requirements");
+        }
+        else if (name.length() > maxLength) {
+            throw new DeliveryDocketExceptionHandler("Delivery Person name exceeds the maximum length requirements");
+        }
+        else {
+            // checking if line has any numbers
+            char[] charArray = name.toCharArray();
+            for (char c : charArray) {
+                if (Character.isDigit(c)) {
+                    throw new DeliveryDocketExceptionHandler("Delivery Person name cannot consist of numbers");
+                }
+            }
+        }
     }
 
     public void validateDeliveryAreaName(String deliveryAreaName) throws DeliveryDocketExceptionHandler{
+        int minLength = 2;
+        int maxLength = 19;
+
+        if (deliveryAreaName ==  null) {
+            throw new DeliveryDocketExceptionHandler("Delivery area name cannot be null");
+        }
+        else if(deliveryAreaName.isBlank() || deliveryAreaName.isEmpty()){
+            throw new DeliveryDocketExceptionHandler("Delivery area name cannot be empty");
+        }
+        else if (deliveryAreaName.length() < minLength) {
+            throw new DeliveryDocketExceptionHandler("Delivery area name does not meet the minimum length requirements");
+        }
+        else if (deliveryAreaName.length() > maxLength) {
+            throw new DeliveryDocketExceptionHandler("Delivery area name exceeds the maximum length requirements");
+        }
+
     }
 
     public void validateDeliveryAreaID(int deliveryAreaId) throws DeliveryDocketExceptionHandler {
