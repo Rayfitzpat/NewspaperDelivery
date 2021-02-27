@@ -14,6 +14,7 @@ public class PublicationDeliveryItem extends DeliveryItem {
     public PublicationDeliveryItem(int publicationId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
         super(customerID, customerName, customerAddress, "publication", isDelivered);
 
+        this.publicationId = publicationId;
         try {
             validatePublicationId(publicationId);
         }
@@ -46,5 +47,17 @@ public class PublicationDeliveryItem extends DeliveryItem {
             System.out.println(query);
 
         }
+    }
+
+    @Override
+    public void print() {
+        System.out.printf("\npub: %-10d cus: %-10s %-20s %-35s %-10s %-10s", publicationId, this.getCustomerID(), this.getCustomerName(), this.getCustomerAddress(), this.isDelivered(), "publication");
+    }
+
+    @Override
+    public String toString() {
+        return "PublicationDeliveryItem{" +
+                "publicationId=" + publicationId +
+                '}';
     }
 }

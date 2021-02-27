@@ -13,6 +13,7 @@ public class InvoiceDeliveryItem extends DeliveryItem {
     public InvoiceDeliveryItem(int invoiceId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
         super(customerID, customerName, customerAddress, "invoice", isDelivered);
 
+        this.invoiceId = invoiceId;
         try {
             validateInvoiceId(invoiceId);
         }
@@ -47,4 +48,10 @@ public class InvoiceDeliveryItem extends DeliveryItem {
 
         }
     }
+
+    @Override
+    public void print() {
+        System.out.printf("\ninv: %-10d cus: %-10s %-20s %-35s %-10s %-10s", invoiceId, this.getCustomerID(), this.getCustomerName(), this.getCustomerAddress(), this.isDelivered(), "invoice");
+    }
+
 }

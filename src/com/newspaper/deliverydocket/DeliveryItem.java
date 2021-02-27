@@ -49,7 +49,8 @@ public class DeliveryItem {
 
     public void validateCustomerAddress(String customerAddress) throws DeliveryDocketExceptionHandler{
 
-        int minLength = 18;
+        //int minLength = 18;
+        int minLength = 1;
         int maxLength = 87;
 
         if (customerAddress ==  null) {
@@ -155,4 +156,9 @@ public class DeliveryItem {
     public void setType(String type) {
         this.type = type;
     }
+
+    public void print() {
+        System.out.printf("\n %-10s %-20s %-35s %-10s %-10s", this.getCustomerID(), this.getCustomerName(), this.getCustomerAddress(), this.isDelivered(), this.getType());
+    }
+
 }

@@ -170,4 +170,21 @@ public class DeliveryDocket {
     public void setDeliveryPersonName(String deliveryPersonName) {
         this.deliveryPersonName = deliveryPersonName;
     }
+
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n*********************");
+        sb.append("\n***DELIVERY DOCKET***");
+        sb.append("\n*********************");
+        sb.append("DATE: " + getDate());
+        sb.append("Delivery Area No: " + getDeliveryAreaId() + ", " + getDeliveryAreaName());
+        sb.append("Delivery Person Name: " + getDeliveryPersonName());
+        sb.append("*** PUBLICATIONS ***");
+
+        //for ()
+
+        return "";
+    }
 }
