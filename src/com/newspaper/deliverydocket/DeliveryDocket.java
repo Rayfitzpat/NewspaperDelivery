@@ -175,16 +175,32 @@ public class DeliveryDocket {
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("\n*********************");
-        sb.append("\n***DELIVERY DOCKET***");
-        sb.append("\n*********************");
-        sb.append("DATE: " + getDate());
-        sb.append("Delivery Area No: " + getDeliveryAreaId() + ", " + getDeliveryAreaName());
-        sb.append("Delivery Person Name: " + getDeliveryPersonName());
-        sb.append("*** PUBLICATIONS ***");
+        sb.append("\n************************************************************************");
+        sb.append("\n****************************DELIVERY DOCKET*****************************");
+        sb.append("\n************************************************************************");
+        sb.append( String.format("\n%-25s %-25s", "DATE: " , getDate()));
+        sb.append( String.format("\n%-25s %-25s", "Delivery Area No: ", getDeliveryAreaId() + ", " + getDeliveryAreaName()));
+        sb.append(String.format("\n%-25s %-25s", "Delivery Person Name: " , getDeliveryPersonName()));
 
-        //for ()
 
-        return "";
+        sb.append("\n\n\n*************************** PUBLICATIONS ******************************");
+        sb.append(String.format("\n %-10s %-25s %-20s %-20s", "ID","Customer Address", "Customer Name", "Is Delivered"));
+        sb.append("\n-----------------------------------------------------------------------");
+        for (DeliveryItem delivery : this.deliveryItems) {
+            if (delivery.getType().equals("publication")) {
+                sb.append(String.format("\n %-10d %-25s %-20s %-20s ", delivery.getId(), delivery.getCustomerAddress(), delivery.getCustomerName(), delivery.isDelivered()));
+            }
+        }
+
+        sb.append("\n\n\n******************************* INVOICES ******************************");
+        sb.append(String.format("\n %-10s %-25s %-20s %-20s ", "ID","Customer Address", "Customer Name", "Is Delivered"));
+        sb.append("\n----------------------------------------------------------------------");
+        for (DeliveryItem delivery : this.deliveryItems) {
+            if (delivery.getType().equals("invoice")) {
+                sb.append(String.format("\n %-10d %-25s %-20s %-20s", delivery.getId(), delivery.getCustomerAddress(), delivery.getCustomerName(), delivery.isDelivered()));
+            }
+        }
+
+        return sb.toString();
     }
 }

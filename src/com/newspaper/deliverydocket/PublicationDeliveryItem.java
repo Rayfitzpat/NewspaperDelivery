@@ -10,11 +10,10 @@ import java.sql.SQLException;
 // this class will represent publication delivery item in the delivery docket
 public class PublicationDeliveryItem extends DeliveryItem {
 
-    private int publicationId;
-    public PublicationDeliveryItem(int publicationId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
-        super(customerID, customerName, customerAddress, "publication", isDelivered);
 
-        this.publicationId = publicationId;
+    public PublicationDeliveryItem(int publicationId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
+        super(publicationId, customerID, customerName, customerAddress, "publication", isDelivered);
+
         try {
             validatePublicationId(publicationId);
         }
@@ -51,13 +50,6 @@ public class PublicationDeliveryItem extends DeliveryItem {
 
     @Override
     public void print() {
-        System.out.printf("\npub: %-10d cus: %-10s %-20s %-35s %-10s %-10s", publicationId, this.getCustomerID(), this.getCustomerName(), this.getCustomerAddress(), this.isDelivered(), "publication");
-    }
-
-    @Override
-    public String toString() {
-        return "PublicationDeliveryItem{" +
-                "publicationId=" + publicationId +
-                '}';
+        System.out.printf("\npub: %-10d cus: %-10s %-20s %-35s %-10s %-10s", this.getId(), this.getCustomerID(), this.getCustomerName(), this.getCustomerAddress(), this.isDelivered(), "publication");
     }
 }

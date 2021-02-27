@@ -25,7 +25,7 @@ public class DeliveryItemTest extends TestCase {
     public void testDeliveryItem001() {
         try {
 
-            DeliveryItem item = new DeliveryItem(1, "John Martin", "5 Custume Pier, Athlone", "invoice", false);
+            DeliveryItem item = new DeliveryItem(1, 1, "John Martin", "5 Custume Pier, Athlone", "invoice", false);
 
             // checking object creation
             assertEquals(1, item.getCustomerID());
@@ -47,7 +47,7 @@ public class DeliveryItemTest extends TestCase {
 
     public void testDeliveryItem002() {
         try {
-            DeliveryItem item = new DeliveryItem(1, "Jo M", "5 Custume Pier, Athlone", "invoice", false);
+            DeliveryItem item = new DeliveryItem(1, 1, "Jo M", "5 Custume Pier, Athlone", "invoice", false);
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
@@ -87,7 +87,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.publication.Publication with id -8 does not exist", e.getMessage());
+            assertEquals("Publication with id -8 does not exist", e.getMessage());
         }
     }
 
@@ -124,7 +124,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.invoice.Invoice with id -8 does not exist", e.getMessage());
+            assertEquals("Invoice with id -8 does not exist", e.getMessage());
         }
     }
 
@@ -411,7 +411,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.invoice.Invoice with id 0 does not exist", e.getMessage());
+            assertEquals("Invoice with id 0 does not exist", e.getMessage());
         }
     }
 
@@ -427,7 +427,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.invoice.Invoice with id 2000 does not exist", e.getMessage());
+            assertEquals("Invoice with id 2000 does not exist", e.getMessage());
         }
     }
 
@@ -473,7 +473,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.publication.Publication with id 0 does not exist", e.getMessage());
+            assertEquals("Publication with id 0 does not exist", e.getMessage());
         }
     }
 
@@ -489,7 +489,7 @@ public class DeliveryItemTest extends TestCase {
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {
-            assertEquals("com.newspaper.publication.Publication with id 20000 does not exist", e.getMessage());
+            assertEquals("Publication with id 20000 does not exist", e.getMessage());
         }
     }
 

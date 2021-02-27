@@ -35,8 +35,10 @@ public class DeliveryDocketDB {
 //            p.print();
 //        }
 
-        System.out.println(deliveryDocketDB.getDeliveryPersonName(80));
+        System.out.println(deliveryDocketDB.getDeliveryPersonName(8));
 
+        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(4, "2021-02-01");
+        System.out.println(docket);
     }
 
     // create delivery docket
@@ -221,7 +223,7 @@ public class DeliveryDocketDB {
             }
             if(deliveryAreaId == -1)
             {
-                throw new DeliveryDocketExceptionHandler("Delivery person with id " + deliveryAreaId + " is inactive");
+                throw new DeliveryDocketExceptionHandler("Delivery person with id " + deliveryPersonId + " is inactive");
             }
 
         } catch (SQLException sqle) {

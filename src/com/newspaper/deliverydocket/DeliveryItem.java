@@ -10,6 +10,9 @@ import java.sql.SQLException;
 * but still separate invoice and publication deliveries*/
 public class DeliveryItem {
 
+
+
+    private int id;
     private int customerID;
     private String customerName;
     private String customerAddress;
@@ -17,7 +20,7 @@ public class DeliveryItem {
     private String type; // invoice or publication
 
     // constructor with no id
-    public DeliveryItem( int customerID, String customerName, String customerAddress, String type, boolean isDelivered) throws DeliveryDocketExceptionHandler {
+    public DeliveryItem(int id, int customerID, String customerName, String customerAddress, String type, boolean isDelivered) throws DeliveryDocketExceptionHandler {
 
         // validating the input, if all ok, the exception will not be thrown
         // and the values will be initialised
@@ -31,6 +34,7 @@ public class DeliveryItem {
             throw e;
         }
 
+        this.id = id;
         this.customerID = customerID;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
@@ -49,8 +53,7 @@ public class DeliveryItem {
 
     public void validateCustomerAddress(String customerAddress) throws DeliveryDocketExceptionHandler{
 
-        //int minLength = 18;
-        int minLength = 1;
+        int minLength = 18;
         int maxLength = 87;
 
         if (customerAddress ==  null) {
@@ -155,6 +158,13 @@ public class DeliveryItem {
 
     public void setType(String type) {
         this.type = type;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void print() {
