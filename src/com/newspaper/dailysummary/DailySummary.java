@@ -3,12 +3,12 @@ package com.newspaper.dailysummary;
 public class DailySummary {
 
     private String delivery_date;
-    private int total_revenue;
+    private double total_revenue;
     private int publications_sold;
     private int daily_summary_id;
     private double publications_revenue;
 
-    public void DailySummaryConstructor(String delivery_date, int total_revenue, int publications_sold, int daily_summary_id) {
+    public void DailySummaryConstructor(String delivery_date, double total_revenue, int publications_sold, int daily_summary_id) {
         this.delivery_date = delivery_date;
         this.total_revenue = total_revenue;
         this.publications_sold = publications_sold;
@@ -22,7 +22,7 @@ public class DailySummary {
         this.delivery_date = delivery_date;
     }
 
-    public void setTotal_revenue(int total_revenue) {
+    public void setTotal_revenue(double total_revenue) {
         this.total_revenue = total_revenue;
     }
 
@@ -43,7 +43,7 @@ public class DailySummary {
         return delivery_date;
     }
 
-    public int getTotal_revenue() {
+    public double getTotal_revenue() {
         return total_revenue;
     }
 

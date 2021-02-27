@@ -325,6 +325,7 @@ import java.util.Scanner;
         System.out.println("6: From chosen date");
         System.out.println("7: User Chosen Range");
         System.out.println("8: Main Menu");
+        System.out.print("\nEnter your choice: ");
     }
 
 
@@ -340,25 +341,28 @@ import java.util.Scanner;
         String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date like '"+delivery_month+"%';";
         try {
             ResultSet rs = DBconnection.stmt.executeQuery(str);
+            PrintWriter writer1 =null;
+            writer1 = new PrintWriter(new File("C:\\Users\\jackw\\Desktop\\Saved files from monthly report test\\Report"+delivery_month+".txt"));
+
+            writer1.printf("\n%-12s %-20s %-15s %-20s %-20s \n", "Summary ID", "Delivery Date", "Total revenue", "Publications Sold", "Revenue Per Pub");
 
 
+            for(int i=0;i<32;i++)
+            {
             while (rs.next()) {
                 int daily_summary_id = rs.getInt("daily_summary_id");
                 String delivery_date = rs.getString("delivery_date");
-                int total_revenue = rs.getInt("total_revenue");
+                double total_revenue = rs.getDouble("total_revenue");
                 int publications_sold = rs.getInt("publications_sold");
                 double publications_revenue = rs.getDouble("publications_revenue");
 
                 publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
 
 
-                PrintWriter writer1 =null;
-                writer1 = new PrintWriter(new File("C:\\Users\\jackw\\Desktop\\Saved files from monthly report test\\Report"+delivery_month+".txt"));
-                writer1.write("Summary ID   Delivery Date,      Total revenue,    Publications Sold,      Revenue\n");
-                for(int i=0;i<31;i++)
-                {
-                    writer1.write("        " + daily_summary_id + ",     " + delivery_date + ",         " + total_revenue + ",            " + publications_sold + ",                      " + publications_revenue + "\n");
-                }
+                    writer1.printf("%-12s %-20s %-15s %-20s %-20s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
+
+            }
+
                 writer1.flush();
                 writer1.close();
             }
@@ -369,7 +373,7 @@ import java.util.Scanner;
             System.out.println(sqle.getMessage());
             System.out.println(str);
         }
-
+        System.out.println("File created successfully!");
 
     }
 }
