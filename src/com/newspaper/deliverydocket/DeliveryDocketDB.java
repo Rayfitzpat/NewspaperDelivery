@@ -3,6 +3,8 @@ package com.newspaper.deliverydocket;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryArea;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,6 +57,24 @@ public class DeliveryDocketDB {
         // create empty delivery docket object
         DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), deliveryPersonName);
         return docket;
+    }
+
+    public void createDeliveryDocketFile(DeliveryDocket docket) {
+
+        // create delivery docket text file
+        File docketFile = new File("delivery_docket_" + docket.getDate() + ".txt" );
+
+            try
+            {
+                PrintWriter pw = new PrintWriter(docketFile);
+                pw.print(docket);
+                pw.close();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
     }
 
     // create delivery docket for delivery person
