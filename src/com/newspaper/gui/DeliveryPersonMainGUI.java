@@ -417,6 +417,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         JTableHeader tableHeader1 = jTable1.getTableHeader();
         tableHeader1.setBackground(new java.awt.Color(19, 28, 33));
         tableHeader1.setForeground(new java.awt.Color(6, 187, 163));
+        tableHeader1.setFont(new Font(null, Font.BOLD, 15));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
         jTable1.setForeground(new java.awt.Color(6, 187, 163));
@@ -487,6 +488,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         JTableHeader tableHeader2 = jTable2.getTableHeader();
         tableHeader2.setBackground(new java.awt.Color(19, 28, 33));
         tableHeader2.setForeground(new java.awt.Color(6, 187, 163));
+        tableHeader2.setFont(new Font(null, Font.BOLD, 15));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
         jTable2.setForeground(new java.awt.Color(6, 187, 163));
@@ -1576,6 +1578,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         JTableHeader tableHeader3 = jTable3.getTableHeader();
         tableHeader3.setBackground(new java.awt.Color(19, 28, 33));
         tableHeader3.setForeground(new java.awt.Color(6, 187, 163));
+        tableHeader3.setFont(new Font(null, Font.BOLD, 15));
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setFillsViewportHeight(true);

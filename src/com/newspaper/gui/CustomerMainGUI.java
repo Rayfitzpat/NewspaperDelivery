@@ -11,6 +11,7 @@ import com.newspaper.deliveryperson.DeliveryPersonView;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
+import java.awt.*;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -392,16 +393,18 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         JTableHeader tableHeader1 = jTable1.getTableHeader();
         tableHeader1.setBackground(new java.awt.Color(19, 28, 33));
         tableHeader1.setForeground(new java.awt.Color(6, 187, 163));
+        tableHeader1.setFont(new Font(null, Font.BOLD, 15));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
-        jTable1.setForeground(new java.awt.Color(49, 117, 108));
+        jTable1.setForeground(new java.awt.Color(6, 187, 163));
         jTable1.setFillsViewportHeight(true);
+        jTable1.setFont(new Font( null,0, 15));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
                 },
                 new String [] {
-                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "UserName", "Delivery Area Id"
+                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "UserName", "Area Id"
                 }
         ));
         jTable1.setShowGrid(true);
@@ -457,16 +460,18 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         JTableHeader tableHeader2 = jTable2.getTableHeader();
         tableHeader2.setBackground(new java.awt.Color(19, 28, 33));
         tableHeader2.setForeground(new java.awt.Color(6, 187, 163));
+        tableHeader2.setFont(new Font(null, Font.BOLD, 15));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
-        jTable2.setForeground(new java.awt.Color(49, 117, 108));
+        jTable2.setForeground(new java.awt.Color(6, 187, 163));
         jTable2.setFillsViewportHeight(true);
+        jTable2.setFont(new Font( null,0, 15));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
                 },
                 new String[]{
-                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "UserName", "Delivery Area Id"
+                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "UserName", "Area Id"
                 }
         ));
         jTable2.setShowGrid(true);
@@ -1301,7 +1306,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
                 },
                 new String [] {
-                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "UserName", "Delivery Area Id"
+                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "UserName", "Area Id"
                 }
         ));
         jTable5.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1406,16 +1411,18 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         JTableHeader tableHeader3 = jTable3.getTableHeader();
         tableHeader3.setBackground(new java.awt.Color(19, 28, 33));
         tableHeader3.setForeground(new java.awt.Color(6, 187, 163));
+        tableHeader3.setFont(new Font(null, Font.BOLD, 15));
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
-        jTable3.setForeground(new java.awt.Color(49, 117, 108));
+        jTable3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setFillsViewportHeight(true);
+        jTable3.setFont(new Font( null,0, 15));
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
                 },
                 new String [] {
-                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "UserName", "Delivery Area Id"
+                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "UserName", "Area Id"
                 }
         ));
         jTable3.setGridColor(new java.awt.Color(49, 117, 108));
