@@ -37,17 +37,17 @@ public class InvoiceMain
                         invoice.getCustomerNameFromId(DBconnection.stmt);
                         break;
 
-//                    case 3:
-//                        dav.createNewDeliveryArea(com.newspaper.db.DBconnection.stmt);
-//                        break;
+                    case 3:
+                        invoice.getCusAddressFromInvoiceId(DBconnection.stmt);
+                        break;
 //
 //                    case 4:
 //                        dav.editDeliveryArea(com.newspaper.db.DBconnection.stmt);
 //                        break;
 //
-//                    case 5:
-//                        dav.deleteDeliveryArea(com.newspaper.db.DBconnection.stmt);
-//                        break;
+                    case 5:
+                        invoice.deleteInovice(DBconnection.stmt);
+                        break;
 //
 //                    case 6:
 //                        System.out.println("Returning to the Main Menu...");
@@ -66,7 +66,7 @@ public class InvoiceMain
 
 
 
-    public static void main(String[] args) throws CustomerExceptionHandler {
+    public static void main(String[] args) throws CustomerExceptionHandler, SQLException {
         DBconnection.init_db(); //Opens the connection to the database.
         InvoiceDB invoice = new InvoiceDB();
 
@@ -101,9 +101,9 @@ public class InvoiceMain
 //                        dav.editDeliveryArea(com.newspaper.db.DBconnection.stmt);
 //                        break;
 //
-//                    case 5:
-//                        dav.deleteDeliveryArea(com.newspaper.db.DBconnection.stmt);
-//                        break;
+                    case 5:
+                        invoice.deleteInovice(DBconnection.stmt);
+                        break;
 
                     case 6:
                         return;

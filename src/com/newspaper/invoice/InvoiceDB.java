@@ -2,6 +2,7 @@ package com.newspaper.invoice;
 
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryAreaDB;
+import com.newspaper.deliveryarea.DeliveryAreaMain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +20,32 @@ public class InvoiceDB
 
     public void generateInvoice()
     {
+
+    }
+
+    public void displayAllInvoices(Statement stmt)
+    {
+        //1: Query the database for all areas
+        //2: Display the result set in an appropriate manner
+        String str = "Select * from invoice";
+
+        try {
+            ResultSet rs = stmt.executeQuery(str);
+            System.out.printf("\n%-20s %-25s %-20s %-20s %-20s\n", "Invoice ID", "Customer ID", "Invoice Date", "Price", "Invoice Status");
+            while (rs.next()) {
+                int invoice_id = rs.getInt("invoice_id");
+                int cus_id = rs.getInt("customer_id");
+                String date = rs.getString("invoice_date");
+                String price = rs.getString("price");
+                String invoiceStatus = rs.getString("invoice_paid");
+
+                System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, cus_id, date, price, invoiceStatus);
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Error: failed to areas.");
+            System.out.println(sqle.getMessage());
+            System.out.println(str);
+        }
 
     }
 
@@ -86,46 +113,56 @@ public class InvoiceDB
         }
     }
 
-    public void getCusAddressFromInvoiceId(Statement stmt) //TODO ASK ABOUT HOW TO GET CUSTOMER ID OUT OF INVOICE ID
+    public void getCusAddressFromInvoiceId(Statement stmt)
     {
-
-        System.out.println("Please enter the com.newspaper.invoice.Invoice ID: ");
-        id = in.nextInt();
-        String str = "Select * from invoice where invoice_id = " +id;
+        Scanner in = new Scanner(System.in);
+        System.out.println("Please enter the Invoice ID: ");
+        int id = in.nextInt();
 
         if (id > 100 || id < 0) // VALIDATION HERE
         {
             System.out.println("ERROR");
-        }
-        else
-        {
+        } else {
+
+            String str = "Select address1, address2, town " +
+                    "from customer, invoice " +
+                    "where invoice.invoice_id = " + id + " AND invoice.customer_id = customer.customer_id;";
             try {
-
                 ResultSet rs = stmt.executeQuery(str);
-                while (rs.next())
-                {
-                    int customer_id = rs.getInt("customer_id");
-                    String str2 = "Select * from customer where customer_id = "+customer_id;
-                    try
-                    {
-                        ResultSet rss = stmt.executeQuery(str2);
-                        String add1 = rss.getString("address1");
-                        String add2 = rss.getString("address2");
-
-                        System.out.printf("%-20s %-25s \n", add1, add2);
-                    }
-                    catch (SQLException sqle)
-                    {
-                        System.out.println("Error: failed to get customer address.");
-                        System.out.println(sqle.getMessage());
-                        System.out.println(str);
-                    }
+                while (rs.next()) {
+                    String add1 = rs.getString("address1");
+                    String add2 = rs.getString("address2");
+                    String town = rs.getString("town");
+                    System.out.printf("%-20s %-25s %-25s\n", add1, add2, town);
                 }
             } catch (SQLException sqle) {
-                System.out.println("Error: failed to get customer id.");
+                System.out.println("Error: failed to get customer address.");
                 System.out.println(sqle.getMessage());
                 System.out.println(str);
             }
+        }
+    }
+
+    public void deleteInovice(Statement stmt) throws SQLException
+    {
+        String str;
+        ResultSet rs;
+        Scanner in = new Scanner(System.in);
+        InvoiceMain IM = new InvoiceMain();
+        displayAllInvoices(stmt);
+        System.out.println("Please enter the id of the invoice you would like to delete: ");
+        int deleteId = in.nextInt();
+
+        if (deleteId < 0)
+        {
+            System.out.println("Please Input a valid ID");
+        }
+        if (deleteId > 0)
+        {
+            str = "Select count(*) as total from invoice where invoice_id = " + deleteId;
+            Statement deletePerson = DBconnection.con.createStatement();
+            deletePerson.executeUpdate("delete from invoice where invoice_id ="+deleteId+"");
+            System.out.println("Invoice with id: "+deleteId+" has been deleted.");
         }
     }
 
