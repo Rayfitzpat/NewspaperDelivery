@@ -17,7 +17,6 @@ public class DailySummary {
     }
 
 
-
     public void setDelivery_date(String delivery_date) {
         this.delivery_date = delivery_date;
     }
@@ -51,13 +50,13 @@ public class DailySummary {
         return publications_sold;
     }
 
-    public double getPublications_revenue(){
+    public double getPublications_revenue() {
         return publications_revenue;
     }
-    public double setPublications_Revenue(){
-       return publications_revenue;
-    }
 
+    public double setPublications_Revenue() {
+        return publications_revenue;
+    }
 
 
     public static void displayDailySummaryMainMenu() {
@@ -68,6 +67,29 @@ public class DailySummary {
     }
 
 
+    public static boolean validateDate(String date) {
+        if (date.matches("^20[0-2][0-9]-((0[1-9])|(1[0-2]))-([0-2][1-9]|3[0-1])$")) {
+            return true;
+        } else {
+            return false;
+        }
 
-    
+    }
+
+    public static boolean validateYear(String year) {
+        if (year.matches("^20((1[1-9])|([2-9][0-9]))$")) {
+
+            return true;
+        } else
+            return false;
+    }
+
+    public static boolean validateMonth(String month) {
+        if (month.matches("^20((1[1-9])|([2-9][0-9]))\\-(0[1-9]|1[012])")) {
+            return true;
+        } else
+            return false;
+    }
+
+
 }
