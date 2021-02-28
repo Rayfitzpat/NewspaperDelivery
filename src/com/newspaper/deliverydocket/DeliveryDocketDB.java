@@ -2,6 +2,8 @@ package com.newspaper.deliverydocket;
 
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryArea;
+import com.newspaper.order.Order;
+import com.newspaper.order.OrderExceptionHandler;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -10,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 
 public class DeliveryDocketDB {
@@ -17,6 +20,7 @@ public class DeliveryDocketDB {
     public static void main(String[] args) throws DeliveryDocketExceptionHandler {
         DBconnection.init_db();
         DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+        Utility ut = new Utility();
 //        ArrayList <PublicationDeliveryItem> deliveries = deliveryDocketDB.getAllDeliveryItemsForDeliveryArea(3, "2021-03-07");
 //        System.out.println(deliveries.size());
 //        for (PublicationDeliveryItem p : deliveries){
@@ -37,12 +41,17 @@ public class DeliveryDocketDB {
 //            p.print();
 //        }
 
-        System.out.println(deliveryDocketDB.deliveriesForThisMonthExists(4));
 
 //        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(4, "2021-02-01");
 //        System.out.println(docket);
 //        System.out.println("Saving...");
 //        deliveryDocketDB.createDeliveryDocketFile(docket);
+
+        ArrayList <Delivery> deliveries = deliveryDocketDB.generateDeliveriesForMonth(9);
+        System.out.println(deliveries.size());
+        for (Delivery p : deliveries){
+            p.print();
+        }
     }
 
     // create delivery docket
@@ -52,7 +61,7 @@ public class DeliveryDocketDB {
         DeliveryArea area = getDeliveryArea(deliveryPersonId);
 
         // get all deliveries for delivery docket
-        ArrayList <DeliveryItem> deliveries = getAllDeliveryItemsFor(area.getId(), date);
+        ArrayList<DeliveryItem> deliveries = getAllDeliveryItemsFor(area.getId(), date);
 
         String deliveryPersonName = getDeliveryPersonName(deliveryPersonId);
 
@@ -64,18 +73,15 @@ public class DeliveryDocketDB {
     public void createDeliveryDocketFile(DeliveryDocket docket) {
 
         // create delivery docket text file
-        File docketFile = new File(docket.getDeliveryAreaName() + "_delivery_docket_" + docket.getDate() + ".txt" );
+        File docketFile = new File(docket.getDeliveryAreaName() + "_delivery_docket_" + docket.getDate() + ".txt");
 
-            try
-            {
-                PrintWriter pw = new PrintWriter(docketFile);
-                pw.print(docket);
-                pw.close();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+        try {
+            PrintWriter pw = new PrintWriter(docketFile);
+            pw.print(docket);
+            pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -85,21 +91,21 @@ public class DeliveryDocketDB {
         // first convert the date into Date object
         LocalDate currDate = convertDate(date);
         // create lists of delivery items
-        ArrayList <DeliveryItem> deliveries = new ArrayList<>();
+        ArrayList<DeliveryItem> deliveries = new ArrayList<>();
 
         // check if date is not null
         if (currDate != null) {
 
             // check if its the beginning of the month
-            if(currDate.getDayOfMonth() == 1) {
+            if (currDate.getDayOfMonth() == 1) {
                 // delivery docket should include invoices
                 int prevMonth = currDate.getMonthValue() - 1;
-                ArrayList<InvoiceDeliveryItem> invoices =  getInvoicesForDeliveryArea(deliveryAreaId, prevMonth);
+                ArrayList<InvoiceDeliveryItem> invoices = getInvoicesForDeliveryArea(deliveryAreaId, prevMonth);
                 deliveries.addAll(invoices);
             }
 
             // add all publications
-            ArrayList<PublicationDeliveryItem> publications =  getPublicationDeliveriesForDeliveryArea(deliveryAreaId, date);
+            ArrayList<PublicationDeliveryItem> publications = getPublicationDeliveriesForDeliveryArea(deliveryAreaId, date);
             deliveries.addAll(publications);
         }
         return deliveries;
@@ -124,7 +130,7 @@ public class DeliveryDocketDB {
                 "WHERE invoice.customer_id = customer.customer_id\n" +
                 "\tAND customer.delivery_area_id = delivery_area.delivery_area_id\n" +
                 "\tAND MONTH(invoice.invoice_date) = " + month + "\n" +
-                "\tAND  delivery_area.delivery_area_id = " + deliveryAreaId+ ";";
+                "\tAND  delivery_area.delivery_area_id = " + deliveryAreaId + ";";
         ResultSet rs;
         try {
             PreparedStatement stmt = DBconnection.con.prepareStatement(query);
@@ -164,7 +170,7 @@ public class DeliveryDocketDB {
     }
 
     // get all deliveries for delivery docket
-    public ArrayList getPublicationDeliveriesForDeliveryArea(int deliveryAreaId, String day)  throws DeliveryDocketExceptionHandler{
+    public ArrayList getPublicationDeliveriesForDeliveryArea(int deliveryAreaId, String day) throws DeliveryDocketExceptionHandler {
         ArrayList<PublicationDeliveryItem> deliveries = new ArrayList<>();
 
         String query = "SELECT  delivery.delivery_id, delivery.delivery_date, customer.customer_id, customer.first_name, customer.last_name, customer.address1, customer.address2, customer.town, delivery.publication_id, publication.publication_name , delivery.delivery_status, delivery_area.name\n" +
@@ -211,18 +217,53 @@ public class DeliveryDocketDB {
 
 
     // generate deliveries for next month
-    public void generateDeliveriesForMonth(int month) {
+    public ArrayList<Delivery> generateDeliveriesForMonth(int month) {
+
+        // delivery record consist of id, customerId, publicationID,delivery_date, status
+        Utility ut = new Utility();
+        // this list will contain all generated deliveries
+        ArrayList<Delivery> deliveryItems = new ArrayList<>();
+
         // first check if the deliveries for this month wasn't generated before
-        if (deliveriesForThisMonthExists(month)) {
-            // delivery record consist of id, customerId, publicationID,delivery_date, status
+        if (!deliveriesForThisMonthExists(month)) {
+            try {
+                // get list of orders to be able to create deliveries
+                ArrayList<Order> orders = ut.getOrders();
+                String deliveryStatus = "not delivered"; // default value
 
+                // generate the dates -hard hard code-
+                String m;
+                if (String.valueOf(month).length() == 1) {
+                    m = "0" + month;
+                } else {
+                    m = "" + month;
+                }
+                LocalDate startDate = convertDate("2021-" + m + "-01");
+                YearMonth thisYearMonth = YearMonth.of(2021, month);
+                LocalDate endDate = thisYearMonth.atEndOfMonth();
 
+                // loop through orders
+                for (Order order : orders) {
+                    int customer_id = order.getCustomer_id();
+                    int publication_id = order.getPublication_id();
+                    int freq = order.getFrequency();
 
+                    // this loop is starting and the beginning of the month,
+                    // on every day it checks if that day corresponds to frequency
+                    // if yes, the new Delivery with that date is added to the DB
+                    for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+                        // check if date corresponds to frequency
+                        if (ut.getDayNumber(date) == freq) {
+                            deliveryItems.add(new Delivery(customer_id, publication_id, date, deliveryStatus));
+                        }
+                    }
+                }
 
-            String deliveryStatus = "not delivered"; // default value
-
+            } catch (OrderExceptionHandler e) {
+                System.out.println(e.getMessage());
+            }
         }
-
+        return deliveryItems;
     }
 
     // generate deliveries for next day
@@ -237,14 +278,13 @@ public class DeliveryDocketDB {
                 "FROM delivery\n" +
                 "WHERE MONTH(delivery_date) = " + month + ";";
         ResultSet rs;
-        int count = - 1;
+        int count = -1;
         try {
             rs = DBconnection.stmt.executeQuery(query);
             while (rs.next()) {
                 count = rs.getInt("total");
             }
-            if(count > 0)
-            {
+            if (count > 0) {
                 exists = true;
             }
 
@@ -259,6 +299,7 @@ public class DeliveryDocketDB {
 
     /**
      * Method gets the object of delivery area where the delivery person works
+     *
      * @param deliveryPersonId the id of the delivery person
      * @return an object of DelivryArea
      * @throws DeliveryDocketExceptionHandler if delivery person with deliveryPersonId is not registered on any area
@@ -270,7 +311,7 @@ public class DeliveryDocketDB {
                 "FROM delivery_area\n" +
                 "WHERE delivery_person_id = " + deliveryPersonId + ";";
         ResultSet rs;
-        int deliveryAreaId = - 1;
+        int deliveryAreaId = -1;
         try {
             rs = DBconnection.stmt.executeQuery(query);
             while (rs.next()) {
@@ -280,8 +321,7 @@ public class DeliveryDocketDB {
                 area.setId(deliveryAreaId);
                 area.setDAreaName(name);
             }
-            if(deliveryAreaId == -1)
-            {
+            if (deliveryAreaId == -1) {
                 throw new DeliveryDocketExceptionHandler("Delivery person with id " + deliveryPersonId + " is inactive");
             }
 
@@ -317,7 +357,6 @@ public class DeliveryDocketDB {
     }
 
 
-
     public LocalDate convertDate(String date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         LocalDate currDate = null;
@@ -326,9 +365,7 @@ public class DeliveryDocketDB {
             // checking the format of start date
             try {
                 currDate = LocalDate.parse(date);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
