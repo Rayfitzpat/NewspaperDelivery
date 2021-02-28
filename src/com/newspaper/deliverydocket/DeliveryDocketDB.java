@@ -37,13 +37,12 @@ public class DeliveryDocketDB {
 //            p.print();
 //        }
 
-//        Utility utility = new Utility();
-//        System.out.println(utility.getPublicationByID(90));
+        System.out.println(deliveryDocketDB.deliveriesForThisMonthExists(4));
 
-        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(4, "2021-02-01");
-        System.out.println(docket);
-        System.out.println("Saving...");
-        deliveryDocketDB.createDeliveryDocketFile(docket);
+//        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(4, "2021-02-01");
+//        System.out.println(docket);
+//        System.out.println("Saving...");
+//        deliveryDocketDB.createDeliveryDocketFile(docket);
     }
 
     // create delivery docket
@@ -213,12 +212,49 @@ public class DeliveryDocketDB {
 
     // generate deliveries for next month
     public void generateDeliveriesForMonth(int month) {
+        // first check if the deliveries for this month wasn't generated before
+        if (deliveriesForThisMonthExists(month)) {
+            // delivery record consist of id, customerId, publicationID,delivery_date, status
+
+
+
+
+            String deliveryStatus = "not delivered"; // default value
+
+        }
 
     }
 
     // generate deliveries for next day
     public void generateDeliveriesForDay(int day) {
+        // first check if the deliveries for this day wasn't generated before
+    }
 
+    public boolean deliveriesForThisMonthExists(int month) {
+        boolean exists = false;
+
+        String query = "SELECt count(*) as total\n" +
+                "FROM delivery\n" +
+                "WHERE MONTH(delivery_date) = " + month + ";";
+        ResultSet rs;
+        int count = - 1;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count > 0)
+            {
+                exists = true;
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+        }
+
+        return exists;
     }
 
     /**
