@@ -13,6 +13,7 @@ import jdk.swing.interop.SwingInterOpUtils;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.awt.*;
 import java.sql.*;
 
 /**
@@ -417,14 +418,15 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         tableHeader1.setForeground(new java.awt.Color(6, 187, 163));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
-        jTable1.setForeground(new java.awt.Color(49, 117, 108));
+        jTable1.setForeground(new java.awt.Color(6, 187, 163));
+        jTable1.setFont(new Font( null,0, 15));
         jTable1.setFillsViewportHeight(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
 
                 },
                 new String[]{
-                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number", "dob", "access_level", "status", "user_name", "password"
+                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
                 }
         ));
         jTable1.setShowGrid(true);
@@ -486,14 +488,15 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         tableHeader2.setForeground(new java.awt.Color(6, 187, 163));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
-        jTable2.setForeground(new java.awt.Color(49, 117, 108));
+        jTable2.setForeground(new java.awt.Color(6, 187, 163));
+        jTable2.setFont(new Font( null,0, 15));
         jTable2.setFillsViewportHeight(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
 
                 },
                 new String[]{
-                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number", "dob", "access_level", "status", "user_name", "password"
+                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
                 }
         ));
         jTable2.setShowGrid(true);
@@ -1467,7 +1470,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number", "dob", "access_level", "status", "user_name", "password"
+                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
                 }
         ));
         jTable5.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1573,14 +1576,15 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         tableHeader3.setBackground(new java.awt.Color(19, 28, 33));
         tableHeader3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
-        jTable3.setForeground(new java.awt.Color(49, 117, 108));
+        jTable3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setFillsViewportHeight(true);
+        jTable3.setFont(new Font( null,0, 15));
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
 
                 },
                 new String[]{
-                        "ID", "firstName", "lastName", "address1", "address2", "town", "phone_number", "dob", "access_level", "status", "user_name", "password"
+                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
                 }
         ));
         jTable3.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1861,7 +1865,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                 }
             } else {
                 jTextField2.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID   failed validation");
+                jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID");
             }
         } catch (Exception e) {
             System.out.println("Error: Failed to connect to database\n" + e.getMessage());
@@ -2365,7 +2369,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                 }
             } else {
                 jTextField30.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField30.setText("ID: " + deleteID + " is invalid please enter a Valid ID   failed validation");
+                jTextField30.setText("ID: " + deleteID + " is invalid please enter a Valid ID");
             }
         } catch (Exception e) {
             System.out.println("Error: Failed to connect to database\n" + e.getMessage());
@@ -2539,20 +2543,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField9;
 
 
-    public JTextField getjTextField3() {
-        return jTextField3;
-    }
-    public void setjTextField3(JTextField jTextField3) {
-        this.jTextField3 = jTextField3;
-    }
-
-    public JTextField getjTextField31() {
-        return jTextField31;
-    }
-
-    public void setjTextField31(JTextField jTextField31) {
-        this.jTextField31 = jTextField31;
-    }
+//    TODO Change size of text and colour for ID box in Delete and Display 1
 
 
     // End of variables declaration

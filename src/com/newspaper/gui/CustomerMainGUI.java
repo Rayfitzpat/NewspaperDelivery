@@ -1407,6 +1407,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         tableHeader3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setForeground(new java.awt.Color(49, 117, 108));
+        jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setFillsViewportHeight(true);
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
