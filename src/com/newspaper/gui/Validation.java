@@ -18,14 +18,12 @@ public class Validation {
         }
     }
 
-    public boolean validateEntry(String id) {
-        if (id.length() < 1 || id.length() > 2 || id.equals(null)) {
+    public boolean validateEntry(String DPID) {
+        if (DPID.length() > 2 || DPID.length() <1) {
             return false;
-        } else if (id.matches("[0-9\\d]*")) {
+        } else if (DPID.matches("[0-9\\d]*")) {
             return true;
-        } else {
-            return false;
-        }
+        }return false;
     }
 
 

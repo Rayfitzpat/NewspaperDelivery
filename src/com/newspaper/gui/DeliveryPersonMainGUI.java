@@ -37,15 +37,12 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     static ResultSet rs = null;
 
     {
-        try
-        {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url="jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
+            String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
             con = DriverManager.getConnection(url, "root", "admin");
             stmt = con.createStatement();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error: Failed to connect to database\n" + e.getMessage());
         }
     }
@@ -200,8 +197,6 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         final boolean[] personOneDBInitialised = {false};
 
 
-
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(19, 28, 33));
 
@@ -216,45 +211,45 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
 //                if (!personDBInitialised[0]) {
-                    try {
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-                        Connection con = DriverManager.getConnection(url, "root", "admin");
-                        Statement stmt = con.createStatement();
-                        String sql = "Select * from delivery_person";
-                        ResultSet rs = stmt.executeQuery(sql);
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
+                    Connection con = DriverManager.getConnection(url, "root", "admin");
+                    Statement stmt = con.createStatement();
+                    String sql = "Select * from delivery_person";
+                    ResultSet rs = stmt.executeQuery(sql);
 
-                        while (rs.next()) {
+                    while (rs.next()) {
 
-                            int id = rs.getInt("delivery_person_id");
+                        int id = rs.getInt("delivery_person_id");
 
-                            String firstName = rs.getString("first_name");
-                            String lastName = rs.getString("last_name");
-                            String address1 = rs.getString("address1");
-                            String address2 = rs.getString("address2");
-                            String town = rs.getString("town");
-                            String phone_number = rs.getString("delivery_phone_number");
-                            String dob = rs.getString("dob");
-                            String access_level = rs.getString("access_level");
-                            String status = rs.getString("delivery_status");
-                            String user_name = rs.getString("user_name");
-                            String password = rs.getString("password");
+                        String firstName = rs.getString("first_name");
+                        String lastName = rs.getString("last_name");
+                        String address1 = rs.getString("address1");
+                        String address2 = rs.getString("address2");
+                        String town = rs.getString("town");
+                        String phone_number = rs.getString("delivery_phone_number");
+                        String dob = rs.getString("dob");
+                        String access_level = rs.getString("access_level");
+                        String status = rs.getString("delivery_status");
+                        String user_name = rs.getString("user_name");
+                        String password = rs.getString("password");
 
 
-                            String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
-                            DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
 
-                            tblModel.addRow(tbData);
-                            personDBInitialised[0] = true;
+                        tblModel.addRow(tbData);
+                        personDBInitialised[0] = true;
 
-                        }
-                        con.close();
-
-                    } catch (Exception e) {
-                        System.out.println("Error: Failed to connect to database\n" + e.getMessage());
                     }
+                    con.close();
 
+                } catch (Exception e) {
+                    System.out.println("Error: Failed to connect to database\n" + e.getMessage());
                 }
+
+            }
 //            }
         });
 
@@ -298,7 +293,12 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                try {
+                    jButton6ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
             }
         });
 
@@ -407,7 +407,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         );
 
         CentrePanel.setLayout(new java.awt.CardLayout());
-
+        CentrePanel.setBackground(new java.awt.Color(19,28,33));
         DisplayAll.setBackground(new java.awt.Color(19, 28, 33));
 
         jScrollPane1.setBackground(new java.awt.Color(19, 28, 33));
@@ -418,8 +418,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
         jTable1.setForeground(new java.awt.Color(49, 117, 108));
+        jTable1.setFillsViewportHeight(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
                 new String[]{
@@ -464,7 +465,11 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jButton8.setText("Submit");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                try {
+                    jButton8ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
         });
 
@@ -482,8 +487,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
         jTable2.setForeground(new java.awt.Color(49, 117, 108));
+        jTable2.setFillsViewportHeight(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
                 new String[]{
@@ -775,17 +781,17 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                                                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                                                 .addGroup(AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
 //                                                        .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
 //                                                        .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 ))
@@ -870,19 +876,19 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                                                         .addGroup(AddNewLayout.createSequentialGroup()
                                                                 .addGap(45, 45, 45)
                                                                 .addGroup(AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
 //                                                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 ))
                                                         .addGroup(AddNewLayout.createSequentialGroup()
-                                                                .addGap(6, 6, 6)
-                                                                .addComponent(jLabel27)
-                                                                .addGap(24, 24, 24)
+                                                                        .addGap(6, 6, 6)
+                                                                        .addComponent(jLabel27)
+                                                                        .addGap(24, 24, 24)
 //                                                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         ))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel15)
+                                                .addComponent(jLabel15)
 //                                        .addComponent(jLabel29)
                                 )
                                 .addGap(25, 25, 25)
@@ -958,7 +964,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField37.setForeground(new java.awt.Color(6, 187, 163));
         jTextField37.setText("");
 
-         //        Edit First Name  help text label
+        //        Edit First Name  help text label
         jLabel61.setForeground(new java.awt.Color(49, 117, 108));
         jLabel61.setText("1-20 characters, no numbers");
 
@@ -1075,16 +1081,16 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jButton11.setForeground(new java.awt.Color(0, 0, 0));
         jButton11.setText("Submit");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            try {
-                jButton11ActionPerformed(evt);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton11ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
-        }
-    });
+        });
 
-    // Submit button EDIT - House Number ******************************************************
+        // Submit button EDIT - House Number ******************************************************
         jButton12.setBackground(new java.awt.Color(49, 117, 108));
         jButton12.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton12.setForeground(new java.awt.Color(0, 0, 0));
@@ -1457,7 +1463,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTable5.setBackground(new java.awt.Color(19, 28, 33));
         jTable5.setForeground(new java.awt.Color(49, 117, 108));
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
                 new String[]{
@@ -1568,8 +1574,9 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         tableHeader3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setForeground(new java.awt.Color(49, 117, 108));
+        jTable3.setFillsViewportHeight(true);
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
                 new String[]{
@@ -1577,6 +1584,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                 }
         ));
         jTable3.setGridColor(new java.awt.Color(49, 117, 108));
+        jTable3.setRowHeight(40);
         jScrollPane3.setViewportView(jTable3);
 
         jPanel5.setBackground(new java.awt.Color(19, 28, 33));
@@ -1747,7 +1755,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         }
     }
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
 
         if (evt.getSource() == jButton6) {
             DisplayAll.setVisible(false);
@@ -1755,6 +1763,33 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             AddNew.setVisible(false);
             Edit.setVisible(false);
             Delete.setVisible(true);
+
+            String sql = "Select * from delivery_person";
+            Statement DeleteStmt = con.createStatement();
+            ResultSet rs = DeleteStmt.executeQuery(sql);
+
+            while (rs.next()) {
+//
+                int id = rs.getInt("delivery_person_id");
+
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                String address1 = rs.getString("address1");
+                String address2 = rs.getString("address2");
+                String town = rs.getString("town");
+                String phone_number = rs.getString("delivery_phone_number");
+                String dob = rs.getString("dob");
+                String access_level = rs.getString("access_level");
+                String status = rs.getString("delivery_status");
+                String user_name = rs.getString("user_name");
+                String password = rs.getString("password");
+
+                String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
+
+                tblModel.addRow(tbData);
+                personOneDBInitialised[0] = true;
+            }
 
         }
     }
@@ -1768,8 +1803,11 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
 
     boolean[] personOneDBInitialised = {false};
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+
+        int count;
+        String str;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
@@ -1777,42 +1815,53 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             Statement stmt = con.createStatement();
             String DPID = jTextField1.getText();
             DeliveryPerson dp = new DeliveryPerson();
-            int result = Integer.parseInt(DPID);
-            if(result> 0 && result < 16) {
-
-                //TODO FIX validation of entry - create validation method and use for edit & Delete also
-
-                jTextField2.setForeground(new java.awt.Color(6, 187, 163));
-                jTextField2.setText("Sucessfully displayed ID: " + DPID);
-                String sql = "Select * from delivery_person where delivery_person_id = " + DPID;
-                ResultSet rs = stmt.executeQuery(sql);
-
-                while (rs.next()) {
-//
-                    int id = rs.getInt("delivery_person_id");
-
-                    String firstName = rs.getString("first_name");
-                    String lastName = rs.getString("last_name");
-                    String address1 = rs.getString("address1");
-                    String address2 = rs.getString("address2");
-                    String town = rs.getString("town");
-                    String phone_number = rs.getString("delivery_phone_number");
-                    String dob = rs.getString("dob");
-                    String access_level = rs.getString("access_level");
-                    String status = rs.getString("delivery_status");
-                    String user_name = rs.getString("user_name");
-                    String password = rs.getString("password");
-
-                    String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
-                    DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
-
-                    tblModel.addRow(tbData);
-                    personOneDBInitialised[0] = true;
+//            int result = Integer.parseInt(DPID);
+//            if(result> 0 && result < 16) {
+            if (validation.validateEntry(DPID)) {
+                str = "select count(*) as total from delivery_Person where delivery_person_id = " + DPID;
+                ResultSet rs1 = stmt.executeQuery(str);
+                count = 0;
+                while (rs1.next()) {
+                    count = rs1.getInt("total");
                 }
-                con.close();
-            }else{
-                jTextField2.setForeground(new java.awt.Color(255,0,0));
-                jTextField2.setText("ID: " + DPID+ " is invalid please enter a Valid ID");
+                if (count > 0) {
+                    //TODO FIX validation of entry - create validation method and use for edit & Delete also
+
+                    jTextField2.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField2.setText("Sucessfully displayed ID: " + DPID);
+                    String sql = "Select * from delivery_person where delivery_person_id = " + DPID;
+                    ResultSet rs = stmt.executeQuery(sql);
+
+                    while (rs.next()) {
+//
+                        int id = rs.getInt("delivery_person_id");
+
+                        String firstName = rs.getString("first_name");
+                        String lastName = rs.getString("last_name");
+                        String address1 = rs.getString("address1");
+                        String address2 = rs.getString("address2");
+                        String town = rs.getString("town");
+                        String phone_number = rs.getString("delivery_phone_number");
+                        String dob = rs.getString("dob");
+                        String access_level = rs.getString("access_level");
+                        String status = rs.getString("delivery_status");
+                        String user_name = rs.getString("user_name");
+                        String password = rs.getString("password");
+
+                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
+
+                        tblModel.addRow(tbData);
+                        personOneDBInitialised[0] = true;
+                    }
+//                    con.close();
+                } else {
+                    jTextField2.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID failed based on ID");
+                }
+            } else {
+                jTextField2.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID   failed validation");
             }
         } catch (Exception e) {
             System.out.println("Error: Failed to connect to database\n" + e.getMessage());
@@ -1821,65 +1870,54 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     }
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-          if(validation.validateString(jTextField4.getText())){
-              if(validation.validateString(jTextField5.getText())){
-                 if(validation.validateHouseNumber(jTextField6.getText())){
-                     if(validation.validateStringWithNumbers(jTextField7.getText())){
-                         if(validation.validateStringWithNumbers(jTextField14.getText())){
-                             if(validation.validatePhoneNumber(jTextField8.getText())){
-                                 if(validation.validateDoB(jTextField9.getText())){
-                                     if(validation.validateAccess(jTextField10.getText())){
-                                         if(validation.validateStatus(jTextField12.getText())){
-                                             if(validation.validateString(jTextField11.getText())){
-                                                 if(validation.validatePassword(jTextField15.getText())){
-                                                     Statement addNewPerson = con.createStatement();
-                                                     addNewPerson.executeUpdate("insert into delivery_Person values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
-                                                     jTextField3.setForeground(new java.awt.Color(6,187,163));
-                                                     jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database" );
-                                                 }
-                                                 else{
-                                                     jTextField3.setText("Invalid Password");
-                                                 }
-                                             }
-                                             else{
-                                                 jTextField3.setText("Invalid User Name");
-                                             }
-                                         }
-                                         else{
-                                             jTextField3.setText("Invalid Status level");
-                                         }
-                                     }
-                                     else{
-                                         jTextField3.setText("Invalid Access level");
-                                     }
-                                 }
-                                 else{
-                                     jTextField3.setText("Invalid Date of Birth");
-                                 }
-                             }
-                             else{
-                                 jTextField3.setText("Invalid Phone Number");
-                             }
-                         }
-                         else{
-                             jTextField3.setText("Invalid Town Name");
-                         }
-                     }
-                     else{
-                         jTextField3.setText("Invalid Street Name");
-                     }
-                  }
-                 else{
-                     jTextField3.setText("Invalid House Number");
-                 }
-              }
-              else{
-                  jTextField3.setText("Invalid Last Name");
-              }
-          }
-          else{
-              jTextField3.setText("Invalid First Name");
-          }
+        if (validation.validateString(jTextField4.getText())) {
+            if (validation.validateString(jTextField5.getText())) {
+                if (validation.validateHouseNumber(jTextField6.getText())) {
+                    if (validation.validateStringWithNumbers(jTextField7.getText())) {
+                        if (validation.validateStringWithNumbers(jTextField14.getText())) {
+                            if (validation.validatePhoneNumber(jTextField8.getText())) {
+                                if (validation.validateDoB(jTextField9.getText())) {
+                                    if (validation.validateAccess(jTextField10.getText())) {
+                                        if (validation.validateStatus(jTextField12.getText())) {
+                                            if (validation.validateString(jTextField11.getText())) {
+                                                if (validation.validatePassword(jTextField15.getText())) {
+                                                    Statement addNewPerson = con.createStatement();
+                                                    addNewPerson.executeUpdate("insert into delivery_Person values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
+                                                    jTextField3.setForeground(new java.awt.Color(6, 187, 163));
+                                                    jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
+                                                } else {
+                                                    jTextField3.setText("Invalid Password");
+                                                }
+                                            } else {
+                                                jTextField3.setText("Invalid User Name");
+                                            }
+                                        } else {
+                                            jTextField3.setText("Invalid Status level");
+                                        }
+                                    } else {
+                                        jTextField3.setText("Invalid Access level");
+                                    }
+                                } else {
+                                    jTextField3.setText("Invalid Date of Birth");
+                                }
+                            } else {
+                                jTextField3.setText("Invalid Phone Number");
+                            }
+                        } else {
+                            jTextField3.setText("Invalid Town Name");
+                        }
+                    } else {
+                        jTextField3.setText("Invalid Street Name");
+                    }
+                } else {
+                    jTextField3.setText("Invalid House Number");
+                }
+            } else {
+                jTextField3.setText("Invalid Last Name");
+            }
+        } else {
+            jTextField3.setText("Invalid First Name");
+        }
     }
 
 
@@ -1888,24 +1926,34 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String firstName = jTextField32.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validateString(firstName)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("First Names cannot contain numbers and must be between 1 to 20 characters");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET first_name = '" + firstName + "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated First Name for ID: " + editID + " to " + firstName);
+        int count;
+        String str;
+        if (validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validateString(firstName)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET first_name = '" + firstName + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated First Name for ID: " + editID + " to " + firstName);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("First Names cannot contain numbers and must be between 1 to 20 characters");
+                }
+            } else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-
     //        Submit Button - EDIT - Last Name *****************************
 
 
@@ -1913,23 +1961,35 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String lastName = jTextField33.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validateString(lastName)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("Last Names cannot contain numbers and must be between 1 to 20 characters");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET last_name = '" + lastName + "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated Last Name for ID: " + editID + " to " + lastName);
+        int count;
+        String str;
+        if (validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validateString(lastName)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET last_name = '" + lastName + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated Last Name for ID: " + editID + " to " + lastName);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("Last Names cannot contain numbers and must be between 1 to 20 characters");
+                }
+            } else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
+
 
     //        Submit Button - EDIT - House Number *****************************
 
@@ -1937,23 +1997,35 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String houseNumber = jTextField34.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validateHouseNumber(houseNumber)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("House /  Apartment Numbers cannot contain letters and must be between 1 to 4 characters");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET address1 = '" + houseNumber+ "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated House Number for ID: " + editID + " to " + houseNumber);
+        int count;
+        String str;
+        if (validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validateHouseNumber(houseNumber)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET address1 = '" + houseNumber + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated House Number for ID: " + editID + " to " + houseNumber);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("House Numbers must be between 1 to 4 characters");
+                }
+            } else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID failed based on ID");
         }
     }
+
 
     //        Submit Button - EDIT - Street Name *****************************
 
@@ -1961,21 +2033,32 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String streetName = jTextField35.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validateStringWithNumbers(streetName)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("Street Names must be between 1 to 20 characters");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET address2 = '" + streetName+ "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated Street Name for ID: " + editID + " to " + streetName);
+        int count;
+        String str;
+        if (validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validateStringWithNumbers(streetName)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET address2 = '" + streetName + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated Street Name for ID: " + editID + " to " + streetName);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("Street Names must be between 1 to 20 characters");
+                }
+            } else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
 
@@ -1985,21 +2068,32 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String town = jTextField42.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validateStringWithNumbers(town)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("Town Names must be between 1 to 20 characters");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET town = '" + town + "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated Town Name for ID: " + editID + " to " + town);
+        int count;
+        String str;
+        if (validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validateStringWithNumbers(town)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET town = '" + town + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated Town Name for ID: " + editID + " to " + town);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("Town Names must be between 1 to 20 characters");
+                }
+            } else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
 
@@ -2009,23 +2103,35 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String phoneNumber = jTextField36.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validatePhoneNumber(phoneNumber)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("Phone Numbers follow the pattern of 0## #######  e.g. 087 1234567");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + phoneNumber + "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
+        int count;
+        String str;
+        if (validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validatePhoneNumber(phoneNumber)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + phoneNumber + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("Phone Numbers follow the pattern of 0## #######  e.g. 087 1234567");
+                }
+            } else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
+
 
 //        Submit Button - EDIT - DoB *****************************
 
@@ -2033,23 +2139,37 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String dateOfBirth = jTextField37.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validateDoB(dateOfBirth)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("Date of Birth must follow the pattern of YYYY-MM-DD or YYYY-M-D  e.g. 1995-11-26");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET dob = '" + dateOfBirth + "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated Date of Birth for ID: " + editID + " to " + dateOfBirth);
+        int count;
+        String str;
+        if (validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validateDoB(dateOfBirth)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET dob = '" + dateOfBirth + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated Date of Birth for ID: " + editID + " to " + dateOfBirth);
+                }
+                 else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("Date of Birth must follow the pattern of YYYY-MM-DD or YYYY-M-D  e.g. 1995-11-26");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
+     else
+    {
+        jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+        jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+    }
+}
 
     //        Submit Button - EDIT - Access Level *****************************
 
@@ -2057,21 +2177,32 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String accessLevel = jTextField38.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validateAccess(accessLevel)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("Access Level must be either 1 or 2");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET access_level = '" + accessLevel + "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated Access Level for ID: " + editID + " to " + accessLevel);
+        int count;
+        String str;
+        if(validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validateAccess(accessLevel)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET access_level = '" + accessLevel + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6,187,163));
+                    jTextField31.setText("You have successfully updated Access Level for ID: " + editID + " to " + accessLevel);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255,0,0));
+                    jTextField31.setText("Access Level must be either 1 or 2");
+
+            }  } else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
 
@@ -2081,43 +2212,66 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String status = jTextField40.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validateStatus(status)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("Status must be either true or false");
+        int count;
+        String str;
+        if(validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
+            }
+            if (count > 0) {
+                if (validation.validateStatus(status)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET delivery_status = '" + status + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("Status must be either true or false");
+                }
+            }else{
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+                }
             } else {
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET delivery_status = '" + status + "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
             }
         }
-    }
 
     //        Submit Button - EDIT - User Name *****************************
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String userName = jTextField39.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validateString(userName)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("User Names cannot contain numbers and must be between 1 to 20 characters");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET user_name = '" + userName + "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated User Name for ID: " + editID + " to " + userName);
+        int count;
+        String str;
+        if(validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validateString(userName)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET user_name = '" + userName + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated User Name for ID: " + editID + " to " + userName);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("User Names cannot contain numbers and must be between 1 to 20 characters");
+                }
+            }else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
 
@@ -2126,23 +2280,35 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String password = jTextField43.getText();
-        if(!validation.validateEntry(editID)) {
-            jTextField31.setForeground(new java.awt.Color(255,0,0));
-            jTextField31.setText("*****'"+editID +"'**** is not a valid Id");
-        }
-        else {
-            if (!validation.validatePassword(password)) {
-                jTextField31.setForeground(new java.awt.Color(255,0,0));
-                jTextField31.setText("passwords must 4 characters in length");
-            } else {
-
-                Statement editPerson = con.createStatement();
-                editPerson.executeUpdate("Update delivery_person SET password = '" + password + "' where delivery_person_id = '" + editID + "'");
-                jTextField31.setForeground(new java.awt.Color(6,187,163));
-                jTextField31.setText("You have successfully updated Password for ID: " + editID + " to " + password);
+        int count;
+        String str;
+        if(validation.validateEntry(editID)) {
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            ResultSet rs1 = stmt.executeQuery(str);
+            count = 0;
+            while (rs1.next()) {
+                count = rs1.getInt("total");
             }
+            if (count > 0) {
+                if (validation.validatePassword(password)) {
+                    Statement editPerson = con.createStatement();
+                    editPerson.executeUpdate("Update delivery_person SET password = '" + password + "' where delivery_person_id = '" + editID + "'");
+                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField31.setText("You have successfully updated Password for ID: " + editID + " to " + password);
+                } else {
+                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField31.setText("passwords must 4 characters in length");
+                }
+            }else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+            }
+        } else {
+            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
+
 //TODO fix font size for Delete table
 
 //    Delete - Submit Button Fuctionality
@@ -2153,55 +2319,57 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
 //            Connection con = DriverManager.getConnection(url, "root", "admin");
 //            Statement stmt = con.createStatement();
-            String DeleteID = jTextField29.getText();
+            String deleteID = jTextField29.getText();
             DeliveryPerson dp = new DeliveryPerson();
-            int result = Integer.parseInt(DeleteID);
-            if(result> 0 && result < 16) {
-
-                //TODO FIX validation of entry - create validation method and use for edit & Delete also
-
-                jTextField30.setForeground(new java.awt.Color(6, 187, 163));
-                jTextField30.setText("Sucessfully Deleted ID: " + DeleteID);
-                Statement statement = con.createStatement();
-                statement.executeUpdate("DELETE from delivery_person where delivery_person_id = " + DeleteID);
-                System.out.println("fhgjjjjjjjjjjjjjjjjjjj");
-                Statement DeleteStmt = con.createStatement();
-                String sql = "Select * from delivery_person";
-                ResultSet rs = DeleteStmt.executeQuery(sql);
-
-                while (rs.next()) {
-//
-                    int id = rs.getInt("delivery_person_id");
-
-                    String firstName = rs.getString("first_name");
-                    String lastName = rs.getString("last_name");
-                    String address1 = rs.getString("address1");
-                    String address2 = rs.getString("address2");
-                    String town = rs.getString("town");
-                    String phone_number = rs.getString("delivery_phone_number");
-                    String dob = rs.getString("dob");
-                    String access_level = rs.getString("access_level");
-                    String status = rs.getString("delivery_status");
-                    String user_name = rs.getString("user_name");
-                    String password = rs.getString("password");
-
-                    String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
-                    DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
-
-                    tblModel.addRow(tbData);
-                    personOneDBInitialised[0] = true;
+            int count;
+            String str;
+            if (validation.validateEntry(deleteID)) {
+                str = "select count(*) as total from delivery_Person where delivery_person_id = " + deleteID;
+                ResultSet rs1 = stmt.executeQuery(str);
+                count = 0;
+                while (rs1.next()) {
+                    count = rs1.getInt("total");
                 }
+                if (count > 0) {
 
-            }else{
-                jTextField30.setForeground(new java.awt.Color(255,0,0));
-                jTextField30.setText("ID: " + DeleteID+ " is invalid please enter a Valid ID");
-                System.out.println("delete error");
+                    jTextField30.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField30.setText("Sucessfully Deleted ID: " + deleteID);
+                    Statement statement = con.createStatement();
+                    statement.executeUpdate("DELETE from delivery_person where delivery_person_id = " + deleteID);
+                    Statement DeleteStmt = con.createStatement();
+                    String sql = "Select * from delivery_person";
+                    ResultSet rs = DeleteStmt.executeQuery(sql);
+
+                    while (rs.next()) {
+//
+                        int id = rs.getInt("delivery_person_id");
+
+                        String firstName = rs.getString("first_name");
+                        String lastName = rs.getString("last_name");
+                        String address1 = rs.getString("address1");
+                        String address2 = rs.getString("address2");
+                        String town = rs.getString("town");
+                        String phone_number = rs.getString("delivery_phone_number");
+                        String dob = rs.getString("dob");
+                        String access_level = rs.getString("access_level");
+                        String status = rs.getString("delivery_status");
+                        String user_name = rs.getString("user_name");
+                        String password = rs.getString("password");
+
+                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
+
+                        tblModel.addRow(tbData);
+                        personOneDBInitialised[0] = true;
+                    }
+                }
+            } else {
+                jTextField30.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField30.setText("ID: " + deleteID + " is invalid please enter a Valid ID   failed validation");
             }
         } catch (Exception e) {
             System.out.println("Error: Failed to connect to database\n" + e.getMessage());
-
         }
-
     }
 
 
