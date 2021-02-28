@@ -171,34 +171,68 @@ public class DeliveryDocket {
         this.deliveryPersonName = deliveryPersonName;
     }
 
-    @Override
-    public String toString() {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n************************************************************************");
-        sb.append("\n****************************DELIVERY DOCKET*****************************");
-        sb.append("\n************************************************************************");
-        sb.append( String.format("\n%-25s %-25s", "DATE: " , getDate()));
-        sb.append( String.format("\n%-25s %-25s", "Delivery Area No: ", getDeliveryAreaId() + ", " + getDeliveryAreaName()));
-        sb.append(String.format("\n%-25s %-25s", "Delivery Person Name: " , getDeliveryPersonName()));
-
-
-        sb.append("\n\n\n*************************** PUBLICATIONS ******************************");
-        sb.append(String.format("\n %-10s %-25s %-20s %-20s", "ID","Customer Address", "Customer Name", "Is Delivered"));
-        sb.append("\n-----------------------------------------------------------------------");
-        for (DeliveryItem delivery : this.deliveryItems) {
-            if (delivery.getType().equals("publication")) {
-                sb.append(String.format("\n %-10d %-25s %-20s %-20s ", delivery.getId(), delivery.getCustomerAddress(), delivery.getCustomerName(), delivery.isDelivered()));
+    public boolean hasPublicationItems(ArrayList<DeliveryItem> items) {
+        for(DeliveryItem d : items) {
+            if (d.getType().equals("publication")){
+                return true;
             }
         }
+        return false;
+    }
 
-        sb.append("\n\n\n******************************* INVOICES ******************************");
-        sb.append(String.format("\n %-10s %-25s %-20s %-20s ", "ID","Customer Address", "Customer Name", "Is Delivered"));
-        sb.append("\n----------------------------------------------------------------------");
-        for (DeliveryItem delivery : this.deliveryItems) {
-            if (delivery.getType().equals("invoice")) {
-                sb.append(String.format("\n %-10d %-25s %-20s %-20s", delivery.getId(), delivery.getCustomerAddress(), delivery.getCustomerName(), delivery.isDelivered()));
+    public boolean hasInvoiceItems(ArrayList<DeliveryItem> items) {
+        for(DeliveryItem d : items) {
+            if (d.getType().equals("invoice")){
+                return true;
             }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        // utility class has some helper methods, here used for getting name of the publication by id
+        Utility utility = new Utility();
+        StringBuilder sb = new StringBuilder();
+        try {
+            sb.append("\n****************************************************************************************");
+            sb.append("\n************************************DELIVERY DOCKET*************************************");
+            sb.append("\n****************************************************************************************");
+            sb.append( String.format("\n%-25s %-25s", "DATE: " , getDate()));
+            sb.append( String.format("\n%-25s %-25s", "Delivery Area No: ", getDeliveryAreaId() + ", " + getDeliveryAreaName()));
+            sb.append(String.format("\n%-25s %-25s", "Delivery Person Name: " , getDeliveryPersonName()));
+
+            // check if there are any publications to be delivered
+            if (hasPublicationItems(deliveryItems)) {
+                sb.append("\n\n\n*********************************** PUBLICATIONS *****************************************");
+                sb.append(String.format("\n %-25s %-20s %-27s %-20s","Customer Address", "Customer Name", "Publication", "Is Delivered"));
+                sb.append("\n------------------------------------------------------------------------------------------");
+                for (DeliveryItem delivery : this.deliveryItems) {
+                    if (delivery.getType().equals("publication")) {
+                        sb.append(String.format("\n %-25s %-20s %-27s %-20s ", delivery.getCustomerAddress(), delivery.getCustomerName(),utility.getPublicationByID(delivery.getId()), delivery.isDelivered()));
+                    }
+                }
+            }
+            else {
+                sb.append("\n\nNo publication delivery for today.");
+            }
+
+            // check if there is any invoices
+            if (hasInvoiceItems(deliveryItems)) {
+                // if there is, print the items in separate table
+                sb.append("\n\n\n*************************************** INVOICES **************************************");
+                sb.append(String.format("\n %-10s %-25s %-20s %-20s ", "ID","Customer Address", "Customer Name", "Is Delivered"));
+                sb.append("\n---------------------------------------------------------------------------------------");
+                for (DeliveryItem delivery : this.deliveryItems) {
+                    if (delivery.getType().equals("invoice")) {
+                        sb.append(String.format("\n %-10d %-25s %-20s %-20s", delivery.getId(), delivery.getCustomerAddress(), delivery.getCustomerName(), delivery.isDelivered()));
+                    }
+                }
+            }
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            System.out.println("Exception in DeliveryDocket toString() method: ");
+            System.out.println(e.getMessage());
         }
 
         return sb.toString();

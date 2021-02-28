@@ -37,10 +37,13 @@ public class DeliveryDocketDB {
 //            p.print();
 //        }
 
-        System.out.println(deliveryDocketDB.getDeliveryPersonName(8));
+//        Utility utility = new Utility();
+//        System.out.println(utility.getPublicationByID(90));
 
         DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(4, "2021-02-01");
         System.out.println(docket);
+        System.out.println("Saving...");
+        deliveryDocketDB.createDeliveryDocketFile(docket);
     }
 
     // create delivery docket
@@ -62,7 +65,7 @@ public class DeliveryDocketDB {
     public void createDeliveryDocketFile(DeliveryDocket docket) {
 
         // create delivery docket text file
-        File docketFile = new File("delivery_docket_" + docket.getDate() + ".txt" );
+        File docketFile = new File(docket.getDeliveryAreaName() + "_delivery_docket_" + docket.getDate() + ".txt" );
 
             try
             {
@@ -256,9 +259,9 @@ public class DeliveryDocketDB {
     public String getDeliveryPersonName(int deliveryPersonId) throws DeliveryDocketExceptionHandler {
 
         String name = "";
-
+        Utility utility = new Utility();
         // check if delivery person exists
-        if (deliveryPersonExists(deliveryPersonId)) {
+        if (utility.deliveryPersonExists(deliveryPersonId)) {
             String query = "SELECT first_name, last_name\n" +
                     "FROM delivery_person\n" +
                     "WHERE delivery_person_id = " + deliveryPersonId + ";";
@@ -277,33 +280,7 @@ public class DeliveryDocketDB {
         return name;
     }
 
-    public boolean deliveryPersonExists(int deliveryPersonId) throws DeliveryDocketExceptionHandler {
 
-        // set the flag
-        boolean exists = false;
-
-        String query = "select count(*) as total from delivery_person where delivery_person_id = " + deliveryPersonId + ";";
-        ResultSet rs;
-        int count = - 1;
-        try {
-            rs = DBconnection.stmt.executeQuery(query);
-            while (rs.next()) {
-                count = rs.getInt("total");
-                exists = true;
-            }
-            if(count == 0)
-            {
-                throw new DeliveryDocketExceptionHandler("Delivery Person with id " + deliveryPersonId + " does not exist");
-            }
-
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println(query);
-
-        }
-
-        return exists;
-    }
 
     public LocalDate convertDate(String date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
