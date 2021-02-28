@@ -30,6 +30,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         this.setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     /**

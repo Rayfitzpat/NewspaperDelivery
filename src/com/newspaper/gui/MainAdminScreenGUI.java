@@ -19,6 +19,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
     public MainAdminScreenGUI() {
         initComponents();
         this.setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     /**
@@ -116,6 +117,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
                 dispose();
                 jButton2ActionPerformed(evt);
                 customerMainGUI.setVisible(true);
+
             }
         });
 

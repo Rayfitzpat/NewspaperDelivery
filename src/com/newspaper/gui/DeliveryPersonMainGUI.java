@@ -29,6 +29,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         this.setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     Validation validation = new Validation();
