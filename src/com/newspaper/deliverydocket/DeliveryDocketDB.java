@@ -231,7 +231,7 @@ public class DeliveryDocketDB {
                 ArrayList<Order> orders = ut.getOrders();
                 String deliveryStatus = "not delivered"; // default value
 
-                // generate the dates -hard hard code-
+                // padding month to always be 2 digits (e.g. 1 > 01, 2 > 02)
                 String m;
                 if (String.valueOf(month).length() == 1) {
                     m = "0" + month;
@@ -266,9 +266,9 @@ public class DeliveryDocketDB {
         return deliveryItems;
     }
 
-    // generate deliveries for next day
-    public void generateDeliveriesForDay(int day) {
-        // first check if the deliveries for this day wasn't generated before
+
+    public void saveDeliveries(ArrayList<Delivery> deliveries) {
+
     }
 
     public boolean deliveriesForThisMonthExists(int month) {

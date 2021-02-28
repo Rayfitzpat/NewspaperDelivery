@@ -93,6 +93,12 @@ public class Utility {
         return exists;
     }
 
+    /**
+     * Method that accesses the DB, gets all the order records and returns it in a form of
+     * ArrayList of Order objects
+     * @return An ArrayList of Orders
+     * @throws OrderExceptionHandler is thrown in case of error with DB or validation of the data
+     */
     public ArrayList<Order> getOrders() throws OrderExceptionHandler {
         // array list for saving all the objects of the Order class
         ArrayList<Order> orders = new ArrayList<>();
