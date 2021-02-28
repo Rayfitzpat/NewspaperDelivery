@@ -116,8 +116,6 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
                 dispose();
                 jButton2ActionPerformed(evt);
                 customerMainGUI.setVisible(true);
-
-
             }
         });
 

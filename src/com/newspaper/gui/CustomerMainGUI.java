@@ -394,6 +394,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setBackground(new java.awt.Color(19, 28, 33));
         jTable1.setForeground(new java.awt.Color(49, 117, 108));
+        jTable1.setFillsViewportHeight(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -458,6 +459,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
         jTable2.setForeground(new java.awt.Color(49, 117, 108));
+        jTable2.setFillsViewportHeight(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -1405,6 +1407,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         tableHeader3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setForeground(new java.awt.Color(49, 117, 108));
+        jTable3.setFillsViewportHeight(true);
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
