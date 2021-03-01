@@ -43,16 +43,16 @@ public class DeliveryDocketDB {
 //        }
 
 
-//        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(6, "2021-02-03");
-//        System.out.println(docket);
-//        System.out.println("Saving...");
-//        deliveryDocketDB.createDeliveryDocketFile(docket);
+        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(7, "2021-06-01");
+        System.out.println(docket);
+        System.out.println("Saving...");
+        deliveryDocketDB.createDeliveryDocketFile(docket);
 
-        ArrayList <Delivery> deliveries = deliveryDocketDB.generateDeliveriesForMonth(1);
-        System.out.println(deliveries.size());
-        for (Delivery p : deliveries){
-            p.printInserts();
-        }
+//        ArrayList <Delivery> deliveries = deliveryDocketDB.generateDeliveriesForMonth(1);
+//        System.out.println(deliveries.size());
+//        for (Delivery p : deliveries){
+//            p.printInserts();
+//        }
     }
 
     // create delivery docket
