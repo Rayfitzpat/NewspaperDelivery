@@ -18,4 +18,8 @@ public class Delivery {
     public void print() {
         System.out.printf("\n%-10d %-10d %-20s %-35s", customerId, publicationId, date, deliveryStatus);
     }
+
+    public void printInserts() {
+        System.out.println("insert into delivery values (null, " + customerId + ", " + publicationId + ", '" + date + "', 'not delivered');");
+    }
 }

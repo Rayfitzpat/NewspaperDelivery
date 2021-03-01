@@ -42,15 +42,15 @@ public class DeliveryDocketDB {
 //        }
 
 
-//        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(4, "2021-02-01");
+//        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(6, "2021-02-03");
 //        System.out.println(docket);
 //        System.out.println("Saving...");
 //        deliveryDocketDB.createDeliveryDocketFile(docket);
 
-        ArrayList <Delivery> deliveries = deliveryDocketDB.generateDeliveriesForMonth(9);
+        ArrayList <Delivery> deliveries = deliveryDocketDB.generateDeliveriesForMonth(1);
         System.out.println(deliveries.size());
         for (Delivery p : deliveries){
-            p.print();
+            p.printInserts();
         }
     }
 
