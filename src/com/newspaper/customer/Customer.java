@@ -292,13 +292,13 @@ public class Customer {
             throw new CustomerExceptionHandler("NULL value in the argument");
         }
         else {
-            // number format is 080 837 1923
-            Pattern phonePattern = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s]\\d{3}[\\s]\\d{4}$");
+            // number format is 080 8371923
+            Pattern phonePattern = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s]\\d{7}$");
             Matcher matcher = phonePattern.matcher(phoneNumber);
 
             if (!matcher.matches())
             {
-                throw new CustomerExceptionHandler("Phone number does not correspond to the format \"000 000 0000\"");
+                throw new CustomerExceptionHandler("Phone number does not correspond to the format \"000 0000000\"");
             }
         }
     }
