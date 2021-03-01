@@ -26,7 +26,7 @@ public class CustomerTest extends TestCase {
         try {
 
             // call constructor under test
-            Customer customer = new Customer("Jack", "Martin", 23, "Dublin Road", "Athlone","M35UJ99","084 831 6481", "2021-02-19", "2021-02-29",  true, 6);
+            Customer customer = new Customer("Jack", "Martin", 23, "Dublin Road", "Athlone","M35UJ99","084 8316481", "2021-02-19", "2021-02-29",  true, 6);
 
             // checking object creation
             assertEquals(0, customer.getCustomerId());
@@ -36,7 +36,7 @@ public class CustomerTest extends TestCase {
             assertEquals("Dublin Road", customer.getAddress2());
             assertEquals("Athlone", customer.getTown());
             assertEquals("M35UJ99", customer.getEircode());
-            assertEquals("084 831 6481", customer.getPhoneNumber());
+            assertEquals("084 8316481", customer.getPhoneNumber());
             assertEquals("2021-02-19", customer.getHolidayStartDate());
             assertEquals("2021-02-29", customer.getHolidayEndDate());
             assertEquals(true, customer.getStatus());
@@ -336,7 +336,7 @@ public class CustomerTest extends TestCase {
     //Expected Output: No exception
     public void testValidatePhoneNumber001() {
         try {
-            customer.validatePhoneNumber("085 856 7843");
+            customer.validatePhoneNumber("085 8567843");
         }
         catch (CustomerExceptionHandler e) {
             fail("Exception not expected");
