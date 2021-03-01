@@ -54,30 +54,37 @@ import java.util.Scanner;
 
 
         Statement addNew = DBconnection.con.createStatement();
-//
+        boolean exists = ds.checkIfExists(modifiedDate);
+        if(!exists){
+            createDailyReportByDate(modifiedDate);
+            System.out.println("Daily report created for today!\n");
 
-        String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date='"+modifiedDate+"';";
-        try {
-            ResultSet rs = DBconnection.stmt.executeQuery(str);
+        }
+        else {
 
-            System.out.printf("\n%-12s %-20s %-15s %-20s %-25s \n", "Summary ID", "Delivery Date", "Total revenue", "Publications Sold", "Revenue");
-            while (rs.next()) {
-                int daily_summary_id = rs.getInt("daily_summary_id");
-                String delivery_date = rs.getString("delivery_date");
-                int total_revenue = rs.getInt("total_revenue");
-                int publications_sold = rs.getInt("publications_sold");
-                double publications_revenue = rs.getDouble("publications_revenue");
+            String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date='" + modifiedDate + "';";
+            try {
+                ResultSet rs = DBconnection.stmt.executeQuery(str);
 
-                publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
+                System.out.printf("\n%-12s %-20s %-15s %-20s %-25s \n", "Summary ID", "Delivery Date", "Total revenue", "Publications Sold", "Revenue");
+                while (rs.next()) {
+                    int daily_summary_id = rs.getInt("daily_summary_id");
+                    String delivery_date = rs.getString("delivery_date");
+                    int total_revenue = rs.getInt("total_revenue");
+                    int publications_sold = rs.getInt("publications_sold");
+                    double publications_revenue = rs.getDouble("publications_revenue");
 
-                System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
+                    publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
+
+                    System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
+                }
+
+            } catch (
+                    SQLException sqle) {
+                System.out.println("Error: failed to display all daily summaries.");
+                System.out.println(sqle.getMessage());
+                System.out.println(str);
             }
-
-        } catch (
-                SQLException sqle) {
-            System.out.println("Error: failed to display all daily summaries.");
-            System.out.println(sqle.getMessage());
-            System.out.println(str);
         }
 
 
@@ -185,6 +192,8 @@ import java.util.Scanner;
             boolean exists = ds.checkIfExists(delivery_input);
             if(!exists) {
                 //generate
+                createDailyReportByDate(delivery_input);
+                System.out.println("Report created for " + delivery_input);
             }
             else {
                 String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date = '" + delivery_input + "';";
@@ -261,50 +270,60 @@ import java.util.Scanner;
         }
     }
     //validated
-    public void chosenRange(){
-
-
-
-
+    public void chosenRange() throws SQLException {
 
 
         System.out.println("Please enter the first date in the format YYYY-MM-DD");
         String delivery_choice1=in.next();
         boolean delchoice1= ds.validateDate(delivery_choice1);
         if(delchoice1) {
-
-
-            System.out.println("Please enter the second date in the format YYYY-MM-DD");
-            String delivery_choice2 = in.next();
-            boolean delchoice2 = ds.validateDate(delivery_choice2);
-            if (delchoice2) {
-                String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + delivery_choice1 + "' and '" + delivery_choice2 + "'";
-                try {
-                    ResultSet rs = DBconnection.stmt.executeQuery(str);
-
-                    System.out.printf("\n%-12s %-20s %-15s %-20s %-25s\n", "Summary ID", "Delivery Date", "Total revenue", "Publications Sold", "Revenue");
-                    while (rs.next()) {
-                        int daily_summary_id = rs.getInt("daily_summary_id");
-                        String delivery_date = rs.getString("delivery_date");
-                        int total_revenue = rs.getInt("total_revenue");
-                        int publications_sold = rs.getInt("publications_sold");
-                        double publications_revenue = rs.getDouble("publications_revenue");
-
-                        publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
-
-                        System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
-                    }
-
-                } catch (
-                        SQLException sqle) {
-                    System.out.println("Error: failed to display all daily summaries.");
-                    System.out.println(sqle.getMessage());
-                    System.out.println(str);
-                }
-            } else {
-                System.out.println("Please enter a correct date in the format YYYY-MM-DD");
-                chosenRange();
+            boolean exists1 = ds.checkIfExists(delivery_choice1);
+            if (!exists1) {
+                createDailyReportByDate(delivery_choice1);
+                System.out.println("\nDaily report created for " +delivery_choice1);
             }
+//            else if (exists1) {
+
+                System.out.println("Please enter the second date in the format YYYY-MM-DD");
+                String delivery_choice2 = in.next();
+                boolean delchoice2 = ds.validateDate(delivery_choice2);
+                if (delchoice2) {
+                    boolean exists2 = ds.checkIfExists(delivery_choice2);
+                    if(!exists2){
+                        createDailyReportByDate(delivery_choice2);
+                        System.out.println("\nDaily report created for " + delivery_choice2);
+                    }
+//                    else if(exists2){
+                    String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + delivery_choice1 + "' and '" + delivery_choice2 + "'";
+                    try {
+                        ResultSet rs = DBconnection.stmt.executeQuery(str);
+
+                        System.out.printf("\n%-12s %-20s %-15s %-20s %-25s\n", "Summary ID", "Delivery Date", "Total revenue", "Publications Sold", "Revenue");
+                        while (rs.next()) {
+                            int daily_summary_id = rs.getInt("daily_summary_id");
+                            String delivery_date = rs.getString("delivery_date");
+                            int total_revenue = rs.getInt("total_revenue");
+                            int publications_sold = rs.getInt("publications_sold");
+                            double publications_revenue = rs.getDouble("publications_revenue");
+
+                            publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
+
+                            System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
+                        }
+
+                    } catch (
+                            SQLException sqle) {
+                        System.out.println("Error: failed to display all daily summaries.");
+                        System.out.println(sqle.getMessage());
+                        System.out.println(str);
+                    }
+//                }
+                }
+                else {
+                    System.out.println("Please enter a correct date in the format YYYY-MM-DD");
+                    chosenRange();
+                }
+            //}
         }
         else{
             System.out.println("Please enter a correct date in the format YYYY-MM-DD");
@@ -446,6 +465,8 @@ import java.util.Scanner;
                     double revenue_per_publication = total_revenue/publications_sold;
                    dailySummary = new DailySummary(date, total_revenue, publications_sold, revenue_per_publication);
 
+                   Statement addNew = DBconnection.con.createStatement();
+                    addNew.executeUpdate("insert into daily_summary values(null, '"+date+"',"+total_revenue+", "+publications_sold+");");
 
                 }
 
@@ -456,6 +477,7 @@ import java.util.Scanner;
                 System.out.println(str);
             }
 
+
     return dailySummary;
     }
 
@@ -463,8 +485,15 @@ import java.util.Scanner;
         public static void main(String[] args) {
             DBconnection.init_db();
             DailySummaryView dailySummaryView = new DailySummaryView();
-            System.out.println(dailySummaryView.createDailyReportByDate("2021-01-10"));
+            dailySummaryView.populateDatabase();
 
+        }
+
+        public void populateDatabase(){
+
+            for (int i =1; i<=28;i++){
+            createDailyReportByDate("2021-02-"+i);
+            }
         }
 
 

@@ -107,7 +107,7 @@ public class DailySummary {
 
 
     public static boolean checkIfExists(String date) throws SQLException {
-        String st = "select count(*) as total from daily_summary where delivery_date = " + date;
+        String st = "select count(*) as total from daily_summary where delivery_date = '" + date+"'";
         ResultSet rss = DBconnection.stmt.executeQuery(st);
         int count = 0;
         while (rss.next()) {
