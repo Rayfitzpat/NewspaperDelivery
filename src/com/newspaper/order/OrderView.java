@@ -4,6 +4,8 @@ import com.newspaper.db.DBconnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OrderView {
@@ -98,6 +100,42 @@ public class OrderView {
             System.out.println(str);
         }
     }
+
+    /**
+     * Method that accesses the DB, gets all the order records and returns it in a form of
+     * ArrayList of Order objects
+     * @return An ArrayList of Orders
+     * @throws OrderExceptionHandler is thrown in case of error with DB or validation of the data
+     */
+//    public ArrayList<Order> getOrders() throws OrderExceptionHandler {
+//        // array list for saving all the objects of the Order class
+//        ArrayList<Order> orders = new ArrayList<>();
+//
+//        String query = "Select * from orders";
+//        ResultSet rs;
+//        try {
+//            Statement stmt = DBconnection.con.createStatement();
+//            rs = stmt.executeQuery(query);
+//            while (rs.next()) {
+//
+//                int customer_id = rs.getInt("customer_id");
+//                int publication_id = rs.getInt("publication_id");
+//                int freq = rs.getInt("frequency");
+//
+//                orders.add(new Order(customer_id, publication_id, freq));
+//            }
+//
+//        } catch (SQLException sqle) {
+//            System.out.println(sqle.getMessage());
+//            System.out.println(query);
+//
+//            throw new OrderExceptionHandler("Error: failed to read all orders.");
+//        } catch (OrderExceptionHandler e) {
+//            throw e;
+//        }
+//
+//        return orders;
+//    }
 
 // ******************************************************************************************************
 // Beginning of display a certain publication with entered ID.
