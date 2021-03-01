@@ -5,6 +5,8 @@
  */
 package com.newspaper.gui;
 
+import com.newspaper.publication.Publication;
+
 /**
  *
  * @author Ray
@@ -148,7 +150,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
-                System.out.println("hello Delivery Area");
+                System.out.println("Delivery Area Menu not yet initialised");
             }
         });
 
@@ -161,8 +163,10 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+               PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
+                dispose();
                 jButton6ActionPerformed(evt);
-                System.out.println("hello Publications");
+                publicationMainGUI.setVisible(true);
             }
         });
 
@@ -176,7 +180,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
-                System.out.println("hello Order");
+                System.out.println("Order Menu not yet initialised");
             }
         });
 
@@ -190,7 +194,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
-                System.out.println("hello Invoice");
+                System.out.println("Invoice Menu not yet initialised");
             }
         });
 

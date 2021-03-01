@@ -5,30 +5,28 @@
  */
 package com.newspaper.gui;
 
-
 import com.newspaper.deliveryperson.DeliveryPerson;
 import com.newspaper.deliveryperson.DeliveryPersonView;
 import com.newspaper.db.DBconnection;
+import com.newspaper.publication.Publication;
 import jdk.swing.interop.SwingInterOpUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.sql.*;
-
 
 /**
  *
  * @author Ray
  */
-public class CustomerMainGUI extends javax.swing.JFrame {
+public class PublicationMainGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form GuiMainMenu
      */
-    public CustomerMainGUI() {
+    public PublicationMainGUI() {
         initComponents();
         setVisible(true);
         this.setLocationRelativeTo(null);
@@ -221,37 +219,38 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                     String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
                     Connection con = DriverManager.getConnection(url, "root", "admin");
                     Statement stmt = con.createStatement();
-                    String sql = "Select * from customer";
+                    String sql = "Select * from delivery_person";
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
 
-                            int id = rs.getInt("customer_id");
+                        int id = rs.getInt("delivery_person_id");
 
-                            String firstName = rs.getString("first_name");
-                            String lastName = rs.getString("last_name");
-                            int address1 = rs.getInt("address1");
-                            String address2 = rs.getString("address2");
-                            String town = rs.getString("town");
-                            String eircode = rs.getString("eircode");
-                            String phonenumber = rs.getString("phone_number");
-                            String holidayStartDate = rs.getString("holiday_start_date");
-                            String holidayEndDate = rs.getString("holiday_end_date");
-                            boolean status = rs.getBoolean("customer_status");
-                            int deliveryAreaId = rs.getInt("delivery_area_id");
+                        String firstName = rs.getString("first_name");
+                        String lastName = rs.getString("last_name");
+                        String address1 = rs.getString("address1");
+                        String address2 = rs.getString("address2");
+                        String town = rs.getString("town");
+                        String phone_number = rs.getString("delivery_phone_number");
+                        String dob = rs.getString("dob");
+                        String access_level = rs.getString("access_level");
+                        String status = rs.getString("delivery_status");
+                        String user_name = rs.getString("user_name");
+                        String password = rs.getString("password");
 
-                            String tbData[] = {id + "", firstName, lastName, address1 + "", address2, town, eircode, phonenumber, holidayStartDate, holidayEndDate, status + "", deliveryAreaId + ""};
-                            DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
 
-                            tblModel.addRow(tbData);
-//                            customerInitialised[0] = true;
-                            //TODO change size of Db
-                        }
-                        con.close();
+                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
 
-                    } catch (Exception e) {
-                        System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+                        tblModel.addRow(tbData);
+                        personDBInitialised[0] = true;
+
                     }
+                    con.close();
+
+                } catch (Exception e) {
+                    System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+                }
 
             }
 //            }
@@ -388,7 +387,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Niagara Engraved", 0, 140)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(49, 117, 108));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Customer Menu");
+        jLabel2.setText("Publication Menu");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -429,8 +428,8 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 new Object[][]{
 
                 },
-                new String [] {
-                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "Area Id"
+                new String[]{
+                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
                 }
         ));
         jTable1.setShowGrid(true);
@@ -461,7 +460,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel3.setText("Please enter the id of the Customer that you would like to display");
+        jLabel3.setText("Please enter the id of the publication that you would like to display");
 
         jTextField1.setBackground(new java.awt.Color(0, 102, 102));
         jTextField1.setForeground(new java.awt.Color(255,0,0));
@@ -504,7 +503,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "Area Id"
+                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
                 }
         ));
         jTable2.setShowGrid(true);
@@ -613,7 +612,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel9.setText("Eircode");
+        jLabel9.setText("Phone No.");
 
         jTextField8.setBackground(new java.awt.Color(19, 28, 33));
         jTextField8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -622,7 +621,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel10.setText("Phone No.");
+        jLabel10.setText("Date of Birth");
 
         jTextField9.setBackground(new java.awt.Color(19, 28, 33));
         jTextField9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -643,14 +642,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jLabel14.setText("1-20 Characters");
 
         jLabel15.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel15.setText("Eircodes follow pattern R45XY52");
+        jLabel15.setText("Must follow pattern 0## #######");
 
         jLabel16.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel16.setText("Must follow pattern YYYY-MM-DD");
+        jLabel16.setText("1 for Admin, 2 for Employee");
 
         jLabel17.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel17.setText("Holiday Start");
+        jLabel17.setText("Access Level");
 
         jTextField10.setBackground(new java.awt.Color(19, 28, 33));
         jTextField10.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -659,7 +658,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         // Add New - DoB
         jLabel18.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel18.setText("Must follow pattern 0## #######");
+        jLabel18.setText("Must follow pattern YYYY-MM-DD");
 
 //        jLabel19.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
 //        jLabel19.setForeground(new java.awt.Color(6, 187, 163));
@@ -667,11 +666,11 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel20.setText("Holiday End");
+        jLabel20.setText("Status");
 
         jLabel21.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel21.setText("Status");
+        jLabel21.setText("User Name");
 
         jTextField11.setBackground(new java.awt.Color(19, 28, 33));
         jTextField11.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -689,7 +688,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 //        jTextField13.setText("");
 
         jLabel22.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel22.setText("Must follow pattern YYYY-MM-DD");
+        jLabel22.setText("'true' for active, 'false' for inactive");
 
         jLabel23.setForeground(new java.awt.Color(49, 117, 108));
         jLabel23.setText("1-20 Characters, no numbers");
@@ -705,7 +704,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel26.setText("Delivery Area ID");
+        jLabel26.setText("Password");
 
         jTextField15.setBackground(new java.awt.Color(19, 28, 33));
         jTextField15.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -962,7 +961,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel59.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel59.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel59.setText("Eircode");
+        jLabel59.setText("Phone No.");
 
         jTextField36.setBackground(new java.awt.Color(19, 28, 33));
         jTextField36.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -971,7 +970,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel60.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel60.setText("Phone No.");
+        jLabel60.setText("Date of Birth");
 
         jTextField37.setBackground(new java.awt.Color(19, 28, 33));
         jTextField37.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -1000,11 +999,11 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         //        Edit DoB  help text label
         jLabel66.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel66.setText("Must follow pattern 0## #######");
+        jLabel66.setText("Must follow pattern YYYY-MM-DD");
 
         jLabel67.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel67.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel67.setText("Holiday Start");
+        jLabel67.setText("Access Level");
 
         jTextField38.setBackground(new java.awt.Color(19, 28, 33));
         jTextField38.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -1013,11 +1012,11 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel70.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel70.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel70.setText("Holiday End");
+        jLabel70.setText("Status");
 
         jLabel71.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel71.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel71.setText("Status");
+        jLabel71.setText("User Name");
 
         jTextField39.setBackground(new java.awt.Color(19, 28, 33));
         jTextField39.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -1031,11 +1030,11 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         //        Edit Access Level help text label
         jLabel72.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel72.setText("Must follow pattern YYYY-MM-DD");
+        jLabel72.setText("1 for Admin, 2 for Employee");
 
         //        Edit Status Level help text label
         jLabel73.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel73.setText("Must follow pattern YYYY-MM-DD");
+        jLabel73.setText("'true' for active or 'false' for inactive");
 
         jLabel74.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(6, 187, 163));
@@ -1048,7 +1047,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel75.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel75.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel75.setText("Delivery Area ID");
+        jLabel75.setText("Password");
 
         jTextField43.setBackground(new java.awt.Color(19, 28, 33));
         jTextField43.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -1061,7 +1060,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         // EDIT Phone Number help label
         jLabel77.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel77.setText("Eircodes must follow pattern R45XY62");
+        jLabel77.setText("Must follow pattern 0## #######");
 
         //        Edit User Name help text label
         jLabel78.setForeground(new java.awt.Color(49, 117, 108));
@@ -1242,7 +1241,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel24.setText("Customer ID:");
+        jLabel24.setText("publication ID:");
         jLabel24.setToolTipText("");
 
         jTextField18.setBackground(new java.awt.Color(19, 28, 33));
@@ -1480,8 +1479,8 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 new Object[][]{
 
                 },
-                new String [] {
-                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "Area Id"
+                new String[]{
+                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
                 }
         ));
         jTable5.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1595,8 +1594,8 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 new Object[][]{
 
                 },
-                new String [] {
-                        "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "Area Id"
+                new String[]{
+                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
                 }
         ));
         jTable3.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1607,7 +1606,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         jLabel53.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel53.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel53.setText("Please enter the id of the Customer that you would like to DELETE");
+        jLabel53.setText("Please enter the id of the publication that you would like to DELETE");
 
         jTextField29.setBackground(new java.awt.Color(0, 102, 102));
         jTextField29.setFont(new java.awt.Font(null, 0, 18));
@@ -1784,27 +1783,27 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             Edit.setVisible(false);
             Delete.setVisible(true);
 
-            String sql = "Select * from customer";
+            String sql = "Select * from publication";
             Statement DeleteStmt = con.createStatement();
             ResultSet rs = DeleteStmt.executeQuery(sql);
 
             while (rs.next()) {
 //
-                int id = rs.getInt("customer_id");
+                int id = rs.getInt("delivery_person_id");
 
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
-                int address1 = rs.getInt("address1");
+                String address1 = rs.getString("address1");
                 String address2 = rs.getString("address2");
                 String town = rs.getString("town");
-                String eircode = rs.getString("eircode");
-                String phonenumber = rs.getString("phone_number");
-                String holidayStartDate = rs.getString("holiday_start_date");
-                String holidayEndDate = rs.getString("holiday_end_date");
-                boolean status = rs.getBoolean("customer_status");
-                int deliveryAreaId = rs.getInt("delivery_area_id");
+                String phone_number = rs.getString("delivery_phone_number");
+                String dob = rs.getString("dob");
+                String access_level = rs.getString("access_level");
+                String status = rs.getString("delivery_status");
+                String user_name = rs.getString("user_name");
+                String password = rs.getString("password");
 
-                String tbData[] = {id + "", firstName, lastName, address1 + "", address2, town, eircode, phonenumber, holidayStartDate, holidayEndDate, status + "", deliveryAreaId + ""};
+                String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
                 DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
 
                 tblModel.addRow(tbData);
@@ -1838,7 +1837,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 //            int result = Integer.parseInt(DPID);
 //            if(result> 0 && result < 16) {
             if (validation.validateEntry(DPID)) {
-                str = "select count(*) as total from customer where customer_id = " + DPID;
+                str = "select count(*) as total from delivery_Person where delivery_person_id = " + DPID;
                 ResultSet rs1 = stmt.executeQuery(str);
                 count = 0;
                 while (rs1.next()) {
@@ -1849,27 +1848,27 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
                     jTextField2.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField2.setText("Sucessfully displayed ID: " + DPID);
-                    String sql = "Select * from customer where customer_id = " + DPID;
+                    String sql = "Select * from delivery_person where delivery_person_id = " + DPID;
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
 //
-                        int id = rs.getInt("customer_id");
+                        int id = rs.getInt("delivery_person_id");
 
-                    String firstName = rs.getString("first_name");
-                    String lastName = rs.getString("last_name");
-                    int address1 = rs.getInt("address1");
-                    String address2 = rs.getString("address2");
-                    String town = rs.getString("town");
-                    String eircode = rs.getString("eircode");
-                    String phonenumber = rs.getString("phone_number");
-                    String holidayStartDate = rs.getString("holiday_start_date");
-                    String holidayEndDate = rs.getString("holiday_end_date");
-                    boolean status = rs.getBoolean("customer_status");
-                    int deliveryAreaId = rs.getInt("delivery_area_id");
+                        String firstName = rs.getString("first_name");
+                        String lastName = rs.getString("last_name");
+                        String address1 = rs.getString("address1");
+                        String address2 = rs.getString("address2");
+                        String town = rs.getString("town");
+                        String phone_number = rs.getString("delivery_phone_number");
+                        String dob = rs.getString("dob");
+                        String access_level = rs.getString("access_level");
+                        String status = rs.getString("delivery_status");
+                        String user_name = rs.getString("user_name");
+                        String password = rs.getString("password");
 
-                    String tbData[] = {id + "", firstName, lastName, address1 + "", address2, town, eircode, phonenumber, holidayStartDate, holidayEndDate, status + "", deliveryAreaId + ""};
-                    DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
+                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
 
                         tblModel.addRow(tbData);
                         personOneDBInitialised[0] = true;
@@ -1888,8 +1887,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         }
     }
-//TODO fix this validation!!
-    // TODO fix error messages here
+
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         if (validation.validateString(jTextField4.getText())) {
             if (validation.validateString(jTextField5.getText())) {
@@ -1903,26 +1901,26 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                                             if (validation.validateString(jTextField11.getText())) {
                                                 if (validation.validatePassword(jTextField15.getText())) {
                                                     Statement addNewPerson = con.createStatement();
-                                                    addNewPerson.executeUpdate("insert into customer values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
+                                                    addNewPerson.executeUpdate("insert into delivery_Person values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
                                                     jTextField3.setForeground(new java.awt.Color(6, 187, 163));
                                                     jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
                                                 } else {
-                                                    jTextField3.setText("Invalid Delivery Area ID");
+                                                    jTextField3.setText("Invalid Password, Passwords must be 4 characters in length");
                                                 }
                                             } else {
-                                                jTextField3.setText("Invalid Status");
+                                                jTextField3.setText("Invalid User Name, please use 1-20 characters only - Numbers are not allowed");
                                             }
                                         } else {
-                                            jTextField3.setText("Invalid Holiday End Date, must be in the format YYYY-MM-DD");
+                                            jTextField3.setText("Invalid Status level, this should be either true or false");
                                         }
                                     } else {
-                                        jTextField3.setText("Invalid Holiday STart Date, must be in the format YYYY-MM-DD");
+                                        jTextField3.setText("Invalid Access level, this should be either 1 or 2");
                                     }
                                 } else {
-                                    jTextField3.setText("Invalid Phone Number, must be in the format 0## ####### e.g. 087 1234567");
+                                    jTextField3.setText("Invalid Date of Birth, must be in the format YYYY-MM-DD");
                                 }
                             } else {
-                                jTextField3.setText("Invalid Eircode, must be in the format R45XY62 ");
+                                jTextField3.setText("Invalid Phone Number, must be in the format 0## ####### e.g. 087 1234567");
                             }
                         } else {
                             jTextField3.setText("Invalid Town Name, must be between 1-20 characters");
@@ -1950,7 +1948,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -1959,7 +1957,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateString(firstName)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET first_name = '" + firstName + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET first_name = '" + firstName + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated First Name for ID: " + editID + " to " + firstName);
                 } else {
@@ -1985,7 +1983,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -1994,7 +1992,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateString(lastName)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET last_name = '" + lastName + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET last_name = '" + lastName + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Last Name for ID: " + editID + " to " + lastName);
                 } else {
@@ -2021,7 +2019,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2030,7 +2028,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateHouseNumber(houseNumber)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET address1 = '" + houseNumber + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET address1 = '" + houseNumber + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated House Number for ID: " + editID + " to " + houseNumber);
                 } else {
@@ -2057,7 +2055,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2066,7 +2064,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateStringWithNumbers(streetName)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET address2 = '" + streetName + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET address2 = '" + streetName + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Street Name for ID: " + editID + " to " + streetName);
                 } else {
@@ -2092,7 +2090,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2101,7 +2099,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateStringWithNumbers(town)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET town = '" + town + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET town = '" + town + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Town Name for ID: " + editID + " to " + town);
                 } else {
@@ -2119,7 +2117,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     }
 
     //        Submit Button - EDIT - Phone Number *****************************
-//TODO change this to Eircode
+
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
@@ -2127,7 +2125,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2136,12 +2134,12 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validatePhoneNumber(phoneNumber)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET delivery_phone_number = '" + phoneNumber + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + phoneNumber + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Eircodes follow the pattern of R45XY62");
+                    jTextField31.setText("Phone Numbers follow the pattern of 0## #######  e.g. 087 1234567");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -2154,42 +2152,45 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     }
 
 
-//        Submit Button - EDIT - Phone NUmber *****************************
+//        Submit Button - EDIT - DoB *****************************
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
-        String phoneNumber = jTextField36.getText();
+        String dateOfBirth = jTextField37.getText();
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validatePhoneNumber(phoneNumber)) {
+                if (validation.validateDoB(dateOfBirth)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET delivery_phone_number = '" + phoneNumber + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET dob = '" + dateOfBirth + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
-                } else {
+                    jTextField31.setText("You have successfully updated Date of Birth for ID: " + editID + " to " + dateOfBirth);
+                }
+                else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Eircodes follow the pattern of R45XY62");
+                    jTextField31.setText("Date of Birth must follow the pattern of YYYY-MM-DD or YYYY-M-D  e.g. 1995-11-26");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
                 jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
             }
-        } else {
+        }
+        else
+        {
             jTextField31.setForeground(new java.awt.Color(255, 0, 0));
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-//TODO Fix this
-    //        Submit Button - EDIT - Holiday Start *****************************
+
+    //        Submit Button - EDIT - Access Level *****************************
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -2198,7 +2199,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2207,7 +2208,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateAccess(accessLevel)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET access_level = '" + accessLevel + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET access_level = '" + accessLevel + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6,187,163));
                     jTextField31.setText("You have successfully updated Access Level for ID: " + editID + " to " + accessLevel);
                 } else {
@@ -2223,8 +2224,8 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-// TODO Fix THis
-    //        Submit Button - EDIT - Holiday End *****************************
+
+    //        Submit Button - EDIT - Status *****************************
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -2233,7 +2234,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2242,7 +2243,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateStatus(status)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET delivery_status = '" + status + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET delivery_status = '" + status + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
                 } else {
@@ -2258,32 +2259,32 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-// TODO check with Yuliia if this is OK
-    //        Submit Button - EDIT - Status *****************************
+
+    //        Submit Button - EDIT - User Name *****************************
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
-        String status = jTextField40.getText();
+        String userName = jTextField39.getText();
         int count;
         String str;
         if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateStatus(status)) {
+                if (validation.validateString(userName)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET delivery_status = '" + status + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET user_name = '" + userName + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
+                    jTextField31.setText("You have successfully updated User Name for ID: " + editID + " to " + userName);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Status must be either true or false");
+                    jTextField31.setText("User Names cannot contain numbers and must be between 1 to 20 characters");
                 }
-            }else{
+            }else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
                 jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
             }
@@ -2292,8 +2293,8 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-// TODO fix this
-    //        Submit Button - EDIT - Delivery Area ID *****************************
+
+    //        Submit Button - EDIT - Password *****************************
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
@@ -2301,7 +2302,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from customer where customer_id = " + editID;
+            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2310,7 +2311,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validatePassword(password)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET password = '" + password + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_person SET password = '" + password + "' where delivery_person_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Password for ID: " + editID + " to " + password);
                 } else {
@@ -2327,6 +2328,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         }
     }
 
+//TODO fix font size for Delete table
 
     //    Delete - Submit Button Fuctionality
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -2337,11 +2339,11 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 //            Connection con = DriverManager.getConnection(url, "root", "admin");
 //            Statement stmt = con.createStatement();
             String deleteID = jTextField29.getText();
-//            Customer customer = new Customer();
+            DeliveryPerson dp = new DeliveryPerson();
             int count;
             String str;
             if (validation.validateEntry(deleteID)) {
-                str = "select count(*) as total from customer where customer_id = " + deleteID;
+                str = "select count(*) as total from delivery_Person where delivery_person_id = " + deleteID;
                 ResultSet rs1 = stmt.executeQuery(str);
                 count = 0;
                 while (rs1.next()) {
@@ -2352,28 +2354,28 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                     jTextField30.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField30.setText("Sucessfully Deleted ID: " + deleteID);
                     Statement statement = con.createStatement();
-                    statement.executeUpdate("DELETE from customer where customer_id = " + deleteID);
+                    statement.executeUpdate("DELETE from delivery_person where delivery_person_id = " + deleteID);
                     Statement DeleteStmt = con.createStatement();
-                    String sql = "Select * from customer";
+                    String sql = "Select * from delivery_person";
                     ResultSet rs = DeleteStmt.executeQuery(sql);
 
                     while (rs.next()) {
 //
-                        int id = rs.getInt("customer_id");
+                        int id = rs.getInt("delivery_person_id");
 
                         String firstName = rs.getString("first_name");
                         String lastName = rs.getString("last_name");
-                        int address1 = rs.getInt("address1");
+                        String address1 = rs.getString("address1");
                         String address2 = rs.getString("address2");
                         String town = rs.getString("town");
-                        String eircode = rs.getString("eircode");
-                        String phonenumber = rs.getString("phone_number");
-                        String holidayStartDate = rs.getString("holiday_start_date");
-                        String holidayEndDate = rs.getString("holiday_end_date");
-                        boolean status = rs.getBoolean("customer_status");
-                        int deliveryAreaId = rs.getInt("delivery_area_id");
+                        String phone_number = rs.getString("delivery_phone_number");
+                        String dob = rs.getString("dob");
+                        String access_level = rs.getString("access_level");
+                        String status = rs.getString("delivery_status");
+                        String user_name = rs.getString("user_name");
+                        String password = rs.getString("password");
 
-                        String tbData[] = {id + "", firstName, lastName, address1 + "", address2, town, eircode, phonenumber, holidayStartDate, holidayEndDate, status + "", deliveryAreaId + ""};
+                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
                         DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
 
                         tblModel.addRow(tbData);
@@ -2416,7 +2418,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerMainGUI().setVisible(true);
+                new PublicationMainGUI().setVisible(true);
             }
         });
     }
