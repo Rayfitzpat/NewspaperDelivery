@@ -565,11 +565,12 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField3.setBackground(new java.awt.Color(19, 28, 33));
         jTextField3.setForeground(java.awt.Color.red);
         jTextField3.setText("");
-        jTextField3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextField3.setHorizontalAlignment(SwingConstants.RIGHT);
         jTextField3.setBorder(null);
         jTextField3.setDisabledTextColor(new java.awt.Color(19, 28, 33));
         jTextField3.setFocusable(false);
         jTextField3.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+        jTextField3.setFont(new java.awt.Font(null,0,18));
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(6, 187, 163));
@@ -918,6 +919,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTextField31.setDisabledTextColor(new java.awt.Color(19, 28, 33));
         jTextField31.setFocusable(false);
         jTextField31.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+        jTextField31.setFont(new java.awt.Font(null,0,18));
 
         jLabel55.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel55.setForeground(new java.awt.Color(6, 187, 163));
@@ -1902,37 +1904,37 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                                                     jTextField3.setForeground(new java.awt.Color(6, 187, 163));
                                                     jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
                                                 } else {
-                                                    jTextField3.setText("Invalid Password");
+                                                    jTextField3.setText("Invalid Password, Passwords must be 4 characters in length");
                                                 }
                                             } else {
-                                                jTextField3.setText("Invalid User Name");
+                                                jTextField3.setText("Invalid User Name, please use 1-20 characters only - Numbers are not allowed");
                                             }
                                         } else {
-                                            jTextField3.setText("Invalid Status level");
+                                            jTextField3.setText("Invalid Status level, this should be either true or false");
                                         }
                                     } else {
-                                        jTextField3.setText("Invalid Access level");
+                                        jTextField3.setText("Invalid Access level, this should be either 1 or 2");
                                     }
                                 } else {
-                                    jTextField3.setText("Invalid Date of Birth");
+                                    jTextField3.setText("Invalid Date of Birth, must be in the format YYYY-MM-DD");
                                 }
                             } else {
-                                jTextField3.setText("Invalid Phone Number");
+                                jTextField3.setText("Invalid Phone Number, must be in the format 0## ####### e.g. 087 1234567");
                             }
                         } else {
-                            jTextField3.setText("Invalid Town Name");
+                            jTextField3.setText("Invalid Town Name, must be between 1-20 characters");
                         }
                     } else {
-                        jTextField3.setText("Invalid Street Name");
+                        jTextField3.setText("Invalid Street Name, must be between 1-20 characters");
                     }
                 } else {
-                    jTextField3.setText("Invalid House Number");
+                    jTextField3.setText("Invalid House Number, 1-4 characters only, beginning with a number.  i.e. 2b or 112");
                 }
             } else {
-                jTextField3.setText("Invalid Last Name");
+                jTextField3.setText("Invalid Last Name, please use 1-20 characters only - Numbers are not allowed");
             }
         } else {
-            jTextField3.setText("Invalid First Name");
+            jTextField3.setText("Invalid First Name, please use 1-20 characters only - Numbers are not allowed");
         }
     }
 
