@@ -1,19 +1,33 @@
 package com.newspaper.dailysummary;
 
+import com.newspaper.db.DBconnection;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class DailySummary {
 
     private String delivery_date;
     private double total_revenue;
     private int publications_sold;
     private int daily_summary_id;
-    private double publications_revenue;
+    private double revenue_per_publication;
 
-    public void DailySummaryConstructor(String delivery_date, double total_revenue, int publications_sold, int daily_summary_id) {
+    @Override
+    public String toString() {
+        return "delivery date, total revenue, publications sold, revenue per pub\n" +
+                 delivery_date +"       "+ total_revenue+"      "+publications_sold+"       "+revenue_per_publication;
+
+    }
+
+    public DailySummary(String delivery_date, double total_revenue, int publications_sold, double revenue_per_publication) {
         this.delivery_date = delivery_date;
         this.total_revenue = total_revenue;
         this.publications_sold = publications_sold;
-        this.daily_summary_id = daily_summary_id;
-        this.publications_revenue = publications_revenue;
+        this.revenue_per_publication = revenue_per_publication;
+    }
+    public DailySummary() {
+
     }
 
 
@@ -50,12 +64,12 @@ public class DailySummary {
         return publications_sold;
     }
 
-    public double getPublications_revenue() {
-        return publications_revenue;
+    public double getRevenue_per_publication() {
+        return revenue_per_publication;
     }
 
     public double setPublications_Revenue() {
-        return publications_revenue;
+        return revenue_per_publication;
     }
 
 
@@ -91,5 +105,19 @@ public class DailySummary {
             return false;
     }
 
+
+    public static boolean checkIfExists(String date) throws SQLException {
+        String st = "select count(*) as total from daily_summary where delivery_date = " + date;
+        ResultSet rss = DBconnection.stmt.executeQuery(st);
+        int count = 0;
+        while (rss.next()) {
+            count = rss.getInt("total");
+        }
+        if (count > 0){
+            return true;
+        }
+        else
+            return false;
+    }
 
 }
