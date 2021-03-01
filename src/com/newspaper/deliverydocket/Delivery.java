@@ -22,4 +22,20 @@ public class Delivery {
     public void printInserts() {
         System.out.println("insert into delivery values (null, " + customerId + ", " + publicationId + ", '" + date + "', 'not delivered');");
     }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public int getPublicationId() {
+        return publicationId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getDeliveryStatus() {
+        return deliveryStatus;
+    }
 }

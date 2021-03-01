@@ -1,5 +1,6 @@
 package com.newspaper.deliverydocket;
 
+import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryArea;
 import com.newspaper.order.Order;
@@ -266,8 +267,39 @@ public class DeliveryDocketDB {
         return deliveryItems;
     }
 
-
+    // this method is saving the deliveries to the DB
     public void saveDeliveries(ArrayList<Delivery> deliveries) {
+
+
+    }
+
+    public void saveDelivery(Delivery delivery) throws DeliveryDocketExceptionHandler{
+
+            // sql query
+            String insertQuery = "INSERT INTO delivery VALUES (null, ?, ?, ?, ?)";
+
+            try {
+                PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
+                pstmt.setInt(1, delivery.getCustomerId());
+                pstmt.setInt(2, delivery.getPublicationId());
+//                pstmt.setInt(3, delivery.getAddress1());
+//                pstmt.setString(4, customer.getAddress2());
+//                pstmt.setString(5, customer.getTown());
+//                pstmt.setString(6, customer.getEircode());
+//                pstmt.setString(7, customer.getPhoneNumber());
+//                pstmt.setString(8, customer.getHolidayStartDate());
+//                pstmt.setString(9, customer.getHolidayEndDate());
+//                pstmt.setString(10, customer.getStatus() + "");
+//                pstmt.setInt(11, customer.getDeliveryAreaId());
+
+                int rows = pstmt.executeUpdate();
+
+                System.out.println("Adding new customer record was successful");
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
+                System.out.println(insertQuery);
+                throw new DeliveryDocketExceptionHandler("Error: failed to add a customer record");
+            }
 
     }
 
