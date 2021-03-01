@@ -1,5 +1,6 @@
 package com.newspaper.customer;
 
+import com.newspaper.db.DBconnection;
 import junit.framework.TestCase;
 
 public class CustomerTest extends TestCase {
@@ -8,6 +9,7 @@ public class CustomerTest extends TestCase {
 
     public CustomerTest(){
         customer = new Customer();
+        DBconnection.init_db();
     }
 
 
@@ -463,6 +465,34 @@ public class CustomerTest extends TestCase {
     public void testValidateDate003() {
         try {
             customer.validateDate(null);
+
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not excpected");
+        }
+    }
+
+    //Test #: 27
+    //Test Objective: To check validation of an incorrect delivery area id
+    //Inputs: id = 58
+    //Expected Output: CustomerExceptionHandler thrown
+    public void testValidateDeliveryAreaId001() {
+        try {
+            customer.validateDeliveryArea(58);
+            fail("Exception excpected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Delivery Area with id 58 does not exist", e.getMessage());
+        }
+    }
+
+    //Test #: 27
+    //Test Objective: To check validation of an correct delivery area id
+    //Inputs: id = 4
+    //Expected Output: No exception
+    public void testValidateDeliveryAreaId002() {
+        try {
+            customer.validateDeliveryArea(4);
 
         }
         catch (CustomerExceptionHandler e) {

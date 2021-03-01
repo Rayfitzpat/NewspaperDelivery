@@ -1,5 +1,9 @@
 package com.newspaper.customer;
 
+import com.newspaper.db.DBconnection;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +24,7 @@ public class Customer {
         // validate input
         try{
             //validateDeliveryAreaId();
+            validateDeliveryArea(deliveryAreaId);
             validateAddress1(address1);
             validateName(firstName, "First name");
             validateName(lastName, "Last name");
@@ -376,6 +381,39 @@ public class Customer {
                 throw new CustomerExceptionHandler("Holiday dates are in wrong format");
             }
         }
+    }
+
+    /**
+     * Method checks if delivery area exists in the database
+     * @param deliveryAreaId the id of the delivery person that is checked
+     * @return true if delivery person exists
+     * @throws CustomerExceptionHandler thrown if delivery person does not exist
+     */
+    public boolean validateDeliveryArea(int deliveryAreaId) throws CustomerExceptionHandler {
+
+        // set the flag
+        boolean exists = false;
+
+        String query = "select count(*) as total from delivery_area where delivery_area_id = " + deliveryAreaId + ";";
+        ResultSet rs;
+        int count = - 1;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+                exists = true;
+            }
+            if(count == 0)
+            {
+                throw new CustomerExceptionHandler("Delivery Area with id " + deliveryAreaId + " does not exist");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+        }
+
+        return exists;
     }
 
     @Override
