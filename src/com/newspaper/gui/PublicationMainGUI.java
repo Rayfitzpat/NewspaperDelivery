@@ -28,7 +28,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
      */
     public PublicationMainGUI() {
         initComponents();
-        setVisible(true);
+//        setVisible(true);
         this.setLocationRelativeTo(null);
         setResizable(false);
     }
@@ -219,27 +219,21 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                     String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
                     Connection con = DriverManager.getConnection(url, "root", "admin");
                     Statement stmt = con.createStatement();
-                    String sql = "Select * from delivery_person";
+                    String sql = "Select * from publication";
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
 
-                        int id = rs.getInt("delivery_person_id");
+                        int id = rs.getInt("publication_id");
 
-                        String firstName = rs.getString("first_name");
-                        String lastName = rs.getString("last_name");
-                        String address1 = rs.getString("address1");
-                        String address2 = rs.getString("address2");
-                        String town = rs.getString("town");
-                        String phone_number = rs.getString("delivery_phone_number");
-                        String dob = rs.getString("dob");
-                        String access_level = rs.getString("access_level");
-                        String status = rs.getString("delivery_status");
-                        String user_name = rs.getString("user_name");
-                        String password = rs.getString("password");
+                        String pubName = rs.getString("publication_name");
+                        String pubFrequency = rs.getString("publication_frequency");
+                        String pubCost = rs.getString("publication_cost");
+                        String pubStock = rs.getString("publication_stock_level");
 
 
-                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+
+                        String tbData[] = {id + "", pubName, pubFrequency, pubCost, pubStock + ""};
                         DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
 
                         tblModel.addRow(tbData);
@@ -429,7 +423,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
+                        "ID", "Publication Name", "Publication Frequency", "Publication Cost", "Stock Level"
                 }
         ));
         jTable1.setShowGrid(true);
@@ -503,7 +497,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
+                        "ID", "Publication Name", "Publication Frequency", "Publication Cost", "Stock Level"
                 }
         ));
         jTable2.setShowGrid(true);
@@ -962,20 +956,24 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jLabel59.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel59.setForeground(new java.awt.Color(6, 187, 163));
         jLabel59.setText("Phone No.");
+        jLabel59.setVisible(false);
 
         jTextField36.setBackground(new java.awt.Color(19, 28, 33));
         jTextField36.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField36.setForeground(new java.awt.Color(6, 187, 163));
         jTextField36.setText("");
+        jTextField36.setVisible(false);
 
         jLabel60.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(6, 187, 163));
         jLabel60.setText("Date of Birth");
+        jLabel60.setVisible(false);
 
         jTextField37.setBackground(new java.awt.Color(19, 28, 33));
         jTextField37.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField37.setForeground(new java.awt.Color(6, 187, 163));
         jTextField37.setText("");
+        jTextField37.setVisible(false);
 
         //        Edit First Name  help text label
         jLabel61.setForeground(new java.awt.Color(49, 117, 108));
@@ -1004,29 +1002,35 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jLabel67.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel67.setForeground(new java.awt.Color(6, 187, 163));
         jLabel67.setText("Access Level");
+        jLabel67.setVisible(false);
 
         jTextField38.setBackground(new java.awt.Color(19, 28, 33));
         jTextField38.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField38.setForeground(new java.awt.Color(6, 187, 163));
         jTextField38.setText("");
+        jTextField38.setVisible(false);
 
         jLabel70.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel70.setForeground(new java.awt.Color(6, 187, 163));
         jLabel70.setText("Status");
+        jLabel70.setVisible(false);
 
         jLabel71.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel71.setForeground(new java.awt.Color(6, 187, 163));
         jLabel71.setText("User Name");
+        jLabel71.setVisible(false);
 
         jTextField39.setBackground(new java.awt.Color(19, 28, 33));
         jTextField39.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField39.setForeground(new java.awt.Color(6, 187, 163));
         jTextField39.setText("");
+        jTextField39.setVisible(false);
 
         jTextField40.setBackground(new java.awt.Color(19, 28, 33));
         jTextField40.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField40.setForeground(new java.awt.Color(6, 187, 163));
         jTextField40.setText("");
+        jTextField40.setVisible(false);
 
         //        Edit Access Level help text label
         jLabel72.setForeground(new java.awt.Color(49, 117, 108));
@@ -1039,20 +1043,24 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jLabel74.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(6, 187, 163));
         jLabel74.setText("Town");
+        jLabel74.setVisible(false);
 
         jTextField42.setBackground(new java.awt.Color(19, 28, 33));
         jTextField42.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField42.setForeground(new java.awt.Color(6, 187, 163));
         jTextField42.setText("");
+        jTextField42.setVisible(false);
 
         jLabel75.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel75.setForeground(new java.awt.Color(6, 187, 163));
         jLabel75.setText("Password");
+        jLabel75.setVisible(false);
 
         jTextField43.setBackground(new java.awt.Color(19, 28, 33));
         jTextField43.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField43.setForeground(new java.awt.Color(6, 187, 163));
         jTextField43.setText("");
+        jTextField43.setVisible(false);
 
         //        Edit Password help text label
         jLabel76.setForeground(new java.awt.Color(49, 117, 108));
@@ -1480,7 +1488,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
+                        "ID", "Publication Name", "Publication Frequency", "Publication Cost", "Stock Level"
                 }
         ));
         jTable5.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1595,7 +1603,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
+                        "ID", "Publication Name", "Publication Frequency", "Publication Cost", "Stock Level"
                 }
         ));
         jTable3.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1789,21 +1797,16 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
             while (rs.next()) {
 //
-                int id = rs.getInt("delivery_person_id");
+                int id = rs.getInt("publication_id");
 
-                String firstName = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
-                String address1 = rs.getString("address1");
-                String address2 = rs.getString("address2");
-                String town = rs.getString("town");
-                String phone_number = rs.getString("delivery_phone_number");
-                String dob = rs.getString("dob");
-                String access_level = rs.getString("access_level");
-                String status = rs.getString("delivery_status");
-                String user_name = rs.getString("user_name");
-                String password = rs.getString("password");
+                String pubName = rs.getString("publication_name");
+                String pubFrequency = rs.getString("publication_frequency");
+                String pubCost = rs.getString("publication_cost");
+                String pubStock = rs.getString("publication_stock_level");
 
-                String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+
+
+                String tbData[] = {id + "", pubName, pubFrequency, pubCost, pubStock + ""};
                 DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
 
                 tblModel.addRow(tbData);
@@ -1837,7 +1840,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 //            int result = Integer.parseInt(DPID);
 //            if(result> 0 && result < 16) {
             if (validation.validateEntry(DPID)) {
-                str = "select count(*) as total from delivery_Person where delivery_person_id = " + DPID;
+                str = "select count(*) as total from publication where publication_id = " + DPID;
                 ResultSet rs1 = stmt.executeQuery(str);
                 count = 0;
                 while (rs1.next()) {
@@ -1848,26 +1851,21 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                     jTextField2.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField2.setText("Sucessfully displayed ID: " + DPID);
-                    String sql = "Select * from delivery_person where delivery_person_id = " + DPID;
+                    String sql = "Select * from publication where publication_id = " + DPID;
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
 //
-                        int id = rs.getInt("delivery_person_id");
+                        int id = rs.getInt("publication_id");
 
-                        String firstName = rs.getString("first_name");
-                        String lastName = rs.getString("last_name");
-                        String address1 = rs.getString("address1");
-                        String address2 = rs.getString("address2");
-                        String town = rs.getString("town");
-                        String phone_number = rs.getString("delivery_phone_number");
-                        String dob = rs.getString("dob");
-                        String access_level = rs.getString("access_level");
-                        String status = rs.getString("delivery_status");
-                        String user_name = rs.getString("user_name");
-                        String password = rs.getString("password");
+                        String pubName = rs.getString("publication_name");
+                        String pubFrequency = rs.getString("publication_frequency");
+                        String pubCost = rs.getString("publication_cost");
+                        String pubStock = rs.getString("publication_stock_level");
 
-                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+
+
+                        String tbData[] = {id + "", pubName, pubFrequency, pubCost, pubStock + ""};
                         DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
 
                         tblModel.addRow(tbData);
@@ -1901,7 +1899,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                                             if (validation.validateString(jTextField11.getText())) {
                                                 if (validation.validatePassword(jTextField15.getText())) {
                                                     Statement addNewPerson = con.createStatement();
-                                                    addNewPerson.executeUpdate("insert into delivery_Person values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
+                                                    addNewPerson.executeUpdate("insert into publication values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
                                                     jTextField3.setForeground(new java.awt.Color(6, 187, 163));
                                                     jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
                                                 } else {
@@ -1948,7 +1946,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -1957,7 +1955,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateString(firstName)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET first_name = '" + firstName + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET first_name = '" + firstName + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated First Name for ID: " + editID + " to " + firstName);
                 } else {
@@ -1983,7 +1981,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -1992,7 +1990,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateString(lastName)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET last_name = '" + lastName + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET last_name = '" + lastName + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Last Name for ID: " + editID + " to " + lastName);
                 } else {
@@ -2019,7 +2017,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2028,7 +2026,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateHouseNumber(houseNumber)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET address1 = '" + houseNumber + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET address1 = '" + houseNumber + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated House Number for ID: " + editID + " to " + houseNumber);
                 } else {
@@ -2055,7 +2053,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2064,7 +2062,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateStringWithNumbers(streetName)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET address2 = '" + streetName + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET address2 = '" + streetName + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Street Name for ID: " + editID + " to " + streetName);
                 } else {
@@ -2090,7 +2088,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2099,7 +2097,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateStringWithNumbers(town)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET town = '" + town + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET town = '" + town + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Town Name for ID: " + editID + " to " + town);
                 } else {
@@ -2125,7 +2123,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2134,7 +2132,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validatePhoneNumber(phoneNumber)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET delivery_phone_number = '" + phoneNumber + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET delivery_phone_number = '" + phoneNumber + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
                 } else {
@@ -2161,7 +2159,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2170,7 +2168,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateDoB(dateOfBirth)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET dob = '" + dateOfBirth + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET dob = '" + dateOfBirth + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Date of Birth for ID: " + editID + " to " + dateOfBirth);
                 }
@@ -2199,7 +2197,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2208,7 +2206,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateAccess(accessLevel)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET access_level = '" + accessLevel + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET access_level = '" + accessLevel + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6,187,163));
                     jTextField31.setText("You have successfully updated Access Level for ID: " + editID + " to " + accessLevel);
                 } else {
@@ -2234,7 +2232,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2243,7 +2241,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateStatus(status)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET delivery_status = '" + status + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET delivery_status = '" + status + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
                 } else {
@@ -2268,7 +2266,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2277,7 +2275,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateString(userName)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET user_name = '" + userName + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET user_name = '" + userName + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated User Name for ID: " + editID + " to " + userName);
                 } else {
@@ -2302,7 +2300,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from delivery_Person where delivery_person_id = " + editID;
+            str = "select count(*) as total from publication where publication_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -2311,7 +2309,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validatePassword(password)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_person SET password = '" + password + "' where delivery_person_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update publication SET password = '" + password + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Password for ID: " + editID + " to " + password);
                 } else {
@@ -2343,7 +2341,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             int count;
             String str;
             if (validation.validateEntry(deleteID)) {
-                str = "select count(*) as total from delivery_Person where delivery_person_id = " + deleteID;
+                str = "select count(*) as total from publication where publication_id = " + deleteID;
                 ResultSet rs1 = stmt.executeQuery(str);
                 count = 0;
                 while (rs1.next()) {
@@ -2354,28 +2352,24 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                     jTextField30.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField30.setText("Sucessfully Deleted ID: " + deleteID);
                     Statement statement = con.createStatement();
-                    statement.executeUpdate("DELETE from delivery_person where delivery_person_id = " + deleteID);
+                    statement.executeUpdate("DELETE from publication where publication_id = " + deleteID);
                     Statement DeleteStmt = con.createStatement();
-                    String sql = "Select * from delivery_person";
+                    String sql = "Select * from publication";
                     ResultSet rs = DeleteStmt.executeQuery(sql);
 
                     while (rs.next()) {
 //
-                        int id = rs.getInt("delivery_person_id");
 
-                        String firstName = rs.getString("first_name");
-                        String lastName = rs.getString("last_name");
-                        String address1 = rs.getString("address1");
-                        String address2 = rs.getString("address2");
-                        String town = rs.getString("town");
-                        String phone_number = rs.getString("delivery_phone_number");
-                        String dob = rs.getString("dob");
-                        String access_level = rs.getString("access_level");
-                        String status = rs.getString("delivery_status");
-                        String user_name = rs.getString("user_name");
-                        String password = rs.getString("password");
+                        int id = rs.getInt("publication_id");
 
-                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                        String pubName = rs.getString("publication_name");
+                        String pubFrequency = rs.getString("publication_frequency");
+                        String pubCost = rs.getString("publication_cost");
+                        String pubStock = rs.getString("publication_stock_level");
+
+
+
+                        String tbData[] = {id + "", pubName, pubFrequency, pubCost, pubStock + ""};
                         DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
 
                         tblModel.addRow(tbData);
