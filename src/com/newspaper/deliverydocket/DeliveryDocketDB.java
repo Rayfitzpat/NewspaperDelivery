@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class DeliveryDocketDB {
 
+    // --- Talk with Mark about adding generate deliveries for person, after he adds a subscription
+
     public static void main(String[] args) throws DeliveryDocketExceptionHandler {
         DBconnection.init_db();
         DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
@@ -43,15 +45,21 @@ public class DeliveryDocketDB {
 //        }
 
 
-        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(7, "2021-06-01");
+        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(10, "2021-01-01"); // delivery person inactiv exception may be thrown
         System.out.println(docket);
         System.out.println("Saving...");
         deliveryDocketDB.createDeliveryDocketFile(docket);
 
-//        ArrayList <Delivery> deliveries = deliveryDocketDB.generateDeliveriesForMonth(1);
-//        System.out.println(deliveries.size());
-//        for (Delivery p : deliveries){
-//            p.printInserts();
+//        // generating deliveries flow
+//        int month = 1; // Feb
+//        // check if deliveries for this month weren't generated before
+//        if (!deliveryDocketDB.deliveriesForThisMonthExists(month)) {
+//            ArrayList <Delivery> deliveries = deliveryDocketDB.generateDeliveriesForMonth(month);
+//            System.out.println(deliveries.size());
+//            deliveryDocketDB.saveDeliveries(deliveries);
+//        }
+//        else {
+//            System.out.println("Deliveries for " + month + " month already exist");
 //        }
     }
 
@@ -225,52 +233,52 @@ public class DeliveryDocketDB {
         // this list will contain all generated deliveries
         ArrayList<Delivery> deliveryItems = new ArrayList<>();
 
-        // first check if the deliveries for this month wasn't generated before
-        if (!deliveriesForThisMonthExists(month)) {
-            try {
-                // get list of orders to be able to create deliveries
-                ArrayList<Order> orders = ut.getOrders();
-                String deliveryStatus = "not delivered"; // default value
-
-                // padding month to always be 2 digits (e.g. 1 > 01, 2 > 02)
-                String m;
-                if (String.valueOf(month).length() == 1) {
-                    m = "0" + month;
-                } else {
-                    m = "" + month;
-                }
-                LocalDate startDate = convertDate("2021-" + m + "-01");
-                YearMonth thisYearMonth = YearMonth.of(2021, month);
-                LocalDate endDate = thisYearMonth.atEndOfMonth();
-
-                // loop through orders
-                for (Order order : orders) {
-                    int customer_id = order.getCustomer_id();
-                    int publication_id = order.getPublication_id();
-                    int freq = order.getFrequency();
-
-                    // this loop is starting and the beginning of the month,
-                    // on every day it checks if that day corresponds to frequency
-                    // if yes, the new Delivery with that date is added to the DB
-                    for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
-                        // check if date corresponds to frequency
-                        if (ut.getDayNumber(date) == freq) {
-                            deliveryItems.add(new Delivery(customer_id, publication_id, date, deliveryStatus));
-                        }
+        try {
+            // get list of orders to be able to create deliveries
+            ArrayList<Order> orders = ut.getOrders();
+            String deliveryStatus = "not delivered"; // default value
+            // padding month to always be 2 digits (e.g. 1 > 01, 2 > 02)
+            String m;
+            if (String.valueOf(month).length() == 1) {
+                m = "0" + month;
+            } else {
+                m = "" + month;
+            }
+            LocalDate startDate = convertDate("2021-" + m + "-01");
+            YearMonth thisYearMonth = YearMonth.of(2021, month);
+            LocalDate endDate = thisYearMonth.atEndOfMonth();
+            // loop through orders
+            for (Order order : orders) {
+                int customer_id = order.getCustomer_id();
+                int publication_id = order.getPublication_id();
+                int freq = order.getFrequency();
+                // this loop is starting and the beginning of the month,
+                // on every day it checks if that day corresponds to frequency
+                // if yes, the new Delivery with that date is added to the DB
+                for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+                    // check if date corresponds to frequency
+                    if (ut.getDayNumber(date) == freq) {
+                        deliveryItems.add(new Delivery(customer_id, publication_id, date, deliveryStatus));
                     }
                 }
-
-            } catch (OrderExceptionHandler e) {
-                System.out.println(e.getMessage());
             }
+        } catch (OrderExceptionHandler e) {
+                System.out.println(e.getMessage());
         }
         return deliveryItems;
     }
 
     // this method is saving the deliveries to the DB
     public void saveDeliveries(ArrayList<Delivery> deliveries) {
-
-
+        // run saveDelivery( method on every delivery in the ArrayList)
+        try {
+            for (Delivery d : deliveries) {
+                saveDelivery(d);
+            }
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void saveDelivery(Delivery delivery) throws DeliveryDocketExceptionHandler{
@@ -282,23 +290,16 @@ public class DeliveryDocketDB {
                 PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
                 pstmt.setInt(1, delivery.getCustomerId());
                 pstmt.setInt(2, delivery.getPublicationId());
-//                pstmt.setInt(3, delivery.getAddress1());
-//                pstmt.setString(4, customer.getAddress2());
-//                pstmt.setString(5, customer.getTown());
-//                pstmt.setString(6, customer.getEircode());
-//                pstmt.setString(7, customer.getPhoneNumber());
-//                pstmt.setString(8, customer.getHolidayStartDate());
-//                pstmt.setString(9, customer.getHolidayEndDate());
-//                pstmt.setString(10, customer.getStatus() + "");
-//                pstmt.setInt(11, customer.getDeliveryAreaId());
+                pstmt.setString(3, delivery.getDate());
+                pstmt.setString(4, delivery.getDeliveryStatus());
 
                 int rows = pstmt.executeUpdate();
 
-                System.out.println("Adding new customer record was successful");
+                System.out.println("Adding new delivery record was successful");
             } catch (SQLException sqle) {
                 System.out.println(sqle.getMessage());
                 System.out.println(insertQuery);
-                throw new DeliveryDocketExceptionHandler("Error: failed to add a customer record");
+                throw new DeliveryDocketExceptionHandler("Error: failed to add a delivery record");
             }
 
     }

@@ -31,8 +31,8 @@ public class Delivery {
         return publicationId;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getDate() {
+        return date.toString();
     }
 
     public String getDeliveryStatus() {
