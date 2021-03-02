@@ -107,12 +107,12 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-//        jLabel19 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
-//        jTextField13 = new javax.swing.JTextField();
+        jTextField13 = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -122,7 +122,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
-//        jLabel29 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         jLabel54 = new javax.swing.JLabel();
         Edit = new javax.swing.JPanel();
         AddNew2 = new javax.swing.JPanel();
@@ -135,46 +135,15 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jLabel58 = new javax.swing.JLabel();
         jTextField34 = new javax.swing.JTextField();
         jTextField35 = new javax.swing.JTextField();
-        jLabel59 = new javax.swing.JLabel();
-        jTextField36 = new javax.swing.JTextField();
-        jLabel60 = new javax.swing.JLabel();
-        jTextField37 = new javax.swing.JTextField();
         jLabel61 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
         jLabel63 = new javax.swing.JLabel();
-        jLabel64 = new javax.swing.JLabel();
-        jLabel65 = new javax.swing.JLabel();
-        jLabel66 = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
-        jTextField38 = new javax.swing.JTextField();
-//        jLabel68 = new javax.swing.JLabel();
-//        jLabel69 = new javax.swing.JLabel();
-        jLabel70 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
-        jTextField39 = new javax.swing.JTextField();
-        jTextField40 = new javax.swing.JTextField();
-//        jTextField41 = new javax.swing.JTextField();
-        jLabel72 = new javax.swing.JLabel();
-        jLabel73 = new javax.swing.JLabel();
-        jLabel74 = new javax.swing.JLabel();
-        jTextField42 = new javax.swing.JTextField();
-        jLabel75 = new javax.swing.JLabel();
-        jTextField43 = new javax.swing.JTextField();
-        jLabel76 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
-        jLabel78 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         jTextField18 = new javax.swing.JTextField();
         Deactivate = new javax.swing.JPanel();
@@ -195,10 +164,6 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTextField29 = new javax.swing.JTextField();
         jButton22 = new javax.swing.JButton();
         jTextField30 = new javax.swing.JTextField();
-
-        final boolean[] personDBInitialised = {false};
-        final boolean[] personOneDBInitialised = {false};
-
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(19, 28, 33));
@@ -237,7 +202,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                         DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
 
                         tblModel.addRow(tbData);
-                        personDBInitialised[0] = true;
+
 
                     }
                     con.close();
@@ -247,7 +212,6 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                 }
 
             }
-//            }
         });
 
         jButton3.setBackground(new java.awt.Color(19, 28, 33));
@@ -419,7 +383,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTable1.setFont(new Font( null,0, 15));
         jTable1.setFillsViewportHeight(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
+                new Object [][] {
 
                 },
                 new String[]{
@@ -493,7 +457,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTable2.setFont(new Font( null,0, 15));
         jTable2.setFillsViewportHeight(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
+                new Object [][] {
 
                 },
                 new String[]{
@@ -654,9 +618,9 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(49, 117, 108));
         jLabel18.setText("Must follow pattern YYYY-MM-DD");
 
-//        jLabel19.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-//        jLabel19.setForeground(new java.awt.Color(6, 187, 163));
-//        jLabel19.setText("??????");
+        jLabel19.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(6, 187, 163));
+        jLabel19.setText("??????");
 
         jLabel20.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(6, 187, 163));
@@ -676,10 +640,10 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTextField12.setForeground(new java.awt.Color(6, 187, 163));
         jTextField12.setText("");
 
-//        jTextField13.setBackground(new java.awt.Color(19, 28, 33));
-//        jTextField13.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-//        jTextField13.setForeground(new java.awt.Color(6, 187, 163));
-//        jTextField13.setText("");
+        jTextField13.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField13.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField13.setForeground(new java.awt.Color(6, 187, 163));
+        jTextField13.setText("123");
 
         jLabel22.setForeground(new java.awt.Color(49, 117, 108));
         jLabel22.setText("'true' for active, 'false' for inactive");
@@ -725,8 +689,8 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             }
         });
 
-//        jLabel29.setForeground(new java.awt.Color(49, 117, 108));
-//        jLabel29.setText("1-20 characters, no numbers");
+        jLabel29.setForeground(new java.awt.Color(49, 117, 108));
+        jLabel29.setText("1-20 characters, no numbers");
 
         jLabel54.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel54.setForeground(new java.awt.Color(6, 187, 163));
@@ -775,7 +739,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                                                                                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                         .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-//                                                                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                                         .addGroup(AddNewLayout.createSequentialGroup()
                                                                 .addGap(3, 3, 3)
@@ -787,20 +751,19 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                                                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                                                 .addGroup(AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-//                                                        .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-//                                                        .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                ))
+                                                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(AddNewLayout.createSequentialGroup()
                                                 .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -882,21 +845,18 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                                                         .addGroup(AddNewLayout.createSequentialGroup()
                                                                 .addGap(45, 45, 45)
                                                                 .addGroup(AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-//                                                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                ))
+                                                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                         .addGroup(AddNewLayout.createSequentialGroup()
-                                                                        .addGap(6, 6, 6)
-                                                                        .addComponent(jLabel27)
-                                                                        .addGap(24, 24, 24)
-//                                                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        ))))
+                                                                .addGap(6, 6, 6)
+                                                                .addComponent(jLabel27)
+                                                                .addGap(24, 24, 24)
+                                                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(AddNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel15)
-//                                        .addComponent(jLabel29)
-                                )
+                                        .addComponent(jLabel15)
+                                        .addComponent(jLabel29))
                                 .addGap(25, 25, 25)
                                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27))
@@ -951,128 +911,19 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTextField35.setBackground(new java.awt.Color(19, 28, 33));
         jTextField35.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField35.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField35.setText("");
+        jTextField35.setText("123");
 
-        jLabel59.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel59.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel59.setText("Phone No.");
-        jLabel59.setVisible(false);
-
-        jTextField36.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField36.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField36.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField36.setText("");
-        jTextField36.setVisible(false);
-
-        jLabel60.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel60.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel60.setText("Date of Birth");
-        jLabel60.setVisible(false);
-
-        jTextField37.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField37.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField37.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField37.setText("");
-        jTextField37.setVisible(false);
-
-        //        Edit First Name  help text label
         jLabel61.setForeground(new java.awt.Color(49, 117, 108));
         jLabel61.setText("1-20 characters, no numbers");
 
-        //        Edit Last Name  help text label
         jLabel62.setForeground(new java.awt.Color(49, 117, 108));
         jLabel62.setText("1-20 characters, no numbers");
 
-        //        Edit House Number  help text label
         jLabel63.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel63.setText("1-4 Numbers");
+        jLabel63.setText("1-20 characters, no numbers");
 
-        //        Edit Street Name  help text label
-        jLabel64.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel64.setText("1-20 characters");
-
-        //        Edit Town Name  help text label
-        jLabel65.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel65.setText("1-20 characters");
-
-        //        Edit DoB  help text label
-        jLabel66.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel66.setText("Must follow pattern YYYY-MM-DD");
-
-        jLabel67.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel67.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel67.setText("Access Level");
-        jLabel67.setVisible(false);
-
-        jTextField38.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField38.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField38.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField38.setText("");
-        jTextField38.setVisible(false);
-
-        jLabel70.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel70.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel70.setText("Status");
-        jLabel70.setVisible(false);
-
-        jLabel71.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel71.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel71.setText("User Name");
-        jLabel71.setVisible(false);
-
-        jTextField39.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField39.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField39.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField39.setText("");
-        jTextField39.setVisible(false);
-
-        jTextField40.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField40.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField40.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField40.setText("");
-        jTextField40.setVisible(false);
-
-        //        Edit Access Level help text label
-        jLabel72.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel72.setText("1 for Admin, 2 for Employee");
-
-        //        Edit Status Level help text label
-        jLabel73.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel73.setText("'true' for active or 'false' for inactive");
-
-        jLabel74.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel74.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel74.setText("Town");
-        jLabel74.setVisible(false);
-
-        jTextField42.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField42.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField42.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField42.setText("");
-        jTextField42.setVisible(false);
-
-        jLabel75.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel75.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel75.setText("Password");
-        jLabel75.setVisible(false);
-
-        jTextField43.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField43.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField43.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField43.setText("");
-        jTextField43.setVisible(false);
-
-        //        Edit Password help text label
-        jLabel76.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel76.setText("4 characters only");
-
-        // EDIT Phone Number help label
         jLabel77.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel77.setText("Must follow pattern 0## #######");
-
-        //        Edit User Name help text label
-        jLabel78.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel78.setText("1-20 characters, no numbers");
+        jLabel77.setText("1-20 characters, no numbers");
 
         jLabel79.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(6, 187, 163));
@@ -1126,20 +977,20 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             }
         });
 
-        // Submit button EDIT - Town Name ******************************************************
-        jButton13.setBackground(new java.awt.Color(49, 117, 108));
-        jButton13.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(0, 0, 0));
-        jButton13.setText("Submit");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton13ActionPerformed(evt);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        });
+//        // Submit button EDIT - Town Name ******************************************************
+//        jButton13.setBackground(new java.awt.Color(49, 117, 108));
+//        jButton13.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+//        jButton13.setForeground(new java.awt.Color(0, 0, 0));
+//        jButton13.setText("Submit");
+//        jButton13.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                try {
+//                    jButton13ActionPerformed(evt);
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//            }
+//        });
 
 
         // Submit button EDIT - Street Name ******************************************************
@@ -1157,95 +1008,95 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             }
         });
 
-        // Submit button EDIT - Phone Number ******************************************************
-        jButton15.setBackground(new java.awt.Color(49, 117, 108));
-        jButton15.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton15.setForeground(new java.awt.Color(0, 0, 0));
-        jButton15.setText("Submit");
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton15ActionPerformed(evt);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        });
-
-
-        // Submit button EDIT - Date Of Birth ******************************************************
-        jButton16.setBackground(new java.awt.Color(49, 117, 108));
-        jButton16.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton16.setForeground(new java.awt.Color(0, 0, 0));
-        jButton16.setText("Submit");
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton16ActionPerformed(evt);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        });
-        // Submit button EDIT - Access Level ******************************************************
-        jButton17.setBackground(new java.awt.Color(49, 117, 108));
-        jButton17.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton17.setForeground(new java.awt.Color(0, 0, 0));
-        jButton17.setText("Submit");
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton17ActionPerformed(evt);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        });
-
-        // Submit button EDIT - Status  ******************************************************
-        jButton18.setBackground(new java.awt.Color(49, 117, 108));
-        jButton18.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton18.setForeground(new java.awt.Color(0, 0, 0));
-        jButton18.setText("Submit");
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton18ActionPerformed(evt);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        });
-
-        // Submit button EDIT - User Name  ******************************************************
-        jButton19.setBackground(new java.awt.Color(49, 117, 108));
-        jButton19.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton19.setForeground(new java.awt.Color(0, 0, 0));
-        jButton19.setText("Submit");
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton19ActionPerformed(evt);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        });
-
-        // Submit button EDIT - Password  ******************************************************
-        jButton20.setBackground(new java.awt.Color(49, 117, 108));
-        jButton20.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton20.setForeground(new java.awt.Color(0, 0, 0));
-        jButton20.setText("Submit");
-        jButton20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton20ActionPerformed(evt);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        });
+//        // Submit button EDIT - Phone Number ******************************************************
+//        jButton15.setBackground(new java.awt.Color(49, 117, 108));
+//        jButton15.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+//        jButton15.setForeground(new java.awt.Color(0, 0, 0));
+//        jButton15.setText("Submit");
+//        jButton15.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                try {
+//                    jButton15ActionPerformed(evt);
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//            }
+//        });
+//
+//
+//        // Submit button EDIT - Date Of Birth ******************************************************
+//        jButton16.setBackground(new java.awt.Color(49, 117, 108));
+//        jButton16.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+//        jButton16.setForeground(new java.awt.Color(0, 0, 0));
+//        jButton16.setText("Submit");
+//        jButton16.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                try {
+//                    jButton16ActionPerformed(evt);
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//            }
+//        });
+//        // Submit button EDIT - Access Level ******************************************************
+//        jButton17.setBackground(new java.awt.Color(49, 117, 108));
+//        jButton17.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+//        jButton17.setForeground(new java.awt.Color(0, 0, 0));
+//        jButton17.setText("Submit");
+//        jButton17.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                try {
+//                    jButton17ActionPerformed(evt);
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        // Submit button EDIT - Status  ******************************************************
+//        jButton18.setBackground(new java.awt.Color(49, 117, 108));
+//        jButton18.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+//        jButton18.setForeground(new java.awt.Color(0, 0, 0));
+//        jButton18.setText("Submit");
+//        jButton18.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                try {
+//                    jButton18ActionPerformed(evt);
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        // Submit button EDIT - User Name  ******************************************************
+//        jButton19.setBackground(new java.awt.Color(49, 117, 108));
+//        jButton19.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+//        jButton19.setForeground(new java.awt.Color(0, 0, 0));
+//        jButton19.setText("Submit");
+//        jButton19.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                try {
+//                    jButton19ActionPerformed(evt);
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        // Submit button EDIT - Password  ******************************************************
+//        jButton20.setBackground(new java.awt.Color(49, 117, 108));
+//        jButton20.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+//        jButton20.setForeground(new java.awt.Color(0, 0, 0));
+//        jButton20.setText("Submit");
+//        jButton20.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                try {
+//                    jButton20ActionPerformed(evt);
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//            }
+//        });
 
         jLabel24.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 0, 0));
@@ -1269,8 +1120,6 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                                                 .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                 .addComponent(jLabel55, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jLabel74, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1280,79 +1129,35 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                                                         .addGroup(AddNew2Layout.createSequentialGroup()
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addGroup(AddNew2Layout.createSequentialGroup()
+                                                                        .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNew2Layout.createSequentialGroup()
-                                                                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                                        .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                                                                                                .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                                                .addGap(18, 18, 18)
-                                                                                                                                                .addComponent(jButton10))
-                                                                                                                                        .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                                                                                                .addComponent(jTextField42, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                                                .addGap(18, 18, 18)
-                                                                                                                                                .addComponent(jButton13))
-                                                                                                                                        .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                                        .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                                                                                                .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                                                .addGap(18, 18, 18)
-                                                                                                                                                .addComponent(jButton11))
-                                                                                                                                        .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                                                                                .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                                                                                        .addComponent(jTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                                        .addGap(18, 18, 18)
-                                                                                                                                        .addComponent(jButton14)))
-                                                                                                                        .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                                                                .addGap(185, 185, 185))
+                                                                                        .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                                                         .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                                                                .addComponent(jTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                                                 .addGap(18, 18, 18)
-                                                                                                                .addComponent(jButton15)
-                                                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                                .addComponent(jButton10))
+                                                                                                        .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                                         .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                                        .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                        .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                        .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                        .addComponent(jLabel67))
-                                                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNew2Layout.createSequentialGroup()
-                                                                                                                .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addGap(42, 42, 42)))
-                                                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                        .addComponent(jTextField37, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addComponent(jLabel66, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addComponent(jTextField40, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addComponent(jTextField39, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addComponent(jTextField43, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addComponent(jLabel76, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addComponent(jTextField38, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                                                .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                .addGap(18, 18, 18)
-                                                                                                .addComponent(jButton12)))
-                                                                                .addGap(18, 18, 18)
-                                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(jButton17)
-                                                                                        .addComponent(jButton16)
-                                                                                        .addComponent(jButton18)
-                                                                                        .addComponent(jButton19)
-                                                                                        .addComponent(jButton20)))
+                                                                                                                .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(18, 18, 18)
+                                                                                                                .addComponent(jButton11))
+                                                                                                        .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                                .addGroup(AddNew2Layout.createSequentialGroup()
+                                                                                                        .addComponent(jTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                        .addGap(18, 18, 18)
+                                                                                                        .addComponent(jButton14)))
+                                                                                        .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(AddNew2Layout.createSequentialGroup()
+                                                                                        .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addGap(18, 18, 18)
+                                                                                        .addComponent(jButton12)))
                                                                         .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                         .addGroup(AddNew2Layout.createSequentialGroup()
                                                                 .addGap(24, 24, 24)
-                                                                .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                                .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(243, 243, 243))
                                         .addGroup(AddNew2Layout.createSequentialGroup()
                                                 .addGap(104, 104, 104)
                                                 .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1365,16 +1170,9 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                                         .addGroup(AddNew2Layout.createSequentialGroup()
                                                 .addContainerGap()
                                                 .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(138, 138, 138)
-                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton16)
-                                                        .addComponent(jTextField37, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel66)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(AddNew2Layout.createSequentialGroup()
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addContainerGap(52, Short.MAX_VALUE)
                                                 .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNew2Layout.createSequentialGroup()
@@ -1393,75 +1191,26 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                                         .addGroup(AddNew2Layout.createSequentialGroup()
                                                 .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton11)
-                                                        .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jButton11))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jLabel62))
                                         .addGroup(AddNew2Layout.createSequentialGroup()
-                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                .addGap(12, 12, 12)
-                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                        .addComponent(jTextField38, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jButton17))))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel72)
-                                                .addGap(16, 16, 16)
+                                                .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(44, 44, 44)
                                                 .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton12)
-                                                        .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jTextField40, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton18))
+                                                        .addComponent(jButton12))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                        .addComponent(jLabel63)
-                                                                        .addComponent(jLabel73))
-                                                                .addGap(28, 28, 28)
-                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                        .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jButton14)
-                                                                        .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                .addComponent(jTextField39, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jButton19)))))
-                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                .addGap(10, 10, 10)
-                                                                .addComponent(jLabel64)
-                                                                .addGap(26, 26, 26)
-                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                        .addComponent(jTextField42, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jButton13)))
-                                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                                .addGap(12, 12, 12)
-                                                                .addComponent(jLabel78)
-                                                                .addGap(32, 32, 32)
-                                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                        .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jTextField43, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jButton20))))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel65))
-                                        .addGroup(AddNew2Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel76)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton15))
+                                                .addComponent(jLabel63)
+                                                .addGap(28, 28, 28)
+                                                .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jButton14))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel77)
-                                .addGap(46, 46, 46))
+                                .addGap(236, 236, 236))
         );
 
         javax.swing.GroupLayout EditLayout = new javax.swing.GroupLayout(Edit);
@@ -1484,7 +1233,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTable5.setBackground(new java.awt.Color(19, 28, 33));
         jTable5.setForeground(new java.awt.Color(49, 117, 108));
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
+                new Object [][] {
 
                 },
                 new String[]{
@@ -1599,7 +1348,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTable3.setFillsViewportHeight(true);
         jTable3.setFont(new Font( null,0, 15));
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
+                new Object [][] {
 
                 },
                 new String[]{
@@ -1632,12 +1381,17 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField30.setBackground(new java.awt.Color(19, 28, 39));
-        jTextField30.setForeground(new java.awt.Color(18, 30, 49));
-        jTextField30.setBorder(null);
-        jTextField30.setDisabledTextColor(new java.awt.Color(19, 28, 33));
-        jTextField30.setFocusable(false);
-        jTextField30.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+//        jTextField30.setBackground(new java.awt.Color(19, 28, 39));
+//        jTextField30.setForeground(new java.awt.Color(18, 30, 49));
+//        jTextField30.setBorder(null);
+//        jTextField30.setDisabledTextColor(new java.awt.Color(19, 28, 33));
+//        jTextField30.setFocusable(false);
+//        jTextField30.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+//        jTextField30.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jTextField30ActionPerformed(evt);
+//            }
+//        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1674,8 +1428,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                 DisplayOne1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DisplayOne1Layout.createSequentialGroup()
                                 .addGroup(DisplayOne1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-//                                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jScrollPane3))
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -2079,252 +1832,252 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         }
     }
 
-    //        Submit Button - EDIT - Town *****************************
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        Validation validation = new Validation();
-        String editID = jTextField18.getText();
-        String town = jTextField42.getText();
-        int count;
-        String str;
-        if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
-            count = 0;
-            while (rs1.next()) {
-                count = rs1.getInt("total");
-            }
-            if (count > 0) {
-                if (validation.validateStringWithNumbers(town)) {
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET town = '" + town + "' where publication_id = '" + editID + "'");
-                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Town Name for ID: " + editID + " to " + town);
-                } else {
-                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Town Names must be between 1 to 20 characters");
-                }
-            } else {
-                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-            }
-        } else {
-            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-        }
-    }
-
-    //        Submit Button - EDIT - Phone Number *****************************
-
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        Validation validation = new Validation();
-        String editID = jTextField18.getText();
-        String phoneNumber = jTextField36.getText();
-        int count;
-        String str;
-        if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
-            count = 0;
-            while (rs1.next()) {
-                count = rs1.getInt("total");
-            }
-            if (count > 0) {
-                if (validation.validatePhoneNumber(phoneNumber)) {
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET delivery_phone_number = '" + phoneNumber + "' where publication_id = '" + editID + "'");
-                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
-                } else {
-                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Phone Numbers follow the pattern of 0## #######  e.g. 087 1234567");
-                }
-            } else {
-                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-            }
-        } else {
-            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-        }
-    }
-
-
-//        Submit Button - EDIT - DoB *****************************
-
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        Validation validation = new Validation();
-        String editID = jTextField18.getText();
-        String dateOfBirth = jTextField37.getText();
-        int count;
-        String str;
-        if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
-            count = 0;
-            while (rs1.next()) {
-                count = rs1.getInt("total");
-            }
-            if (count > 0) {
-                if (validation.validateDoB(dateOfBirth)) {
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET dob = '" + dateOfBirth + "' where publication_id = '" + editID + "'");
-                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Date of Birth for ID: " + editID + " to " + dateOfBirth);
-                }
-                else {
-                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Date of Birth must follow the pattern of YYYY-MM-DD or YYYY-M-D  e.g. 1995-11-26");
-                }
-            } else {
-                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-            }
-        }
-        else
-        {
-            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-        }
-    }
-
-    //        Submit Button - EDIT - Access Level *****************************
-
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        Validation validation = new Validation();
-        String editID = jTextField18.getText();
-        String accessLevel = jTextField38.getText();
-        int count;
-        String str;
-        if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
-            count = 0;
-            while (rs1.next()) {
-                count = rs1.getInt("total");
-            }
-            if (count > 0) {
-                if (validation.validateAccess(accessLevel)) {
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET access_level = '" + accessLevel + "' where publication_id = '" + editID + "'");
-                    jTextField31.setForeground(new java.awt.Color(6,187,163));
-                    jTextField31.setText("You have successfully updated Access Level for ID: " + editID + " to " + accessLevel);
-                } else {
-                    jTextField31.setForeground(new java.awt.Color(255,0,0));
-                    jTextField31.setText("Access Level must be either 1 or 2");
-
-                }  } else {
-                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-            }
-        } else {
-            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-        }
-    }
-
-    //        Submit Button - EDIT - Status *****************************
-
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        Validation validation = new Validation();
-        String editID = jTextField18.getText();
-        String status = jTextField40.getText();
-        int count;
-        String str;
-        if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
-            count = 0;
-            while (rs1.next()) {
-                count = rs1.getInt("total");
-            }
-            if (count > 0) {
-                if (validation.validateStatus(status)) {
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET delivery_status = '" + status + "' where publication_id = '" + editID + "'");
-                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
-                } else {
-                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Status must be either true or false");
-                }
-            }else{
-                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-            }
-        } else {
-            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-        }
-    }
-
-    //        Submit Button - EDIT - User Name *****************************
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        Validation validation = new Validation();
-        String editID = jTextField18.getText();
-        String userName = jTextField39.getText();
-        int count;
-        String str;
-        if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
-            count = 0;
-            while (rs1.next()) {
-                count = rs1.getInt("total");
-            }
-            if (count > 0) {
-                if (validation.validateString(userName)) {
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET user_name = '" + userName + "' where publication_id = '" + editID + "'");
-                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated User Name for ID: " + editID + " to " + userName);
-                } else {
-                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("User Names cannot contain numbers and must be between 1 to 20 characters");
-                }
-            }else {
-                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-            }
-        } else {
-            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-        }
-    }
-
-    //        Submit Button - EDIT - Password *****************************
-    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        Validation validation = new Validation();
-        String editID = jTextField18.getText();
-        String password = jTextField43.getText();
-        int count;
-        String str;
-        if(validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
-            count = 0;
-            while (rs1.next()) {
-                count = rs1.getInt("total");
-            }
-            if (count > 0) {
-                if (validation.validatePassword(password)) {
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET password = '" + password + "' where publication_id = '" + editID + "'");
-                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Password for ID: " + editID + " to " + password);
-                } else {
-                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("passwords must 4 characters in length");
-                }
-            }else {
-                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-            }
-        } else {
-            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
-        }
-    }
+//    //        Submit Button - EDIT - Town *****************************
+//
+//    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+//        Validation validation = new Validation();
+//        String editID = jTextField18.getText();
+//        String town = jTextField42.getText();
+//        int count;
+//        String str;
+//        if (validation.validateEntry(editID)) {
+//            str = "select count(*) as total from publication where publication_id = " + editID;
+//            ResultSet rs1 = stmt.executeQuery(str);
+//            count = 0;
+//            while (rs1.next()) {
+//                count = rs1.getInt("total");
+//            }
+//            if (count > 0) {
+//                if (validation.validateStringWithNumbers(town)) {
+//                    Statement editPerson = con.createStatement();
+//                    editPerson.executeUpdate("Update publication SET town = '" + town + "' where publication_id = '" + editID + "'");
+//                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+//                    jTextField31.setText("You have successfully updated Town Name for ID: " + editID + " to " + town);
+//                } else {
+//                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                    jTextField31.setText("Town Names must be between 1 to 20 characters");
+//                }
+//            } else {
+//                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//            }
+//        } else {
+//            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//        }
+//    }
+//
+//    //        Submit Button - EDIT - Phone Number *****************************
+//
+//    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+//        Validation validation = new Validation();
+//        String editID = jTextField18.getText();
+//        String phoneNumber = jTextField36.getText();
+//        int count;
+//        String str;
+//        if (validation.validateEntry(editID)) {
+//            str = "select count(*) as total from publication where publication_id = " + editID;
+//            ResultSet rs1 = stmt.executeQuery(str);
+//            count = 0;
+//            while (rs1.next()) {
+//                count = rs1.getInt("total");
+//            }
+//            if (count > 0) {
+//                if (validation.validatePhoneNumber(phoneNumber)) {
+//                    Statement editPerson = con.createStatement();
+//                    editPerson.executeUpdate("Update publication SET delivery_phone_number = '" + phoneNumber + "' where publication_id = '" + editID + "'");
+//                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+//                    jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
+//                } else {
+//                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                    jTextField31.setText("Phone Numbers follow the pattern of 0## #######  e.g. 087 1234567");
+//                }
+//            } else {
+//                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//            }
+//        } else {
+//            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//        }
+//    }
+//
+//
+////        Submit Button - EDIT - DoB *****************************
+//
+//    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+//        Validation validation = new Validation();
+//        String editID = jTextField18.getText();
+//        String dateOfBirth = jTextField37.getText();
+//        int count;
+//        String str;
+//        if (validation.validateEntry(editID)) {
+//            str = "select count(*) as total from publication where publication_id = " + editID;
+//            ResultSet rs1 = stmt.executeQuery(str);
+//            count = 0;
+//            while (rs1.next()) {
+//                count = rs1.getInt("total");
+//            }
+//            if (count > 0) {
+//                if (validation.validateDoB(dateOfBirth)) {
+//                    Statement editPerson = con.createStatement();
+//                    editPerson.executeUpdate("Update publication SET dob = '" + dateOfBirth + "' where publication_id = '" + editID + "'");
+//                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+//                    jTextField31.setText("You have successfully updated Date of Birth for ID: " + editID + " to " + dateOfBirth);
+//                }
+//                else {
+//                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                    jTextField31.setText("Date of Birth must follow the pattern of YYYY-MM-DD or YYYY-M-D  e.g. 1995-11-26");
+//                }
+//            } else {
+//                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//            }
+//        }
+//        else
+//        {
+//            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//        }
+//    }
+//
+//    //        Submit Button - EDIT - Access Level *****************************
+//
+//    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+//        Validation validation = new Validation();
+//        String editID = jTextField18.getText();
+//        String accessLevel = jTextField38.getText();
+//        int count;
+//        String str;
+//        if(validation.validateEntry(editID)) {
+//            str = "select count(*) as total from publication where publication_id = " + editID;
+//            ResultSet rs1 = stmt.executeQuery(str);
+//            count = 0;
+//            while (rs1.next()) {
+//                count = rs1.getInt("total");
+//            }
+//            if (count > 0) {
+//                if (validation.validateAccess(accessLevel)) {
+//                    Statement editPerson = con.createStatement();
+//                    editPerson.executeUpdate("Update publication SET access_level = '" + accessLevel + "' where publication_id = '" + editID + "'");
+//                    jTextField31.setForeground(new java.awt.Color(6,187,163));
+//                    jTextField31.setText("You have successfully updated Access Level for ID: " + editID + " to " + accessLevel);
+//                } else {
+//                    jTextField31.setForeground(new java.awt.Color(255,0,0));
+//                    jTextField31.setText("Access Level must be either 1 or 2");
+//
+//                }  } else {
+//                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//            }
+//        } else {
+//            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//        }
+//    }
+//
+//    //        Submit Button - EDIT - Status *****************************
+//
+//    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+//        Validation validation = new Validation();
+//        String editID = jTextField18.getText();
+//        String status = jTextField40.getText();
+//        int count;
+//        String str;
+//        if(validation.validateEntry(editID)) {
+//            str = "select count(*) as total from publication where publication_id = " + editID;
+//            ResultSet rs1 = stmt.executeQuery(str);
+//            count = 0;
+//            while (rs1.next()) {
+//                count = rs1.getInt("total");
+//            }
+//            if (count > 0) {
+//                if (validation.validateStatus(status)) {
+//                    Statement editPerson = con.createStatement();
+//                    editPerson.executeUpdate("Update publication SET delivery_status = '" + status + "' where publication_id = '" + editID + "'");
+//                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+//                    jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
+//                } else {
+//                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                    jTextField31.setText("Status must be either true or false");
+//                }
+//            }else{
+//                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//            }
+//        } else {
+//            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//        }
+//    }
+//
+//    //        Submit Button - EDIT - User Name *****************************
+//    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+//        Validation validation = new Validation();
+//        String editID = jTextField18.getText();
+//        String userName = jTextField39.getText();
+//        int count;
+//        String str;
+//        if(validation.validateEntry(editID)) {
+//            str = "select count(*) as total from publication where publication_id = " + editID;
+//            ResultSet rs1 = stmt.executeQuery(str);
+//            count = 0;
+//            while (rs1.next()) {
+//                count = rs1.getInt("total");
+//            }
+//            if (count > 0) {
+//                if (validation.validateString(userName)) {
+//                    Statement editPerson = con.createStatement();
+//                    editPerson.executeUpdate("Update publication SET user_name = '" + userName + "' where publication_id = '" + editID + "'");
+//                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+//                    jTextField31.setText("You have successfully updated User Name for ID: " + editID + " to " + userName);
+//                } else {
+//                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                    jTextField31.setText("User Names cannot contain numbers and must be between 1 to 20 characters");
+//                }
+//            }else {
+//                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//            }
+//        } else {
+//            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//        }
+//    }
+//
+//    //        Submit Button - EDIT - Password *****************************
+//    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+//        Validation validation = new Validation();
+//        String editID = jTextField18.getText();
+//        String password = jTextField43.getText();
+//        int count;
+//        String str;
+//        if(validation.validateEntry(editID)) {
+//            str = "select count(*) as total from publication where publication_id = " + editID;
+//            ResultSet rs1 = stmt.executeQuery(str);
+//            count = 0;
+//            while (rs1.next()) {
+//                count = rs1.getInt("total");
+//            }
+//            if (count > 0) {
+//                if (validation.validatePassword(password)) {
+//                    Statement editPerson = con.createStatement();
+//                    editPerson.executeUpdate("Update publication SET password = '" + password + "' where publication_id = '" + editID + "'");
+//                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+//                    jTextField31.setText("You have successfully updated Password for ID: " + editID + " to " + password);
+//                } else {
+//                    jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                    jTextField31.setText("passwords must 4 characters in length");
+//                }
+//            }else {
+//                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//            }
+//        } else {
+//            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+//            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
+//        }
+//    }
 
 //TODO fix font size for Delete table
 
@@ -2432,14 +2185,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton3;
@@ -2459,7 +2205,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    //    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -2470,7 +2216,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    //    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2480,26 +2226,12 @@ public class PublicationMainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel72;
-    private javax.swing.JLabel jLabel73;
-    private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
-    private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
-    private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -2522,7 +2254,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    //    private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
@@ -2537,14 +2269,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField33;
     private javax.swing.JTextField jTextField34;
     private javax.swing.JTextField jTextField35;
-    private javax.swing.JTextField jTextField36;
-    private javax.swing.JTextField jTextField37;
-    private javax.swing.JTextField jTextField38;
-    private javax.swing.JTextField jTextField39;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField40;
-    private javax.swing.JTextField jTextField42;
-    private javax.swing.JTextField jTextField43;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
