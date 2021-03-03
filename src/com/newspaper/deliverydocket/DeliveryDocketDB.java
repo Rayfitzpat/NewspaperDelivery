@@ -224,6 +224,27 @@ public class DeliveryDocketDB {
         return deliveries;
     }
 
+    /**
+     * Method checks if any generation of new delivery records is needed
+     * @param date method checks the existence of deliveries with this date
+     */
+    public void generateDeliveriesIfNeeded(String date) {
+
+        // convert the String date to LocalDate format
+        LocalDate deliveryDate = convertDate(date);
+
+        // get the month out of the date
+        int month = deliveryDate.getMonthValue();
+
+        // check if deliveries for this month weren't generated before
+        if (!deliveriesForThisMonthExists(month)) {
+
+            // generating delivery records and saving them in the DB
+            ArrayList <Delivery> deliveries = generateDeliveriesForMonth(month);
+            saveDeliveries(deliveries);
+        }
+    }
+
 
     // generate deliveries for next month
     public ArrayList<Delivery> generateDeliveriesForMonth(int month) {
@@ -295,7 +316,7 @@ public class DeliveryDocketDB {
 
                 int rows = pstmt.executeUpdate();
 
-                System.out.println("Adding new delivery record was successful");
+                //System.out.println("Adding new delivery record was successful");
             } catch (SQLException sqle) {
                 System.out.println(sqle.getMessage());
                 System.out.println(insertQuery);
@@ -391,7 +412,6 @@ public class DeliveryDocketDB {
 
 
     public LocalDate convertDate(String date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         LocalDate currDate = null;
         // null is acceptable for holiday
         if (date != null) {

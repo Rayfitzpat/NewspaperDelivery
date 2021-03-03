@@ -84,7 +84,9 @@ public class DeliveryView {
         // 1. Display all delivery people and the delivery areas they work on
         // 2. Ask user to enter id of the delivery person
         // 3. Ask user to enter the date of the delivery docket
-        // 4. Create delivery docket file and show on console
+        // 4. Check if deliveries for that date are available
+        // 5. Generate deliveries if they are not in the DB
+        // 6. Create delivery docket file and show on console
 
         // 1. Display all delivery people and the delivery areas they work on
         utility.displayDeliperyPeopleWithDeliveryAreas();
@@ -125,9 +127,15 @@ public class DeliveryView {
         // 3. Ask user to enter the date of the delivery docket
         String date = askUserToEnterDate();
 
-        // 4. Create delivery docket file and show on console
+        // 4. Check if deliveries for that date are available
+        // 5. Generate deliveries if they are not in the DB
+        DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+        deliveryDocketDB.generateDeliveriesIfNeeded(date);
+
+
+        // 6. Create delivery docket file and show on console
         try {
-            DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+
             DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(deliveryPersonId, date);
             System.out.println(docket);
             System.out.println("\n***Saving...");
