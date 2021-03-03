@@ -65,6 +65,43 @@ public class Utility {
     }
 
 
+    public boolean deliveryPersonActive(int deliveryPersonId) throws DeliveryDocketExceptionHandler {
+
+        // set the flag
+        boolean exists = false;
+
+        String query = "select count(*) as total from delivery_person where delivery_person_id = " + deliveryPersonId + "" +
+                " and delivery_status = 'true';";
+        ResultSet rs;
+        int count = - 1;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+                exists = true;
+            }
+            if(count == 0)
+            {
+                throw new DeliveryDocketExceptionHandler("Delivery Person with id " + deliveryPersonId + " is not active.");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+        }
+
+        return exists;
+    }
+
+
+
+    /**
+     * Method checks if publication exists in the DB by ID
+     * @param publicationId The Id of publication that has to be checked
+     * @return true if it exists, false if not
+     * @throws DeliveryDocketExceptionHandler throwm in case of error
+     */
     public boolean publicationExists(int publicationId) throws DeliveryDocketExceptionHandler {
 
         // set the flag
@@ -137,6 +174,38 @@ public class Utility {
     public int getDayNumber(LocalDate date) {
         DayOfWeek day = date.getDayOfWeek();
         return day.getValue();
+    }
+
+    /**
+     * Method is displaying a table of "Delivery Person id " - "Delivery Person name" - " Delivery Area"
+     */
+    public void displayDeliperyPeopleWithDeliveryAreas() {
+
+        String str = "SELECt delivery_person.delivery_person_id, delivery_person.first_name, delivery_person.last_name,  delivery_area.name\n" +
+                "FROM delivery_person, delivery_area\n" +
+                "WHERE delivery_person.delivery_person_id = delivery_area.delivery_person_id\n" +
+                "ORDER BY delivery_person.delivery_person_id;";
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            ResultSet rs = stmt.executeQuery(str);
+            // Sets the headings and returns the data from the DB
+            System.out.printf("\n%-10s %-15s %-15s %-20s \n", "DP ID", "First Name", "Last Name", "Delivery Area");
+            System.out.println("-----------------------------------------------------------------------------------");
+            while (rs.next()) {
+                int delivery_person_id = rs.getInt("delivery_person_id");
+                String first_name = rs.getString("first_name");
+                String last_name = rs.getString("last_name");
+                String daName = rs.getString("name");
+
+                System.out.printf("%-10s %-15s %-15s %-20s \n", delivery_person_id, first_name, last_name, daName);
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println("Error: failed to display all Delivery People.");
+            System.out.println(sqle.getMessage());
+            System.out.println(str);
+        }
     }
 
 }

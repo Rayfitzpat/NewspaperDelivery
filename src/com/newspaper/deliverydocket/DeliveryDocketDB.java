@@ -82,7 +82,7 @@ public class DeliveryDocketDB {
     public void createDeliveryDocketFile(DeliveryDocket docket) {
 
         // create delivery docket text file
-        File docketFile = new File(docket.getDeliveryAreaName() + "_delivery_docket_" + docket.getDate() + ".txt");
+        File docketFile = new File("src\\com\\newspaper\\deliverydocket\\deliverydocketfiles\\" + docket.getDeliveryPersonName()+ "_" +docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
 
         try {
             PrintWriter pw = new PrintWriter(docketFile);
