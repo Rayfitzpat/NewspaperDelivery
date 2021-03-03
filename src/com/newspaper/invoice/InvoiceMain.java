@@ -66,7 +66,7 @@ public class InvoiceMain
 
 
 
-    public static void main(String[] args) throws CustomerExceptionHandler, SQLException {
+    public static void main(String[] args) throws  SQLException {
         DBconnection.init_db(); //Opens the connection to the database.
         InvoiceDB invoice = new InvoiceDB();
 

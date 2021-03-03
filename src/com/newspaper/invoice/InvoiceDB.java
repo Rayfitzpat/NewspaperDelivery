@@ -148,7 +148,7 @@ public class InvoiceDB {
         }
     }
 
-    public void printPublications(Statement stmt) throws SQLException //TODO SELECT * FROM delivery -> Get publication_id from publication -> Get publication cost from publication -> Add all publication recieved.
+    public void printPublications(Statement stmt) throws SQLException
     {
         int cusid;
         Scanner in = new Scanner(System.in);
@@ -172,12 +172,39 @@ public class InvoiceDB {
                 String deliveryDate = rs.getString("delivery_date");
                 String firstname = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
-                System.out.printf("%-20s %-25s %-25s %-25s %-25s\n", pubName, pubCost, deliveryDate, firstname, lastName);
+                System.out.printf("%-25s %-25s %-25s %-25s %-25s\n", pubName, pubCost, deliveryDate, firstname, lastName);
 
             }
 
         }
     }
+
+    // BII6 VIEW THE INVOICE (INVOICE NUMBER, CUSTOMER NAME, CUSTOMER ADDRESS, LIST OF PUBLICATIONS)
+    public void displayInvoiceID(Statement stmt) throws SQLException
+    {
+        int cusid;
+        Scanner in = new Scanner(System.in);
+        System.out.println("Please enter customer ID to find Invoce ID.");
+        cusid = in.nextInt();
+        String str1 = "SELECT customer.customer_id, invoice.invoice_id\n" +
+                "FROM invoice, customer\n" +
+                "WHERE invoice.customer_id = customer.customer_id\n" +
+                "\tAND customer.customer_id =" + cusid;
+
+        if (cusid > 100 || cusid < 0) {
+            System.out.println("There was an error");
+        } else {
+            Statement printInvoiceID = DBconnection.con.createStatement();
+            ResultSet rs = stmt.executeQuery(str1);
+            while (rs.next()) {
+                String cusnum = rs.getString("customer_id");
+                String invoicenum = rs.getString("invoice_id");
+                System.out.printf("%-25s %-25s\n", cusnum, invoicenum);
+            }
+
+        }
+    }
+
 
         public static void displayMainMenu ()
         {
@@ -185,9 +212,18 @@ public class InvoiceDB {
             System.out.println("1: Get a Customer from Invoice");
             System.out.println("2: Get Customer Name from Invoice ID");
             System.out.println("3: Get Customer Address from Invoice.");
-            System.out.println("4: Update Delivery Area Name");
+            System.out.println("4: Get Customer Subscriptions from Customer ID");
             System.out.println("5: Delete a Delivery Area");
             System.out.println("6: Return to Main Menu");
+        }
+
+        public static void invoiceView()
+        {
+            System.out.println("\n Invoice View Menu");
+            System.out.println("1. View Invoice Number");
+            System.out.println("2. View Customer Name");
+            System.out.println("3. View Customer Address");
+            System.out.println("4. View the Publications");
         }
 
         public static void displayUpdateMenu ()
