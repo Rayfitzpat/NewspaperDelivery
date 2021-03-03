@@ -83,7 +83,7 @@ public class LoginGUI extends javax.swing.JFrame {
         jPasswordField1.setBackground(new java.awt.Color(38, 45, 49));
         jPasswordField1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jPasswordField1.setForeground(new java.awt.Color(49, 117, 108));
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.setText("Pass");
         jPasswordField1.setBorder(null);
 
         jButton1.setBackground(new java.awt.Color(19, 28, 33));

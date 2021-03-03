@@ -6,6 +6,8 @@
 package com.newspaper.gui;
 
 
+import com.newspaper.customer.Customer;
+import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.deliveryperson.DeliveryPerson;
 import com.newspaper.deliveryperson.DeliveryPersonView;
 import com.newspaper.db.DBconnection;
@@ -36,6 +38,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     }
 
     Validation validation = new Validation();
+    Customer customer = new Customer();
 
     public static Connection con = null;
     public static Statement stmt = null;
@@ -726,7 +729,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     jButton9ActionPerformed(evt);
-                } catch (SQLException throwables) {
+                } catch (SQLException | CustomerExceptionHandler throwables) {
                     throwables.printStackTrace();
                 }
             }
@@ -1890,18 +1893,18 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     }
 //TODO fix this validation!!
     // TODO fix error messages here
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, CustomerExceptionHandler {
         if (validation.validateString(jTextField4.getText())) {
             if (validation.validateString(jTextField5.getText())) {
                 if (validation.validateHouseNumber(jTextField6.getText())) {
                     if (validation.validateStringWithNumbers(jTextField7.getText())) {
                         if (validation.validateStringWithNumbers(jTextField14.getText())) {
-                            if (validation.validatePhoneNumber(jTextField8.getText())) {
-                                if (validation.validateDoB(jTextField9.getText())) {
+                            if (validation.validateEircode(jTextField8.getText())) {
+                                if (validation.validatePhoneNumber(jTextField9.getText())) {
                                     if (validation.validateAccess(jTextField10.getText())) {
                                         if (validation.validateStatus(jTextField12.getText())) {
-                                            if (validation.validateString(jTextField11.getText())) {
-                                                if (validation.validatePassword(jTextField15.getText())) {
+                                            if (validation.validateStatus(jTextField11.getText())) {
+                                                if (validation.validateHouseNumber(jTextField15.getText())) {
                                                     Statement addNewPerson = con.createStatement();
                                                     addNewPerson.executeUpdate("insert into customer values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
                                                     jTextField3.setForeground(new java.awt.Color(6, 187, 163));

@@ -1,8 +1,11 @@
 package com.newspaper.gui;
+import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.deliveryperson.DeliveryPerson;
 
 
 import java.awt.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Validation {
 
@@ -86,6 +89,25 @@ public class Validation {
         if (password.length() == 4) {
             return true;
         } else return false;
+    }
+
+    public boolean validateEircode(String eircode) throws CustomerExceptionHandler {
+        // check for null value
+        if (eircode == null) {
+            return false;
+
+
+        }
+        else {
+            // pattern for eircode
+            Pattern phonePattern = Pattern.compile("[A-Z0-9]{7}");
+            Matcher matcher = phonePattern.matcher(eircode);
+            return true;
+
+            // if eircode parameter does not correspond to regex expression, throw an exception
+
+        }
+
     }
 
 

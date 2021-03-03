@@ -30,7 +30,24 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         setVisible(true);
         this.setLocationRelativeTo(null);
         setResizable(false);
+
     }
+
+    public void setTableColour(){
+        JTableHeader tableHeader1 = jTable1.getTableHeader();
+        tableHeader1.setForeground(new java.awt.Color(255, 0, 0));
+        tableHeader1.setBackground(new java.awt.Color(19, 28, 33));
+
+        JTableHeader tableHeader2 = jTable1.getTableHeader();
+        tableHeader2.setForeground(new java.awt.Color(6, 187, 163));
+        tableHeader2.setBackground(new java.awt.Color(19, 28, 33));
+
+        JTableHeader tableHeader3 = jTable1.getTableHeader();
+        tableHeader3.setForeground(new java.awt.Color(6, 187, 163));
+        tableHeader3.setBackground(new java.awt.Color(19, 28, 33));
+
+    }
+
 
     Validation validation = new Validation();
 
@@ -179,7 +196,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         Deactivate = new javax.swing.JPanel();
         DisplayOne3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+//        jTable5 = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jTextField16 = new javax.swing.JTextField();
@@ -415,11 +432,11 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jScrollPane1.setBackground(new java.awt.Color(19, 28, 33));
 
         JTableHeader tableHeader1 = jTable1.getTableHeader();
-        tableHeader1.setBackground(new java.awt.Color(19, 28, 33));
         tableHeader1.setForeground(new java.awt.Color(6, 187, 163));
+        tableHeader1.setBackground(new java.awt.Color(19, 28, 33));
         tableHeader1.setFont(new Font(null, Font.BOLD, 15));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setBackground(new java.awt.Color(19, 28, 33));
+
         jTable1.setForeground(new java.awt.Color(6, 187, 163));
         jTable1.setFont(new Font( null,0, 15));
         jTable1.setFillsViewportHeight(true);
@@ -435,6 +452,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jTable1.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane1.setViewportView(jTable1);
         jTable1.setRowHeight(40);
+        jTable1.setBackground(new java.awt.Color(19, 28, 33));
 
         javax.swing.GroupLayout DisplayAllLayout = new javax.swing.GroupLayout(DisplayAll);
         DisplayAll.setLayout(DisplayAllLayout);
@@ -556,6 +574,8 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                         .addGroup(DisplayOneLayout.createSequentialGroup()
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 8, Short.MAX_VALUE))
+
+
         );
 
         CentrePanel.add(DisplayOne, "card3");
@@ -728,6 +748,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                     throwables.printStackTrace();
                 }
             }
+
         });
 
 //        jLabel29.setForeground(new java.awt.Color(49, 117, 108));
@@ -1472,18 +1493,18 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
         jScrollPane5.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable5.setBackground(new java.awt.Color(19, 28, 33));
-        jTable5.setForeground(new java.awt.Color(49, 117, 108));
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-
-                },
-                new String[]{
-                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
-                }
-        ));
-        jTable5.setGridColor(new java.awt.Color(49, 117, 108));
-        jScrollPane5.setViewportView(jTable5);
+//        jTable5.setBackground(new java.awt.Color(19, 28, 33));
+//        jTable5.setForeground(new java.awt.Color(49, 117, 108));
+//        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+//                new Object[][]{
+//
+//                },
+//                new String[]{
+//                        "ID", "First Name", "Last Name", "Hse No.", "Street Name", "Town", "Phone No.", "DoB", "Access Level", "Status", "User Name", "Password"
+//                }
+//        ));
+//        jTable5.setGridColor(new java.awt.Color(49, 117, 108));
+//        jScrollPane5.setViewportView(jTable5);
 
         jPanel8.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -2006,11 +2027,11 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
             jTextField31.setForeground(new java.awt.Color(255, 0, 0));
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
+
     }
 
 
     //        Submit Button - EDIT - House Number *****************************
-
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
@@ -2522,7 +2543,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable5;
+//    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
