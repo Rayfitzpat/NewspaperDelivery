@@ -37,65 +37,16 @@ public class Utility {
 
     }
 
-    public boolean deliveryPersonExists(int deliveryPersonId) throws DeliveryDocketExceptionHandler {
-
-        // set the flag
-        boolean exists = false;
-
+    public boolean deliveryPersonExists(int deliveryPersonId) {
         String query = "select count(*) as total from delivery_person where delivery_person_id = " + deliveryPersonId + ";";
-        ResultSet rs;
-        int count = - 1;
-        try {
-            rs = DBconnection.stmt.executeQuery(query);
-            while (rs.next()) {
-                count = rs.getInt("total");
-                exists = true;
-            }
-            if(count == 0)
-            {
-                throw new DeliveryDocketExceptionHandler("Delivery Person with id " + deliveryPersonId + " does not exist");
-            }
-
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println(query);
-
-        }
-
-        return exists;
+        return exists(query);
     }
 
-
-
-    public boolean deliveryPersonActive(int deliveryPersonId) throws DeliveryDocketExceptionHandler {
-
-        // set the flag
-        boolean exists = false;
-
+    public boolean deliveryPersonActive(int deliveryPersonId) {
         String query = "select count(*) as total from delivery_person where delivery_person_id = " + deliveryPersonId + "" +
                 " and delivery_status = 'true';";
-        ResultSet rs;
-        int count = - 1;
-        try {
-            rs = DBconnection.stmt.executeQuery(query);
-            while (rs.next()) {
-                count = rs.getInt("total");
-                exists = true;
-            }
-            if(count == 0)
-            {
-                throw new DeliveryDocketExceptionHandler("Delivery Person with id " + deliveryPersonId + " is not active.");
-            }
-
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println(query);
-
-        }
-
-        return exists;
+        return exists(query);
     }
-
 
 
     /**
@@ -104,32 +55,9 @@ public class Utility {
      * @return true if it exists, false if not
      * @throws DeliveryDocketExceptionHandler throwm in case of error
      */
-    public boolean publicationExists(int publicationId) throws DeliveryDocketExceptionHandler {
-
-        // set the flag
-        boolean exists = false;
-
+    public boolean publicationExists(int publicationId) {
         String query = "select count(*) as total from publication where publication_id = " + publicationId + ";";
-        ResultSet rs;
-        int count = - 1;
-        try {
-            rs = DBconnection.stmt.executeQuery(query);
-            while (rs.next()) {
-                count = rs.getInt("total");
-                exists = true;
-            }
-            if(count == 0)
-            {
-                throw new DeliveryDocketExceptionHandler("Publication with id " + publicationId + " does not exist");
-            }
-
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println(query);
-
-        }
-
-        return exists;
+        return exists(query);
     }
 
     /**
@@ -138,31 +66,8 @@ public class Utility {
      * @return true if it exists, false if no
      */
     public boolean customerDeliveryExists(int customerId){
-
-        // set the flag
-        boolean exists = false;
-
         String query = "select count(*) as total from delivery where customer_id = " + customerId + ";";
-        ResultSet rs;
-        int count = - 1;
-        try {
-            rs = DBconnection.stmt.executeQuery(query);
-            while (rs.next()) {
-                count = rs.getInt("total");
-                exists = true;
-            }
-            if(count == 0)
-            {
-                exists = false;
-            }
-
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println(query);
-
-        }
-
-        return exists;
+        return exists(query);
     }
 
     /**
@@ -173,9 +78,7 @@ public class Utility {
      */
     public boolean ifCustomerExists(int customerId) {
         String query = "select count(*) as total from customer where customer_id = " + customerId + ";";
-        boolean exists = exists(query);
-
-        return exists;
+        return exists(query);
     }
 
     /**

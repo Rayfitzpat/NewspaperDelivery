@@ -47,7 +47,7 @@ public class DeliveryView {
                             // delete delivery docket
                         }
                         case 4 -> {
-                           // see all customer deliveries
+                            // see all customer deliveries
                             seeAllCustomerDeliveries();
                         }
                         case 5 -> {
@@ -67,8 +67,7 @@ public class DeliveryView {
                     System.out.println("You entered an invalid choice, please try again...");
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error in the first menu");
             System.out.println(e.getMessage());
         }
@@ -77,7 +76,7 @@ public class DeliveryView {
     }
 
     // ask user to enter delivery person id
-    public void creatingDeliveryDocket()  {
+    public void creatingDeliveryDocket() {
         // 1. Display all delivery people and the delivery areas they work on
         // 2. Ask user to enter id of the delivery person
         // 3. Ask user to enter the date of the delivery docket
@@ -94,28 +93,20 @@ public class DeliveryView {
 
 
         // getting id if the customer
-        while (!isValid)
-        {
+        while (!isValid) {
             System.out.println("\nEnter id of the delivery person: ");
-            if(in.hasNextInt())
-            {
+            if (in.hasNextInt()) {
                 deliveryPersonId = in.nextInt();
                 // checking if id exists
 
-                try {
-                    boolean deliveryPersonExists = utility.deliveryPersonExists(deliveryPersonId);
-                    boolean deleveryPersonActive = utility.deliveryPersonActive(deliveryPersonId);
-                    if (deliveryPersonExists && deleveryPersonActive) {
-                        isValid = true;
-                    }
-                }
-                catch (DeliveryDocketExceptionHandler e) {
-                    System.out.println(e.getMessage());
+                boolean deliveryPersonExists = utility.deliveryPersonExists(deliveryPersonId);
+                boolean deleveryPersonActive = utility.deliveryPersonActive(deliveryPersonId);
+                if (deliveryPersonExists && deleveryPersonActive) {
+                    isValid = true;
                 }
 
-            }
-            else
-            {
+
+            } else {
                 in.nextLine();
                 System.out.println("Delivery area id should be a number");
             }
@@ -138,8 +129,7 @@ public class DeliveryView {
             System.out.println("\n***Saving...");
             System.out.println("***Delivery dockets will be available to print after program closes");
             deliveryDocketDB.createDeliveryDocketFile(docket);
-        }
-        catch (DeliveryDocketExceptionHandler e) {
+        } catch (DeliveryDocketExceptionHandler e) {
             System.out.println(e.getMessage());
         }
 
@@ -153,11 +143,9 @@ public class DeliveryView {
         boolean inputValid = false;
         in.nextLine();
 
-        while (!inputValid)
-        {
+        while (!inputValid) {
             System.out.println("Enter the date of the delivery docket (Example: 2021-08-27): ");
-            if (in.hasNextLine())
-            {
+            if (in.hasNextLine()) {
                 date = in.nextLine();
                 try {
                     deliveryDocket.validateDate(date);
@@ -166,9 +154,7 @@ public class DeliveryView {
                 } catch (DeliveryDocketExceptionHandler e) {
                     System.out.println(e.getMessage());
                 }
-            }
-            else
-            {
+            } else {
                 //clear the input buffer and start again
                 in.nextLine();
                 System.out.println("You entered an invalid date, please try again...");
@@ -181,9 +167,8 @@ public class DeliveryView {
         try {
             int customerId = askUserToEnterCustomerID();
             utility.displayAllDeliveriesOfCustomer(customerId);
-        }
-        catch (DeliveryDocketExceptionHandler e) {
-            System.out.println( e.getMessage());
+        } catch (DeliveryDocketExceptionHandler e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -194,24 +179,17 @@ public class DeliveryView {
         int customerID = 0;
 
         // getting id if the customer
-        while (!isValid)
-        {
+        while (!isValid) {
             System.out.println("Enter id of the customer: ");
-            if(in.hasNextInt())
-            {
+            if (in.hasNextInt()) {
                 customerID = in.nextInt();
                 // checking if student exists
-                if(utility.ifCustomerExists(customerID))
-                {
+                if (utility.ifCustomerExists(customerID)) {
                     isValid = true;
-                }
-                else
-                {
+                } else {
                     System.out.println("Customer with id " + customerID + " doesn't exist");
                 }
-            }
-            else
-            {
+            } else {
                 in.next();
                 System.out.println("Customer id should be a number");
             }
@@ -220,7 +198,7 @@ public class DeliveryView {
     }
 
 
-    public void displayDeliveryMenu () {
+    public void displayDeliveryMenu() {
         System.out.println("\n Delivery Menu");
         System.out.println("1: Create Delivery Docket");
         System.out.println("2: Update Delivery Docket");

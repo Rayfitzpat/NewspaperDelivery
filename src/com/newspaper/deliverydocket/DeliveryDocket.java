@@ -195,21 +195,21 @@ public class DeliveryDocket {
         Utility utility = new Utility();
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append("\n****************************************************************************************");
-            sb.append("\n************************************DELIVERY DOCKET*************************************");
-            sb.append("\n****************************************************************************************");
+            sb.append("\n********************************************************************************************************");
+            sb.append("\n*******************************************DELIVERY DOCKET**********************************************");
+            sb.append("\n********************************************************************************************************");
             sb.append( String.format("\n%-25s %-25s", "DATE: " , getDate()));
             sb.append( String.format("\n%-25s %-25s", "Delivery Area No: ", getDeliveryAreaId() + ", " + getDeliveryAreaName()));
             sb.append(String.format("\n%-25s %-25s", "Delivery Person Name: " , getDeliveryPersonName()));
 
             // check if there are any publications to be delivered
             if (hasPublicationItems(deliveryItems)) {
-                sb.append("\n\n\n*********************************** PUBLICATIONS *****************************************");
-                sb.append(String.format("\n %-25s %-20s %-27s %-20s","Customer Address", "Customer Name", "Publication", "Is Delivered"));
-                sb.append("\n------------------------------------------------------------------------------------------");
+                sb.append("\n\n\n****************************************** PUBLICATIONS ************************************************");
+                sb.append(String.format("\n %-30s %-20s %-27s %-20s","Customer Address", "Customer Name", "Publication", "Is Delivered"));
+                sb.append("\n--------------------------------------------------------------------------------------------------------");
                 for (DeliveryItem delivery : this.deliveryItems) {
                     if (delivery.getType().equals("publication")) {
-                        sb.append(String.format("\n %-25s %-20s %-27s %-20s ", delivery.getCustomerAddress(), delivery.getCustomerName(),utility.getPublicationByID(delivery.getId()), delivery.isDelivered()));
+                        sb.append(String.format("\n %-30s %-20s %-27s %-20s ", delivery.getCustomerAddress(), delivery.getCustomerName(),utility.getPublicationByID(delivery.getId()), delivery.isDelivered()));
                     }
                 }
             }
@@ -220,15 +220,16 @@ public class DeliveryDocket {
             // check if there is any invoices
             if (hasInvoiceItems(deliveryItems)) {
                 // if there is, print the items in separate table
-                sb.append("\n\n\n*************************************** INVOICES **************************************");
-                sb.append(String.format("\n %-10s %-25s %-20s %-20s ", "ID","Customer Address", "Customer Name", "Is Delivered"));
-                sb.append("\n---------------------------------------------------------------------------------------");
+                sb.append("\n\n\n********************************************** INVOICES *********************************************");
+                sb.append(String.format("\n %-30s %-25s %-20s %-20s ", "ID","Customer Address", "Customer Name", "Is Delivered"));
+                sb.append("\n-----------------------------------------------------------------------------------------------------");
                 for (DeliveryItem delivery : this.deliveryItems) {
                     if (delivery.getType().equals("invoice")) {
-                        sb.append(String.format("\n %-10d %-25s %-20s %-20s", delivery.getId(), delivery.getCustomerAddress(), delivery.getCustomerName(), delivery.isDelivered()));
+                        sb.append(String.format("\n %-30d %-25s %-20s %-20s", delivery.getId(), delivery.getCustomerAddress(), delivery.getCustomerName(), delivery.isDelivered()));
                     }
                 }
             }
+            sb.append("\n********************************************************************************************************");
         }
         catch (DeliveryDocketExceptionHandler e) {
             System.out.println("Exception in DeliveryDocket toString() method: ");
