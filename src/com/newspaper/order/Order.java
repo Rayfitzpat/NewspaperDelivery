@@ -57,6 +57,7 @@ public class Order {
 
 
     public void validateCustomerId(int customer_id) throws OrderExceptionHandler {
+
         String query = "select count(*) as total from customer where customer_id = " + customer_id + ";";
         ResultSet rs;
         int count = 0;
@@ -96,5 +97,9 @@ public class Order {
             System.out.println(query);
 
         }
+    }
+
+    public void validateFrequency(int frequency) throws OrderExceptionHandler {
+        String query = "select count(*) as total from orders";
     }
 }
