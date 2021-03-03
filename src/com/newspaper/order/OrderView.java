@@ -1,5 +1,8 @@
 package com.newspaper.order;
 
+import com.mysql.cj.xdevapi.Schema;
+import com.newspaper.deliveryperson.DeliveryPerson;
+import com.newspaper.customer.CustomerDB;
 import com.newspaper.db.DBconnection;
 
 import java.sql.ResultSet;
@@ -180,10 +183,7 @@ public class OrderView {
             System.out.println(sqle.getMessage());
             System.out.println(query);
         }
-
-
         return publicationName;
-
     }
 
     public String convertFrequency(int frequency) throws SQLException {
@@ -195,7 +195,7 @@ public class OrderView {
 
         try {
             rs = DBconnection.stmt.executeQuery(query);
-            while(rs.next()) {
+            while (rs.next()) {
                 //day = rs.getString("frequency");
                 day = DayOfWeek.of(frequency).toString();
             }
@@ -206,9 +206,9 @@ public class OrderView {
         }
         return day;
     }
-// ******************************************************************************************************
-// Beginning of display a certain publication with entered ID.
-// ******************************************************************************************************
+//******************************************************************************************************
+// Beginning of display a certain order with entered ID.
+//******************************************************************************************************
 
     public void displayOrderByCustomerId() throws SQLException {
         Scanner in = new Scanner(System.in);
@@ -217,42 +217,91 @@ public class OrderView {
 
         while (!isValid) {
             System.out.println("Please enter the ID of the customer whose order you want to display");
+            if (in.hasNextInt()) {
 
-            String query = "";
-            int count;
 
-            int id = in.nextInt();
+                String query = "";
+                int id = 0;
 
-            //checks if the entered id is present in the db
-            try {
-                // if id is not validated, the rest of the code won't execute
-                validateOrderCustomerId(id);
-                isValid = true;
+                id = in.nextInt();
 
-                //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                query = "Select * from orders where customer_id = " + id;
+                //checks if the entered id is present in the db
+                try {
+                    // if id is not validated, the rest of the code won't execute
+                    validateOrderCustomerId(id);
+                    isValid = true;
 
-                Statement stmt = DBconnection.con.createStatement();
-                ResultSet rs = stmt.executeQuery(query);
+                    //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
+                    query = "Select * from orders where customer_id = " + id;
 
-                System.out.printf("\n%-20s %-25s %-15s\n", "Customer ID", "Publication ID", "Frequency");
-                while (rs.next()) {
-                    int customer_id = rs.getInt("customer_id");
-                    int publication_id = rs.getInt("publication_id");
-                    int frequency = rs.getInt("frequency");
+                    Statement stmt = DBconnection.con.createStatement();
+                    ResultSet rs = stmt.executeQuery(query);
 
-                    String day = DayOfWeek.of(frequency).toString();
+                    System.out.printf("\n%-20s %-25s %-15s\n", "Customer ID", "Publication ID", "Frequency");
+                    while (rs.next()) {
+                        int customer_id = rs.getInt("customer_id");
+                        int publication_id = rs.getInt("publication_id");
+                        int frequency = rs.getInt("frequency");
 
-                    System.out.printf("%-20s %-25s %-15s\n", getCustomerName(customer_id), getPublicationByID(publication_id), day);
+                        String day = DayOfWeek.of(frequency).toString();
 
+                        System.out.printf("%-20s %-25s %-15s\n", getCustomerName(customer_id), getPublicationByID(publication_id), day);
+
+                    }
+                } catch (OrderExceptionHandler e) {
+                    System.out.println(e.getMessage());
                 }
-            } catch (OrderExceptionHandler e) {
-                System.out.println(e.getMessage());
+            } else {
+                in.nextLine();
+                System.out.println("Input needs to be an integer");
+                //displayOrderByCustomerId();
             }
         }
-
     }
 
+
+//    public int askUserToEnterCustomerID(OrderView view) {
+//        Scanner in = new Scanner(System.in);
+//        boolean isValid = false;
+//        int customerID = 0;
+//
+//        // getting id if the customer
+//        while (!isValid)
+//        {
+//            System.out.println("Enter id of the customer: ");
+//            if(in.hasNextInt())
+//            {
+//                customerID = in.nextInt();
+//                // checking if student exists
+//                if(view.ifCustomerExists(customerID))
+//                {
+//                    isValid = true;
+//                }
+//                else
+//                {
+//                    System.out.println("Customer with id " + customerID + " doesn`t exist");
+//                }
+//            }
+//            else
+//            {
+//                in.next();
+//                System.out.println("Customer id should be a number");
+//            }
+//        }
+//        return customerID;
+//    }
+//
+//    public boolean ifCustomerExists(int customerId) {
+//
+//        for (Customer c : order) {
+//            if (c.getCustomerId() == customerId) {
+//                return true;
+//            }
+//        }
+//
+//        // if return didn't happen in the foreach loop, then this is not duplicate
+//        return false;
+//    }
 
     /**
      * Methid is checking if customer_id is available in orders table
