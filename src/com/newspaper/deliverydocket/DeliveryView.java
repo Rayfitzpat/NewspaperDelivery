@@ -1,12 +1,8 @@
 package com.newspaper.deliverydocket;
 
-import com.newspaper.customer.Customer;
 import com.newspaper.customer.CustomerDB;
-import com.newspaper.customer.CustomerExceptionHandler;
-import com.newspaper.customer.CustomerView;
 import com.newspaper.db.DBconnection;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DeliveryView {
@@ -52,6 +48,7 @@ public class DeliveryView {
                         }
                         case 4 -> {
                            // see all customer deliveries
+                            seeAllCustomerDeliveries();
                         }
                         case 5 -> {
                             // see all publication deliveries
@@ -89,7 +86,7 @@ public class DeliveryView {
         // 6. Create delivery docket file and show on console
 
         // 1. Display all delivery people and the delivery areas they work on
-        utility.displayDeliperyPeopleWithDeliveryAreas();
+        utility.displayDeliveryPeopleWithDeliveryAreas();
 
         // 2. Ask user to enter id of the delivery person
         boolean isValid = false;
@@ -178,6 +175,48 @@ public class DeliveryView {
             }
         }
         return date;
+    }
+
+    public void seeAllCustomerDeliveries() {
+        try {
+            int customerId = askUserToEnterCustomerID();
+            utility.displayAllDeliveriesOfCustomer(customerId);
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            System.out.println( e.getMessage());
+        }
+    }
+
+
+    public int askUserToEnterCustomerID() {
+        Scanner in = new Scanner(System.in);
+        boolean isValid = false;
+        int customerID = 0;
+
+        // getting id if the customer
+        while (!isValid)
+        {
+            System.out.println("Enter id of the customer: ");
+            if(in.hasNextInt())
+            {
+                customerID = in.nextInt();
+                // checking if student exists
+                if(utility.ifCustomerExists(customerID))
+                {
+                    isValid = true;
+                }
+                else
+                {
+                    System.out.println("Customer with id " + customerID + " doesn't exist");
+                }
+            }
+            else
+            {
+                in.next();
+                System.out.println("Customer id should be a number");
+            }
+        }
+        return customerID;
     }
 
 

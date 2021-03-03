@@ -1,5 +1,6 @@
 package com.newspaper.deliverydocket;
 
+import com.newspaper.customer.Customer;
 import com.newspaper.db.DBconnection;
 import com.newspaper.order.Order;
 import com.newspaper.order.OrderExceptionHandler;
@@ -65,6 +66,7 @@ public class Utility {
     }
 
 
+
     public boolean deliveryPersonActive(int deliveryPersonId) throws DeliveryDocketExceptionHandler {
 
         // set the flag
@@ -119,6 +121,84 @@ public class Utility {
             if(count == 0)
             {
                 throw new DeliveryDocketExceptionHandler("Publication with id " + publicationId + " does not exist");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+        }
+
+        return exists;
+    }
+
+    /**
+     * Method checks if delivery with specified customer id exists
+     * @param customerId customer id that w search for
+     * @return true if it exists, false if no
+     */
+    public boolean customerDeliveryExists(int customerId){
+
+        // set the flag
+        boolean exists = false;
+
+        String query = "select count(*) as total from delivery where customer_id = " + customerId + ";";
+        ResultSet rs;
+        int count = - 1;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+                exists = true;
+            }
+            if(count == 0)
+            {
+                exists = false;
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+        }
+
+        return exists;
+    }
+
+    /**
+     * Method is checking if customer with customerId  already exists
+     *
+     * @param customerId customer if from the db
+     * @return true if this customer already exists in the db, false if not
+     */
+    public boolean ifCustomerExists(int customerId) {
+        String query = "select count(*) as total from customer where customer_id = " + customerId + ";";
+        boolean exists = exists(query);
+
+        return exists;
+    }
+
+    /**
+     * Method is checking if a certain record exists in the database, the only requirement is that
+     * SQL statement should only select 'count(*) as total' in it
+     * @param query
+     * @return
+     */
+    public boolean exists(String query) {
+        // set the flag
+        boolean exists = false;
+
+        ResultSet rs;
+        int count = - 1;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+                exists = true;
+            }
+            if(count == 0)
+            {
+                exists = false;
             }
 
         } catch (SQLException sqle) {
@@ -209,7 +289,7 @@ public class Utility {
     /**
      * Method is displaying a table of "Delivery Person id " - "Delivery Person name" - " Delivery Area"
      */
-    public void displayDeliperyPeopleWithDeliveryAreas() {
+    public void displayDeliveryPeopleWithDeliveryAreas() {
 
         String str = "SELECt delivery_person.delivery_person_id, delivery_person.first_name, delivery_person.last_name,  delivery_area.name\n" +
                 "FROM delivery_person, delivery_area\n" +
@@ -264,5 +344,51 @@ public class Utility {
 
         return months;
     }
+
+    /**
+     * Method prints all the deliveries of the customer
+     * @param customerId the id of the customer, whose deliveries are printed
+     * @throws DeliveryDocketExceptionHandler is thrown in cas of error
+     */
+    public void displayAllDeliveriesOfCustomer(int customerId) throws DeliveryDocketExceptionHandler {
+
+
+        // first check if delivery with that id exists in the delivery table
+        // if it does, we display the list of deliveries
+        // if not, we show a respective msg
+        if(customerDeliveryExists(customerId)) {
+            String query = "SELECT customer.customer_id, customer.first_name, customer.last_name, publication.publication_name, delivery.delivery_date as 'date of delivery'\n" +
+                    "FROM customer, delivery, publication\n" +
+                    "WHERE customer.customer_id = delivery.customer_id \n" +
+                    "\tAND delivery.publication_id = publication.publication_id\n" +
+                    "\tAND customer.customer_id = " + customerId + ";";
+
+            try {
+                Statement stmt = DBconnection.con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                // Sets the headings and returns the data from the DB
+                System.out.printf("\n%-8s %-20s %-25s %-20s \n", "Cus ID", "Name", "Publication", "Date of delivery");
+                System.out.println("---------------------------------------------------------------------------------");
+                while (rs.next()) {
+                    String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                    String publication = rs.getString("publication_name");
+                    String date = rs.getString("date of delivery");
+
+                    System.out.printf("%-8s %-20s %-25s %-20s \n", customerId, name, publication, date);
+                }
+
+            } catch (SQLException sqle) {
+                System.out.println("Error: failed to display all Deliveries");
+                System.out.println(sqle.getMessage());
+                System.out.println(query);
+            }
+        }
+        else {
+            System.out.println("\nCustomer with id " + customerId + " currently does not receive any deliveries");
+        }
+    }
+
+
+
 
 }

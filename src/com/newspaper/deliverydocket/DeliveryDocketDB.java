@@ -61,16 +61,17 @@ public class DeliveryDocketDB {
 //        }
 
 
-        try {
-            Order order = new Order(11, 5, 7);
-            ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
-            System.out.println(deliveries.size());
-            deliveryDocketDB.saveDeliveries(deliveries);
-        } catch (OrderExceptionHandler e) {
-            e.getMessage();
-        }
+//        try {
+//            Order order = new Order(11, 5, 7);
+//            ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
+//            System.out.println(deliveries.size());
+//            deliveryDocketDB.saveDeliveries(deliveries);
+//        } catch (OrderExceptionHandler e) {
+//            e.getMessage();
+//        }
 
 
+        ut.displayAllDeliveriesOfCustomer(3);
     }
 
     /**
@@ -145,6 +146,9 @@ public class DeliveryDocketDB {
         }
         return deliveries;
     }
+
+
+
 
 
     /**
@@ -519,6 +523,7 @@ public class DeliveryDocketDB {
         }
         return name;
     }
+
 
 
 
