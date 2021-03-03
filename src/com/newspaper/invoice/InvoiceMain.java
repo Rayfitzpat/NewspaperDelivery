@@ -40,13 +40,13 @@ public class InvoiceMain
                     case 3:
                         invoice.getCusAddressFromInvoiceId(DBconnection.stmt);
                         break;
-//
-//                    case 4:
-//                        dav.editDeliveryArea(com.newspaper.db.DBconnection.stmt);
-//                        break;
-//
+
+                    case 4:
+                        invoice.printPublications(DBconnection.stmt);
+                        break;
+
                     case 5:
-                        invoice.deleteInovice(DBconnection.stmt);
+                        invoice.deleteInvoice(DBconnection.stmt);
                         break;
 //
 //                    case 6:
@@ -97,12 +97,12 @@ public class InvoiceMain
                         invoice.getCusAddressFromInvoiceId(DBconnection.stmt);
                         break;
 
-//                    case 4:
-//                        dav.editDeliveryArea(com.newspaper.db.DBconnection.stmt);
-//                        break;
-//
+                    case 4:
+                        invoice.printPublications(DBconnection.stmt);
+                        break;
+
                     case 5:
-                        invoice.deleteInovice(DBconnection.stmt);
+                        invoice.deleteInvoice(DBconnection.stmt);
                         break;
 
                     case 6:
