@@ -8,7 +8,6 @@ package com.newspaper.gui;
 import com.newspaper.deliveryperson.DeliveryPerson;
 import com.newspaper.deliveryperson.DeliveryPersonView;
 import com.newspaper.db.DBconnection;
-import com.newspaper.publication.Publication;
 import jdk.swing.interop.SwingInterOpUtils;
 
 import javax.swing.*;
@@ -21,14 +20,14 @@ import java.sql.*;
  *
  * @author Ray
  */
-public class PublicationMainGUI extends javax.swing.JFrame {
+public class DeliveryAreaMainGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form GuiMainMenu
      */
-    public PublicationMainGUI() {
+    public DeliveryAreaMainGUI() {
         initComponents();
-//        setVisible(true);
+        setVisible(true);
         this.setLocationRelativeTo(null);
         setResizable(false);
     }
@@ -144,10 +143,10 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(19, 28, 33));
 
+        jPanel3.setBackground(new java.awt.Color(19, 28, 33));
+
         jTextField30.setBackground(new java.awt.Color(19, 28, 33));
         jTextField30.setBorder(null);
-
-        jPanel3.setBackground(new java.awt.Color(19, 28, 33));
 
         jButton1.setBackground(new java.awt.Color(19, 28, 33));
         jButton1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -163,20 +162,19 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                     String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
                     Connection con = DriverManager.getConnection(url, "root", "admin");
                     Statement stmt = con.createStatement();
-                    String sql = "Select * from publication";
+                    String sql = "Select * from delivery_area";
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
 
-                        int id = rs.getInt("publication_id");
+                        int id = rs.getInt("delivery_area_id");
 
-                        String pubName = rs.getString("publication_name");
-                        String pubFrequency = rs.getString("publication_frequency");
-                        String pubCost = rs.getString("publication_cost");
-                        String pubStock = rs.getString("publication_stock_level");
+                        String deliveryName = rs.getString("name");
+                        String description = rs.getString("description");
+                        String deliveryId = rs.getString("delivery_person_id");
 
 
-                        String tbData[] = {id + "", pubName, pubFrequency, pubCost, pubStock + ""};
+                        String tbData[] = {id + "",deliveryName, description, deliveryId + ""};
                         DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
 
                         tblModel.addRow(tbData);
@@ -323,7 +321,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Niagara Engraved", 0, 140)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(49, 117, 108));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Publication Menu");
+        jLabel2.setText("Delivery Area Menu");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -365,7 +363,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "Publication Name", "Publication Frequency", "Publication Cost", "Stock Level"
+                        "ID", "Area Name", "Description", "Delivery Person ID"
                 }
         ));
         jTable1.setShowGrid(true);
@@ -396,7 +394,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel3.setText("Please enter the id of the publication that you would like to display");
+        jLabel3.setText("Please enter the id of the delivery_area that you would like to display");
 
         jTextField1.setBackground(new java.awt.Color(0, 102, 102));
         jTextField1.setForeground(new java.awt.Color(255, 0, 0));
@@ -439,7 +437,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "Publication Name", "Publication Frequency", "Publication Cost", "Stock Level"
+                        "ID", "Area Name", "Description", "Delivery Person ID"
                 }
         ));
         jTable2.setShowGrid(true);
@@ -790,7 +788,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel24.setText("publication ID:");
+        jLabel24.setText("delivery_area ID:");
         jLabel24.setToolTipText("");
 
         jTextField18.setBackground(new java.awt.Color(19, 28, 33));
@@ -927,7 +925,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "Publication Name", "Publication Frequency", "Publication Cost", "Stock Level"
+                        "ID", "Area Name", "Description", "Delivery Person ID"
                 }
         ));
         jTable5.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1042,7 +1040,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "ID", "Publication Name", "Publication Frequency", "Publication Cost", "Stock Level"
+                        "ID", "Area Name", "Description", "Delivery Person ID"
                 }
         ));
         jTable3.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1053,7 +1051,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
         jLabel53.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel53.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel53.setText("Please enter the id of the publication that you would like to DELETE");
+        jLabel53.setText("Please enter the id of the delivery_area that you would like to DELETE");
 
         jTextField29.setBackground(new java.awt.Color(0, 102, 102));
         jTextField29.setFont(new java.awt.Font(null, 0, 18));
@@ -1222,21 +1220,20 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             Edit.setVisible(false);
             Delete.setVisible(true);
 
-            String sql = "Select * from publication";
+            String sql = "Select * from delivery_area";
             Statement DeleteStmt = con.createStatement();
             ResultSet rs = DeleteStmt.executeQuery(sql);
 
             while (rs.next()) {
 //
-                int id = rs.getInt("publication_id");
+                int id = rs.getInt("delivery_area_id");
 
-                String pubName = rs.getString("publication_name");
-                String pubFrequency = rs.getString("publication_frequency");
-                String pubCost = rs.getString("publication_cost");
-                String pubStock = rs.getString("publication_stock_level");
+                String deliveryName = rs.getString("name");
+                String description = rs.getString("description");
+                String deliveryId = rs.getString("delivery_person_id");
 
 
-                String tbData[] = {id + "", pubName, pubFrequency, pubCost, pubStock + ""};
+                String tbData[] = {id + "",deliveryName, description, deliveryId + ""};
                 DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
 
                 tblModel.addRow(tbData);
@@ -1270,7 +1267,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 //            int result = Integer.parseInt(DPID);
 //            if(result> 0 && result < 16) {
             if (validation.validateEntry(DPID)) {
-                str = "select count(*) as total from publication where publication_id = " + DPID;
+                str = "select count(*) as total from delivery_area where delivery_area_id = " + DPID;
                 ResultSet rs1 = stmt.executeQuery(str);
                 count = 0;
                 while (rs1.next()) {
@@ -1281,20 +1278,19 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
                     jTextField2.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField2.setText("Sucessfully displayed ID: " + DPID);
-                    String sql = "Select * from publication where publication_id = " + DPID;
+                    String sql = "Select * from delivery_area where delivery_area_id = " + DPID;
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
 //
-                        int id = rs.getInt("publication_id");
+                        int id = rs.getInt("delivery_area_id");
 
-                        String pubName = rs.getString("publication_name");
-                        String pubFrequency = rs.getString("publication_frequency");
-                        String pubCost = rs.getString("publication_cost");
-                        String pubStock = rs.getString("publication_stock_level");
+                        String deliveryName = rs.getString("name");
+                        String description = rs.getString("description");
+                        String deliveryId = rs.getString("delivery_person_id");
 
 
-                        String tbData[] = {id + "", pubName, pubFrequency, pubCost, pubStock + ""};
+                        String tbData[] = {id + "",deliveryName, description, deliveryId + ""};
                         DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
 
                         tblModel.addRow(tbData);
@@ -1314,21 +1310,17 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
         }
     }
-//TODO Validate Add New and Edit Pub
-
+    //TODO Validate Add New and Edit Pub
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         if (validation.validateString(jTextField4.getText())) {
             if (validation.validateString(jTextField5.getText())) {
                 if (validation.validateHouseNumber(jTextField6.getText())) {
-                    if (validation.validateStringWithNumbers(jTextField7.getText())) {
 
                         Statement addNewPerson = con.createStatement();
-                        addNewPerson.executeUpdate("insert into publication values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "')");
+                        addNewPerson.executeUpdate("insert into delivery_area values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "')");
                         jTextField3.setForeground(new java.awt.Color(6, 187, 163));
                         jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
-                    } else {
-                        jTextField3.setText("Invalid Street Name, must be between 1-20 characters");
-                    }
+
                 } else {
                     jTextField3.setText("Invalid House Number, 1-4 characters only, beginning with a number.  i.e. 2b or 112");
                 }
@@ -1350,7 +1342,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
+            str = "select count(*) as total from delivery_area where delivery_area_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -1359,12 +1351,12 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateString(pubName)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET publication_name = '" + pubName + "' where publication_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_area SET name = '" + pubName + "' where delivery_area_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Publication Name for ID: " + editID + " to " + pubName);
+                    jTextField31.setText("You have successfully updated delivery_area Name for ID: " + editID + " to " + pubName);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Publication Names cannot contain numbers and must be between 1 to 20 characters");
+                    jTextField31.setText("delivery_area Names cannot contain numbers and must be between 1 to 20 characters");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -1385,7 +1377,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
+            str = "select count(*) as total from delivery_area where delivery_area_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -1394,7 +1386,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateString(frequency)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET publication_frequency = '" + frequency + "' where publication_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_area SET description = '" + frequency + "' where delivery_area_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Last Name for ID: " + editID + " to " + frequency);
                 } else {
@@ -1421,7 +1413,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
+            str = "select count(*) as total from delivery_area where delivery_area_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -1430,7 +1422,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateHouseNumber(cost)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET publication_cost = '" + cost + "' where publication_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_area SET delivery_person_id = '" + cost + "' where delivery_area_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated the Cost for ID: " + editID + " to " + cost);
                 } else {
@@ -1457,7 +1449,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         int count;
         String str;
         if (validation.validateEntry(editID)) {
-            str = "select count(*) as total from publication where publication_id = " + editID;
+            str = "select count(*) as total from delivery_area where delivery_area_id = " + editID;
             ResultSet rs1 = stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
@@ -1466,7 +1458,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateStringWithNumbers(stock)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update publication SET publication_stock_level = '" + stock + "' where publication_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_area SET delivery_area_stock_level = '" + stock + "' where delivery_area_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Stock Level for ID: " + editID + " to " + stock);
                 } else {
@@ -1485,7 +1477,8 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
 
 
-//TODO validate Publication EDIT and ADD
+//TODO validate delivery_area EDIT and ADD
+    //TODO fix issue with Edit 3rd option not working as intended
 
     //    Delete - Submit Button Fuctionality
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1500,7 +1493,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             int count;
             String str;
             if (validation.validateEntry(deleteID)) {
-                str = "select count(*) as total from publication where publication_id = " + deleteID;
+                str = "select count(*) as total from delivery_area where delivery_area_id = " + deleteID;
                 ResultSet rs1 = stmt.executeQuery(str);
                 count = 0;
                 while (rs1.next()) {
@@ -1511,24 +1504,22 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                     jTextField30.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField30.setText("Sucessfully Deleted ID: " + deleteID);
                     Statement statement = con.createStatement();
-                    statement.executeUpdate("DELETE from publication where publication_id = " + deleteID);
+                    statement.executeUpdate("DELETE from delivery_area where delivery_area_id = " + deleteID);
                     Statement DeleteStmt = con.createStatement();
-                    String sql = "Select * from publication";
+                    String sql = "Select * from delivery_area";
                     ResultSet rs = DeleteStmt.executeQuery(sql);
 
                     while (rs.next()) {
 //
 
-                        int id = rs.getInt("publication_id");
+                        int id = rs.getInt("delivery_area_id");
 
-                        String pubName = rs.getString("publication_name");
-                        String pubFrequency = rs.getString("publication_frequency");
-                        String pubCost = rs.getString("publication_cost");
-                        String pubStock = rs.getString("publication_stock_level");
-
+                        String deliveryName = rs.getString("name");
+                        String description = rs.getString("description");
+                        String deliveryId = rs.getString("delivery_person_id");
 
 
-                        String tbData[] = {id + "", pubName, pubFrequency, pubCost, pubStock + ""};
+                        String tbData[] = {id + "",deliveryName, description, deliveryId + ""};
                         DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
 
                         tblModel.addRow(tbData);
@@ -1571,7 +1562,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PublicationMainGUI().setVisible(true);
+                new DeliveryAreaMainGUI().setVisible(true);
             }
         });
     }

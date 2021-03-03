@@ -22,6 +22,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         setResizable(false);
     }
 PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
+    DeliveryAreaMainGUI deliveryAreaMainGUI = new DeliveryAreaMainGUI();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,6 +46,8 @@ PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1564, 983));
@@ -139,7 +142,7 @@ PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
         });
 
 
-        //***************************** Delivery Area Button  **************************************
+        //***************************** Delivery Summary Button  **************************************
         jButton5.setBackground(new java.awt.Color(19, 28, 33));
         jButton5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton5.setForeground(new java.awt.Color(6, 187, 163));
@@ -148,7 +151,7 @@ PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
-                System.out.println("hello Delivery Area");
+
             }
         });
 
@@ -195,6 +198,8 @@ PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
             }
         });
 
+
+        // ************************************Delivery Area Menu ********************************************
         jButton9.setBackground(new java.awt.Color(19, 28, 33));
         jButton9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton9.setForeground(new java.awt.Color(6, 187, 163));
@@ -203,6 +208,8 @@ PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
+                dispose();
+                deliveryAreaMainGUI.setVisible(true);
             }
         });
 
