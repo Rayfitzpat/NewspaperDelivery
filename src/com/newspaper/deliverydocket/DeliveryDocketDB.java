@@ -1,6 +1,5 @@
 package com.newspaper.deliverydocket;
 
-import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryArea;
 import com.newspaper.order.Order;
@@ -11,7 +10,6 @@ import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -75,7 +73,13 @@ public class DeliveryDocketDB {
 
     }
 
-    // create delivery docket
+    /**
+     * Creates delivery dockets for a delivery person on specfied date
+     * @param deliveryPersonId the id of the delivery person
+     * @param date String representing date "2021-03-25"
+     * @return an object of DeliveryDocket class with delivery area, delivery person and respective deliveries
+     * @throws DeliveryDocketExceptionHandler is thrown in case of error
+     */
     public DeliveryDocket createDeliveryDocketFor(int deliveryPersonId, String date) throws DeliveryDocketExceptionHandler {
 
         // get the delivery area id where the delivery person is working
@@ -91,6 +95,10 @@ public class DeliveryDocketDB {
         return docket;
     }
 
+    /**
+     * Takes the DeliveryDocket object and saves it in a file
+     * @param docket the object of DeliveryDocket that has to be saved
+     */
     public void createDeliveryDocketFile(DeliveryDocket docket) {
 
         // create delivery docket text file
@@ -106,7 +114,13 @@ public class DeliveryDocketDB {
 
     }
 
-    // create delivery docket for delivery person
+    /**
+     * Method fetches all deliveries of a specified delivery area and date from the DB
+     * @param deliveryAreaId parameter of search for deliveries
+     * @param date parameter of search for deliveries
+     * @return an array lost of all deliveries
+     * @throws DeliveryDocketExceptionHandler is thrown in case of error
+     */
     public ArrayList getAllDeliveryItemsFor(int deliveryAreaId, String date) throws DeliveryDocketExceptionHandler {
 
         // first convert the date into Date object
@@ -117,9 +131,9 @@ public class DeliveryDocketDB {
         // check if date is not null
         if (currDate != null) {
 
-            // check if its the beginning of the month
+            // check if its the first day of the month
+            // if it is, delivery docket should include invoices
             if (currDate.getDayOfMonth() == 1) {
-                // delivery docket should include invoices
                 int prevMonth = currDate.getMonthValue() - 1;
                 ArrayList<InvoiceDeliveryItem> invoices = getInvoicesForDeliveryArea(deliveryAreaId, prevMonth);
                 deliveries.addAll(invoices);
@@ -133,7 +147,13 @@ public class DeliveryDocketDB {
     }
 
 
-    // get all invoices for delivery docket
+    /**
+     * Method fetches all invoices for specified delivery area
+     * @param deliveryAreaId invoices will be fetched for this delivery area
+     * @param month invoices will be fetched for this delivery month
+     * @return an array list of invoices
+     * @throws DeliveryDocketExceptionHandler is thrown in case of error
+     */
     public ArrayList getInvoicesForDeliveryArea(int deliveryAreaId, int month) throws DeliveryDocketExceptionHandler {
         ArrayList<InvoiceDeliveryItem> invoices = new ArrayList<>();
 
@@ -191,6 +211,14 @@ public class DeliveryDocketDB {
     }
 
     // get all deliveries for delivery docket
+
+    /**
+     * Fetches all deliveries for delivery docket
+     * @param deliveryAreaId publications will be fetched for this delivery area
+     * @param day publications will be fetched for this day
+     * @return an array list of all publication deliveries
+     * @throws DeliveryDocketExceptionHandler is thrown in case of error
+     */
     public ArrayList getPublicationDeliveriesForDeliveryArea(int deliveryAreaId, String day) throws DeliveryDocketExceptionHandler {
         ArrayList<PublicationDeliveryItem> deliveries = new ArrayList<>();
 
@@ -230,15 +258,18 @@ public class DeliveryDocketDB {
             System.out.println(query);
 
             throw new DeliveryDocketExceptionHandler("Error: failed to read deliveries.");
-        } catch (DeliveryDocketExceptionHandler e) {
-            throw e;
         }
         return deliveries;
     }
 
+
+    /************************************************************************************
+      GENERATION OF DELIVERIES
+     *************************************************************************************/
+
+
     /**
      * Method checks if any generation of new delivery records is needed
-     *
      * @param date method checks the existence of deliveries with this date
      */
     public void generateDeliveriesIfNeeded(String date) {
@@ -250,7 +281,7 @@ public class DeliveryDocketDB {
         int month = deliveryDate.getMonthValue();
 
         // check if deliveries for this month weren't generated before
-        if (!deliveriesForThisMonthExists(month)) {
+        if (!deliveriesForThisMonthExist(month)) {
 
             // generating delivery records and saving them in the DB
             ArrayList<Delivery> deliveries = generateDeliveriesForMonth(month);
@@ -259,7 +290,11 @@ public class DeliveryDocketDB {
     }
 
 
-    // generate deliveries for next month
+    /**
+     * Generate deliveries for next month using the orders in the DB
+     * @param month for this month deliveries will be generated
+     * @return an array list of all deliveries that were generated from the DB
+     */
     public ArrayList<Delivery> generateDeliveriesForMonth(int month) {
 
         // delivery record consist of id, customerId, publicationID,delivery_date, status
@@ -303,7 +338,11 @@ public class DeliveryDocketDB {
     }
 
 
-    // generate deliveries for next month
+    /**
+     * Generates the deliveries for the order in parameters. Is used when user creates a new order in the program
+     * @param order object storing info about new order
+     * @return an array list of all deliveries that were generated from the new order
+     */
     public ArrayList<Delivery> generateDeliveriesForNewOrder(Order order) {
 
         // delivery record consist of id, customerId, publicationID,delivery_date, status
@@ -349,8 +388,10 @@ public class DeliveryDocketDB {
         return deliveryItems;
     }
 
-
-    // this method is saving the deliveries to the DB
+    /**
+     * This method is saving the deliveries to the DB
+     * @param deliveries an array list of all deliveries that should be inserted into Delivery table in the DB
+     */
     public void saveDeliveries(ArrayList<Delivery> deliveries) {
         // run saveDelivery( method on every delivery in the ArrayList)
         try {
@@ -362,6 +403,11 @@ public class DeliveryDocketDB {
         }
     }
 
+    /**
+     * Method creates an INSERT SQL query for the delivery and executes the update
+     * @param delivery object storing all the data that should be saved in the DB
+     * @throws DeliveryDocketExceptionHandler is thrown in case of mistake with the DB connection
+     */
     public void saveDelivery(Delivery delivery) throws DeliveryDocketExceptionHandler {
 
         // sql query
@@ -385,7 +431,12 @@ public class DeliveryDocketDB {
 
     }
 
-    public boolean deliveriesForThisMonthExists(int month) {
+    /**
+     * Method checks if deliveries for the specified month already exist in the DB
+     * @param month integer representing month of the year (1 - Jan, 2 - Feb ... )
+     * @return true if deliveries exist, false if not
+     */
+    public boolean deliveriesForThisMonthExist(int month) {
         boolean exists = false;
 
         String query = "SELECt count(*) as total\n" +
@@ -413,7 +464,6 @@ public class DeliveryDocketDB {
 
     /**
      * Method gets the object of delivery area where the delivery person works
-     *
      * @param deliveryPersonId the id of the delivery person
      * @return an object of DelivryArea
      * @throws DeliveryDocketExceptionHandler if delivery person with deliveryPersonId is not registered on any area
@@ -471,6 +521,13 @@ public class DeliveryDocketDB {
     }
 
 
+
+
+    /**
+     * Method converts date from String to LocalDate
+     * @param date String parameter reprsenting date
+     * @return LocalDate object containing date from params
+     */
     public LocalDate convertDate(String date) {
         LocalDate currDate = null;
         // null is acceptable for holiday
