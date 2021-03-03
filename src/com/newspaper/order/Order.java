@@ -74,7 +74,6 @@ public class Order {
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
             System.out.println(query);
-
         }
     }
 
@@ -95,11 +94,25 @@ public class Order {
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
             System.out.println(query);
-
         }
     }
 
     public void validateFrequency(int frequency) throws OrderExceptionHandler {
-        String query = "select count(*) as total from orders";
+        String query = "select count(*) as total from orders where frequency = " + frequency;
+        ResultSet rs;
+        int count = 0;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while(rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count == 0)
+            {
+                throw new OrderExceptionHandler("Frequency does not exist, please enter a number between 1 and 7");
+            }
+        } catch(SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+        }
     }
 }

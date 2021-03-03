@@ -1,10 +1,10 @@
 package com.newspaper.order;
 
-import com.mysql.cj.xdevapi.Schema;
-import com.newspaper.deliveryperson.DeliveryPerson;
-import com.newspaper.customer.CustomerDB;
+import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.db.DBconnection;
+import com.newspaper.publication.PublicationView;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,6 +12,7 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+@SuppressWarnings("DuplicatedCode")
 public class OrderView {
     Order order = new Order();
 
@@ -20,12 +21,6 @@ public class OrderView {
         OrderView ov = new OrderView();
         DBconnection.init_db();
         ov.orderMenu();
-
-
-//        ArrayList<Order> orders = ov.getOrders();
-//        ov.printOrdersWithNames(orders);
-
-        //ov.displayOrderByCustomerId();
     }
 
     public void orderMenu() throws SQLException, OrderExceptionHandler {
@@ -51,7 +46,7 @@ public class OrderView {
                         displayOrderByCustomerId();
                         break;
                     case 3:
-                        //addNewOrder();
+                        addNewOrder();
                         break;
                     case 4:
                         //editOrder();
@@ -83,6 +78,10 @@ public class OrderView {
         System.out.println("6: Return to Main Menu\n");
         System.out.print("Enter your choice: ");
     }
+
+//******************************************************************************************************
+// Beginning of display all orders
+//******************************************************************************************************
 
     /**
      * Method that accesses the DB, gets all the order records and returns it in a form of
@@ -124,15 +123,15 @@ public class OrderView {
         return orders;
     }
 
-    public void printOrders(ArrayList<Order> orders) throws OrderExceptionHandler, SQLException {
-        System.out.printf("\n%-30s %-10s %-35s\n", "Customer ID", "Publication ID", "Frequency");
+//    public void printOrders(ArrayList<Order> orders) throws OrderExceptionHandler, SQLException {
+//        System.out.printf("\n%-30s %-10s %-35s\n", "Customer ID", "Publication ID", "Frequency");
+//
+//        for (Order order : orders) {
+//            System.out.printf("%-30d %-10d %-35s\n", order.getCustomer_id(), order.getPublication_id(), order.getFrequency());
+//        }
+//    }
 
-        for (Order order : orders) {
-            System.out.printf("%-30d %-10d %-35s\n", order.getCustomer_id(), order.getPublication_id(), order.getFrequency());
-        }
-    }
-
-    public void printOrdersWithNames(ArrayList<Order> orders) throws OrderExceptionHandler, SQLException {
+    public void printOrdersWithNames(ArrayList<Order> orders) {
         System.out.printf("\n%-25s %-35s %-35s\n", "Customer ID", "Publication ID", "Frequency");
 
         for (Order order : orders) {
@@ -186,7 +185,7 @@ public class OrderView {
         return publicationName;
     }
 
-    public String convertFrequency(int frequency) throws SQLException {
+    public String convertFrequency(int frequency)  {
         String day = "";
 
         String query = "Select frequency from orders;";
@@ -196,7 +195,6 @@ public class OrderView {
         try {
             rs = DBconnection.stmt.executeQuery(query);
             while (rs.next()) {
-                //day = rs.getString("frequency");
                 day = DayOfWeek.of(frequency).toString();
             }
         } catch (SQLException sqle) {
@@ -219,9 +217,8 @@ public class OrderView {
             System.out.println("Please enter the ID of the customer whose order you want to display");
             if (in.hasNextInt()) {
 
-
-                String query = "";
-                int id = 0;
+                String query;
+                int id;
 
                 id = in.nextInt();
 
@@ -246,7 +243,6 @@ public class OrderView {
                         String day = DayOfWeek.of(frequency).toString();
 
                         System.out.printf("%-20s %-25s %-15s\n", getCustomerName(customer_id), getPublicationByID(publication_id), day);
-
                     }
                 } catch (OrderExceptionHandler e) {
                     System.out.println(e.getMessage());
@@ -254,57 +250,14 @@ public class OrderView {
             } else {
                 in.nextLine();
                 System.out.println("Input needs to be an integer");
-                //displayOrderByCustomerId();
             }
         }
+        in.close();
     }
 
 
-//    public int askUserToEnterCustomerID(OrderView view) {
-//        Scanner in = new Scanner(System.in);
-//        boolean isValid = false;
-//        int customerID = 0;
-//
-//        // getting id if the customer
-//        while (!isValid)
-//        {
-//            System.out.println("Enter id of the customer: ");
-//            if(in.hasNextInt())
-//            {
-//                customerID = in.nextInt();
-//                // checking if student exists
-//                if(view.ifCustomerExists(customerID))
-//                {
-//                    isValid = true;
-//                }
-//                else
-//                {
-//                    System.out.println("Customer with id " + customerID + " doesn`t exist");
-//                }
-//            }
-//            else
-//            {
-//                in.next();
-//                System.out.println("Customer id should be a number");
-//            }
-//        }
-//        return customerID;
-//    }
-//
-//    public boolean ifCustomerExists(int customerId) {
-//
-//        for (Customer c : order) {
-//            if (c.getCustomerId() == customerId) {
-//                return true;
-//            }
-//        }
-//
-//        // if return didn't happen in the foreach loop, then this is not duplicate
-//        return false;
-//    }
-
     /**
-     * Methid is checking if customer_id is available in orders table
+     * Method is checking if customer_id is available in orders table
      *
      * @param customer_id customer id from the db
      * @throws OrderExceptionHandler thrown if order record with this customer_id is not in the db
@@ -325,8 +278,127 @@ public class OrderView {
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
             System.out.println(query);
-
         }
     }
 
+//******************************************************************************************************
+// Beginning of add an order
+//******************************************************************************************************
+
+    public void addNewOrder() throws OrderExceptionHandler {
+        int customer_id = addNewOrderCustomerID();
+        int publication_id = addNewOrderPublicationID();
+        int frequency = addNewOrderFrequency();
+
+        String insertQuery = "Insert into orders (customer_id, publication_id, frequency)" + "values (?, ?, ?)";
+
+        try {
+            //ResultSet rs = DBconnection.stmt.executeQuery(insertQuery);
+            PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
+            pstmt.setInt(1, customer_id);
+            pstmt.setInt(2, publication_id);
+            pstmt.setInt(3, frequency);
+
+            int rows = pstmt.executeUpdate();
+
+            System.out.println("New Order added successfully");
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(insertQuery);
+            throw new OrderExceptionHandler("Error: failed to add new order");
+        }
+    }
+
+    public int addNewOrderCustomerID() throws OrderExceptionHandler {
+        {
+            Scanner in = new Scanner(System.in);
+            int customer_id = 0;
+            boolean inputValid = false;
+
+            while (!inputValid) {
+                System.out.println("Please enter the id of the customer you would like to create a new order for");
+
+                if (in.hasNextInt()) {
+                    customer_id = in.nextInt();
+
+                    try {
+                        order.validateCustomerId(customer_id);
+                        // if validation was successful
+                        inputValid = true;
+
+                    } catch (OrderExceptionHandler e) {
+                        System.out.println(e.getMessage());
+                        //throw new OrderExceptionHandler("Customer does not exist");
+                    }
+                } else {
+                    //clear the input buffer and start again
+                    in.nextLine();
+                    System.out.println("Your entry, " + customer_id + ", was invalid, please try again...");
+                }
+            }
+            return customer_id;
+        }
+    }
+
+    public int addNewOrderPublicationID() throws OrderExceptionHandler {
+        {
+//            PublicationView pv = new PublicationView();
+//            pv.displayAllPublication();
+
+            Scanner in = new Scanner(System.in);
+            int publication_id = 0;
+            boolean inputValid = false;
+            while (!inputValid) {
+                System.out.println("Please enter the id of the publication you would like to create a new order for");
+                if (in.hasNextInt()) {
+                    publication_id = in.nextInt();
+                    try {
+                        order.validatePublicationId(publication_id);
+                        // if validation was successful
+                        inputValid = true;
+                    } catch (OrderExceptionHandler e) {
+                        System.out.println(e.getMessage());
+
+                    }
+                } else {
+                    //clear the input buffer and start again
+                    in.nextLine();
+                    System.out.println("Your entry was invalid, please try again...");
+                }
+            }
+            return publication_id;
+        }
+    }
+
+    public int addNewOrderFrequency() throws OrderExceptionHandler {
+        {
+            Scanner in = new Scanner(System.in);
+            int frequency = 0;
+            boolean inputValid = false;
+
+            while (!inputValid) {
+                System.out.println("Please enter the id of the day you like the order to go out on");
+                System.out.println("1 = Monday, 2 = Tuesday ... 7 = Sunday");
+
+                if(in.hasNextInt()) {
+                    frequency = in.nextInt();
+
+                    try {
+                        order.validateFrequency(frequency);
+                        // if validation was successful
+                        inputValid = true;
+                    } catch (OrderExceptionHandler e) {
+                        System.out.println(e.getMessage());
+                        //throw new OrderExceptionHandler("Customer does not exist");
+                    }
+                } else {
+                    //clear the input buffer and start again
+                    in.nextLine();
+                    System.out.println("Your entry was invalid, please enter a number between 1 and 7...");
+                }
+            }
+            return frequency;
+        }
+    }
 }
