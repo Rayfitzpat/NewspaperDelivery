@@ -166,6 +166,36 @@ public class Utility {
         return orders;
     }
 
+    public Order getOrder(int customerId, int publicationId) throws OrderExceptionHandler {
+        // array list for saving all the objects of the Order class
+        Order order = new Order();
+
+        String query = "Select * from orders where customer_id = " + customerId + "" +
+                " and publication_id = " + publicationId + ";";
+        ResultSet rs;
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+
+                int customer_id = rs.getInt("customer_id");
+                int publication_id = rs.getInt("publication_id");
+                int freq = rs.getInt("frequency");
+
+                order = new Order(customer_id, publication_id, freq);
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+            throw new OrderExceptionHandler("Error: failed to read orders.");
+        } catch (OrderExceptionHandler e) {
+            throw e;
+        }
+        return order;
+    }
+
     /**
      * Method returns the day of the week (1-7) for the cpecisied date
      * @param date The date from which we are extracting the day of the week
@@ -206,6 +236,33 @@ public class Utility {
             System.out.println(sqle.getMessage());
             System.out.println(str);
         }
+    }
+
+    /**
+     * Method gets all the months in the Delivery table
+     * @return An arraylist of months
+     */
+    public ArrayList<Integer> getMonths() {
+        ArrayList<Integer> months = new ArrayList<>();
+
+        // query is getting all unique months from the db
+        String query = "SELECT DISTINCT MONTH(delivery_date) as 'month'\n" +
+                "FROM delivery;";
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                int month = rs.getInt("month");
+                months.add(month);
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+        }
+
+        return months;
     }
 
 }
