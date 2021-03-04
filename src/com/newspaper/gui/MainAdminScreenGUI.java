@@ -12,7 +12,6 @@ package com.newspaper.gui;
 public class MainAdminScreenGUI extends javax.swing.JFrame {
 
 
-
     /**
      * Creates new form MainScreen
      */
@@ -21,8 +20,10 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setResizable(false);
     }
-PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
+
+    PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
     DeliveryAreaMainGUI deliveryAreaMainGUI = new DeliveryAreaMainGUI();
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,7 +47,6 @@ PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-
 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
