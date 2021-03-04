@@ -1,6 +1,9 @@
 package com.newspaper.order;
 
+import com.newspaper.customer.Customer;
+import com.newspaper.customer.CustomerDB;
 import com.newspaper.customer.CustomerExceptionHandler;
+import com.newspaper.customer.CustomerView;
 import com.newspaper.db.DBconnection;
 import com.newspaper.publication.PublicationView;
 
@@ -285,7 +288,7 @@ public class OrderView {
 // Beginning of add an order
 //******************************************************************************************************
 
-    public void addNewOrder() throws OrderExceptionHandler {
+    public void addNewOrder() throws OrderExceptionHandler, SQLException {
         int customer_id = addNewOrderCustomerID();
         int publication_id = addNewOrderPublicationID();
         int frequency = addNewOrderFrequency();
@@ -303,10 +306,9 @@ public class OrderView {
 
             System.out.println("New Order added successfully");
 
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             System.out.println(insertQuery);
-            throw new OrderExceptionHandler("Error: failed to add new order");
         }
     }
 
@@ -315,6 +317,7 @@ public class OrderView {
             Scanner in = new Scanner(System.in);
             int customer_id = 0;
             boolean inputValid = false;
+            printCustomers();
 
             while (!inputValid) {
                 System.out.println("Please enter the id of the customer you would like to create a new order for");
@@ -329,7 +332,6 @@ public class OrderView {
 
                     } catch (OrderExceptionHandler e) {
                         System.out.println(e.getMessage());
-                        //throw new OrderExceptionHandler("Customer does not exist");
                     }
                 } else {
                     //clear the input buffer and start again
@@ -359,7 +361,6 @@ public class OrderView {
                         inputValid = true;
                     } catch (OrderExceptionHandler e) {
                         System.out.println(e.getMessage());
-
                     }
                 } else {
                     //clear the input buffer and start again
@@ -389,8 +390,7 @@ public class OrderView {
                         // if validation was successful
                         inputValid = true;
                     } catch (OrderExceptionHandler e) {
-                        System.out.println(e.getMessage());
-                        //throw new OrderExceptionHandler("Customer does not exist");
+                       System.out.println(e.getMessage());
                     }
                 } else {
                     //clear the input buffer and start again
@@ -399,6 +399,18 @@ public class OrderView {
                 }
             }
             return frequency;
+        }
+    }
+
+    public void printCustomers() {
+        try {
+            CustomerDB db = new CustomerDB();
+            CustomerView view = new CustomerView() ;
+            ArrayList<Customer> customers = db.fetchCustomers();
+            view.printCustomers(customers);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
         }
     }
 }
