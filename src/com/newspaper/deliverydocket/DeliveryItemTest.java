@@ -62,7 +62,7 @@ public class DeliveryItemTest extends TestCase {
 
     public void testPublicationDeliveryItem001() {
         try {
-            PublicationDeliveryItem item = new PublicationDeliveryItem(2, 1, "John Martin", "5 Custume Pier, Athlone", false);
+            PublicationDeliveryItem item = new PublicationDeliveryItem(45, 2, 1, "John Martin", "5 Custume Pier, Athlone", false);
 
             // checking object creation
             assertEquals(1, item.getCustomerID());
@@ -83,7 +83,7 @@ public class DeliveryItemTest extends TestCase {
 
     public void testPublicationDeliveryItem002() {
         try {
-            PublicationDeliveryItem item = new PublicationDeliveryItem(-8, 3, "Mary Collins", "56 Dublin Road, Athlone", false);
+            PublicationDeliveryItem item = new PublicationDeliveryItem(7, -8, 3, "Mary Collins", "56 Dublin Road, Athlone", false);
             fail("Exception expected");
         }
         catch (DeliveryDocketExceptionHandler e) {

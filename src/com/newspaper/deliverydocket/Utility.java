@@ -291,7 +291,24 @@ public class Utility {
         }
     }
 
-
+    /**
+     * Method converts date from String to LocalDate
+     * @param date String parameter reprsenting date
+     * @return LocalDate object containing date from params
+     */
+    public LocalDate convertDate(String date) {
+        LocalDate currDate = null;
+        // null is acceptable for holiday
+        if (date != null) {
+            // checking the format of start date
+            try {
+                currDate = LocalDate.parse(date);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return currDate;
+    }
 
 
 }

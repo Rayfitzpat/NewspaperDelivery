@@ -74,6 +74,12 @@ public class DeliveryDocketDB {
         ut.displayAllDeliveriesOfCustomer(3);
     }
 
+    private Utility ut;
+
+    public DeliveryDocketDB() {
+        ut = new Utility();
+    }
+
     /**
      * Creates delivery dockets for a delivery person on specfied date
      * @param deliveryPersonId the id of the delivery person
@@ -125,7 +131,7 @@ public class DeliveryDocketDB {
     public ArrayList getAllDeliveryItemsFor(int deliveryAreaId, String date) throws DeliveryDocketExceptionHandler {
 
         // first convert the date into Date object
-        LocalDate currDate = convertDate(date);
+        LocalDate currDate = ut.convertDate(date);
         // create lists of delivery items
         ArrayList<DeliveryItem> deliveries = new ArrayList<>();
 
@@ -240,6 +246,7 @@ public class DeliveryDocketDB {
             rs = stmt.executeQuery(query);
             while (rs.next()) {
 
+                int deliveryId = rs.getInt("delivery.delivery_id");
                 int publicationId = rs.getInt("delivery.publication_id");
                 int customerId = rs.getInt("customer.customer_id");
                 String customerName = rs.getString("customer.first_name") + " " + rs.getString("customer.last_name");
@@ -250,7 +257,8 @@ public class DeliveryDocketDB {
                     isDelivered = true;
                 }
 
-                deliveries.add(new PublicationDeliveryItem(publicationId,
+                deliveries.add(new PublicationDeliveryItem(deliveryId,
+                        publicationId,
                         customerId,
                         customerName,
                         customerAddress,
@@ -279,7 +287,7 @@ public class DeliveryDocketDB {
     public void generateDeliveriesIfNeeded(String date) {
 
         // convert the String date to LocalDate format
-        LocalDate deliveryDate = convertDate(date);
+        LocalDate deliveryDate = ut.convertDate(date);
 
         // get the month out of the date
         int month = deliveryDate.getMonthValue();
@@ -302,7 +310,6 @@ public class DeliveryDocketDB {
     public ArrayList<Delivery> generateDeliveriesForMonth(int month) {
 
         // delivery record consist of id, customerId, publicationID,delivery_date, status
-        Utility ut = new Utility();
         // this list will contain all generated deliveries
         ArrayList<Delivery> deliveryItems = new ArrayList<>();
 
@@ -317,7 +324,7 @@ public class DeliveryDocketDB {
             } else {
                 m = "" + month;
             }
-            LocalDate startDate = convertDate("2021-" + m + "-01");
+            LocalDate startDate = ut.convertDate("2021-" + m + "-01");
             YearMonth thisYearMonth = YearMonth.of(2021, month);
             LocalDate endDate = thisYearMonth.atEndOfMonth();
             // loop through orders
@@ -350,7 +357,6 @@ public class DeliveryDocketDB {
     public ArrayList<Delivery> generateDeliveriesForNewOrder(Order order) {
 
         // delivery record consist of id, customerId, publicationID,delivery_date, status
-        Utility ut = new Utility();
         // this list will contain all generated deliveries
         ArrayList<Delivery> deliveryItems = new ArrayList<>();
 
@@ -368,7 +374,7 @@ public class DeliveryDocketDB {
             } else {
                 m = "" + month;
             }
-            LocalDate startDate = convertDate("2021-" + m + "-01");
+            LocalDate startDate = ut.convertDate("2021-" + m + "-01");
             YearMonth thisYearMonth = YearMonth.of(2021, month);
             LocalDate endDate = thisYearMonth.atEndOfMonth();
 
@@ -503,9 +509,8 @@ public class DeliveryDocketDB {
     public String getDeliveryPersonName(int deliveryPersonId) throws DeliveryDocketExceptionHandler {
 
         String name = "";
-        Utility utility = new Utility();
         // check if delivery person exists
-        if (utility.deliveryPersonExists(deliveryPersonId)) {
+        if (ut.deliveryPersonExists(deliveryPersonId)) {
             String query = "SELECT first_name, last_name\n" +
                     "FROM delivery_person\n" +
                     "WHERE delivery_person_id = " + deliveryPersonId + ";";
@@ -523,28 +528,4 @@ public class DeliveryDocketDB {
         }
         return name;
     }
-
-
-
-
-
-    /**
-     * Method converts date from String to LocalDate
-     * @param date String parameter reprsenting date
-     * @return LocalDate object containing date from params
-     */
-    public LocalDate convertDate(String date) {
-        LocalDate currDate = null;
-        // null is acceptable for holiday
-        if (date != null) {
-            // checking the format of start date
-            try {
-                currDate = LocalDate.parse(date);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return currDate;
-    }
-
 }

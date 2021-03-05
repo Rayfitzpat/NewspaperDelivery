@@ -95,6 +95,7 @@ public class DeliveryView {
         // getting id if the customer
         while (!isValid) {
             System.out.println("\nEnter id of the delivery person: ");
+            in.nextLine();
             if (in.hasNextInt()) {
                 deliveryPersonId = in.nextInt();
                 // checking if id exists
@@ -104,16 +105,23 @@ public class DeliveryView {
                 if (deliveryPersonExists && deleveryPersonActive) {
                     isValid = true;
                 }
+                else if(!deliveryPersonExists){
+                    System.out.println("Delivery person with id " + deliveryPersonId + " does not exist");
+                }
+                else {
+                    System.out.println("Delivery person with id " + deliveryPersonId + " is not available to work(status 'inactive')");
+                }
 
 
             } else {
-                in.nextLine();
-                System.out.println("Delivery area id should be a number");
+                System.out.println("Delivery person id should be a number");
+
             }
         }
 
         // 3. Ask user to enter the date of the delivery docket
         String date = askUserToEnterDate();
+        System.out.println("Generating delivery docket...");
 
         // 4. Check if deliveries for that date are available
         // 5. Generate deliveries if they are not in the DB

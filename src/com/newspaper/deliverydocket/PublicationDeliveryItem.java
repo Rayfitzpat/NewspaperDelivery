@@ -11,8 +11,8 @@ import java.sql.SQLException;
 public class PublicationDeliveryItem extends DeliveryItem {
 
 
-    public PublicationDeliveryItem(int publicationId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
-        super(publicationId, customerID, customerName, customerAddress, "publication", isDelivered);
+    public PublicationDeliveryItem(int deliveryId, int publicationId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
+        super(deliveryId, publicationId, customerID, customerName, customerAddress, "publication", isDelivered);
 
         try {
             validatePublicationId(publicationId);

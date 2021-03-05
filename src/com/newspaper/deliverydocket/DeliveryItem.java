@@ -13,6 +13,7 @@ public class DeliveryItem {
 
 
     private int id;
+    private int deliveryId;
     private int customerID;
     private String customerName;
     private String customerAddress;
@@ -34,6 +35,31 @@ public class DeliveryItem {
             throw e;
         }
 
+        this.id = id;
+        this.customerID = customerID;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.type = type;
+        this.isDelivered = isDelivered;
+    }
+
+    // constructor with id
+    public DeliveryItem(int deliveryId, int id, int customerID, String customerName, String customerAddress, String type, boolean isDelivered) throws DeliveryDocketExceptionHandler {
+
+        // validating the input, if all ok, the exception will not be thrown
+        // and the values will be initialised
+        try {
+            validateDeliveryId(deliveryId);
+            validateCustomerId(customerID);
+            validateCustomerName(customerName);
+            validateCustomerAddress(customerAddress);
+            validateType(type);
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            throw e;
+        }
+
+        this.deliveryId = deliveryId;
         this.id = id;
         this.customerID = customerID;
         this.customerName = customerName;
@@ -118,6 +144,28 @@ public class DeliveryItem {
         }
     }
 
+    public void validateDeliveryId(int deliveryID) throws DeliveryDocketExceptionHandler {
+        String query = "select count(*) as total from delivery where delivery_id = " + deliveryID + ";";
+        ResultSet rs;
+        int count = - 1;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count == 0)
+            {
+                throw new DeliveryDocketExceptionHandler("Delivery with id " + deliveryID + " does not exist");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+        }
+    }
+
+
 
 
     public int getCustomerID() {
@@ -165,6 +213,14 @@ public class DeliveryItem {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(int deliveryId) {
+        this.deliveryId = deliveryId;
     }
 
     public void print() {
