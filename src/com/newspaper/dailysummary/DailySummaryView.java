@@ -465,42 +465,68 @@ public class DailySummaryView {
         }
     }
 
-    public DailySummary createDailyReportByDate(String date) {
+
+    int count=0;
+    String st="";
+    public DailySummary createDailyReportByDate(String date) throws SQLException {
+
         DailySummary dailySummary = new DailySummary();
+
+        st = "select count(*) as total from daily_summary where delivery_date = '" + date +"'";
+        ResultSet rss = DBconnection.stmt.executeQuery(st);
+
+        count = 0;
+        while (rss.next()) {
+            count = rss.getInt("total");
+        }
+
+        if (count <= 0)
+        {
+
+
+
 
         String str = "SELECT delivery.delivery_id, delivery.delivery_date, count(delivery.delivery_id) as \"publications_sold\", sum(publication.publication_cost+(publication.publication_cost*0.23))as \"total_revenue\"\n" +
                 "FROM delivery, publication\n" +
                 "WHERE delivery.publication_id = publication.publication_id AND delivery.delivery_status = 'delivered'\n" +
                 "    AND delivery.delivery_date = '" + date + "';";
-        try {
-            ResultSet rs = DBconnection.stmt.executeQuery(str);
 
 
-            while (rs.next()) {
 
-                int publications_sold = rs.getInt("publications_sold");
-                double total_revenue = rs.getDouble("total_revenue");
-                double revenue_per_publication = total_revenue / publications_sold;
-                dailySummary = new DailySummary(date, total_revenue, publications_sold, revenue_per_publication);
 
-                Statement addNew = DBconnection.con.createStatement();
-                addNew.executeUpdate("insert into daily_summary values(null, '" + date + "'," + total_revenue + ", " + publications_sold + ");");
 
+            try {
+                ResultSet rs = DBconnection.stmt.executeQuery(str);
+
+
+                while (rs.next()) {
+
+                    int publications_sold = rs.getInt("publications_sold");
+                    double total_revenue = rs.getDouble("total_revenue");
+                    double revenue_per_publication = total_revenue / publications_sold;
+                    dailySummary = new DailySummary(date, total_revenue, publications_sold, revenue_per_publication);
+
+                    Statement addNew = DBconnection.con.createStatement();
+                    addNew.executeUpdate("insert into daily_summary values(null, '" + date + "'," + total_revenue + ", " + publications_sold + ");");
+
+                }
+
+            } catch (
+                    SQLException sqle) {
+                System.out.println("Error: failed to display all daily summaries.");
+                System.out.println(sqle.getMessage());
+                System.out.println(str);
             }
-
-        } catch (
-                SQLException sqle) {
-            System.out.println("Error: failed to display all daily summaries.");
-            System.out.println(sqle.getMessage());
-            System.out.println(str);
         }
+        else {
 
+        }
 
         return dailySummary;
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DBconnection.init_db();
         DailySummaryView dailySummaryView = new DailySummaryView();
         dailySummaryView.populateDatabase();
@@ -508,11 +534,12 @@ public class DailySummaryView {
     }
 
 
-    public void populateDatabase() {
+    public void populateDatabase() throws SQLException {
 
-        for (int i = 1; i <= 31; i++) {
+        for (int i = 1; i <= 28; i++) {
             createDailyReportByDate("2021-02-" + i);
         }
+
     }
 
 
