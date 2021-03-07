@@ -152,11 +152,12 @@ public class InvoiceDB {
     {
         int cusid;
         Scanner in = new Scanner(System.in);
-        System.out.println("Please enter customer ID to check for publication.");
+        System.out.println("Please enter customer ID to check for publications customer has recieved.");
         cusid = in.nextInt();
-        String str1 = "SELECT publication.publication_name, publication.publication_cost, delivery.delivery_date, customer.first_name, customer.last_name\n" +
-                "FROM delivery, customer, publication\n" +
+        String str1 = "SELECT publication.publication_name, publication.publication_cost, delivery.delivery_date, invoice.is_delivered, customer.first_name, customer.last_name\n" +
+                "FROM delivery, customer, publication, invoice\n" +
                 "WHERE delivery.customer_id = customer.customer_id\n" +
+                "\tAND invoice.is_delivered = 'true'"+
                 "\tAND delivery.publication_id = publication.publication_id\n" +
                 "\tAND customer.customer_id =" + cusid + "\n" +
                 "\tAND MONTH(delivery.delivery_date) = " + cusid;
@@ -164,19 +165,25 @@ public class InvoiceDB {
         if (cusid > 100 || cusid < 0) {
             System.out.println("There was an error");
         } else {
-            Statement printPublication = DBconnection.con.createStatement();
             ResultSet rs = stmt.executeQuery(str1);
-            while (rs.next()) {
+            System.out.printf("\n%-25s %-25s %-5s\n", "Publication Name", "Publication Cost", "Delivery Date");
+//            System.out.println("TESTING");
+            while (rs.next())
+            {
                 String pubName = rs.getString("publication_name");
                 String pubCost = rs.getString("publication_cost");
                 String deliveryDate = rs.getString("delivery_date");
-                String firstname = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
-                System.out.printf("%-25s %-25s %-25s %-25s %-25s\n", pubName, pubCost, deliveryDate, firstname, lastName);
-
+                System.out.printf("%-25s %-25s %-5s\n", pubName, pubCost, deliveryDate);
             }
-
         }
+    }
+
+    public double vatAddition(double taxfree)
+    {
+        double aftervat;
+        aftervat = ((taxfree / 100) * 23) + taxfree;
+        double rounded = Math.round(aftervat * 100.0) / 100.0;
+        return rounded;
     }
 
     // BII6 VIEW THE INVOICE (INVOICE NUMBER, CUSTOMER NAME, CUSTOMER ADDRESS, LIST OF PUBLICATIONS)
