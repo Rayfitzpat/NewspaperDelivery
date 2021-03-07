@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
+import static com.newspaper.db.DBconnection.stmt;
+
 public class DeliveryDocketDB {
 
     // --- Talk with Mark about adding generate deliveries for person, after he adds a subscription
@@ -109,7 +111,8 @@ public class DeliveryDocketDB {
     public void createDeliveryDocketFile(DeliveryDocket docket) {
 
         // create delivery docket text file
-        File docketFile = new File("src\\com\\newspaper\\deliverydocket\\deliverydocketfiles\\" + docket.getDeliveryPersonName() + "_" + docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
+        //File docketFile = new File("src\\com\\newspaper\\deliverydocket\\deliverydocketfiles\\" + docket.getDeliveryPersonName() + "_" + docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
+        File docketFile = new File( docket.getDeliveryPersonName() + "_" + docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
 
         try {
             PrintWriter pw = new PrintWriter(docketFile);
@@ -455,7 +458,7 @@ public class DeliveryDocketDB {
         ResultSet rs;
         int count = -1;
         try {
-            rs = DBconnection.stmt.executeQuery(query);
+            rs = stmt.executeQuery(query);
             while (rs.next()) {
                 count = rs.getInt("total");
             }
@@ -487,7 +490,7 @@ public class DeliveryDocketDB {
         ResultSet rs;
         int deliveryAreaId = -1;
         try {
-            rs = DBconnection.stmt.executeQuery(query);
+            rs = stmt.executeQuery(query);
             while (rs.next()) {
                 deliveryAreaId = rs.getInt("delivery_area_id");
                 String name = rs.getString("name");
@@ -516,7 +519,7 @@ public class DeliveryDocketDB {
                     "WHERE delivery_person_id = " + deliveryPersonId + ";";
             ResultSet rs;
             try {
-                rs = DBconnection.stmt.executeQuery(query);
+                rs = stmt.executeQuery(query);
                 while (rs.next()) {
                     name = rs.getString("first_name") + " " + rs.getString("last_name");
                 }
@@ -528,4 +531,67 @@ public class DeliveryDocketDB {
         }
         return name;
     }
+
+    /************************************************************************************
+     UPDATING OF DELIVERIES
+     *************************************************************************************/
+
+
+    public void updateDeliveriesStatus(int deliveryPersonId, String date) throws DeliveryDocketExceptionHandler {
+        try {
+            // get the delivery area id where the delivery person is working
+            DeliveryArea area = getDeliveryArea(deliveryPersonId);
+
+            // get all deliveries for delivery docket
+            ArrayList<DeliveryItem> deliveries = getAllDeliveryItemsFor(area.getId(), date);
+
+            // update the db
+            queryUpdateSql(deliveries);
+
+            // update the delivery docket file
+            deliveries = getAllDeliveryItemsFor(area.getId(), date);
+            DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), getDeliveryPersonName(deliveryPersonId));
+            System.out.println(docket);
+            createDeliveryDocketFile(docket);
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            throw e;
+        }
+
+    }
+
+    public void queryUpdateSql(ArrayList<DeliveryItem> deliveries) throws DeliveryDocketExceptionHandler{
+        // list may contain both invoices and publications
+        for (DeliveryItem item : deliveries) {
+            if (item.getType().equals("invoice")) {
+                // invoice update
+                String updateQuery = "UPDATE invoice\n" +
+                        "SET is_delivered='true'\n" +
+                        "WHERE invoice_id=" + item.getId();
+
+                try {
+                    stmt.executeUpdate(updateQuery);
+                } catch (SQLException sqle) {
+                    System.out.println(sqle.getMessage());
+                    System.out.println(updateQuery);
+                    throw new DeliveryDocketExceptionHandler("Failed to update invoice delivery record");
+                }
+            }
+            else if (item.getType().equals("publication")) {
+                // publication delivery update
+                String updateQuery = "UPDATE delivery\n" +
+                        "SET delivery_status='delivered'\n" +
+                        "WHERE delivery_id=" + item.getDeliveryId();
+
+                try {
+                    stmt.executeUpdate(updateQuery);
+                } catch (SQLException sqle) {
+                    System.out.println(sqle.getMessage());
+                    System.out.println(updateQuery);
+                    throw new DeliveryDocketExceptionHandler("Failed to update publication delivery record");
+                }
+            }
+        }
+    }
+
 }

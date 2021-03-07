@@ -1,6 +1,5 @@
 package com.newspaper.deliverydocket;
 
-import com.newspaper.customer.CustomerDB;
 import com.newspaper.db.DBconnection;
 
 import java.util.Scanner;
@@ -42,6 +41,7 @@ public class DeliveryView {
                         }
                         case 2 -> {
                             // update delivery docket
+                            updatingDeliveryDocket();
                         }
                         case 3 -> {
                             // delete delivery docket
@@ -92,7 +92,7 @@ public class DeliveryView {
         int deliveryPersonId = 0;
 
 
-        // getting id if the customer
+        // getting id of the delivery person
         while (!isValid) {
             System.out.println("\nEnter id of the delivery person: ");
             in.nextLine();
@@ -141,6 +141,101 @@ public class DeliveryView {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public void updatingDeliveryDocket() {
+        // 1. Display all delivery people and the delivery areas they work on
+        // 2. Ask user to enter id of the delivery person
+        // 3. Ask user to enter the date of the delivery docket
+        // 4. Read in the delivery docket, show to user
+        // 5. Ask the user, does he want to update the delivery status of all deliveries
+        //    at once, or update by id.
+        // 6. If all at once: make an update and show updated delivery docket
+        //    If by one: ask user to enter ids of the delivery records to be updated
+
+        // 1. Display all delivery people and the delivery areas they work on
+        utility.displayDeliveryPeopleWithDeliveryAreas();
+
+        // 2. Ask user to enter id of the delivery person
+        DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+        boolean isValid = false;
+        int deliveryPersonId = 0;
+
+
+        // getting id if the customer
+        while (!isValid) {
+            System.out.println("\nEnter id of the delivery person: ");
+            in.nextLine();
+            if (in.hasNextInt()) {
+                deliveryPersonId = in.nextInt();
+                // checking if id exists
+
+                boolean deliveryPersonExists = utility.deliveryPersonExists(deliveryPersonId);
+                boolean deleveryPersonActive = utility.deliveryPersonActive(deliveryPersonId);
+                if (deliveryPersonExists && deleveryPersonActive) {
+                    isValid = true;
+                }
+                else if(!deliveryPersonExists){
+                    System.out.println("Delivery person with id " + deliveryPersonId + " does not exist");
+                }
+                else {
+                    System.out.println("Delivery person with id " + deliveryPersonId + " is not available to work(status 'inactive')");
+                }
+
+
+            } else {
+                System.out.println("Delivery person id should be a number");
+
+            }
+        }
+
+        // 3. Ask user to enter the date of the delivery docket
+        String date = askUserToEnterDate();
+
+        // 4. Read in the delivery docket, show to user
+        try {
+            DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(deliveryPersonId, date);
+            System.out.println(docket);
+            // need to create it if it wasn't created yet on this machine
+            deliveryDocketDB.createDeliveryDocketFile(docket);
+        } catch (DeliveryDocketExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+
+        // 4. Check if deliveries were not updated yet
+
+        // 5. Ask the user, does he want to update the delivery status of all deliveries
+        //    at once, or update by id.
+
+        isValid = false;
+        int updateChoice = -1;
+        while (!isValid) {
+            System.out.println("Two options available now: \n" +
+                    " 1: Update all deliveries to 'delivered' status \n" +
+                    " 2: Update deliveries by id\n" +
+                    " 9: Cancel the update, go to main menu");
+            if (in.hasNextInt()) {
+                updateChoice = in.nextInt();
+                isValid = true;
+            } else {
+                System.out.println("Your choice should be 1, 2, or 9");
+            }
+        }
+
+        if (updateChoice == 1) {
+            // update all deliveries to delivered 'status'
+            try {
+                deliveryDocketDB.updateDeliveriesStatus(deliveryPersonId, date);
+                System.out.println("Update was successful");
+            }
+            catch (DeliveryDocketExceptionHandler e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+        else if (updateChoice == 2) {
+
+        }
     }
 
 

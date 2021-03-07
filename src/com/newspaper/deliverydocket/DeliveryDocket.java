@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -233,11 +232,12 @@ public class DeliveryDocket {
             if (hasInvoiceItems(deliveryItems)) {
                 // if there is, print the items in separate table
                 sb.append("\n\n\n*********************************************** INVOICES ************************************************");
-                sb.append(String.format("\n %-30s %-25s %-20s %-20s ", "Invoice ID", "Customer Name","Customer Address", "Is Delivered"));
+                sb.append(String.format("\n %-15s %-30s %-25s %-27s ", "Invoice ID", "Customer Name","Customer Address", "Is Delivered"));
                 sb.append("\n---------------------------------------------------------------------------------------------------------");
                 for (DeliveryItem delivery : this.deliveryItems) {
                     if (delivery.getType().equals("invoice")) {
-                        sb.append(String.format("\n %-30d %-25s %-20s %-20s", delivery.getId(),  delivery.getCustomerName(), delivery.getCustomerAddress(), delivery.isDelivered()));
+                        String isDelivered = delivery.isDelivered() ? "yes" : "no";
+                        sb.append(String.format("\n %-15d %-30s %-25s %-27s", delivery.getId(),  delivery.getCustomerName(), delivery.getCustomerAddress(), isDelivered));
                     }
                 }
             }
