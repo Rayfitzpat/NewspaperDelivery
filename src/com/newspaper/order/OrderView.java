@@ -415,5 +415,7 @@ public class OrderView {
 // Beginning of edit an order
 //******************************************************************************************************
 
+    public void editOrder() throws OrderExceptionHandler, SQLException {
+    }
 
 }
