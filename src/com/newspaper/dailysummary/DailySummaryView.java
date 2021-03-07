@@ -373,18 +373,15 @@ public class DailySummaryView {
                         monthlyReport();
                         break;
                     case 4:
-//                        yearlyReport();
-                        break;
-                    case 5:
                         chooseDate();
                         break;
-                    case 6:
+                    case 5:
                         fromChosenDate();
                         break;
-                    case 7:
+                    case 6:
                         chosenRange();
                         break;
-                    case 8:
+                    case 7:
                         return;
 
                     default:
@@ -404,11 +401,10 @@ public class DailySummaryView {
         System.out.println("1: Daily");
         System.out.println("2: Weekly");
         System.out.println("3: Monthly");
-        System.out.println("4: Yearly (TBC)");
-        System.out.println("5: User entry");
-        System.out.println("6: From chosen date");
-        System.out.println("7: User Chosen Range");
-        System.out.println("8: Main Menu");
+        System.out.println("4: User entry");
+        System.out.println("5: From chosen date");
+        System.out.println("6: User Chosen Range");
+        System.out.println("7: Main Menu");
         System.out.print("\nEnter your choice: ");
     }
 
@@ -446,12 +442,35 @@ public class DailySummaryView {
                         writer1.printf("%-12s %-20s %-15s %-20s %-25s\n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
 
                     }
-
-                    writer1.flush();
-                    writer1.close();
                 }
 
-            } catch (
+                String sum = "select sum(total_revenue) as Revenue_Total,sum(publications_sold) as Publications_Sold_Total,sum(total_revenue)/sum(publications_sold) as Revenue_Per_Pub_Total from daily_summary where delivery_date like '" + delivery_month + "%'";
+
+                ResultSet re = DBconnection.stmt.executeQuery(sum);
+
+while(re.next()) {
+
+
+
+    double revenueSum = re.getDouble("Revenue_Total");
+    int publicationsSum = re.getInt("Publications_Sold_Total");
+    double revPerPubTotal = re.getDouble("Revenue_Per_Pub_Total");
+    revenueSum = Math.round(revenueSum * 100.0) / 100.0;
+    revPerPubTotal = Math.round(revPerPubTotal * 100.0) / 100.0;
+
+    writer1.println("---------------------------------------------------------------");
+    writer1.printf("\n %-15s %-20s %-25s\n", "Revenue Total", "Pubs Sold Total", "Revenue Per Total");
+    writer1.printf("%-18s %-23s %-28s\n", revenueSum, publicationsSum, revPerPubTotal);
+
+
+    writer1.flush();
+    writer1.close();
+}
+
+
+
+            }
+            catch (
                     SQLException sqle) {
                 System.out.println("Error: failed to display all summaries.");
                 System.out.println(sqle.getMessage());
