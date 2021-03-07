@@ -1,6 +1,7 @@
 package com.newspaper.deliverydocket;
 
 import com.newspaper.db.DBconnection;
+import com.newspaper.deliveryarea.DeliveryArea;
 import com.newspaper.order.Order;
 import com.newspaper.order.OrderExceptionHandler;
 
@@ -10,6 +11,8 @@ import java.sql.Statement;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import static com.newspaper.db.DBconnection.stmt;
 
 /**
  * @author  Yuliia Dovbak
@@ -41,6 +44,11 @@ public class Utility {
 
     public boolean deliveryPersonExists(int deliveryPersonId) {
         String query = "select count(*) as total from delivery_person where delivery_person_id = " + deliveryPersonId + ";";
+        return exists(query);
+    }
+
+    public boolean deliveryAreaExists(int deliveryAreaId) {
+        String query = "select count(*) as total from delivery_area where delivery_area_id = " + deliveryAreaId + ";";
         return exists(query);
     }
 
@@ -223,6 +231,30 @@ public class Utility {
         }
     }
 
+    public void displayDeliveryAreas() {
+
+        String str = "SELECT * from delivery_area;";
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            ResultSet rs = stmt.executeQuery(str);
+            // Sets the headings and returns the data from the DB
+            System.out.printf("\n%-20s %-20s \n", "ID", "Delivery Area Name");
+            System.out.println("-------------------------------------------------");
+            while (rs.next()) {
+                int deliveryAreaId = rs.getInt("delivery_area_id");
+                String name = rs.getString("name");
+
+                System.out.printf("%-20s %-20s\n", deliveryAreaId, name);
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println("Error: failed to display all Delivery Areas.");
+            System.out.println(sqle.getMessage());
+            System.out.println(str);
+        }
+    }
+
     /**
      * Method gets all the months in the Delivery table
      * @return An arraylist of months
@@ -312,5 +344,39 @@ public class Utility {
         return currDate;
     }
 
+    /**
+     * Method gets the object of delivery area where the delivery person works
+     * @param deliveryAreaId the id of the delivery person
+     * @return an object of DelivryArea
+     * @throws DeliveryDocketExceptionHandler if delivery person with deliveryPersonId is not registered on any area
+     */
+    public DeliveryArea getDeliveryArea(int deliveryAreaId) throws DeliveryDocketExceptionHandler {
+
+        DeliveryArea area = new DeliveryArea();
+        String query = "SELECT *\n" +
+                "FROM delivery_area\n" +
+                "WHERE delivery_area_id = " + deliveryAreaId + ";";
+        ResultSet rs;
+        try {
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                deliveryAreaId = rs.getInt("delivery_area_id");
+                String name = rs.getString("name");
+                int deliveryPersonId = rs.getInt("delivery_person_id");
+
+                area.setId(deliveryAreaId);
+                area.setDAreaName(name);
+                area.setDeliveryPersonId(deliveryPersonId);
+            }
+            if (deliveryAreaId == -1) {
+                throw new DeliveryDocketExceptionHandler("Delivery area with id " + deliveryAreaId + " does not exist");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+        }
+        return area;
+    }
 
 }

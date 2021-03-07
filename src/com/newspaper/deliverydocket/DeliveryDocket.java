@@ -212,7 +212,7 @@ public class DeliveryDocket {
             sb.append("\n********************************************DELIVERY DOCKET*************************************************");
             sb.append("\n************************************************************************************************************");
             sb.append( String.format("\n%-25s %-25s", "DATE: " , date));
-            sb.append( String.format("\n%-25s %-25s", "Delivery Area No: ", getDeliveryAreaId() + ", " + getDeliveryAreaName()));
+            sb.append( String.format("\n%-25s %-25s", "Delivery Area: ", "No " + getDeliveryAreaId() + ", " + getDeliveryAreaName()));
             sb.append(String.format("\n%-25s %-25s", "Delivery Person Name: " , getDeliveryPersonName()));
 
             // check if there are any publications to be delivered

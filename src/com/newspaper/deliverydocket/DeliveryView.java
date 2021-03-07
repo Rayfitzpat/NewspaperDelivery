@@ -14,10 +14,12 @@ public class DeliveryView {
 
     private Scanner in;
     private Utility utility;
+    private DeliveryDocketDB deliveryDocketDB;
 
     public DeliveryView() {
         in = new Scanner(System.in);
         utility = new Utility();
+        deliveryDocketDB = new DeliveryDocketDB();
     }
 
 
@@ -45,21 +47,22 @@ public class DeliveryView {
                             creatingDeliveryDocket();
                         }
                         case 2 -> {
+                            // read a delivery docket
+                            readDeliveryDocket();
+                        }
+                        case 3 -> {
                             // update delivery docket
                             updatingDeliveryDocket();
                         }
-                        case 3 -> {
+                        case 4 -> {
                             // delete delivery docket
                         }
-                        case 4 -> {
+                        case 5 -> {
                             // see all customer deliveries
                             seeAllCustomerDeliveries();
                         }
-                        case 5 -> {
-                            // see all publication deliveries
-                        }
                         case 6 -> {
-
+                            // see all publication deliveries
                         }
                         case 9 -> {
                             System.out.println("Returning to the Main Menu...");
@@ -94,33 +97,7 @@ public class DeliveryView {
 
         // 2. Ask user to enter id of the delivery person
         boolean isValid = false;
-        int deliveryPersonId = 0;
-
-
-        // getting id of the delivery person
-        while (!isValid) {
-            System.out.println("\nEnter id of the delivery person: ");
-            in.nextLine();
-            if (in.hasNextInt()) {
-                deliveryPersonId = in.nextInt();
-                // checking if id exists
-
-                boolean deliveryPersonExists = utility.deliveryPersonExists(deliveryPersonId);
-                boolean deleveryPersonActive = utility.deliveryPersonActive(deliveryPersonId);
-                if (deliveryPersonExists && deleveryPersonActive) {
-                    isValid = true;
-                } else if (!deliveryPersonExists) {
-                    System.out.println("Delivery person with id " + deliveryPersonId + " does not exist");
-                } else {
-                    System.out.println("Delivery person with id " + deliveryPersonId + " is not available to work(status 'inactive')");
-                }
-
-
-            } else {
-                System.out.println("Delivery person id should be a number");
-
-            }
-        }
+        int deliveryPersonId = askUserToEnterDeliveryPersonId();
 
         // 3. Ask user to enter the date of the delivery docket
         String date = askUserToEnterDate();
@@ -128,7 +105,6 @@ public class DeliveryView {
 
         // 4. Check if deliveries for that date are available
         // 5. Generate deliveries if they are not in the DB
-        DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
         deliveryDocketDB.generateDeliveriesIfNeeded(date);
 
 
@@ -146,6 +122,24 @@ public class DeliveryView {
 
     }
 
+    public void readDeliveryDocket() {
+
+        int deliveryAreaId = askUserToEnterDeliveryAreaId();
+        String date = askUserToEnterDate();
+        try {
+            // get the delivery area id where the delivery person is working
+            DeliveryArea area = utility.getDeliveryArea(deliveryAreaId);
+
+            ArrayList<DeliveryItem> deliveries = deliveryDocketDB.getAllDeliveryItemsFor(area.getId(), date);
+            DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), deliveryDocketDB.getDeliveryPersonName(area.getDeliveryPersonId()));
+            System.out.println(docket);
+            deliveryDocketDB.createDeliveryDocketFile(docket);
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void updatingDeliveryDocket() {
         // 1. Display all delivery people and the delivery areas they work on
         // 2. Ask user to enter id of the delivery person
@@ -160,35 +154,8 @@ public class DeliveryView {
         utility.displayDeliveryPeopleWithDeliveryAreas();
 
         // 2. Ask user to enter id of the delivery person
-        DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
         boolean isValid = false;
-        int deliveryPersonId = 0;
-
-
-        // getting id if the customer
-        while (!isValid) {
-            System.out.println("\nEnter id of the delivery person: ");
-            in.nextLine();
-            if (in.hasNextInt()) {
-                deliveryPersonId = in.nextInt();
-                // checking if id exists
-
-                boolean deliveryPersonExists = utility.deliveryPersonExists(deliveryPersonId);
-                boolean deleveryPersonActive = utility.deliveryPersonActive(deliveryPersonId);
-                if (deliveryPersonExists && deleveryPersonActive) {
-                    isValid = true;
-                } else if (!deliveryPersonExists) {
-                    System.out.println("Delivery person with id " + deliveryPersonId + " does not exist");
-                } else {
-                    System.out.println("Delivery person with id " + deliveryPersonId + " is not available to work(status 'inactive')");
-                }
-
-
-            } else {
-                System.out.println("Delivery person id should be a number");
-
-            }
-        }
+        int deliveryPersonId = askUserToEnterDeliveryPersonId();
 
         // 3. Ask user to enter the date of the delivery docket
         String date = askUserToEnterDate();
@@ -247,7 +214,6 @@ public class DeliveryView {
     }
 
     public void updatingDeliveriesByID(int deliveryPersonId, String date) {
-        DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
         boolean keepGoing = true;
 
         try {
@@ -307,7 +273,7 @@ public class DeliveryView {
     }
 
     public void refreshAndPrintDeliveryDocketFile(int deliveryPersonId, String date ) {
-        DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+
         try {
             // get the delivery area id where the delivery person is working
             DeliveryArea area = deliveryDocketDB.getDeliveryArea(deliveryPersonId);
@@ -323,6 +289,71 @@ public class DeliveryView {
             System.out.println(e.getMessage());;
         }
     }
+
+    public int askUserToEnterDeliveryPersonId ()
+    {
+        boolean isValid = false;
+        int deliveryPersonId = -1;
+        // getting id of the delivery person
+        while (!isValid) {
+            System.out.println("\nEnter id of the delivery person: ");
+            in.nextLine();
+            if (in.hasNextInt()) {
+                deliveryPersonId = in.nextInt();
+                // checking if id exists
+
+                boolean deliveryPersonExists = utility.deliveryPersonExists(deliveryPersonId);
+                boolean deleveryPersonActive = utility.deliveryPersonActive(deliveryPersonId);
+                if (deliveryPersonExists && deleveryPersonActive) {
+                    isValid = true;
+                } else if (!deliveryPersonExists) {
+                    System.out.println("Delivery person with id " + deliveryPersonId + " does not exist");
+                } else {
+                    System.out.println("Delivery person with id " + deliveryPersonId + " is not available to work(status 'inactive')");
+                }
+
+
+            } else {
+                System.out.println("Delivery person id should be a number");
+
+            }
+        }
+
+        return deliveryPersonId;
+    }
+
+
+    public int askUserToEnterDeliveryAreaId ()
+    {
+        boolean isValid = false;
+        int deliveryAreaId = -1;
+        // show delivery areas
+        utility.displayDeliveryAreas();
+
+        // getting id of the delivery area
+        while (!isValid) {
+            System.out.println("\nEnter id of the delivery area: ");
+            in.nextLine();
+            if (in.hasNextInt()) {
+                deliveryAreaId = in.nextInt();
+                // checking if id exists
+
+                if (utility.deliveryAreaExists(deliveryAreaId)) {
+                    isValid = true;
+                }  else {
+                    System.out.println("Delivery area with id " + deliveryAreaId + " does not exist.");
+                }
+
+
+            } else {
+                System.out.println("Delivery area id should be a number");
+
+            }
+        }
+
+        return deliveryAreaId;
+    }
+
 
     public String askUserToEnterDate() {
 
@@ -389,11 +420,11 @@ public class DeliveryView {
     public void displayDeliveryMenu() {
         System.out.println("\n Delivery Menu");
         System.out.println("1: Create Delivery Docket");
-        System.out.println("2: Update Delivery Docket");
-        System.out.println("3: Delete Delivery Docket");
-        System.out.println("4: See all deliveries of a customer");
-        System.out.println("5: See all deliveries of a publication");
-        System.out.println("6: ");
+        System.out.println("2: Show Delivery Docket");
+        System.out.println("3: Update Delivery Docket");
+        System.out.println("4: Delete Delivery Docket");
+        System.out.println("5: See all deliveries of a customer");
+        System.out.println("6: See all deliveries of a publication");
         System.out.println("9: Return to Main Menu\n");
         System.out.print("Enter your choice: ");
     }
