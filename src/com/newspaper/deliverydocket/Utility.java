@@ -1,6 +1,5 @@
 package com.newspaper.deliverydocket;
 
-import com.newspaper.customer.Customer;
 import com.newspaper.db.DBconnection;
 import com.newspaper.order.Order;
 import com.newspaper.order.OrderExceptionHandler;
@@ -12,6 +11,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * @author  Yuliia Dovbak
+ */
 public class Utility {
 
     public String getPublicationByID(int id) throws DeliveryDocketExceptionHandler {

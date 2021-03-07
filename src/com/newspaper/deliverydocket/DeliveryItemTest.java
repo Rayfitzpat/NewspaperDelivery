@@ -2,7 +2,9 @@ package com.newspaper.deliverydocket;
 
 import com.newspaper.db.DBconnection;
 import junit.framework.TestCase;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class DeliveryItemTest extends TestCase {
 
     private DeliveryItem deliveryItem;

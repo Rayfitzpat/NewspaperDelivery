@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * @author  Yuliia Dovbak
+ */
 public class DeliveryDocket {
     private ArrayList<DeliveryItem> deliveryItems;
     private String date;

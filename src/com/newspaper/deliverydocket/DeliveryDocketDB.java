@@ -1,4 +1,7 @@
 package com.newspaper.deliverydocket;
+/**
+ * @author
+ */
 
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryArea;
@@ -16,6 +19,9 @@ import java.util.ArrayList;
 
 import static com.newspaper.db.DBconnection.stmt;
 
+/**
+ * @author  Yuliia Dovbak
+ */
 public class DeliveryDocketDB {
 
     // --- Talk with Mark about adding generate deliveries for person, after he adds a subscription
@@ -536,7 +542,34 @@ public class DeliveryDocketDB {
      UPDATING OF DELIVERIES
      *************************************************************************************/
 
+    public boolean isFullyDelivered(int deliveryPersonId, String date) throws DeliveryDocketExceptionHandler {
+        boolean allDelivered = true;    // default
+        try {
+            // get the delivery area id where the delivery person is working
+            DeliveryArea area = getDeliveryArea(deliveryPersonId);
 
+            // get all deliveries for delivery docket
+            ArrayList<DeliveryItem> deliveries = getAllDeliveryItemsFor(area.getId(), date);
+
+            for (DeliveryItem item : deliveries) {
+                if (!item.isDelivered())  {
+                    allDelivered = false;
+                }
+            }
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            throw e;
+        }
+        return allDelivered;
+    }
+
+    /**
+     * Method is called from view and updates the delivery status to 'delivered' of
+     * all the deliveries that are included in the delivery docket
+     * @param deliveryPersonId the delivery person that delivers that delivery docket
+     * @param date date of delivery docket
+     * @throws DeliveryDocketExceptionHandler is case of exception
+     */
     public void updateDeliveriesStatus(int deliveryPersonId, String date) throws DeliveryDocketExceptionHandler {
         try {
             // get the delivery area id where the delivery person is working
@@ -546,7 +579,7 @@ public class DeliveryDocketDB {
             ArrayList<DeliveryItem> deliveries = getAllDeliveryItemsFor(area.getId(), date);
 
             // update the db
-            queryUpdateSql(deliveries);
+            changeDeliveriesStatusToDelivered(deliveries);
 
             // update the delivery docket file
             deliveries = getAllDeliveryItemsFor(area.getId(), date);
@@ -560,9 +593,27 @@ public class DeliveryDocketDB {
 
     }
 
-    public void queryUpdateSql(ArrayList<DeliveryItem> deliveries) throws DeliveryDocketExceptionHandler{
+
+
+    /**
+     * Method updates all delivery records in the database and sets delivery_status to 'delivered'
+     * @param deliveries list of deliveries that are updated in the db
+     * @throws DeliveryDocketExceptionHandler is thrown if there is an SQL error
+     */
+    public void changeDeliveriesStatusToDelivered(ArrayList<DeliveryItem> deliveries) throws DeliveryDocketExceptionHandler{
         // list may contain both invoices and publications
         for (DeliveryItem item : deliveries) {
+            updateDeliveryStatus( item);
+        }
+    }
+
+    /**
+     * Updates the delivery item in the db
+     * @param item the item that has to be updated
+     * @throws DeliveryDocketExceptionHandler thrown in case of error
+     */
+    public void updateDeliveryStatus(DeliveryItem item) throws DeliveryDocketExceptionHandler {
+
             if (item.getType().equals("invoice")) {
                 // invoice update
                 String updateQuery = "UPDATE invoice\n" +
@@ -591,7 +642,7 @@ public class DeliveryDocketDB {
                     throw new DeliveryDocketExceptionHandler("Failed to update publication delivery record");
                 }
             }
-        }
+
     }
 
 }

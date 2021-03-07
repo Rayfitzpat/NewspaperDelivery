@@ -1,12 +1,12 @@
 package com.newspaper.deliverydocket;
 
 import com.newspaper.db.DBconnection;
-import com.newspaper.deliverydocket.DeliveryDocketExceptionHandler;
-import com.newspaper.deliverydocket.DeliveryItem;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 // this class will represent publication delivery item in the delivery docket
 public class PublicationDeliveryItem extends DeliveryItem {
 

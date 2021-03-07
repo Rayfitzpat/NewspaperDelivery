@@ -4,7 +4,9 @@ import com.newspaper.db.DBconnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 // this class will represent invoice delivery item in the delivery docket
 public class InvoiceDeliveryItem extends DeliveryItem {
 

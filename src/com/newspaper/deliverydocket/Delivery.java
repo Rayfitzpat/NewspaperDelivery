@@ -1,7 +1,9 @@
 package com.newspaper.deliverydocket;
 
 import java.time.LocalDate;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class Delivery {
     private int customerId;
     private int publicationId;

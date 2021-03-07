@@ -1,9 +1,14 @@
 package com.newspaper.deliverydocket;
 
 import com.newspaper.db.DBconnection;
+import com.newspaper.deliveryarea.DeliveryArea;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author  Yuliia Dovbak
+ */
 public class DeliveryView {
 
 
@@ -104,11 +109,9 @@ public class DeliveryView {
                 boolean deleveryPersonActive = utility.deliveryPersonActive(deliveryPersonId);
                 if (deliveryPersonExists && deleveryPersonActive) {
                     isValid = true;
-                }
-                else if(!deliveryPersonExists){
+                } else if (!deliveryPersonExists) {
                     System.out.println("Delivery person with id " + deliveryPersonId + " does not exist");
-                }
-                else {
+                } else {
                     System.out.println("Delivery person with id " + deliveryPersonId + " is not available to work(status 'inactive')");
                 }
 
@@ -174,11 +177,9 @@ public class DeliveryView {
                 boolean deleveryPersonActive = utility.deliveryPersonActive(deliveryPersonId);
                 if (deliveryPersonExists && deleveryPersonActive) {
                     isValid = true;
-                }
-                else if(!deliveryPersonExists){
+                } else if (!deliveryPersonExists) {
                     System.out.println("Delivery person with id " + deliveryPersonId + " does not exist");
-                }
-                else {
+                } else {
                     System.out.println("Delivery person with id " + deliveryPersonId + " is not available to work(status 'inactive')");
                 }
 
@@ -202,42 +203,126 @@ public class DeliveryView {
             System.out.println(e.getMessage());
         }
 
-        // 4. Check if deliveries were not updated yet
+        // 4. Check if deliveries were not delivered yet
+        try {
+            if (!deliveryDocketDB.isFullyDelivered(deliveryPersonId, date)) {
+                // 5. Ask the user, does he want to update the delivery status of all deliveries
+                //    at once, or update by id.
+                isValid = false;
+                int updateChoice = -1;
+                while (!isValid) {
+                    System.out.println("Two options available now: \n" +
+                            " 1: Update all deliveries to 'delivered' status \n" +
+                            " 2: Update deliveries by id\n" +
+                            " 9: Cancel the update, go to main menu");
+                    if (in.hasNextInt()) {
+                        updateChoice = in.nextInt();
+                        isValid = true;
+                    } else {
+                        System.out.println("Your choice should be 1, 2, or 9");
+                    }
+                }
 
-        // 5. Ask the user, does he want to update the delivery status of all deliveries
-        //    at once, or update by id.
+                if (updateChoice == 1) {
+                    // update all deliveries to delivered 'status'
+                    try {
+                        deliveryDocketDB.updateDeliveriesStatus(deliveryPersonId, date);
+                        System.out.println("Update was successful");
+                    } catch (DeliveryDocketExceptionHandler e) {
+                        System.out.println(e.getMessage());
+                    }
 
-        isValid = false;
-        int updateChoice = -1;
-        while (!isValid) {
-            System.out.println("Two options available now: \n" +
-                    " 1: Update all deliveries to 'delivered' status \n" +
-                    " 2: Update deliveries by id\n" +
-                    " 9: Cancel the update, go to main menu");
-            if (in.hasNextInt()) {
-                updateChoice = in.nextInt();
-                isValid = true;
-            } else {
-                System.out.println("Your choice should be 1, 2, or 9");
+                } else if (updateChoice == 2) {
+                    updatingDeliveriesByID(deliveryPersonId, date);
+                }
             }
+            else {
+                System.out.println("\n NO NEED TO UPDATE: All deliveries in this delivery docket were delivered.");
+            }
+        } catch (DeliveryDocketExceptionHandler e) {
+            System.out.println("Error: in line deliveryDocketDB.isFullyDelivered (deliveryPersonId, date)");
         }
 
-        if (updateChoice == 1) {
-            // update all deliveries to delivered 'status'
-            try {
-                deliveryDocketDB.updateDeliveriesStatus(deliveryPersonId, date);
-                System.out.println("Update was successful");
-            }
-            catch (DeliveryDocketExceptionHandler e) {
-                System.out.println(e.getMessage());
-            }
 
-        }
-        else if (updateChoice == 2) {
-
-        }
     }
 
+    public void updatingDeliveriesByID(int deliveryPersonId, String date) {
+        DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+        boolean keepGoing = true;
+
+        try {
+            // get the delivery area id where the delivery person is working
+            DeliveryArea area = deliveryDocketDB.getDeliveryArea(deliveryPersonId);
+
+            // get all deliveries for delivery docket
+            ArrayList<DeliveryItem> deliveries = deliveryDocketDB.getAllDeliveryItemsFor(area.getId(), date);
+
+            while (keepGoing) {
+                System.out.println("(Enter 0 to stop) Enter id of the delivery that you want to update: ");
+                if (in.hasNextInt()) {
+                    int deliveryId = in.nextInt();
+                    // check if we keep going
+                    if (deliveryId != 0) {
+
+                        // find the correct delivery
+                        DeliveryItem deliveryItem = null;
+                        for (DeliveryItem item : deliveries) {
+                            if (item.getDeliveryId() == deliveryId) {
+                                deliveryItem = item;
+                            }
+                            if (item.getId() == deliveryId) {
+                                deliveryItem = item;
+                            }
+                        }
+
+                        // if delivery was found and its not delivered yet, update the delivery
+                        if (deliveryItem == null) {
+                            System.out.println("Delivery with delivery id " + deliveryId + " is not found");
+                        }
+                        else if (deliveryItem.isDelivered()) {
+                            System.out.println("Delivery with delivery id " + deliveryId + " is delivered");
+                        }
+                        else {
+                            // updating the delivery
+                            deliveryDocketDB.updateDeliveryStatus(deliveryItem);
+                            System.out.println("Update successful");
+                        }
+                    }
+                    else {
+                        keepGoing = false;
+                    }
+                }
+                else
+                {
+                    System.out.println("Enter only numbers.");
+                }
+            }
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+        // show final result
+        System.out.println("\n*** Delivery docket after updating: \n");
+        refreshAndPrintDeliveryDocketFile(deliveryPersonId, date);
+    }
+
+    public void refreshAndPrintDeliveryDocketFile(int deliveryPersonId, String date ) {
+        DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+        try {
+            // get the delivery area id where the delivery person is working
+            DeliveryArea area = deliveryDocketDB.getDeliveryArea(deliveryPersonId);
+
+            // get all deliveries for delivery docket
+            ArrayList<DeliveryItem> deliveries = deliveryDocketDB.getAllDeliveryItemsFor(area.getId(), date);
+
+            DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), deliveryDocketDB.getDeliveryPersonName(deliveryPersonId));
+            System.out.println(docket);
+            deliveryDocketDB.createDeliveryDocketFile(docket);
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            System.out.println(e.getMessage());;
+        }
+    }
 
     public String askUserToEnterDate() {
 

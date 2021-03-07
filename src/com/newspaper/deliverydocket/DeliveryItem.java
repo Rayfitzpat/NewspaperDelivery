@@ -4,6 +4,9 @@ import com.newspaper.db.DBconnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+/**
+ * @author  Yuliia Dovbak
+ */
 
 /*Base class for all items that must be included in the delivery docket.
 * I created this class to ba able to store these items in the same list and reduce amount of code,
