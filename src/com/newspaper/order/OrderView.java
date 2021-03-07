@@ -296,13 +296,10 @@ public class OrderView {
         String insertQuery = "Insert into orders (customer_id, publication_id, frequency)" + "values (?, ?, ?)";
 
         try {
-            //ResultSet rs = DBconnection.stmt.executeQuery(insertQuery);
             PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
             pstmt.setInt(1, customer_id);
             pstmt.setInt(2, publication_id);
             pstmt.setInt(3, frequency);
-
-            int rows = pstmt.executeUpdate();
 
             System.out.println("New Order added successfully");
 
@@ -347,7 +344,7 @@ public class OrderView {
         {
 //            PublicationView pv = new PublicationView();
 //            pv.displayAllPublication();
-
+//TODO SORT JACKS STUFF COM.COM.COM.COM.COM.COM.COM
             Scanner in = new Scanner(System.in);
             int publication_id = 0;
             boolean inputValid = false;
@@ -413,4 +410,10 @@ public class OrderView {
             e.printStackTrace();
         }
     }
+
+//******************************************************************************************************
+// Beginning of edit an order
+//******************************************************************************************************
+
+
 }
