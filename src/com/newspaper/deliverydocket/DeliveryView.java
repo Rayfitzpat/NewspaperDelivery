@@ -63,6 +63,7 @@ public class DeliveryView {
                         }
                         case 6 -> {
                             // see all publication deliveries
+                            seeAllPublicationDeliveries();
                         }
                         case 9 -> {
                             System.out.println("Returning to the Main Menu...");
@@ -391,9 +392,15 @@ public class DeliveryView {
         }
     }
 
+    public void seeAllPublicationDeliveries() {
+
+        int publicationId = askUserToEnterPublicationID();
+        utility.displayAllDeliveriesOfPublication(publicationId);
+
+    }
+
 
     public int askUserToEnterCustomerID() {
-        Scanner in = new Scanner(System.in);
         boolean isValid = false;
         int customerID = 0;
 
@@ -414,6 +421,30 @@ public class DeliveryView {
             }
         }
         return customerID;
+    }
+
+    public int askUserToEnterPublicationID() {
+        boolean isValid = false;
+        int publicationId = 0;
+        utility.displayAllPublications();
+
+        // getting id if the customer
+        while (!isValid) {
+            System.out.println("Enter id of the publication: ");
+            if (in.hasNextInt()) {
+                publicationId = in.nextInt();
+                // checking if publication exists
+                if (utility.publicationExists(publicationId)) {
+                    isValid = true;
+                } else {
+                    System.out.println("Publication with id " + publicationId + " doesn't exist");
+                }
+            } else {
+                in.next();
+                System.out.println("Publication id should be a number");
+            }
+        }
+        return publicationId;
     }
 
 

@@ -81,6 +81,16 @@ public class Utility {
     }
 
     /**
+     * Method checks if delivery with specified customer id exists
+     * @param publicationId customer id that w search for
+     * @return true if it exists, false if no
+     */
+    public boolean publicationDeliveryExists(int publicationId){
+        String query = "select count(*) as total from delivery where publication_id = " + publicationId + ";";
+        return exists(query);
+    }
+
+    /**
      * Method is checking if customer with customerId  already exists
      *
      * @param customerId customer if from the db
@@ -322,6 +332,69 @@ public class Utility {
         }
         else {
             System.out.println("\nCustomer with id " + customerId + " currently does not receive any deliveries");
+        }
+    }
+
+    public void displayAllDeliveriesOfPublication(int publicationId) {
+
+        // first check if delivery with that id exists in the delivery table
+        // if it does, we display the list of deliveries
+        // if not, we show a respective msg
+        if(publicationDeliveryExists(publicationId)) {
+            String query = "SELECT publication.publication_name, customer.first_name, customer.last_name, delivery.delivery_status ,delivery.delivery_date as 'date of delivery'\n" +
+                    "FROM customer, delivery, publication\n" +
+                    "WHERE customer.customer_id = delivery.customer_id \n" +
+                    "\tAND delivery.publication_id = publication.publication_id\n" +
+                    "\tAND publication.publication_id = " + publicationId + ";";
+
+            try {
+                Statement stmt = DBconnection.con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                // Sets the headings and returns the data from the DB
+                System.out.printf("\n%-20s %-25s %-20s %-20s\n","Publication", "Customer Name",  "Date of delivery", "Delivery Status");
+                System.out.println("---------------------------------------------------------------------------------");
+                while (rs.next()) {
+                    String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                    String publication = rs.getString("publication_name");
+                    String date = rs.getString("date of delivery");
+                    String deliveryStatus = rs.getString("delivery_status");
+
+                    System.out.printf("%-20s %-25s %-20s %-20s\n", publication, name, date, deliveryStatus);
+                }
+
+            } catch (SQLException sqle) {
+                System.out.println("Error: failed to display all Deliveries");
+                System.out.println(sqle.getMessage());
+                System.out.println(query);
+            }
+        }
+        else {
+            System.out.println("\nPublication with id " + publicationId + " currently does not receive any deliveries");
+        }
+    }
+
+    public void displayAllPublications() {
+        String query = "select * from publication;";
+
+        try {
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            System.out.printf("\n %-20s %-25s %-20s %-20s \n","Publication ID", "Name",  "Frequency", "Cost");
+            System.out.println("---------------------------------------------------------------------------------");
+            while (rs.next()) {
+                int id = rs.getInt("publication_id");
+                String name = rs.getString("publication_name");
+                String freq = rs.getString("publication_frequency");
+                String cost = rs.getString("publication_cost");
+
+                System.out.printf("%-20d %-25s %-20s %-20s\n", id, name, freq, cost);
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println("Error: failed to display all Publications");
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
         }
     }
 
