@@ -465,20 +465,19 @@ while(re.next()) {
 
         DailySummary dailySummary = new DailySummary();
 
-        st = "select count(*) as total from daily_summary where delivery_date = '" + date +"'";
-        ResultSet rss = DBconnection.stmt.executeQuery(st);
+//        st = "select count(*) as total from daily_summary where delivery_date = '" + date +"'";
+//        ResultSet rss = DBconnection.stmt.executeQuery(st);
+//
+//        count = 0;
+//        while (rss.next()) {
+//            count = rss.getInt("total");
+//        }
+//
+//        if (count <= 0)
+//        {
 
-        count = 0;
-        while (rss.next()) {
-            count = rss.getInt("total");
-        }
-
-        if (count <= 0)
-        {
-
-
-
-
+            String del = "DELETE from daily_summary where delivery_date = '"+date+"';";
+            DBconnection.stmt.executeUpdate(del);
         String str = "SELECT delivery.delivery_id, delivery.delivery_date, count(delivery.delivery_id) as \"publications_sold\", sum(publication.publication_cost+(publication.publication_cost*0.23))as \"total_revenue\"\n" +
                 "FROM delivery, publication\n" +
                 "WHERE delivery.publication_id = publication.publication_id AND delivery.delivery_status = 'delivered'\n" +
@@ -512,10 +511,10 @@ while(re.next()) {
                 System.out.println(sqle.getMessage());
                 System.out.println(str);
             }
-        }
-        else {
-
-        }
+//        }
+//        else {
+//
+//        }
 
         return dailySummary;
     }
