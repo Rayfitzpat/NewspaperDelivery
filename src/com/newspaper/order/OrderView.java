@@ -328,6 +328,8 @@ public class OrderView {
 
     public int addNewOrderCustomerID() throws OrderExceptionHandler {
         {
+            printCustomers();
+
             Scanner in = new Scanner(System.in);
             int customer_id = 0;
             boolean inputValid = false;
@@ -359,8 +361,8 @@ public class OrderView {
 
     public int addNewOrderPublicationID() throws OrderExceptionHandler {
         {
-//            PublicationView pv = new PublicationView();
-//            pv.displayAllPublication();
+            PublicationView pv = new PublicationView();
+            pv.displayAllPublication();
 //TODO SORT JACKS STUFF COM.COM.COM.COM.COM.COM.COM
             Scanner in = new Scanner(System.in);
             int publication_id = 0;
@@ -416,6 +418,7 @@ public class OrderView {
         }
     }
 
+    //TODO customer list prints twice for some reason
     public void printCustomers() {
         try {
             CustomerDB db = new CustomerDB();
