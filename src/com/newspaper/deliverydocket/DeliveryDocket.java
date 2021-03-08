@@ -208,43 +208,52 @@ public class DeliveryDocket {
         String date = day + " " + month + " " + year + ", " + dayOfWeek;
 
         try {
-            sb.append("\n************************************************************************************************************");
-            sb.append("\n********************************************DELIVERY DOCKET*************************************************");
-            sb.append("\n************************************************************************************************************");
-            sb.append( String.format("\n%-25s %-25s", "DATE: " , date));
-            sb.append( String.format("\n%-25s %-25s", "Delivery Area: ", "No " + getDeliveryAreaId() + ", " + getDeliveryAreaName()));
-            sb.append(String.format("\n%-25s %-25s", "Delivery Person Name: " , getDeliveryPersonName()));
+            sb.append("\n_____________________________________________________________________________________________________________");
+            sb.append("\n+-----------------------------------------------------------------------------------------------------------+");
+            sb.append("\n|                                            DELIVERY DOCKET                                                |");
+            sb.append("\n+-----------------------------------------------------------------------------------------------------------+");
+            sb.append(String.format("\n| %-25s %-79s |", "DATE: " , date));
+            sb.append(String.format("\n| %-25s %-79s |", "Delivery Area: ", "No " + getDeliveryAreaId() + ", " + getDeliveryAreaName()));
+            sb.append(String.format("\n| %-25s %-79s |", "Delivery Person Name: " , getDeliveryPersonName()));
 
             // check if there are any publications to be delivered
             if (hasPublicationItems(deliveryItems)) {
-                sb.append("\n\n\n******************************************* PUBLICATIONS ***************************************************");
-                sb.append(String.format("\n%-15s %-30s %-20s %-27s %-20s","Delivery ID", "Customer Address", "Customer Name", "Publication", "Is Delivered"));
-                sb.append("\n------------------------------------------------------------------------------------------------------------");
+
+                sb.append("\n|                                                                                                           |");
+                sb.append("\n|                                                                                                           |");
+                sb.append("\n+---------------------------------------------- PUBLICATIONS -----------------------------------------------+");
+                sb.append(String.format("\n| %-15s %-30s %-20s %-25s %-10s|","Delivery ID", "Customer Address", "Customer Name", "Publication", "Is Delivered"));
+                sb.append("\n+------------------------------------------------------------------------------------------------------------");
                 for (DeliveryItem delivery : this.deliveryItems) {
                     if (delivery.getType().equals("publication")) {
                         String isDelivered = delivery.isDelivered() ? "yes" : "no";
-                        sb.append(String.format("\n%-15s %-30s %-20s %-27s %-20s ",delivery.getDeliveryId(), delivery.getCustomerAddress(), delivery.getCustomerName(),utility.getPublicationByID(delivery.getId()), isDelivered));
+                        sb.append(String.format("\n| %-15s %-30s %-20s %-25s %-12s|",delivery.getDeliveryId(), delivery.getCustomerAddress(), delivery.getCustomerName(),utility.getPublicationByID(delivery.getId()), isDelivered));
                     }
                 }
             }
             else {
-                sb.append("\n\nNo publication delivery for today.");
+                sb.append("\n|                                                                                                           |");
+                sb.append("\n|No publication delivery for today.                                                                         |");
             }
 
             // check if there is any invoices
             if (hasInvoiceItems(deliveryItems)) {
                 // if there is, print the items in separate table
-                sb.append("\n\n\n*********************************************** INVOICES ************************************************");
-                sb.append(String.format("\n %-15s %-30s %-25s %-27s ", "Invoice ID", "Customer Name","Customer Address", "Is Delivered"));
-                sb.append("\n---------------------------------------------------------------------------------------------------------");
+                sb.append("\n|                                                                                                           |");
+                sb.append("\n|                                                                                                           |");
+                sb.append("\n+-------------------------------------------------- INVOICES -----------------------------------------------+");
+                sb.append(String.format("\n| %-15s %-30s %-25s %-33s|", "Invoice ID", "Customer Name","Customer Address", "Is Delivered"));
+                sb.append("\n+-----------------------------------------------------------------------------------------------------------+");
                 for (DeliveryItem delivery : this.deliveryItems) {
                     if (delivery.getType().equals("invoice")) {
                         String isDelivered = delivery.isDelivered() ? "yes" : "no";
-                        sb.append(String.format("\n %-15d %-30s %-25s %-27s", delivery.getId(),  delivery.getCustomerName(), delivery.getCustomerAddress(), isDelivered));
+                        sb.append(String.format("\n| %-15d %-30s %-25s %-33s|", delivery.getId(),  delivery.getCustomerName(), delivery.getCustomerAddress(), isDelivered));
                     }
                 }
             }
-            sb.append("\n************************************************************************************************************");
+            sb.append("\n+-----------------------------------------------------------------------------------------------------------+");
+            sb.append("\n-------------------------------------------------------------------------------------------------------------");
+
         }
         catch (DeliveryDocketExceptionHandler e) {
             System.out.println("Exception in DeliveryDocket toString() method: ");

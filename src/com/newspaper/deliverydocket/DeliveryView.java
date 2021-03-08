@@ -13,7 +13,6 @@ import java.util.Scanner;
  * @author  Yuliia Dovbak
  */
 
-//TODO: print all customers on  5: See all deliveries of a customer
 public class DeliveryView {
 
 
