@@ -27,7 +27,10 @@ public class DailySummaryView {
 
 
     int year = Calendar.getInstance().get(Calendar.YEAR);
+    int lastYear = Calendar.getInstance().get(Calendar.YEAR)-1;
     LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    String currYear = Integer.toString(year);
+    String lastYearString = Integer.toString(lastYear);
     int month = localDate.getMonthValue();
     LocalDate monthstart = LocalDate.of(year,month,1);
     LocalDate monthend = monthstart.plusDays(monthstart.lengthOfMonth()-1);
@@ -533,12 +536,23 @@ while(re.next()) {
         while(!validyear) {
             System.out.println("Please enter the year you want to populate");
              enterYear = in.next();
+
             validyear = ds.validateYear(enterYear);
-            if(validyear){
-                validyear=true;
+            if(validyear)
+            {
+                if(enterYear.matches(currYear)||enterYear.matches(lastYearString))
+                {
+                    validyear = true;
+                }
+                else
+                {
+                    System.out.println("Please only enter this year or last year");
+                    validyear=false;
+                }
             }
             else{
                 System.out.println("Invalid Year, please try again");
+                validyear=false;
             }
         }
 
@@ -546,6 +560,7 @@ while(re.next()) {
         while(!validmonth) {
             System.out.println("Please enter the month you want to populate");
             enterMonth = in.next();
+
             if (enterMonth.equals("1") || enterMonth.equals("01")) {
                 for (int i = 1; i <= 31; i++) {
                     createDailyReportByDate(enterYear + "-01-" + i);
