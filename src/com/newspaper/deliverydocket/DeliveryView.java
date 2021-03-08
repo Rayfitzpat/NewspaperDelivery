@@ -1,5 +1,8 @@
 package com.newspaper.deliverydocket;
 
+import com.newspaper.customer.CustomerDB;
+import com.newspaper.customer.CustomerExceptionHandler;
+import com.newspaper.customer.CustomerView;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryArea;
 
@@ -10,7 +13,7 @@ import java.util.Scanner;
  * @author  Yuliia Dovbak
  */
 
-//TODO: cover errors if entered text in update delivery docket, print all customers on  5: See all deliveries of a customer
+//TODO: print all customers on  5: See all deliveries of a customer
 public class DeliveryView {
 
 
@@ -228,6 +231,7 @@ public class DeliveryView {
             ArrayList<DeliveryItem> deliveries = deliveryDocketDB.getAllDeliveryItemsFor(area.getId(), date);
 
             while (keepGoing) {
+                in.nextLine();
                 System.out.println("(Enter 0 to stop) Enter id of the delivery that you want to update: ");
                 if (in.hasNextInt()) {
                     int deliveryId = in.nextInt();
@@ -407,9 +411,14 @@ public class DeliveryView {
 
     public void seeAllCustomerDeliveries() {
         try {
+            //print customers
+            CustomerDB customerDB = new CustomerDB();
+            CustomerView view = new CustomerView();
+            view.printCustomers( customerDB.fetchCustomers());
+
             int customerId = askUserToEnterCustomerID();
             utility.displayAllDeliveriesOfCustomer(customerId);
-        } catch (DeliveryDocketExceptionHandler e) {
+        } catch ( CustomerExceptionHandler | DeliveryDocketExceptionHandler e) {
             System.out.println(e.getMessage());
         }
     }
