@@ -27,7 +27,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
      */
     public DeliveryAreaMainGUI() {
         initComponents();
-        setVisible(true);
+//        setVisible(true);
         this.setLocationRelativeTo(null);
         setResizable(false);
     }
@@ -38,7 +38,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
     public static Statement stmt = null;
     static ResultSet rs = null;
 
-    {
+    static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
@@ -519,7 +519,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel6.setText("Frequency");
+        jLabel6.setText("Description");
 
         jTextField5.setBackground(new java.awt.Color(19, 28, 33));
         jTextField5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -528,11 +528,12 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel7.setText("Paper Cost     ");
+        jLabel7.setText("Employee ID   ");
 
         jLabel8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(6, 187, 163));
         jLabel8.setText("Stock Level");
+        jLabel8.setVisible(false);
 
         jTextField6.setBackground(new java.awt.Color(19, 28, 33));
         jTextField6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -543,18 +544,20 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jTextField7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField7.setForeground(new java.awt.Color(6, 187, 163));
         jTextField7.setText("");
+        jTextField7.setVisible(false);
 
         jLabel11.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel11.setText("1-20 characters, no numbers");
+        jLabel11.setText("1-20 characters");
 
         jLabel12.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel12.setText("1-20 characters, no numbers");
+        jLabel12.setText("1-20 characters");
 
         jLabel13.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel13.setText("1-4 Characters");
+        jLabel13.setText("1-4 Numbers");
 
         jLabel14.setForeground(new java.awt.Color(49, 117, 108));
         jLabel14.setText("1-20 characters");
+        jLabel14.setVisible(false);
 
         jButton9.setBackground(new java.awt.Color(38, 45, 49));
         jButton9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -678,7 +681,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
 
         jLabel56.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel56.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel56.setText("Frequency");
+        jLabel56.setText("Description");
 
         jTextField33.setBackground(new java.awt.Color(19, 28, 33));
         jTextField33.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -687,11 +690,12 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
 
         jLabel57.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel57.setText("Paper Cost ");
+        jLabel57.setText("Employee ID");
 
         jLabel58.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel58.setForeground(new java.awt.Color(6, 187, 163));
         jLabel58.setText("Stock Level");
+        jLabel58.setVisible(false);
 
         jTextField34.setBackground(new java.awt.Color(19, 28, 33));
         jTextField34.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -701,19 +705,21 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jTextField35.setBackground(new java.awt.Color(19, 28, 33));
         jTextField35.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField35.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField35.setText("123");
+        jTextField35.setText("");
+        jTextField35.setVisible(false);
 
         jLabel61.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel61.setText("1-20 characters, no numbers");
+        jLabel61.setText("1-20 characters");
 
         jLabel62.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel62.setText("1-20 characters, no numbers");
+        jLabel62.setText("1-20 characters");
 
         jLabel63.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel63.setText("1-20 characters, no numbers");
+        jLabel63.setText("1-4 Numbers");
 
         jLabel64.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel64.setText("1-20 characters, no numbers");
+        jLabel64.setText("1-4 Numbers");
+        jLabel64.setVisible(false);
 
         jLabel79.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(6, 187, 163));
@@ -774,6 +780,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jButton14.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton14.setForeground(new java.awt.Color(0, 0, 0));
         jButton14.setText("Submit");
+        jButton14.setVisible(false);
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -788,7 +795,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel24.setText("delivery_area ID:");
+        jLabel24.setText("Area ID:");
         jLabel24.setToolTipText("");
 
         jTextField18.setBackground(new java.awt.Color(19, 28, 33));
@@ -796,6 +803,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jTextField18.setForeground(new java.awt.Color(255, 0, 0));
         jTextField18.setText("  ID Here");
         jTextField18.setToolTipText("");
+        jTextField1.setHorizontalAlignment(JTextField.CENTER);
 
         javax.swing.GroupLayout AddNew2Layout = new javax.swing.GroupLayout(AddNew2);
         AddNew2.setLayout(AddNew2Layout);
@@ -1312,29 +1320,29 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
     }
     //TODO Validate Add New and Edit Pub
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        if (validation.validateString(jTextField4.getText())) {
-            if (validation.validateString(jTextField5.getText())) {
-                if (validation.validateHouseNumber(jTextField6.getText())) {
+        if (validation.validateStringWithNumbers(jTextField4.getText())) {
+            if (validation.validateStringWithNumbers(jTextField5.getText())) {
+                if (validation.validateID(jTextField6.getText())) {
 
                         Statement addNewPerson = con.createStatement();
                         addNewPerson.executeUpdate("insert into delivery_area values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "')");
                         jTextField3.setForeground(new java.awt.Color(6, 187, 163));
-                        jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
+                        jTextField3.setText("You have successfully added " + jTextField4.getText() + " with a description of: " + jTextField5.getText() + " to the database");
 
                 } else {
-                    jTextField3.setText("Invalid House Number, 1-4 characters only, beginning with a number.  i.e. 2b or 112");
+                    jTextField3.setText("Invalid Delivery Person ID, 1-3 Numbers only");
                 }
             } else {
-                jTextField3.setText("Invalid Last Name, please use 1-20 characters only - Numbers are not allowed");
+                jTextField3.setText("Invalid Description, please use 1-20 characters");
             }
         } else {
-            jTextField3.setText("Invalid First Name, please use 1-20 characters only - Numbers are not allowed");
+            jTextField3.setText("Invalid Publication Name, please use 1-20 characters");
         }
     }
 
 
 
-    //        Submit Button - EDIT - First Name *****************************
+    //        Submit Button - EDIT - Publication Name *****************************
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
@@ -1349,14 +1357,14 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateString(pubName)) {
+                if (validation.validateStringWithNumbers(pubName)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update delivery_area SET name = '" + pubName + "' where delivery_area_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated delivery_area Name for ID: " + editID + " to " + pubName);
+                    jTextField31.setText("You have successfully updated Delivery Area Name for ID: " + editID + " to " + pubName);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("delivery_area Names cannot contain numbers and must be between 1 to 20 characters");
+                    jTextField31.setText("Area Names must be between 1 to 20 characters");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -1367,7 +1375,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-    //        Submit Button - EDIT - Last Name *****************************
+    //        Submit Button - EDIT - Description *****************************
 
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
@@ -1384,14 +1392,14 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateString(frequency)) {
+                if (validation.validateStringWithNumbers(frequency)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update delivery_area SET description = '" + frequency + "' where delivery_area_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Last Name for ID: " + editID + " to " + frequency);
+                    jTextField31.setText("You have successfully updated Description for ID: " + editID + " to " + frequency);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Frequency must be either daily or weekly");
+                    jTextField31.setText("Description must be between 1 - 20 characters");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -1404,7 +1412,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
     }
 
 
-    //        Submit Button - EDIT - House Number *****************************
+    //        Submit Button - EDIT -Area ID *****************************
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -1420,14 +1428,14 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateHouseNumber(cost)) {
+                if (validation.validateID(cost)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update delivery_area SET delivery_person_id = '" + cost + "' where delivery_area_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated the Cost for ID: " + editID + " to " + cost);
+                    jTextField31.setText("You have successfully updated the Delivery Person ID for Area ID: " + editID + " to " + cost);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Cost must be between 1 to 4 numbers i.e 2.50");
+                    jTextField31.setText("Delivery Person ID must be between 1 to 3 numbers");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -1440,7 +1448,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
     }
 
 
-    //        Submit Button - EDIT - Street Name *****************************
+    //        Submit Button - EDIT -Unused Button*****************************
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();

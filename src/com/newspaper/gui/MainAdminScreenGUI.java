@@ -135,7 +135,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 
                 DeliveryPersonMainGUI deliveryPersonMainGUI = new DeliveryPersonMainGUI();
-
+                dispose();
                 jButton3ActionPerformed(evt);
                 deliveryPersonMainGUI.setVisible(true);
             }
@@ -151,7 +151,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
-
+                System.out.println("Delivery Summary not yet initialised");
             }
         });
 

@@ -1,9 +1,7 @@
 package com.newspaper.gui;
 import com.newspaper.customer.CustomerExceptionHandler;
-import com.newspaper.deliveryperson.DeliveryPerson;
 
 
-import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,6 +50,13 @@ public class Validation {
 
     public boolean validateStringWithNumbers(String name) {
         if (name.length() > 1 && name.length() < 20) {
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean validatePublication(String name) {
+        if (name.length() > 1 && name.length() < 25) {
             return true;
         } else
             return false;
@@ -110,7 +115,42 @@ public class Validation {
 
     }
 
+    public boolean validateID(String DPID) {
+        if (DPID.length() < 1 || DPID.length() >3) {
+            return false;
+        } else if (DPID.matches("[0-9\\d]*")) {
+            return true;
+        }return false;
+    }
 
+    public boolean validateStock(String DPID) {
+        if (DPID.length() < 1 || DPID.length() >3) {
+            return false;
+        } else if (DPID.matches("[0-9\\d]*")) {
+            return true;
+        }return false;
+    }
+
+    public boolean validateCost(String cost)
+    {
+        if(cost.length()>=1 && cost.length() <=5){
+            if (cost.matches("[+-]?([0-9]*[.])?[0-9]+")) {
+                return true;
+            }
+            else return false;
+        }
+        else return false;
+    }
+
+
+    public boolean validateFrequency(String frequency)
+    {
+        if(frequency.equals("daily") || frequency.equals("weekly")){
+
+                return true;
+        }
+        else return false;
+    }
 
 }
 

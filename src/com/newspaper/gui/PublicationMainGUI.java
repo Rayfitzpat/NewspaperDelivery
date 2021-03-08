@@ -547,16 +547,16 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTextField7.setText("");
 
         jLabel11.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel11.setText("1-20 characters, no numbers");
+        jLabel11.setText("1-25 characters");
 
         jLabel12.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel12.setText("1-20 characters, no numbers");
+        jLabel12.setText("'daily' or 'weekly'");
 
         jLabel13.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel13.setText("1-4 Characters");
+        jLabel13.setText("1-5 Characters");
 
         jLabel14.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel14.setText("1-20 characters");
+        jLabel14.setText("1-3 Numbers");
 
         jButton9.setBackground(new java.awt.Color(38, 45, 49));
         jButton9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -703,19 +703,19 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTextField35.setBackground(new java.awt.Color(19, 28, 33));
         jTextField35.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField35.setForeground(new java.awt.Color(6, 187, 163));
-        jTextField35.setText("123");
+        jTextField35.setText("");
 
         jLabel61.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel61.setText("1-20 characters, no numbers");
+        jLabel61.setText("1-25 characters");
 
         jLabel62.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel62.setText("1-20 characters, no numbers");
+        jLabel62.setText("'daily' or 'weekly'");
 
         jLabel63.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel63.setText("1-20 characters, no numbers");
+        jLabel63.setText("1-5 characters");
 
         jLabel64.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel64.setText("1-20 characters, no numbers");
+        jLabel64.setText("1-3 Numbers");
 
         jLabel79.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(6, 187, 163));
@@ -790,7 +790,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel24.setText("publication ID:");
+        jLabel24.setText("Publication ID");
         jLabel24.setToolTipText("");
 
         jTextField18.setBackground(new java.awt.Color(19, 28, 33));
@@ -798,6 +798,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
         jTextField18.setForeground(new java.awt.Color(255, 0, 0));
         jTextField18.setText("  ID Here");
         jTextField18.setToolTipText("");
+        jTextField18.setHorizontalAlignment(JTextField.CENTER);
 
         javax.swing.GroupLayout AddNew2Layout = new javax.swing.GroupLayout(AddNew2);
         AddNew2.setLayout(AddNew2Layout);
@@ -1317,32 +1318,32 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 //TODO Validate Add New and Edit Pub
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        if (validation.validateString(jTextField4.getText())) {
-            if (validation.validateString(jTextField5.getText())) {
-                if (validation.validateHouseNumber(jTextField6.getText())) {
-                    if (validation.validateStringWithNumbers(jTextField7.getText())) {
+        if (validation.validatePublication(jTextField4.getText())) {
+            if (validation.validateFrequency(jTextField5.getText())) {
+                if (validation.validateCost(jTextField6.getText())) {
+                    if (validation.validateStock(jTextField7.getText())) {
 
                         Statement addNewPerson = con.createStatement();
                         addNewPerson.executeUpdate("insert into publication values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "')");
                         jTextField3.setForeground(new java.awt.Color(6, 187, 163));
                         jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
                     } else {
-                        jTextField3.setText("Invalid Street Name, must be between 1-20 characters");
+                        jTextField3.setText("Invalid Stock Level, 1-3 Numbers only");
                     }
                 } else {
-                    jTextField3.setText("Invalid House Number, 1-4 characters only, beginning with a number.  i.e. 2b or 112");
+                    jTextField3.setText("Invalid Cost, 1-5 characters only. i.e. 3.50");
                 }
             } else {
-                jTextField3.setText("Invalid Last Name, please use 1-20 characters only - Numbers are not allowed");
+                jTextField3.setText("Invalid Frequency, must be either 'daily' or 'weekly'");
             }
         } else {
-            jTextField3.setText("Invalid First Name, please use 1-20 characters only - Numbers are not allowed");
+            jTextField3.setText("Invalid Publication Name, must be between 1-25 characters");
         }
     }
 
 
 
-    //        Submit Button - EDIT - First Name *****************************
+    //        Submit Button - EDIT - Publication Name *****************************
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
@@ -1357,14 +1358,14 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateString(pubName)) {
+                if (validation.validatePublication(pubName)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update publication SET publication_name = '" + pubName + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Publication Name for ID: " + editID + " to " + pubName);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Publication Names cannot contain numbers and must be between 1 to 20 characters");
+                    jTextField31.setText("Publication Names must be between 1 to 25 characters");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -1375,7 +1376,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-    //        Submit Button - EDIT - Last Name *****************************
+    //        Submit Button - EDIT - Frequency *****************************
 
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
@@ -1392,14 +1393,14 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateString(frequency)) {
+                if (validation.validateFrequency(frequency)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update publication SET publication_frequency = '" + frequency + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Last Name for ID: " + editID + " to " + frequency);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Frequency must be either daily or weekly");
+                    jTextField31.setText("Frequency must be either 'daily' or 'weekly'");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -1412,7 +1413,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
     }
 
 
-    //        Submit Button - EDIT - House Number *****************************
+    //        Submit Button - EDIT - Cost *****************************
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -1428,14 +1429,14 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateHouseNumber(cost)) {
+                if (validation.validateCost(cost)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update publication SET publication_cost = '" + cost + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated the Cost for ID: " + editID + " to " + cost);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Cost must be between 1 to 4 numbers i.e 2.50");
+                    jTextField31.setText("Cost must be between 1 to 5 characters i.e 3.50");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -1448,7 +1449,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
     }
 
 
-    //        Submit Button - EDIT - Street Name *****************************
+    //        Submit Button - EDIT - Stock *****************************
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -1464,14 +1465,14 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateStringWithNumbers(stock)) {
+                if (validation.validateStock(stock)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update publication SET publication_stock_level = '" + stock + "' where publication_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Stock Level for ID: " + editID + " to " + stock);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Stock must be between 1 to 7 numbers");
+                    jTextField31.setText("Stock Level must be between 1 to 3 numbers");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
