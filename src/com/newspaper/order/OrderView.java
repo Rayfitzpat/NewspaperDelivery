@@ -333,7 +333,7 @@ public class OrderView {
             Scanner in = new Scanner(System.in);
             int customer_id = 0;
             boolean inputValid = false;
-            printCustomers();
+
 
             while (!inputValid) {
                 System.out.println("Please enter the id of the customer you would like to create a new order for");
@@ -458,6 +458,7 @@ public class OrderView {
 
     public void deleteOrder() throws OrderExceptionHandler, SQLException {
 
+        Order o = new Order();
         ordersAsTheyAre();
 
         Scanner in = new Scanner(System.in);
@@ -465,40 +466,35 @@ public class OrderView {
         boolean isValid = false;
 
         while (!isValid) {
-            System.out.println("Please enter the ID of the customer whose order(s) you want to delete");
+            System.out.println("Please enter the ID of the customer whose order you want to delete");
             if (in.hasNextInt()) {
 
                 String query;
-                int id;
+                int customer_id;
 
-                id = in.nextInt();
+                customer_id = in.nextInt();
 
+                System.out.println("Please enter the ID of the publication on the order you want to delete");
+                int publication_id;
+                publication_id = in.nextInt();
                 //checks if the entered id is present in the db
                 try {
                     // if id is not validated, the rest of the code won't execute
-                    validateOrderCustomerId(id);
+                    validateOrderCustomerId(customer_id);
+
+                    o.validatePublicationId(publication_id);
+
                     isValid = true;
 
                     //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                    query = "Delete from orders where customer_id = " + id;
+                    query = "Delete from orders where customer_id = " + customer_id + " and publication_id = " + publication_id ;
 
-                    //PreparedStatement pstmt = DBconnection.con.prepareStatement(query);
-                    //pstmt.setInt(1, id);
-                    //pstmt.executeUpdate();
+
                     Statement stmt = DBconnection.con.createStatement();
                     stmt.executeUpdate(query);
 
-                    System.out.println("Order deleted");
-//                    System.out.printf("\n%-20s %-25s %-15s\n", "Customer ID", "Publication ID", "Frequency");
-//                    while (rs.next()) {
-//                        int customer_id = rs.getInt("customer_id");
-//                        int publication_id = rs.getInt("publication_id");
-//                        int frequency = rs.getInt("frequency");
-//
-//                        String day = DayOfWeek.of(frequency).toString();
-//
-//                        System.out.printf("%-20s %-25s %-15s\n", getCustomerName(customer_id), getPublicationByID(publication_id), day);
-                    //}
+                    System.out.println("Order deleted where Customer ID = " + customer_id + " (" + getCustomerName(customer_id) + ")" + " and Publication ID = " + publication_id + " (" + getPublicationByID(publication_id) + ")");
+
                 } catch (OrderExceptionHandler e) {
                     System.out.println(e.getMessage());
                 }
@@ -507,7 +503,6 @@ public class OrderView {
                 System.out.println("Input needs to be an integer");
             }
         }
-        in.close();
     }
 
 
