@@ -73,11 +73,13 @@ public class DailySummaryView {
             while (rs.next()) {
                 int daily_summary_id = rs.getInt("daily_summary_id");
                 String delivery_date = rs.getString("delivery_date");
-                int total_revenue = rs.getInt("total_revenue");
+                double total_revenue = rs.getDouble("total_revenue");
                 int publications_sold = rs.getInt("publications_sold");
                 double publications_revenue = rs.getDouble("publications_revenue");
 
                 publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
+
+
 
                 System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
 
@@ -94,8 +96,8 @@ public class DailySummaryView {
     }
 
     public void weeklyReport() throws SQLException {
-
-
+        System.out.println(weeklyDate);
+        System.out.println(modifiedDate);
         String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + weeklyDate + "' and '" + modifiedDate + "'";
         try {
             ResultSet rs = DBconnection.stmt.executeQuery(str);
@@ -104,7 +106,7 @@ public class DailySummaryView {
             while (rs.next()) {
                 int daily_summary_id = rs.getInt("daily_summary_id");
                 String delivery_date = rs.getString("delivery_date");
-                int total_revenue = rs.getInt("total_revenue");
+                double total_revenue = rs.getDouble("total_revenue");
                 int publications_sold = rs.getInt("publications_sold");
                 double publications_revenue = rs.getDouble("publications_revenue");
 
@@ -140,7 +142,7 @@ public class DailySummaryView {
                 while (rs.next()) {
                     int daily_summary_id = rs.getInt("daily_summary_id");
                     String delivery_date = rs.getString("delivery_date");
-                    int total_revenue = rs.getInt("total_revenue");
+                    double total_revenue = rs.getDouble("total_revenue");
                     int publications_sold = rs.getInt("publications_sold");
                     double publications_revenue = rs.getDouble("publications_revenue");
 
@@ -226,7 +228,7 @@ public class DailySummaryView {
                     while (rs.next()) {
                         int daily_summary_id = rs.getInt("daily_summary_id");
                         String delivery_date = rs.getString("delivery_date");
-                        int total_revenue = rs.getInt("total_revenue");
+                        double total_revenue = rs.getInt("total_revenue");
                         int publications_sold = rs.getInt("publications_sold");
                         double publications_revenue = rs.getDouble("publications_revenue");
 
@@ -266,7 +268,7 @@ public class DailySummaryView {
                 while (rs.next()) {
                     int daily_summary_id = rs.getInt("daily_summary_id");
                     String delivery_date = rs.getString("delivery_date");
-                    int total_revenue = rs.getInt("total_revenue");
+                    double total_revenue = rs.getDouble("total_revenue");
                     int publications_sold = rs.getInt("publications_sold");
                     double publications_revenue = rs.getDouble("publications_revenue");
 
@@ -320,7 +322,7 @@ public class DailySummaryView {
                     while (rs.next()) {
                         int daily_summary_id = rs.getInt("daily_summary_id");
                         String delivery_date = rs.getString("delivery_date");
-                        int total_revenue = rs.getInt("total_revenue");
+                        double total_revenue = rs.getDouble("total_revenue");
                         int publications_sold = rs.getInt("publications_sold");
                         double publications_revenue = rs.getDouble("publications_revenue");
 
@@ -437,6 +439,7 @@ public class DailySummaryView {
                         double publications_revenue = rs.getDouble("publications_revenue");
 
                         publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
+                        total_revenue = Math.round(total_revenue*100)/100;
 
 
                         writer1.printf("%-12s %-20s %-15s %-20s %-25s\n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
@@ -555,8 +558,8 @@ while(re.next()) {
 
     public void populateDatabase() throws SQLException {
 
-        for (int i = 1; i <= 28; i++) {
-            createDailyReportByDate("2021-02-" + i);
+        for (int i = 1; i <= 11; i++) {
+            createDailyReportByDate("2021-03-" + i);
         }
 
     }
