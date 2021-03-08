@@ -82,7 +82,7 @@ public class DailySummaryMain {
                         dsv.monthlyReportFile();
                         break;
                     case 3:
-
+                        dsv.populateDatabase();
                         break;
                     case 4:
 

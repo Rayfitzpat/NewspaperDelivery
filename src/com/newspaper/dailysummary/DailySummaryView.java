@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
@@ -22,7 +23,14 @@ public class DailySummaryView {
     String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
 
     LocalDate weeklyDate = LocalDate.now().minusDays(7);
+    LocalDate tomorrowDate = LocalDate.now().plusDays(1);
 
+
+    int year = Calendar.getInstance().get(Calendar.YEAR);
+    LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    int month = localDate.getMonthValue();
+    LocalDate monthstart = LocalDate.of(year,month,1);
+    LocalDate monthend = monthstart.plusDays(monthstart.lengthOfMonth()-1);
 
     Scanner in = new Scanner(System.in);
 
@@ -96,8 +104,9 @@ public class DailySummaryView {
     }
 
     public void weeklyReport() throws SQLException {
-        System.out.println(weeklyDate);
-        System.out.println(modifiedDate);
+        System.out.println("This is your weekly summary");
+        System.out.println("From: " +weeklyDate);
+        System.out.println("To: " +modifiedDate);
         String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + weeklyDate + "' and '" + modifiedDate + "'";
         try {
             ResultSet rs = DBconnection.stmt.executeQuery(str);
@@ -165,45 +174,6 @@ public class DailySummaryView {
 
     }
 
-    //validated
-//    public void yearlyReport() throws SQLException {
-//
-//
-//        Statement addNew = DBconnection.con.createStatement();
-//        System.out.println("Please select the year you wish to have a report for, (2011-2099)");
-//        String delivery_year = in.next();
-//        boolean validYear = ds.validateYear(delivery_year);
-//        if (validYear) {
-//            String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date like '" + delivery_year + "%';";
-//            try {
-//                ResultSet rs = DBconnection.stmt.executeQuery(str);
-//
-//                System.out.printf("\n%-12s %-20s %-15s %-20s %-25s \n", "Summary ID", "Delivery Date", "Total revenue", "Publications Sold", "Revenue");
-//                while (rs.next()) {
-//                    int daily_summary_id = rs.getInt("daily_summary_id");
-//                    String delivery_date = rs.getString("delivery_date");
-//                    int total_revenue = rs.getInt("total_revenue");
-//                    int publications_sold = rs.getInt("publications_sold");
-//                    double publications_revenue = rs.getDouble("publications_revenue");
-//
-//                    publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
-//
-//                    System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
-//                }
-//
-//            } catch (
-//                    SQLException sqle) {
-//                System.out.println("Error: failed to display all Publications.");
-//                System.out.println(sqle.getMessage());
-//                System.out.println(str);
-//            }
-//        } else {
-//            System.out.println("Please enter a year in the range of 2011-2099");
-//            yearlyReport();
-//        }
-//
-//
-//    }
 
     //validated
     public void chooseDate() throws SQLException {
@@ -214,14 +184,12 @@ public class DailySummaryView {
         String delivery_input = in.next();
         boolean validDate = ds.validateDate(delivery_input);
         if (validDate) {
-            boolean exists = ds.checkIfExists(delivery_input);
-            if (!exists) {
-                //generate
-                createDailyReportByDate(delivery_input);
-                System.out.println("Report created for " + delivery_input);
-            } else {
+
+                String del="delete from daily_summary where delivery_date = '"+delivery_input+"';";
                 String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date = '" + delivery_input + "';";
                 try {
+                    DBconnection.stmt.executeUpdate(del);
+                    createDailyReportByDate(delivery_input);
                     ResultSet rs = DBconnection.stmt.executeQuery(str);
 
                     System.out.printf("\n%-12s %-20s %-15s %-20s %-25s\n", "Summary ID", "Delivery Date", "Total revenue", "Publications Sold", "Revenue");
@@ -242,7 +210,7 @@ public class DailySummaryView {
                     System.out.println("Error: failed to display all daily summaries.");
                     System.out.println(sqle.getMessage());
                     System.out.println(str);
-                }
+
             }
         } else {
             System.out.println("Please enter your date in the format YYYY-MM-DD\n");
@@ -461,9 +429,9 @@ while(re.next()) {
     revenueSum = Math.round(revenueSum * 100.0) / 100.0;
     revPerPubTotal = Math.round(revPerPubTotal * 100.0) / 100.0;
 
-    writer1.println("---------------------------------------------------------------");
-    writer1.printf("\n %-15s %-20s %-25s\n", "Revenue Total", "Pubs Sold Total", "Revenue Per Total");
-    writer1.printf("%-18s %-23s %-28s\n", revenueSum, publicationsSum, revPerPubTotal);
+    writer1.println("--------------------------------------------------------------------------------------------");
+    writer1.printf("\n%-25s %-30s %-35s\n", "Revenue Total", "Pubs Sold Total", "Revenue Per Total");
+    writer1.printf("%-25s %-30s %-35s\n", revenueSum, publicationsSum, revPerPubTotal);
 
 
     writer1.flush();
@@ -517,7 +485,9 @@ while(re.next()) {
 
 
 
+
             try {
+
                 ResultSet rs = DBconnection.stmt.executeQuery(str);
 
 
@@ -549,22 +519,110 @@ while(re.next()) {
 
 
     public static void main(String[] args) throws SQLException {
-        DBconnection.init_db();
-        DailySummaryView dailySummaryView = new DailySummaryView();
-        dailySummaryView.populateDatabase();
+
+
+
 
     }
 
 
     public void populateDatabase() throws SQLException {
+        boolean validyear = false;
+        String enterYear = "";
+        while(!validyear) {
+            System.out.println("Please enter the year you want to populate");
+             enterYear = in.next();
+            validyear = ds.validateYear(enterYear);
+            if(validyear){
+                validyear=true;
+            }
+            else{
+                System.out.println("Invalid Year, please try again");
+            }
+        }
 
-        for (int i = 1; i <= 11; i++) {
-            createDailyReportByDate("2021-03-" + i);
+        boolean validmonth=false;
+        while(!validmonth) {
+            System.out.println("Please enter the month you want to populate");
+            String enterMonth = in.next();
+            if (enterMonth.equals("1") || enterMonth.equals("01")) {
+                for (int i = 1; i <= 31; i++) {
+                    createDailyReportByDate(enterYear + "-01-" + i);
+                    validmonth=true;
+
+                }
+            } else if (enterMonth.equals("2") || enterMonth.equals("02")) {
+                for (int i = 1; i <= 28; i++) {
+                    createDailyReportByDate(enterYear + "-02-" + i);
+                    validmonth=true;
+
+                }
+            } else if (enterMonth.equals("3") || enterMonth.equals("03")) {
+                for (int i = 1; i < 31; i++) {
+                    createDailyReportByDate(enterYear + "-03-" + i);
+                    validmonth=true;
+                }
+            } else if (enterMonth.equals("4") || enterMonth.equals("04")) {
+                for (int i = 1; i < 30; i++) {
+                    createDailyReportByDate(enterYear + "-04-" + i);
+                    validmonth=true;
+                }
+            } else if (enterMonth.equals("5") || enterMonth.equals("05")) {
+                for (int i = 1; i < 31; i++) {
+                    createDailyReportByDate(enterYear + "-05-" + i);
+                    validmonth=true;
+                }
+            } else if (enterMonth.equals("6") || enterMonth.equals("06")) {
+                for (int i = 1; i < 30; i++) {
+                    createDailyReportByDate(enterYear + "-06-" + i);
+                    validmonth=true;
+                }
+            } else if (enterMonth.equals("7") || enterMonth.equals("07")) {
+                for (int i = 1; i < 31; i++) {
+                    createDailyReportByDate(enterYear + "-07-" + i);
+                    validmonth=true;
+                }
+            } else if (enterMonth.equals("8") || enterMonth.equals("08")) {
+                for (int i = 1; i < 31; i++) {
+                    createDailyReportByDate(enterYear + "-08-" + i);
+                    validmonth=true;
+                }
+            } else if (enterMonth.equals("9") || enterMonth.equals("09")) {
+                for (int i = 1; i < 30; i++) {
+                    createDailyReportByDate(enterYear + "-09-" + i);
+                    validmonth=true;
+                }
+            } else if (enterMonth.equals("10")) {
+                for (int i = 1; i < 31; i++) {
+                    createDailyReportByDate(enterYear + "-10-" + i);
+                    validmonth=true;
+                }
+            } else if (enterMonth.equals("11")) {
+                for (int i = 1; i < 30; i++) {
+                    createDailyReportByDate(enterYear + "-11-" + i);
+                    validmonth=true;
+                }
+            } else if (enterMonth.equals("12")) {
+                for (int i = 1; i < 31; i++) {
+                    createDailyReportByDate(enterYear + "-012-" + i);
+                    validmonth=true;
+                }
+            } else {
+                System.out.println("Invalid month, please try again.");
+            }
+
+        }
+
+
+
+
+        String del = "delete from daily_summary where delivery_date between '" + tomorrowDate + "'  AND '" + monthend + "';";
+            DBconnection.stmt.executeUpdate(del);
         }
 
     }
 
 
-}
+
 
 
