@@ -529,6 +529,7 @@ while(re.next()) {
     public void populateDatabase() throws SQLException {
         boolean validyear = false;
         String enterYear = "";
+        String enterMonth ="";
         while(!validyear) {
             System.out.println("Please enter the year you want to populate");
              enterYear = in.next();
@@ -544,7 +545,7 @@ while(re.next()) {
         boolean validmonth=false;
         while(!validmonth) {
             System.out.println("Please enter the month you want to populate");
-            String enterMonth = in.next();
+            enterMonth = in.next();
             if (enterMonth.equals("1") || enterMonth.equals("01")) {
                 for (int i = 1; i <= 31; i++) {
                     createDailyReportByDate(enterYear + "-01-" + i);
@@ -618,6 +619,7 @@ while(re.next()) {
 
         String del = "delete from daily_summary where delivery_date between '" + tomorrowDate + "'  AND '" + monthend + "';";
             DBconnection.stmt.executeUpdate(del);
+        System.out.println("Databse populated for month of : "+enterYear+"-"+enterMonth+"");
         }
 
     }
