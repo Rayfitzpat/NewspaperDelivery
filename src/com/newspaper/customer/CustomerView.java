@@ -567,7 +567,7 @@ public class CustomerView {
 
         while (!inputValid)
         {
-            System.out.println("Enter customer phone number (Example: 086 819 0499): ");
+            System.out.println("Enter customer phone number (Example: 086 8190499): ");
             if (in.hasNextLine())
             {
                 phoneNumber = in.nextLine();
