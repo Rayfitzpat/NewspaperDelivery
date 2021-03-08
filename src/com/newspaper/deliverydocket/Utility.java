@@ -292,6 +292,36 @@ public class Utility {
         return months;
     }
 
+
+    /**
+     * Method gets the name of the Delivery Person
+     * @param deliveryPersonId if of the person from the DB
+     * @return String value with first name and last name
+     * @throws DeliveryDocketExceptionHandler thrown in case of error in SQL connection
+     */
+    public String getDeliveryPersonName(int deliveryPersonId) throws DeliveryDocketExceptionHandler {
+
+        String name = "";
+        // check if delivery person exists
+        if (deliveryPersonExists(deliveryPersonId)) {
+            String query = "SELECT first_name, last_name\n" +
+                    "FROM delivery_person\n" +
+                    "WHERE delivery_person_id = " + deliveryPersonId + ";";
+            ResultSet rs;
+            try {
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    name = rs.getString("first_name") + " " + rs.getString("last_name");
+                }
+
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
+                System.out.println(query);
+            }
+        }
+        return name;
+    }
+
     /**
      * Method prints all the deliveries of the customer
      * @param customerId the id of the customer, whose deliveries are printed

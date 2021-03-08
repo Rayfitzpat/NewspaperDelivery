@@ -9,6 +9,8 @@ import java.util.Scanner;
 /**
  * @author  Yuliia Dovbak
  */
+
+//TODO: cover errors if entered text in update delivery docket, print all customers on  5: See all deliveries of a customer
 public class DeliveryView {
 
 
@@ -56,6 +58,7 @@ public class DeliveryView {
                         }
                         case 4 -> {
                             // delete delivery docket
+                            deleteDeliveryDocket();
                         }
                         case 5 -> {
                             // see all customer deliveries
@@ -132,7 +135,7 @@ public class DeliveryView {
             DeliveryArea area = utility.getDeliveryArea(deliveryAreaId);
 
             ArrayList<DeliveryItem> deliveries = deliveryDocketDB.getAllDeliveryItemsFor(area.getId(), date);
-            DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), deliveryDocketDB.getDeliveryPersonName(area.getDeliveryPersonId()));
+            DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), utility.getDeliveryPersonName(area.getDeliveryPersonId()));
             System.out.println(docket);
             deliveryDocketDB.createDeliveryDocketFile(docket);
         }
@@ -273,6 +276,25 @@ public class DeliveryView {
         refreshAndPrintDeliveryDocketFile(deliveryPersonId, date);
     }
 
+    public void deleteDeliveryDocket() {
+        int deliveryAreaId = askUserToEnterDeliveryAreaId();
+        String date = askUserToEnterDate();
+        try {
+            // get the file name, which consists of delivery person name, delivery area and date
+
+
+            // get the delivery area id where the delivery person is working
+            DeliveryArea area = utility.getDeliveryArea(deliveryAreaId);
+            String deliveryAreaName = area.getDAreaName();
+            String deliveryPersonName = utility.getDeliveryPersonName(area.getDeliveryPersonId());
+            String fileName = deliveryPersonName + "_" + deliveryAreaName + "_" + date + ".txt";
+            deliveryDocketDB.deleteFileIfExists(fileName);
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void refreshAndPrintDeliveryDocketFile(int deliveryPersonId, String date ) {
 
         try {
@@ -282,7 +304,7 @@ public class DeliveryView {
             // get all deliveries for delivery docket
             ArrayList<DeliveryItem> deliveries = deliveryDocketDB.getAllDeliveryItemsFor(area.getId(), date);
 
-            DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), deliveryDocketDB.getDeliveryPersonName(deliveryPersonId));
+            DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), utility.getDeliveryPersonName(deliveryPersonId));
             System.out.println(docket);
             deliveryDocketDB.createDeliveryDocketFile(docket);
         }

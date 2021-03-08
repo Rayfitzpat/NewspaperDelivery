@@ -22,7 +22,7 @@ public class Delivery {
     }
 
     public void printInserts() {
-        System.out.println("insert into delivery values (null, " + customerId + ", " + publicationId + ", '" + date + "', 'not delivered');");
+        System.out.println("insert into delivery values (null, " + customerId + ", " + publicationId + ", '" + date + "', 'delivered');");
     }
 
     public int getCustomerId() {

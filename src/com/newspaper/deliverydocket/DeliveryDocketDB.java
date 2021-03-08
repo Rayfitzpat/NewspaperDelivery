@@ -57,12 +57,13 @@ public class DeliveryDocketDB {
 //        deliveryDocketDB.createDeliveryDocketFile(docket);
 
 //        // generating deliveries flow
-//        int month = 1; // Feb
+//        int month = 3; // Feb
 //        // check if deliveries for this month weren't generated before
-//        if (!deliveryDocketDB.deliveriesForThisMonthExists(month)) {
+//        if (!deliveryDocketDB.deliveriesForThisMonthExist(month)) {
 //            ArrayList <Delivery> deliveries = deliveryDocketDB.generateDeliveriesForMonth(month);
-//            System.out.println(deliveries.size());
-//            deliveryDocketDB.saveDeliveries(deliveries);
+//            for (Delivery d : deliveries) {
+//                d.printInserts();
+//            }
 //        }
 //        else {
 //            System.out.println("Deliveries for " + month + " month already exist");
@@ -103,7 +104,7 @@ public class DeliveryDocketDB {
         // get all deliveries for delivery docket
         ArrayList<DeliveryItem> deliveries = getAllDeliveryItemsFor(area.getId(), date);
 
-        String deliveryPersonName = getDeliveryPersonName(deliveryPersonId);
+        String deliveryPersonName = ut.getDeliveryPersonName(deliveryPersonId);
 
         // create empty delivery docket object
         DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), deliveryPersonName);
@@ -117,8 +118,8 @@ public class DeliveryDocketDB {
     public void createDeliveryDocketFile(DeliveryDocket docket) {
 
         // create delivery docket text file
-        //File docketFile = new File("src\\com\\newspaper\\deliverydocket\\deliverydocketfiles\\" + docket.getDeliveryPersonName() + "_" + docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
-        File docketFile = new File( docket.getDeliveryPersonName() + "_" + docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
+        File docketFile = new File("src\\com\\newspaper\\deliverydocket\\deliverydocketfiles\\" + docket.getDeliveryPersonName() + "_" + docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
+        //File docketFile = new File( docket.getDeliveryPersonName() + "_" + docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
 
         try {
             PrintWriter pw = new PrintWriter(docketFile);
@@ -128,6 +129,16 @@ public class DeliveryDocketDB {
             e.printStackTrace();
         }
 
+    }
+
+    public void deleteFileIfExists(String textFileName) {
+
+        File myObj = new File("src\\com\\newspaper\\deliverydocket\\deliverydocketfiles\\" + textFileName);
+        if (myObj.delete()) {
+            System.out.println("File: " + myObj.getName() + " was deleted successfully");
+        } else {
+            System.out.println("File " + myObj.getName() + " was not found.");
+        }
     }
 
     /**
@@ -515,28 +526,6 @@ public class DeliveryDocketDB {
         return area;
     }
 
-    public String getDeliveryPersonName(int deliveryPersonId) throws DeliveryDocketExceptionHandler {
-
-        String name = "";
-        // check if delivery person exists
-        if (ut.deliveryPersonExists(deliveryPersonId)) {
-            String query = "SELECT first_name, last_name\n" +
-                    "FROM delivery_person\n" +
-                    "WHERE delivery_person_id = " + deliveryPersonId + ";";
-            ResultSet rs;
-            try {
-                rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    name = rs.getString("first_name") + " " + rs.getString("last_name");
-                }
-
-            } catch (SQLException sqle) {
-                System.out.println(sqle.getMessage());
-                System.out.println(query);
-            }
-        }
-        return name;
-    }
 
     /************************************************************************************
      UPDATING OF DELIVERIES
@@ -583,7 +572,7 @@ public class DeliveryDocketDB {
 
             // update the delivery docket file
             deliveries = getAllDeliveryItemsFor(area.getId(), date);
-            DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), getDeliveryPersonName(deliveryPersonId));
+            DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), ut.getDeliveryPersonName(deliveryPersonId));
             System.out.println(docket);
             createDeliveryDocketFile(docket);
         }
