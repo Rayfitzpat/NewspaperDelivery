@@ -2,12 +2,10 @@ package com.newspaper.order;
 
 import com.newspaper.customer.Customer;
 import com.newspaper.customer.CustomerDB;
-import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.customer.CustomerView;
 import com.newspaper.db.DBconnection;
 import com.newspaper.publication.PublicationView;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -52,8 +50,7 @@ public class OrderView {
                         addNewOrder();
                         break;
                     case 4:
-                        //editOrder();
-                        displayEditOrderMenu();
+                        editOptions();
                         break;
                     case 5:
                         deleteOrder();
@@ -75,7 +72,7 @@ public class OrderView {
     public void displayMainOrderMenu() {
         System.out.println("\nMain Menu");
         System.out.println("1: Display all Orders");
-        System.out.println("2: Display an Order by customer ID ");
+        System.out.println("2: Display Order(s) by customer ID ");
         System.out.println("3: Add new Order");
         System.out.println("4: Edit Order");
         System.out.println("5: Delete Order");
@@ -127,18 +124,11 @@ public class OrderView {
         return orders;
     }
 
-//    public void printOrders(ArrayList<Order> orders) throws OrderExceptionHandler, SQLException {
-//        System.out.printf("\n%-30s %-10s %-35s\n", "Customer ID", "Publication ID", "Frequency");
-//
-//        for (Order order : orders) {
-//            System.out.printf("%-30d %-10d %-35s\n", order.getCustomer_id(), order.getPublication_id(), order.getFrequency());
-//        }
-//    }
 
     public void printOrdersWithNames(ArrayList<Order> orders) {
         System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
 
-        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------------");
         for (Order order : orders) {
             int nameId = order.getCustomer_id();
             String name = getCustomerName(order.getCustomer_id());
@@ -258,7 +248,9 @@ public class OrderView {
                     Statement stmt = DBconnection.con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
 
-                    System.out.printf("\n%-20s %-25s %-15s\n", "Customer ID", "Publication ID", "Frequency");
+                    //System.out.printf("\n%-20s %-25s %-15s\n", "Customer ID", "Publication ID", "Frequency");
+                    System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
+                    System.out.println("--------------------------------------------------------------------------------------------------");
                     while (rs.next()) {
                         int customer_id = rs.getInt("customer_id");
                         int publication_id = rs.getInt("publication_id");
@@ -266,7 +258,7 @@ public class OrderView {
 
                         String day = DayOfWeek.of(frequency).toString();
 
-                        System.out.printf("%-20s %-25s %-15s\n", getCustomerName(customer_id), getPublicationByID(publication_id), day);
+                        System.out.printf("%-8d %-25s %-8d %-32s %-9d %-35s\n", customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, day);
                     }
                 } catch (OrderExceptionHandler e) {
                     System.out.println(e.getMessage());
@@ -297,7 +289,6 @@ public class OrderView {
             if (count == 0) {
                 throw new OrderExceptionHandler("Customer does not have an order");
             }
-
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
             System.out.println(query);
@@ -308,7 +299,7 @@ public class OrderView {
 // Beginning of add an order
 //******************************************************************************************************
 
-    public void addNewOrder() throws OrderExceptionHandler, SQLException {
+    public void addNewOrder() throws OrderExceptionHandler{
         int cust_id = addNewOrderCustomerID();
         int pub_id = addNewOrderPublicationID();
         int freq = addNewOrderFrequency();
@@ -316,13 +307,8 @@ public class OrderView {
         String insertQuery = "Insert into orders (customer_id, publication_id, frequency) values (" + cust_id + ", " + pub_id + ", " + freq + ")";
 
         try {
-
             Statement stmt = DBconnection.con.createStatement();
             stmt.executeUpdate(insertQuery);
-//            PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
-//            pstmt.setInt(1, customer_id);
-//            pstmt.setInt(2, publication_id);
-//            pstmt.setInt(3, frequency);
 
             System.out.println("New Order added successfully for " + getCustomerName(cust_id) + " to get the " + getPublicationByID(pub_id) + " on " + convertFrequency(freq) + "'s");
 
@@ -461,8 +447,6 @@ public class OrderView {
             System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
             System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, convertFrequency(frequency) + "\n");
 
-
-
             System.out.println("Please enter the ID of the new publication you would like to change to");
             if (in.hasNextInt()) {
 
@@ -485,10 +469,6 @@ public class OrderView {
 
                     System.out.println("Publication on the order has been successfully updated to " + newPublication_id + " (" + getPublicationByID(newPublication_id) + ")" + " where Customer ID = " + customer_id + " (" + getCustomerName(customer_id) + ")" + " and Publication ID was = " + publication_id + " (" + getPublicationByID(publication_id) + ")");
 
-                    //ordersAsTheyAre();
-                    displayMainOrderMenu();
-
-
                 } catch (OrderExceptionHandler e) {
                     System.out.println(e.getMessage());
                 }
@@ -497,9 +477,7 @@ public class OrderView {
                 System.out.println("Input needs to be an integer");
             }
         }
-
-
-        }
+    }
 
     public void updateOrderFrequency() throws OrderExceptionHandler, SQLException {
 
@@ -557,12 +535,11 @@ public class OrderView {
 
     public int editOrderCustomerID() throws OrderExceptionHandler {
         {
-            //printCustomers();
+            printCustomers();
 
             Scanner in = new Scanner(System.in);
             int customer_id = 0;
             boolean inputValid = false;
-
 
             while (!inputValid) {
                 System.out.println("Please enter the id of the customer whose order you would like to edit");
@@ -590,8 +567,8 @@ public class OrderView {
 
     public int editOrderPublicationID() throws OrderExceptionHandler {
         {
-            //PublicationView pv = new PublicationView();
-            //pv.displayAllPublication();
+            PublicationView pv = new PublicationView();
+            pv.displayAllPublication();
 
             Scanner in = new Scanner(System.in);
             int publication_id = 0;
@@ -654,6 +631,9 @@ public class OrderView {
         System.out.println("2: Edit Frequency on an order");
         System.out.println("3: Back to main menu");
         System.out.print("Enter your choice: ");
+    }
+
+    public void editOptions() throws OrderExceptionHandler, SQLException {
 
         Scanner in  = new Scanner(System.in);
 
@@ -662,7 +642,7 @@ public class OrderView {
         final int STOP_APP = 3;
 
         while (menuChoice != STOP_APP) {
-            //displayMainOrderMenu(); //display the primary menu
+            displayEditOrderMenu(); //display the primary menu
             if (in.hasNextInt()) {
                 //get the menu choice from the user
                 menuChoice = in.nextInt();
@@ -740,6 +720,4 @@ public class OrderView {
             }
         }
     }
-
-
-    }
+}

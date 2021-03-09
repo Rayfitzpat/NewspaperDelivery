@@ -136,7 +136,6 @@ public class OrderTest extends TestCase {
             assertEquals("Frequency does not exist, please enter a number between 1 and 7", e.getMessage());
         }
 
-
     }
 
 
@@ -147,7 +146,6 @@ public class OrderTest extends TestCase {
     public void testValidateFrequency003() {
         try{
             order.validateFrequency(5);
-
         }
         catch (OrderExceptionHandler e) {
             fail("Exception expected");
