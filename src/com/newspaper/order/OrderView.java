@@ -128,7 +128,7 @@ public class OrderView {
     }
 
 
-    public void printOrdersWithNames(ArrayList<Order> orders) {
+    public void printOrdersWithNames(ArrayList<Order> orders) throws OrderExceptionHandler {
         System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
 
         System.out.println("--------------------------------------------------------------------------------------------------");
@@ -159,7 +159,7 @@ public class OrderView {
         }
     }
 
-    public String getCustomerName(int customerID) {
+    public String getCustomerName(int customerID) throws OrderExceptionHandler {
         String name = "";
 
         String query = "SELECT first_name, last_name " +
@@ -175,14 +175,13 @@ public class OrderView {
             }
 
         } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println(query);
+            throw new OrderExceptionHandler("Customer does not exist");
         }
 
         return name;
     }
 
-    public String getPublicationByID(int publicationID) {
+    public String getPublicationByID(int publicationID) throws OrderExceptionHandler {
         String publicationName = "";
 
         String query = "SELECT publication_name " +
@@ -196,13 +195,12 @@ public class OrderView {
             }
 
         } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println(query);
+            throw new OrderExceptionHandler("Publication does not exist");
         }
         return publicationName;
     }
 
-    public String convertFrequency(int frequency) {
+    public String convertFrequency(int frequency) throws OrderExceptionHandler {
         String day = "";
 
         String query = "Select frequency from orders;";
@@ -215,8 +213,7 @@ public class OrderView {
                 day = DayOfWeek.of(frequency).toString();
             }
         } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println(query);
+            throw new OrderExceptionHandler("Frequency does not exist");
 
         }
         return day;
