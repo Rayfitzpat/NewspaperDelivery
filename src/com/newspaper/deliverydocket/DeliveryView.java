@@ -86,7 +86,7 @@ public class DeliveryView {
             System.out.println(e.getMessage());
         }
 
-        in.close();
+        //in.close();
     }
 
     // ask user to enter delivery person id

@@ -384,7 +384,7 @@ public class DeliveryDocketDB {
         // get all months that we need to generate deliveries for
         // which is every month data from today`s date
         ArrayList<Integer> months = ut.getMonths();
-        System.out.println("Months" + months);
+        //System.out.println("Months" + months);
         for (Integer month : months) {
 
             // determine start date and end date of each month
@@ -398,8 +398,8 @@ public class DeliveryDocketDB {
             YearMonth thisYearMonth = YearMonth.of(2021, month);
             LocalDate endDate = thisYearMonth.atEndOfMonth();
 
-            System.out.println("Start date" + startDate);
-            System.out.println("End date" + endDate);
+            //System.out.println("Start date" + startDate);
+            //System.out.println("End date" + endDate);
 
             int customer_id = order.getCustomer_id();
             int publication_id = order.getPublication_id();

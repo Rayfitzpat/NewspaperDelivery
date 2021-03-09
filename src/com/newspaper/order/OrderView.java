@@ -4,6 +4,9 @@ import com.newspaper.customer.Customer;
 import com.newspaper.customer.CustomerDB;
 import com.newspaper.customer.CustomerView;
 import com.newspaper.db.DBconnection;
+import com.newspaper.deliverydocket.Delivery;
+import com.newspaper.deliverydocket.DeliveryDocketDB;
+import com.newspaper.deliverydocket.DeliveryItem;
 import com.newspaper.publication.PublicationView;
 
 import java.sql.ResultSet;
@@ -199,7 +202,7 @@ public class OrderView {
         return publicationName;
     }
 
-    public String convertFrequency(int frequency)  {
+    public String convertFrequency(int frequency) {
         String day = "";
 
         String query = "Select frequency from orders;";
@@ -299,7 +302,7 @@ public class OrderView {
 // Beginning of add an order
 //******************************************************************************************************
 
-    public void addNewOrder() throws OrderExceptionHandler{
+    public void addNewOrder() throws OrderExceptionHandler {
         int cust_id = addNewOrderCustomerID();
         int pub_id = addNewOrderPublicationID();
         int freq = addNewOrderFrequency();
@@ -312,6 +315,16 @@ public class OrderView {
 
             System.out.println("New Order added successfully for " + getCustomerName(cust_id) + " to get the " + getPublicationByID(pub_id) + " on " + convertFrequency(freq) + "'s");
 
+            // generating deliveries for the new order
+            DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+
+            try {
+                Order order = new Order(cust_id, pub_id, freq);
+                ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
+                deliveryDocketDB.saveDeliveries(deliveries);
+            } catch (OrderExceptionHandler e) {
+                e.getMessage();
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(insertQuery);
@@ -391,7 +404,7 @@ public class OrderView {
                 System.out.println("Please enter the id of the day you would like the new order to go out on");
                 System.out.println("1 = Monday\n2 = Tuesday\n3 = Wednesday\n4 = Thursday\n5 = Friday\n6 = Saturday\n7 = Sunday");
 
-                if(in.hasNextInt()) {
+                if (in.hasNextInt()) {
                     frequency = in.nextInt();
 
                     try {
@@ -399,7 +412,7 @@ public class OrderView {
                         // if validation was successful
                         inputValid = true;
                     } catch (OrderExceptionHandler e) {
-                       System.out.println(e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                 } else {
                     //clear the input buffer and start again
@@ -415,11 +428,10 @@ public class OrderView {
     public void printCustomers() {
         try {
             CustomerDB db = new CustomerDB();
-            CustomerView view = new CustomerView() ;
+            CustomerView view = new CustomerView();
             ArrayList<Customer> customers = db.fetchCustomers();
             view.printCustomers(customers);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -496,7 +508,7 @@ public class OrderView {
         while (!isValid) {
             System.out.println("Order to be edited");
             System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
-            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, convertFrequency(frequency)  + "\n");
+            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, convertFrequency(frequency) + "\n");
 
 
             System.out.println("Please enter the ID of the new frequency you would like to change to");
@@ -605,7 +617,7 @@ public class OrderView {
                 System.out.println("Please enter the id of the frequency that is currently on the order that you would like to edit");
                 System.out.println("1 = Monday\n2 = Tuesday\n3 = Wednesday\n4 = Thursday\n5 = Friday\n6 = Saturday\n7 = Sunday");
 
-                if(in.hasNextInt()) {
+                if (in.hasNextInt()) {
                     frequency = in.nextInt();
 
                     try {
@@ -635,7 +647,7 @@ public class OrderView {
 
     public void editOptions() throws OrderExceptionHandler, SQLException {
 
-        Scanner in  = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
 
         int menuChoice = 0;
 
@@ -703,7 +715,7 @@ public class OrderView {
                     isValid = true;
 
                     //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                    query = "Delete from orders where customer_id = " + customer_id + " and publication_id = " + publication_id ;
+                    query = "Delete from orders where customer_id = " + customer_id + " and publication_id = " + publication_id;
 
 
                     Statement stmt = DBconnection.con.createStatement();
