@@ -641,7 +641,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jLabel12.setText("1-20 characters, no numbers");
 
         jLabel13.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel13.setText("1-4 Characters");
+        jLabel13.setText("1-3 Numbers");
 
         jLabel14.setForeground(new java.awt.Color(49, 117, 108));
         jLabel14.setText("1-20 Characters");
@@ -696,7 +696,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jLabel22.setText("Must follow pattern YYYY-MM-DD");
 
         jLabel23.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel23.setText("1-20 Characters, no numbers");
+        jLabel23.setText("Must be 'true' or 'false'");
 
         jLabel25.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(6, 187, 163));
@@ -717,7 +717,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jTextField15.setText("");
 
         jLabel27.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel27.setText("4 Characters only");
+        jLabel27.setText("3 Characters only");
 
         jLabel28.setForeground(new java.awt.Color(49, 117, 108));
         jLabel28.setText("1-20 Characters");
@@ -992,7 +992,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         //        Edit House Number  help text label
         jLabel63.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel63.setText("1-4 Numbers");
+        jLabel63.setText("1-3 Numbers");
 
         //        Edit Street Name  help text label
         jLabel64.setForeground(new java.awt.Color(49, 117, 108));
@@ -1061,7 +1061,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         //        Edit Password help text label
         jLabel76.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel76.setText("4 characters only");
+        jLabel76.setText("3 characters only");
 
         // EDIT Phone Number help label
         jLabel77.setForeground(new java.awt.Color(49, 117, 108));
@@ -1069,7 +1069,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         //        Edit User Name help text label
         jLabel78.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel78.setText("1-20 characters, no numbers");
+        jLabel78.setText("Must be 'true' or 'false'");
 
         jLabel79.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(6, 187, 163));
@@ -1189,6 +1189,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jButton17.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton17.setForeground(new java.awt.Color(0, 0, 0));
         jButton17.setText("Submit");
+        jButton17.setVisible(false);
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -2079,7 +2080,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                     jTextField31.setText("You have successfully updated House Number for ID: " + editID + " to " + houseNumber);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("House Numbers must be between 1 to 4 characters");
+                    jTextField31.setText("House Numbers must be between 1 to 3 Numbers");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -2239,6 +2240,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
         String holidayStart = jTextField38.getText();
+        String holidayEnd = jTextField40.getText();
         int count;
         String str;
         if(validation.validateEntry(editID)) {
@@ -2250,10 +2252,15 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             }
             if (count > 0) {
                 if (validation.validateDate(holidayStart)) {
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET holiday_start_date = '" + holidayStart + "' where customer_id = '" + editID + "'");
-                    jTextField31.setForeground(new java.awt.Color(6,187,163));
-                    jTextField31.setText("You have successfully updated Holiday Start Date for ID: " + editID + " to " + holidayStart);
+                    if(validation.validateHolidayStartBeforeEnd(holidayStart, holidayEnd)) {
+                        Statement editPerson = con.createStatement();
+                        editPerson.executeUpdate("Update customer SET holiday_start_date = '" + holidayStart + "' where customer_id = '" + editID + "'");
+                        jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                        jTextField31.setText("You have successfully updated Holiday Start Date for ID: " + editID + " to " + holidayStart);
+                    }else {
+                            jTextField31.setForeground(new java.awt.Color(255,0,0));
+                            jTextField31.setText("Holiday Start Date must be before Holiday End Date");
+                    }
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255,0,0));
                     jTextField31.setText("Holiday Start Date must be in the format YYYY-MM-DD i.e. 2021-07-16");
@@ -2287,10 +2294,10 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateEndDate(holidayEnd)) {
                     if(validation.validateHoliday(holidayStart, holidayEnd)){
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET holiday_end_date = '" + holidayEnd + "' where customer_id = '" + editID + "'");
+                    Statement editStart = con.createStatement();
+                    editStart.executeUpdate("Update customer SET holiday_start_date = '" + holidayStart + "', holiday_end_date = '" + holidayEnd+ "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Holiday End Date for ID: " + editID + " to " + holidayEnd);
+                    jTextField31.setText("You have successfully updated Holiday for ID: " + editID + " to " + holidayStart + " - " + holidayEnd);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
                         jTextField31.setText("Holiday Start Date must be before Holiday End Date");
@@ -2317,7 +2324,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
-        String status = jTextField40.getText();
+        String status = jTextField39.getText();
         int count;
         String str;
         if(validation.validateEntry(editID)) {
@@ -2330,7 +2337,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateStatus(status)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET delivery_status = '" + status + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update customer SET customer_status = '" + status + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
                 } else {
