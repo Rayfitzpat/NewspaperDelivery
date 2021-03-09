@@ -207,9 +207,7 @@ public class CustomerView {
                 System.out.println("***" + e.getMessage() + "***");
                 System.out.println("There was an error with adding new customer. Please try again");
             }
-
         }
-
     }
 
     public void deactivateCustomer(int customerId, CustomerDB customerDB) {
