@@ -339,7 +339,8 @@ public class Utility {
                     "FROM customer, delivery, publication\n" +
                     "WHERE customer.customer_id = delivery.customer_id \n" +
                     "\tAND delivery.publication_id = publication.publication_id\n" +
-                    "\tAND customer.customer_id = " + customerId + ";";
+                    "\tAND customer.customer_id = " + customerId +
+                    "\t ORDER BY delivery.delivery_date ASC;";;
 
             try {
                 Statement stmt = DBconnection.con.createStatement();
@@ -376,13 +377,14 @@ public class Utility {
                     "FROM customer, delivery, publication\n" +
                     "WHERE customer.customer_id = delivery.customer_id \n" +
                     "\tAND delivery.publication_id = publication.publication_id\n" +
-                    "\tAND publication.publication_id = " + publicationId + ";";
+                    "\tAND publication.publication_id = " + publicationId + "" +
+                    "\t ORDER BY delivery.delivery_date ASC;";
 
             try {
                 Statement stmt = DBconnection.con.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
                 // Sets the headings and returns the data from the DB
-                System.out.printf("\n%-20s %-25s %-20s %-20s\n","Publication", "Customer Name",  "Date of delivery", "Delivery Status");
+                System.out.printf("\n%-30s %-25s %-20s %-20s\n","Publication", "Customer Name",  "Date of delivery", "Delivery Status");
                 System.out.println("---------------------------------------------------------------------------------");
                 while (rs.next()) {
                     String name = rs.getString("first_name") + " " + rs.getString("last_name");
@@ -390,7 +392,7 @@ public class Utility {
                     String date = rs.getString("date of delivery");
                     String deliveryStatus = rs.getString("delivery_status");
 
-                    System.out.printf("%-20s %-25s %-20s %-20s\n", publication, name, date, deliveryStatus);
+                    System.out.printf("%-30s %-25s %-20s %-20s\n", publication, name, date, deliveryStatus);
                 }
 
             } catch (SQLException sqle) {
