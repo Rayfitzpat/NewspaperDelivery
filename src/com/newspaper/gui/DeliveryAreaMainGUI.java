@@ -1322,7 +1322,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         if (validation.validateStringWithNumbers(jTextField4.getText())) {
             if (validation.validateStringWithNumbers(jTextField5.getText())) {
-                if (validation.validateID(jTextField6.getText())) {
+                if (validation.validateDPID(jTextField6.getText())) {
 
                         Statement addNewPerson = con.createStatement();
                         addNewPerson.executeUpdate("insert into delivery_area values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "')");
@@ -1417,7 +1417,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
-        String cost = jTextField34.getText();
+        String dpid = jTextField34.getText();
         int count;
         String str;
         if (validation.validateEntry(editID)) {
@@ -1428,14 +1428,14 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateID(cost)) {
+                if (validation.validateDPID(dpid)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update delivery_area SET delivery_person_id = '" + cost + "' where delivery_area_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update delivery_area SET delivery_person_id = '" + dpid + "' where delivery_area_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated the Delivery Person ID for Area ID: " + editID + " to " + cost);
+                    jTextField31.setText("You have successfully updated the Delivery Person ID for Area ID: " + editID + " to " + dpid);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Delivery Person ID must be between 1 to 3 numbers");
+                    jTextField31.setText("Delivery Person ID must be between 1 to 3 numbers and be valid  - Check Employee Section");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -1657,4 +1657,9 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     // End of variables declaration
+
+
+    public JTextField getjTextField18() {
+        return jTextField18;
+    }
 }

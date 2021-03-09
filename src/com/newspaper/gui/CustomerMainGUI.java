@@ -8,6 +8,7 @@ package com.newspaper.gui;
 
 import com.newspaper.customer.Customer;
 import com.newspaper.customer.CustomerExceptionHandler;
+import com.newspaper.deliveryarea.DeliveryArea;
 import com.newspaper.deliveryperson.DeliveryPerson;
 import com.newspaper.deliveryperson.DeliveryPersonView;
 import com.newspaper.db.DBconnection;
@@ -1162,7 +1163,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     jButton15ActionPerformed(evt);
-                } catch (SQLException throwables) {
+                } catch (SQLException | CustomerExceptionHandler throwables) {
                     throwables.printStackTrace();
                 }
             }
@@ -1894,17 +1895,17 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 //TODO fix this validation!!
     // TODO fix error messages here
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, CustomerExceptionHandler {
-        if (validation.validateString(jTextField4.getText())) {
-            if (validation.validateString(jTextField5.getText())) {
+        if (validation.validateCustomer(jTextField4.getText())) {
+            if (validation.validateCustomer(jTextField5.getText())) {
                 if (validation.validateHouseNumber(jTextField6.getText())) {
-                    if (validation.validateStringWithNumbers(jTextField7.getText())) {
-                        if (validation.validateStringWithNumbers(jTextField14.getText())) {
+                    if (validation.validateCustomer35(jTextField7.getText())) {
+                        if (validation.validateCustomer35(jTextField14.getText())) {
                             if (validation.validateEircode(jTextField8.getText())) {
                                 if (validation.validatePhoneNumber(jTextField9.getText())) {
-                                    if (validation.validateAccess(jTextField10.getText())) {
-                                        if (validation.validateStatus(jTextField12.getText())) {
+                                    if (validation.validateDate(jTextField10.getText())) {
+                                        if (validation.validateEndDate(jTextField12.getText())) {
                                             if (validation.validateStatus(jTextField11.getText())) {
-                                                if (validation.validateHouseNumber(jTextField15.getText())) {
+                                                if (validation.validateDeliveryID(jTextField15.getText())) {
                                                     Statement addNewPerson = con.createStatement();
                                                     addNewPerson.executeUpdate("insert into customer values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
                                                     jTextField3.setForeground(new java.awt.Color(6, 187, 163));
@@ -1919,7 +1920,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                                             jTextField3.setText("Invalid Holiday End Date, must be in the format YYYY-MM-DD");
                                         }
                                     } else {
-                                        jTextField3.setText("Invalid Holiday STart Date, must be in the format YYYY-MM-DD");
+                                        jTextField3.setText("Invalid Holiday Start Date, must be in the format YYYY-MM-DD");
                                     }
                                 } else {
                                     jTextField3.setText("Invalid Phone Number, must be in the format 0## ####### e.g. 087 1234567");
@@ -1960,7 +1961,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateString(firstName)) {
+                if (validation.validateCustomer(firstName)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update customer SET first_name = '" + firstName + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
@@ -1995,7 +1996,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateString(lastName)) {
+                if (validation.validateCustomer(lastName)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update customer SET last_name = '" + lastName + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
@@ -2067,14 +2068,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateStringWithNumbers(streetName)) {
+                if (validation.validateCustomer35(streetName)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update customer SET address2 = '" + streetName + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Street Name for ID: " + editID + " to " + streetName);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Street Names must be between 1 to 20 characters");
+                    jTextField31.setText("Street Names must be between 1 to 35 characters");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -2102,14 +2103,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateStringWithNumbers(town)) {
+                if (validation.validateCustomer35(town)) {
                     Statement editPerson = con.createStatement();
                     editPerson.executeUpdate("Update customer SET town = '" + town + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Town Name for ID: " + editID + " to " + town);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Town Names must be between 1 to 20 characters");
+                    jTextField31.setText("Town Names must be between 1 to 35 characters");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -2121,12 +2122,12 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         }
     }
 
-    //        Submit Button - EDIT - Phone Number *****************************
-//TODO change this to Eircode
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+    //        Submit Button - EDIT - Eircode *****************************
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, CustomerExceptionHandler {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
-        String phoneNumber = jTextField36.getText();
+        String eircode = jTextField36.getText();
         int count;
         String str;
         if (validation.validateEntry(editID)) {
@@ -2137,11 +2138,11 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validatePhoneNumber(phoneNumber)) {
+                if (validation.validateEircode(eircode)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET delivery_phone_number = '" + phoneNumber + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update customer SET eircode = '" + eircode + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
+                    jTextField31.setText("You have successfully updated Eircode for ID: " + editID + " to " + eircode);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
                     jTextField31.setText("Eircodes follow the pattern of R45XY62");
@@ -2162,7 +2163,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
-        String phoneNumber = jTextField36.getText();
+        String phoneNumber = jTextField37.getText();
         int count;
         String str;
         if (validation.validateEntry(editID)) {
@@ -2175,12 +2176,12 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validatePhoneNumber(phoneNumber)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET delivery_phone_number = '" + phoneNumber + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update customer SET phone_number = '" + phoneNumber + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Eircodes follow the pattern of R45XY62");
+                    jTextField31.setText("Phone Numbers follow the pattern of 0## ####### i.e. 087 1234567");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -2197,7 +2198,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
-        String accessLevel = jTextField38.getText();
+        String holidayStart = jTextField38.getText();
         int count;
         String str;
         if(validation.validateEntry(editID)) {
@@ -2208,14 +2209,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateAccess(accessLevel)) {
+                if (validation.validateDate(holidayStart)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET access_level = '" + accessLevel + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update customer SET access_level = '" + holidayStart + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6,187,163));
-                    jTextField31.setText("You have successfully updated Access Level for ID: " + editID + " to " + accessLevel);
+                    jTextField31.setText("You have successfully updated Holiday Start Date for ID: " + editID + " to " + holidayStart);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255,0,0));
-                    jTextField31.setText("Access Level must be either 1 or 2");
+                    jTextField31.setText("Holiday Start Date must be in the format YYYY-MM-DD i.e. 2021-07-16");
 
                 }  } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -2232,7 +2233,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
-        String status = jTextField40.getText();
+        String holidayEnd = jTextField40.getText();
         int count;
         String str;
         if(validation.validateEntry(editID)) {
@@ -2243,14 +2244,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validateStatus(status)) {
+                if (validation.validateEndDate(holidayEnd)) {
                     Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET delivery_status = '" + status + "' where customer_id = '" + editID + "'");
+                    editPerson.executeUpdate("Update customer SET delivery_status = '" + holidayEnd + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
+                    jTextField31.setText("You have successfully updated Holiday End Date for ID: " + editID + " to " + holidayEnd);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Status must be either true or false");
+                    jTextField31.setText("Holiday end Date must be in the format YYYY-MM-DD i.e. 2021-07-16");
                 }
             }else{
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -2261,7 +2262,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-// TODO check with Yuliia if this is OK
+
     //        Submit Button - EDIT - Status *****************************
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -2284,7 +2285,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                     jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("Status must be either true or false");
+                    jTextField31.setText("Status must be either 'true' or 'false'");
                 }
             }else{
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
@@ -2300,7 +2301,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
         String editID = jTextField18.getText();
-        String password = jTextField43.getText();
+        String deliveryId = jTextField43.getText();
         int count;
         String str;
         if(validation.validateEntry(editID)) {
@@ -2311,24 +2312,43 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
-                if (validation.validatePassword(password)) {
-                    Statement editPerson = con.createStatement();
-                    editPerson.executeUpdate("Update customer SET password = '" + password + "' where customer_id = '" + editID + "'");
-                    jTextField31.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField31.setText("You have successfully updated Password for ID: " + editID + " to " + password);
-                } else {
+
+
+                String str1;
+                String query = "select count(*) as total from delivery_area where delivery_area_id = " + deliveryId;
+                ResultSet rs;
+                int count1 = 0;
+                try {
+                    rs = stmt.executeQuery(query);
+                    while (rs.next()) {
+                        count1 = rs.getInt("total");
+                    }
+                    if (count1 == 0) {
+                        jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                        jTextField31.setText("Area ID: " + deliveryId + " is invalid check Delivery Area Section ");
+                    } else {
+                        Statement editPerson = con.createStatement();
+                        editPerson.executeUpdate("Update customer SET delivery_area_id = '" + deliveryId + "' where customer_id = '" + editID + "'");
+                        jTextField31.setForeground(new java.awt.Color(6, 187, 163));
+                        jTextField31.setText("You have successfully updated Delivery Area ID for Customer ID: " + editID + " to " + deliveryId);
+                    }
+                } catch (Exception e) {
+
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("passwords must 4 characters in length");
+                    jTextField31.setText("Area Id must be between 1-3 Numbers & be a valid Area Id - Check Delivery Area Section");
+                }
+            }
+                else {
+                jTextField31.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
                 }
             }else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
                 jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
             }
-        } else {
-            jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
-    }
+
+
 
 
     //    Delete - Submit Button Fuctionality

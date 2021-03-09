@@ -1,13 +1,29 @@
 package com.newspaper.gui;
 import com.newspaper.customer.CustomerExceptionHandler;
+import com.newspaper.db.DBconnection;
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation {
 
     public boolean validateString(String name) {
+        if (name.length() > 1 && name.length() < 20) {
+            if (name.matches("[a-zA-z\\s]*")) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean validateCustomer(String name) {
         if (name.length() > 1 && name.length() < 20) {
             if (name.matches("[a-zA-z\\s]*")) {
                 return true;
@@ -62,6 +78,13 @@ public class Validation {
             return false;
     }
 
+    public boolean validateCustomer35(String name) {
+        if (name.length() > 1 && name.length() < 20) {
+            return true;
+        } else
+            return false;
+    }
+
     public boolean validatePhoneNumber(String deliveryPhoneNumber) {
         if (deliveryPhoneNumber.matches("\\d{3}[ ]\\d{7}")) {
             return true;
@@ -72,6 +95,22 @@ public class Validation {
 
     public boolean validateDoB(String dateOfBirth) {
         if (dateOfBirth.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean validateDate(String date) {
+        if (date.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean validateEndDate(String date) {
+        if (date.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$")) {
             return true;
         } else {
             return false;
@@ -96,24 +135,16 @@ public class Validation {
         } else return false;
     }
 
-    public boolean validateEircode(String eircode) throws CustomerExceptionHandler {
+    public boolean validateEircode(String eircode) {
         // check for null value
-        if (eircode == null) {
+
+        if (eircode.length() != 7) {
             return false;
-
-
-        }
-        else {
-            // pattern for eircode
-            Pattern phonePattern = Pattern.compile("[A-Z0-9]{7}");
-            Matcher matcher = phonePattern.matcher(eircode);
+        } else if (eircode.matches("[A-Z0-9]{7}")) {
             return true;
-
-            // if eircode parameter does not correspond to regex expression, throw an exception
-
-        }
-
+        }return false;
     }
+
 
     public boolean validateID(String DPID) {
         if (DPID.length() < 1 || DPID.length() >3) {
@@ -122,6 +153,70 @@ public class Validation {
             return true;
         }return false;
     }
+
+
+    public boolean validateDeliveryID(String DPID) {
+        if (DPID.length() < 1 || DPID.length() >3) {
+            return false;
+        } else if (DPID.matches("[0-9\\d]*")) {
+            String query = "select count(*) as total from delivery_area where delivery_area_id = " + DPID;
+            ResultSet rs;
+            int count = 0;
+            try {
+                rs = DBconnection.stmt.executeQuery(query);
+                while(rs.next()) {
+                    count = rs.getInt("total");
+                }
+                if(count == 0)
+                {
+                    System.out.println("fghfhgfghfghfghjfjghfghjfgjh");
+                    return false;
+                }
+                else return true;
+            } catch(SQLException sqle) {
+                System.out.println(sqle.getMessage());
+                System.out.println(query);
+                return false;
+            }
+        }return false;
+    }
+
+    public boolean validateDPIDIsNum(String dpid) {
+        if (dpid.length() <1  || dpid.length() >3) {
+            return false;
+        } else if (dpid.matches("[0-9\\d]*")) {
+            return true;
+        }return false;
+    }
+
+    public boolean validateDPID(String dpid) throws SQLException {
+
+        int count1;
+        String strg;
+
+        if (dpid.length() == 0) {
+            return false;
+        } else if (validateEntry(dpid)) {
+            System.out.println("ghfdfgfgdfgdfgdfgdfgdfg");
+            strg = "select count(*) as total from delivery_Person where delivery_person_id = " + dpid;
+            ResultSet rs = DBconnection.stmt.executeQuery(strg);
+            count1 = 0;
+            while (rs.next()) {
+                count1= rs.getInt("total");
+            }
+            if (count1 > 0) {
+                System.out.println("************************************");
+                return true;
+
+            } else {
+                System.out.println("$%£$%£$%£$%£$%^£$%£^$%£^%$£%$");
+                return false;
+            }
+        }return false;
+
+    }
+
+
 
     public boolean validateStock(String DPID) {
         if (DPID.length() < 1 || DPID.length() >3) {
