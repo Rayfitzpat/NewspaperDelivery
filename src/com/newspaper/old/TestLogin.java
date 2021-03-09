@@ -111,7 +111,7 @@ public class TestLogin extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("images/NewspaperLogoDarkGreenSmall.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("com/newspaper/images/NewspaperLogoDarkGreenSmall.png"))); // NOI18N
         jLabel6.setText("jLabel6");
 
         jLabel7.setFont(new java.awt.Font("Niagara Engraved", 0, 120)); // NOI18N
@@ -124,10 +124,10 @@ public class TestLogin extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("is Good News");
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("images/mailIcon.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("com/newspaper/images/mailIcon.png"))); // NOI18N
         jLabel8.setText("jLabel8");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("images/PasswordIcon.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("com/newspaper/images/PasswordIcon.png"))); // NOI18N
         jLabel9.setText("jLabel9");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -229,16 +229,16 @@ public class TestLogin extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
         System.exit(0);
     }
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     /**

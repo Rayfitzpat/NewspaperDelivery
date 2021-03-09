@@ -4,12 +4,19 @@ import com.newspaper.db.DBconnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+/**
+ * @author  Yuliia Dovbak
+ */
 
 /*Base class for all items that must be included in the delivery docket.
 * I created this class to ba able to store these items in the same list and reduce amount of code,
 * but still separate invoice and publication deliveries*/
 public class DeliveryItem {
 
+
+
+    private int id;
+    private int deliveryId;
     private int customerID;
     private String customerName;
     private String customerAddress;
@@ -17,7 +24,7 @@ public class DeliveryItem {
     private String type; // invoice or publication
 
     // constructor with no id
-    public DeliveryItem( int customerID, String customerName, String customerAddress, String type, boolean isDelivered) throws DeliveryDocketExceptionHandler {
+    public DeliveryItem(int id, int customerID, String customerName, String customerAddress, String type, boolean isDelivered) throws DeliveryDocketExceptionHandler {
 
         // validating the input, if all ok, the exception will not be thrown
         // and the values will be initialised
@@ -31,6 +38,32 @@ public class DeliveryItem {
             throw e;
         }
 
+        this.id = id;
+        this.customerID = customerID;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.type = type;
+        this.isDelivered = isDelivered;
+    }
+
+    // constructor with id
+    public DeliveryItem(int deliveryId, int id, int customerID, String customerName, String customerAddress, String type, boolean isDelivered) throws DeliveryDocketExceptionHandler {
+
+        // validating the input, if all ok, the exception will not be thrown
+        // and the values will be initialised
+        try {
+            validateDeliveryId(deliveryId);
+            validateCustomerId(customerID);
+            validateCustomerName(customerName);
+            validateCustomerAddress(customerAddress);
+            validateType(type);
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            throw e;
+        }
+
+        this.deliveryId = deliveryId;
+        this.id = id;
         this.customerID = customerID;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
@@ -71,23 +104,23 @@ public class DeliveryItem {
         int maxLength = 52;
 
         if (customerName ==  null) {
-            throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name cannot be null");
+            throw new DeliveryDocketExceptionHandler("Customer name cannot be null");
         }
         else if(customerName.isBlank() || customerName.isEmpty()){
-            throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name cannot be empty");
+            throw new DeliveryDocketExceptionHandler("Customer name cannot be empty");
         }
         else if (customerName.length() < minLength) {
-            throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name does not meet the minimum length requirements");
+            throw new DeliveryDocketExceptionHandler("Customer name does not meet the minimum length requirements");
         }
         else if (customerName.length() > maxLength) {
-            throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name exceeds the maximum length requirements");
+            throw new DeliveryDocketExceptionHandler("Customer name exceeds the maximum length requirements");
         }
         else {
             // checking if line has any numbers
             char[] charArray = customerName.toCharArray();
             for (char c : charArray) {
                 if (Character.isDigit(c)) {
-                    throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer name cannot consist of numbers");
+                    throw new DeliveryDocketExceptionHandler("Customer name cannot consist of numbers");
                 }
             }
         }
@@ -104,7 +137,7 @@ public class DeliveryItem {
             }
             if(count == 0)
             {
-                throw new DeliveryDocketExceptionHandler("com.newspaper.customer.Customer with id " + customerID + " does not exist");
+                throw new DeliveryDocketExceptionHandler("Customer with id " + customerID + " does not exist");
             }
 
         } catch (SQLException sqle) {
@@ -113,6 +146,28 @@ public class DeliveryItem {
 
         }
     }
+
+    public void validateDeliveryId(int deliveryID) throws DeliveryDocketExceptionHandler {
+        String query = "select count(*) as total from delivery where delivery_id = " + deliveryID + ";";
+        ResultSet rs;
+        int count = - 1;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count == 0)
+            {
+                throw new DeliveryDocketExceptionHandler("Delivery with id " + deliveryID + " does not exist");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+
+        }
+    }
+
 
 
 
@@ -155,4 +210,24 @@ public class DeliveryItem {
     public void setType(String type) {
         this.type = type;
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(int deliveryId) {
+        this.deliveryId = deliveryId;
+    }
+
+    public void print() {
+        System.out.printf("\n %-10s %-20s %-35s %-10s %-10s", this.getCustomerID(), this.getCustomerName(), this.getCustomerAddress(), this.isDelivered(), this.getType());
+    }
+
 }

@@ -1,22 +1,20 @@
-package com.newspaper.customer;
+package com.newspaper.gui;
 
-import com.newspaper.db.DBconnection;
+import com.newspaper.customer.CustomerExceptionHandler;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Customer {
+public class CustomerGui {
     private int customerId, address1, deliveryAreaId;
     private String firstName, lastName, address2, town, eircode, phoneNumber, holidayStartDate, holidayEndDate;
     private boolean status;
 
     // constructor for initialising com.newspaper.customer.Customer objects without customerId
-    public Customer(String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
+    public CustomerGui(String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
 
         // customer record in the database is autoincrement
         customerId = 0;
@@ -24,7 +22,6 @@ public class Customer {
         // validate input
         try{
             //validateDeliveryAreaId();
-            validateDeliveryArea(deliveryAreaId);
             validateAddress1(address1);
             validateName(firstName, "First name");
             validateName(lastName, "Last name");
@@ -56,7 +53,7 @@ public class Customer {
     }
 
     // constructor for initialising com.newspaper.customer.Customer objects with all fields
-    public Customer(int customerId, String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
+    public CustomerGui(int customerId, String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
 
         // validate input
         try{
@@ -94,7 +91,7 @@ public class Customer {
     }
 
     // constructor for initialising object of com.newspaper.customer.Customer with no data
-    public Customer(){
+    public CustomerGui(){
 
     }
 
@@ -297,13 +294,13 @@ public class Customer {
             throw new CustomerExceptionHandler("NULL value in the argument");
         }
         else {
-            // number format is 080 8371923
-            Pattern phonePattern = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s]\\d{7}$");
+            // number format is 080 837 1923
+            Pattern phonePattern = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s]\\d{3}[\\s]\\d{4}$");
             Matcher matcher = phonePattern.matcher(phoneNumber);
 
             if (!matcher.matches())
             {
-                throw new CustomerExceptionHandler("Phone number does not correspond to the format \"000 0000000\"");
+                throw new CustomerExceptionHandler("Phone number does not correspond to the format \"000 000 0000\"");
             }
         }
     }
@@ -381,39 +378,6 @@ public class Customer {
                 throw new CustomerExceptionHandler("Holiday dates are in wrong format");
             }
         }
-    }
-
-    /**
-     * Method checks if delivery area exists in the database
-     * @param deliveryAreaId the id of the delivery person that is checked
-     * @return true if delivery person exists
-     * @throws CustomerExceptionHandler thrown if delivery person does not exist
-     */
-    public boolean validateDeliveryArea(int deliveryAreaId) throws CustomerExceptionHandler {
-
-        // set the flag
-        boolean exists = false;
-
-        String query = "select count(*) as total from delivery_area where delivery_area_id = " + deliveryAreaId + ";";
-        ResultSet rs;
-        int count = - 1;
-        try {
-            rs = DBconnection.stmt.executeQuery(query);
-            while (rs.next()) {
-                count = rs.getInt("total");
-                exists = true;
-            }
-            if(count == 0)
-            {
-                throw new CustomerExceptionHandler("Delivery Area with id " + deliveryAreaId + " does not exist");
-            }
-
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println(query);
-        }
-
-        return exists;
     }
 
     @Override
