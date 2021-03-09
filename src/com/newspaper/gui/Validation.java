@@ -6,6 +6,9 @@ import com.newspaper.db.DBconnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,6 +118,36 @@ public class Validation {
         } else {
             return false;
         }
+    }
+
+    public boolean validateHoliday(String startDate, String endDate)  {
+        // null in both fields is acceptable hor holiday field
+        if (startDate != null && endDate != null) {
+            // setting the format for date 2021-02-29
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+            // variables for saving dates in Date type
+            Date start;
+            Date end;
+
+            // converting dates
+            try {
+                start = format.parse(startDate);
+                end = format.parse(endDate);
+
+                // if start date is not before the end date, throwing an exception
+                if (start.before(end)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            catch (ParseException e)
+            {
+               return false;
+            }
+        }else return false;
     }
 
     public boolean validateAccess(String access) {
