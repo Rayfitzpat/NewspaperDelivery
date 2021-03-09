@@ -789,7 +789,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
 
         jLabel24.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel24.setForeground(new java.awt.Color(6, 187, 163));
         jLabel24.setText("Publication ID");
         jLabel24.setToolTipText("");
 
@@ -1278,7 +1278,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                     count = rs1.getInt("total");
                 }
                 if (count > 0) {
-                    //TODO FIX validation of entry - create validation method and use for edit & Delete also
+
 
                     jTextField2.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField2.setText("Sucessfully displayed ID: " + DPID);
@@ -1315,7 +1315,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
         }
     }
-//TODO Validate Add New and Edit Pub
+
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         if (validation.validatePublication(jTextField4.getText())) {
@@ -1486,7 +1486,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
 
 
-//TODO validate Publication EDIT and ADD
+
 
     //    Delete - Submit Button Fuctionality
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1659,4 +1659,6 @@ public class PublicationMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     // End of variables declaration
+
+    //TODO fix 3rd line of edit  - its indented
 }

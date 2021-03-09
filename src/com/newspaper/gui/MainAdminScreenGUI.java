@@ -23,6 +23,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
 
     PublicationMainGUI publicationMainGUI = new PublicationMainGUI();
     DeliveryAreaMainGUI deliveryAreaMainGUI = new DeliveryAreaMainGUI();
+    DeliveryDocketMainGUI deliveryDocketMainGUI = new DeliveryDocketMainGUI();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,8 +49,9 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
 
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+LoginGUI loginGUI = new LoginGUI();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        loginGUI.setVisible(true);
         setPreferredSize(new java.awt.Dimension(1564, 983));
         setResizable(false);
 
@@ -221,6 +223,8 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
+                dispose();
+                deliveryDocketMainGUI.setVisible(true);
             }
         });
 
@@ -301,39 +305,39 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     /**

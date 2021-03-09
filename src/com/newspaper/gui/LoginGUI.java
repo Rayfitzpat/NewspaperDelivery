@@ -252,12 +252,10 @@ public class LoginGUI extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
         System.exit(0);
     }
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,6 +263,7 @@ public class LoginGUI extends javax.swing.JFrame {
         Statement stmt = null;
         ResultSet rs = null;
         MainAdminScreenGUI mainAdminScreenGUI = new MainAdminScreenGUI();
+        DeliveryDocketEmployeeMainGUI deliveryDocketEmployeeMainGUI = new DeliveryDocketEmployeeMainGUI();
        try{
            Class.forName("com.mysql.cj.jdbc.Driver");
            String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
@@ -285,7 +284,9 @@ public class LoginGUI extends javax.swing.JFrame {
                rs = stmt.executeQuery(sql);
                if(rs.next()){
                    jTextField2.setForeground(new java.awt.Color(49, 117, 108));
-                   jTextField2.setText("Congratulations - launch Employee menu");
+                   jTextField2.setText("Congratulations - launching Delivery Docket menu");
+                   dispose();
+                   deliveryDocketEmployeeMainGUI.setVisible(true);
                }
                else{
                    jTextField2.setForeground(new java.awt.Color(255, 0, 0));
@@ -298,7 +299,7 @@ public class LoginGUI extends javax.swing.JFrame {
     }
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     /**

@@ -249,7 +249,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
                             tblModel.addRow(tbData);
 //                            customerInitialised[0] = true;
-                            //TODO change size of Db
+
                         }
                         con.close();
 
@@ -633,7 +633,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jTextField9.setForeground(new java.awt.Color(6, 187, 163));
         jTextField9.setText("");
 
-//TODO change these to respective text
+
         jLabel11.setForeground(new java.awt.Color(49, 117, 108));
         jLabel11.setText("1-20 characters, no numbers");
 
@@ -1245,7 +1245,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         });
 
         jLabel24.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel24.setForeground(new java.awt.Color(6, 187, 163));
         jLabel24.setText("Customer ID:");
         jLabel24.setToolTipText("");
 
@@ -1254,6 +1254,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jTextField18.setForeground(new java.awt.Color(255, 0, 0));
         jTextField18.setText("  ID Here");
         jTextField18.setToolTipText("");
+        jTextField18.setHorizontalAlignment(JTextField.CENTER);
 
         javax.swing.GroupLayout AddNew2Layout = new javax.swing.GroupLayout(AddNew2);
         AddNew2.setLayout(AddNew2Layout);
@@ -1849,7 +1850,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                     count = rs1.getInt("total");
                 }
                 if (count > 0) {
-                    //TODO FIX validation of entry - create validation method and use for edit & Delete also
+
 
                     jTextField2.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField2.setText("Sucessfully displayed ID: " + DPID);
@@ -1892,8 +1893,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
         }
     }
-//TODO fix this validation!!
-    // TODO fix error messages here
+
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, CustomerExceptionHandler {
         if (validation.validateCustomer(jTextField4.getText())) {
             if (validation.validateCustomer(jTextField5.getText())) {
@@ -2222,7 +2222,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-//TODO Fix this
+
     //        Submit Button - EDIT - Holiday Start *****************************
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
@@ -2257,7 +2257,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-// TODO Fix THis
+
     //        Submit Button - EDIT - Holiday End *****************************
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
@@ -2326,7 +2326,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID ");
         }
     }
-// TODO fix this
+
     //        Submit Button - EDIT - Delivery Area ID *****************************
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         Validation validation = new Validation();
@@ -2608,7 +2608,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField9;
 
 
-//    TODO Change size of text and colour for ID box in Delete and Display 1
+//TODO validate end holiday date is after start holiday date
 
 
     // End of variables declaration

@@ -86,7 +86,7 @@ public class InvoiceDB
         }
     }
 
-    public void getCusAddressFromInvoiceId(Statement stmt) //TODO ASK ABOUT HOW TO GET CUSTOMER ID OUT OF INVOICE ID
+    public void getCusAddressFromInvoiceId(Statement stmt)
     {
 
         System.out.println("Please enter the com.newspaper.invoice.Invoice ID: ");
