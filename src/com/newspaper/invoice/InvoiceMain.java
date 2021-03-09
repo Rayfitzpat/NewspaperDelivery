@@ -1,6 +1,5 @@
 package com.newspaper.invoice;
 
-import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.db.DBconnection;
 
 import java.io.FileNotFoundException;
@@ -39,7 +38,7 @@ public class InvoiceMain
                         break;
 
                     case 3:
-                        invoice.getCusAddressFromInvoiceId(DBconnection.stmt);
+                        invoice.getCusAddressFromInvoiceId();
                         break;
 
                     case 4:
@@ -75,7 +74,7 @@ public class InvoiceMain
         int menuChoice = 0;
 
         // value that wil close the application.
-        final int STOP_APP = 7;
+        final int STOP_APP = 10;
 
         while (menuChoice != STOP_APP)
         {
@@ -95,7 +94,7 @@ public class InvoiceMain
                         break;
 
                     case 3:
-                        invoice.getCusAddressFromInvoiceId(DBconnection.stmt);
+                        invoice.getCusAddressFromInvoiceId();
                         break;
 
                     case 4:
@@ -107,11 +106,18 @@ public class InvoiceMain
                         break;
 
                     case 6:
-                        invoice.generateInvoice(DBconnection.stmt);
+                        // create invoice
                         break;
 
                     case 7:
-                        return;
+                        // generate invoices
+                        break;
+                    case 8:
+                        // update invoice
+                        break;
+                    case 9:
+                        // delete invoice
+                        break;
 
                     default:
                         System.out.println("You entered an invalid choice please try again.");

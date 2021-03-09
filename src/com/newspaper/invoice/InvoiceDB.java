@@ -2,7 +2,7 @@ package com.newspaper.invoice;
 
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryAreaDB;
-import com.newspaper.deliveryarea.DeliveryAreaMain;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+
 import static java.lang.Double.parseDouble;
 
 public class InvoiceDB {
@@ -189,7 +190,7 @@ public class InvoiceDB {
         }
     }
 
-    public void getCusAddressFromInvoiceId(Statement stmt) {
+    public void getCusAddressFromInvoiceId() {
         Scanner in = new Scanner(System.in);
         System.out.println("Please enter the Invoice ID: ");
         int id = in.nextInt();
@@ -203,6 +204,7 @@ public class InvoiceDB {
                     "from customer, invoice " +
                     "where invoice.invoice_id = " + id + " AND invoice.customer_id = customer.customer_id;";
             try {
+                Statement stmt = DBconnection.con.createStatement();
                 ResultSet rs = stmt.executeQuery(str);
                 while (rs.next()) {
                     String add1 = rs.getString("address1");
@@ -356,8 +358,12 @@ public class InvoiceDB {
             System.out.println("2: Get Customer Name from Invoice ID");
             System.out.println("3: Get Customer Address from Invoice.");
             System.out.println("4: Get Customer Subscriptions from Customer ID");
-            System.out.println("5: Delete a Delivery Area");
-            System.out.println("6: Return to Main Menu");
+            System.out.println("5: SMT here");
+            System.out.println("6: Create Invoice");
+            System.out.println("7: Generate Invoices");
+            System.out.println("8: Edit Invoice (paid or not paid)");
+            System.out.println("9: Delete Invoice");
+            System.out.println("10: Return to Main Menu");
         }
 
         public static void invoiceView()
