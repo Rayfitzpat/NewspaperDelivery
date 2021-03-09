@@ -292,7 +292,6 @@ public class LoginGUI extends javax.swing.JFrame {
                else{
                    jTextField2.setForeground(new java.awt.Color(255, 0, 0));
                    jTextField2.setText("incorrect User Name or Password");
-                   System.out.println("£$%$%£$%£$%£$%£$%£%$£^%$£$%^");
                }
            }
        }catch (Exception e){
