@@ -88,6 +88,7 @@ public class DailySummaryView {
                 int publications_sold = rs.getInt("publications_sold");
                 double publications_revenue = rs.getDouble("publications_revenue");
 
+                total_revenue = Math.round(total_revenue * 100.0) / 100.0;
                 publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
 
 
@@ -122,6 +123,7 @@ public class DailySummaryView {
                 int publications_sold = rs.getInt("publications_sold");
                 double publications_revenue = rs.getDouble("publications_revenue");
 
+                total_revenue = Math.round(total_revenue * 100.0) / 100.0;
                 publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
 
                 System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
@@ -158,6 +160,7 @@ public class DailySummaryView {
                     int publications_sold = rs.getInt("publications_sold");
                     double publications_revenue = rs.getDouble("publications_revenue");
 
+                    total_revenue = Math.round(total_revenue * 100.0) / 100.0;
                     publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
 
                     System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
@@ -203,6 +206,7 @@ public class DailySummaryView {
                         int publications_sold = rs.getInt("publications_sold");
                         double publications_revenue = rs.getDouble("publications_revenue");
 
+                        total_revenue = Math.round(total_revenue * 100.0) / 100.0;
                         publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
 
                         System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
@@ -243,6 +247,7 @@ public class DailySummaryView {
                     int publications_sold = rs.getInt("publications_sold");
                     double publications_revenue = rs.getDouble("publications_revenue");
 
+                    total_revenue = Math.round(total_revenue * 100.0) / 100.0;
                     publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
 
                     System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
@@ -297,6 +302,7 @@ public class DailySummaryView {
                         int publications_sold = rs.getInt("publications_sold");
                         double publications_revenue = rs.getDouble("publications_revenue");
 
+                        total_revenue = Math.round(total_revenue * 100.0) / 100.0;
                         publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
 
                         System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
