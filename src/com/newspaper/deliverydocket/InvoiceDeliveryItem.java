@@ -4,14 +4,16 @@ import com.newspaper.db.DBconnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 // this class will represent invoice delivery item in the delivery docket
 public class InvoiceDeliveryItem extends DeliveryItem {
 
-    private int invoiceId;
 
     public InvoiceDeliveryItem(int invoiceId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
-        super(customerID, customerName, customerAddress, "invoice", isDelivered);
+        super(invoiceId, customerID, customerName, customerAddress, "invoice", isDelivered);
+
 
         try {
             validateInvoiceId(invoiceId);
@@ -20,7 +22,6 @@ public class InvoiceDeliveryItem extends DeliveryItem {
             throw e;
         }
 
-        this.invoiceId = invoiceId;
     }
 
     public InvoiceDeliveryItem() {
@@ -38,7 +39,7 @@ public class InvoiceDeliveryItem extends DeliveryItem {
             }
             if(count == 0)
             {
-                throw new DeliveryDocketExceptionHandler("com.newspaper.invoice.Invoice with id " + invoiceId + " does not exist");
+                throw new DeliveryDocketExceptionHandler("Invoice with id " + invoiceId + " does not exist");
             }
 
         } catch (SQLException sqle) {
@@ -47,4 +48,10 @@ public class InvoiceDeliveryItem extends DeliveryItem {
 
         }
     }
+
+    @Override
+    public void print() {
+        System.out.printf("\ninv: %-10d cus: %-10s %-20s %-35s %-10s %-10s", this.getId(), this.getCustomerID(), this.getCustomerName(), this.getCustomerAddress(), this.isDelivered(), "invoice");
+    }
+
 }
