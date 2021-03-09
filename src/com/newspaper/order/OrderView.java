@@ -135,13 +135,17 @@ public class OrderView {
 //    }
 
     public void printOrdersWithNames(ArrayList<Order> orders) {
-        System.out.printf("\n%-25s %-35s %-35s\n", "Customer ID", "Publication ID", "Frequency");
+        System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
 
+        System.out.println("----------------------------------------------------------------------------------------------");
         for (Order order : orders) {
+            int nameId = order.getCustomer_id();
             String name = getCustomerName(order.getCustomer_id());
+            int publicationId = order.getPublication_id();
             String publication = getPublicationByID(order.getPublication_id());
+            int frequencyId = order.getFrequency();
             String frequency = convertFrequency(order.getFrequency());
-            System.out.printf("%-25s %-35s %-35s\n", name, publication, frequency);
+            System.out.printf("%-8d %-25s %-8d %-32s %-9d %-35s\n", nameId, name, publicationId, publication, frequencyId, frequency);
         }
     }
 
@@ -363,12 +367,13 @@ public class OrderView {
         {
             PublicationView pv = new PublicationView();
             pv.displayAllPublication();
-//TODO SORT JACKS STUFF COM.COM.COM.COM.COM.COM.COM
+
             Scanner in = new Scanner(System.in);
             int publication_id = 0;
             boolean inputValid = false;
+
             while (!inputValid) {
-                System.out.println("Please enter the id of the publication you would like to create a new order for");
+                System.out.println("Please enter the id of the publication you would like to add to the new order");
                 if (in.hasNextInt()) {
                     publication_id = in.nextInt();
                     try {
@@ -395,7 +400,7 @@ public class OrderView {
             boolean inputValid = false;
 
             while (!inputValid) {
-                System.out.println("Please enter the id of the day you like the order to go out on");
+                System.out.println("Please enter the id of the day you would like the new order to go out on");
                 System.out.println("1 = Monday\n2 = Tuesday\n3 = Wednesday\n4 = Thursday\n5 = Friday\n6 = Saturday\n7 = Sunday");
 
                 if(in.hasNextInt()) {
@@ -437,19 +442,259 @@ public class OrderView {
 
     public void editOrder() throws OrderExceptionHandler, SQLException {
 
-//TODO get orders to display
+//        ArrayList<Order> orders = getOrders();
+//        printOrdersWithNames(orders);
+//
+//
+//
+            Order o = new Order();
+//            ordersAsTheyAre();
+//
+//            Scanner in = new Scanner(System.in);
+//
+//            boolean isValid = false;
+//
+//            while (!isValid) {
+//                System.out.println("Please enter the ID of the customer whose order you want to update");
+//                if (in.hasNextInt()) {
+//
+//                    String query;
+//                    ResultSet rs;
+//                    int customer_id;
+//
+//                    customer_id = in.nextInt();
+//
+//                    System.out.println("Please enter the ID of the publication on the order you want to update");
+//                    int publication_id;
+//                    publication_id = in.nextInt();
+//                    //checks if the entered id is present in the db
+//                    try {
+//                        // if id is not validated, the rest of the code won't execute
+//                        validateOrderCustomerId(customer_id);
+//
+//                        o.validatePublicationId(publication_id);
+//
+//                        isValid = true;
+//
+//                        //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
+//                        query = "Select * from orders where customer_id = " + customer_id + " and publication_id = " + publication_id ;
+//
+//                        rs = DBconnection.stmt.executeQuery(query);
+//
+//                        while (rs.next()) {
+//
+//                            customer_id = rs.getInt("customer_id");
+//                            publication_id = rs.getInt("publication_id");
+//                            int freq = rs.getInt("frequency");
+//
+//                            // creating an object of Order class, fill it with data from db
+//                            Order order = new Order(customer_id, publication_id, freq);
+//
+//                            // add new object to array list
+//                            orders.add(order);
+//
+//                        }
+//                    } catch (OrderExceptionHandler e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//                } else {
+//                    in.nextLine();
+//                    System.out.println("Input needs to be an integer");
+//                }
+//            }
+        ordersAsTheyAre();
 
-        displayOrderEditMenu();
+        int customer_id = editOrderCustomerID();
+        int publication_id = editOrderPublicationID();
+        int frequency = editOrderFrequency();
+
+        Scanner in = new Scanner(System.in);
+
+        boolean isValid = false;
+
+        while (!isValid) {
+            System.out.println("Order to be edited");
+            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
+            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, convertFrequency(frequency));
+
+            //System.out.printf("%-20s %-25s %-15s\n", getCustomerName(customer_id), getPublicationByID(publication_id), day);
+
+            System.out.println("Please enter the ID of the new publication you would like to change to");
+            if (in.hasNextInt()) {
+
+                String query;
+
+                int newPublication_id;
+                newPublication_id = in.nextInt();
+
+                System.out.println("Please enter the ID of the new frequency you would like to change to");
+                int newFrequency = in.nextInt();
+                //checks if the entered id is present in the db
+                try {
+                    // if id is not validated, the rest of the code won't execute
+                    //validateOrderCustomerId(newCustomer_id);
+
+                    o.validatePublicationId(newPublication_id);
+                    o.validateFrequency(newFrequency);
+
+                    isValid = true;
+
+                    //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
+                    //query = "Delete from orders where customer_id = " + customer_id + " and publication_id = " + publication_id ;
+                    //String updateQuery = "Update orders set publication_id = " + newPublication_id + " where customer_id = " + customer_id;
+
+                    String updateQuery = "Update orders (publication_id, frequency)" + "values (?, ?);";
+                    try {
+                        PreparedStatement pstmt = DBconnection.con.prepareStatement(updateQuery);
+                        //pstmt.setInt(1, customer_id);
+                        pstmt.setInt(1, newPublication_id);
+                        pstmt.setInt(2, newFrequency);
+
+                        System.out.println("Order updated");
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        System.out.println(updateQuery);
+                    }
 
 
+//                    Statement stmt = DBconnection.con.createStatement();
+//                    stmt.executeUpdate(updateQuery);
+
+                    System.out.println("Order updated");
+                    ordersAsTheyAre();
+
+                    //System.out.println("Order deleted where Customer ID = " + customer_id + " (" + getCustomerName(customer_id) + ")" + " and Publication ID = " + publication_id + " (" + getPublicationByID(publication_id) + ")");
+
+                } catch (OrderExceptionHandler e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                in.nextLine();
+                System.out.println("Input needs to be an integer");
+            }
+        }
+
+//        String insertQuery = "Insert into orders (customer_id, publication_id, frequency)" + "values (?, ?, ?)";
+//
+//        try {
+//            PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
+//            pstmt.setInt(1, customer_id);
+//            pstmt.setInt(2, publication_id);
+//            pstmt.setInt(3, frequency);
+//
+//            System.out.println("New Order added successfully for " + getCustomerName(customer_id) + " to get the " + getPublicationByID(publication_id) + " on " + convertFrequency(frequency) + "'s");
+//
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            System.out.println(insertQuery);
+//        }
+
+        }
+
+    public int editOrderCustomerID() throws OrderExceptionHandler {
+        {
+            //printCustomers();
+
+            Scanner in = new Scanner(System.in);
+            int customer_id = 0;
+            boolean inputValid = false;
+
+
+            while (!inputValid) {
+                System.out.println("Please enter the id of the customer whose order you would like to edit");
+
+                if (in.hasNextInt()) {
+                    customer_id = in.nextInt();
+
+                    try {
+                        order.validateCustomerId(customer_id);
+                        // if validation was successful
+                        inputValid = true;
+
+                    } catch (OrderExceptionHandler e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    //clear the input buffer and start again
+                    in.nextLine();
+                    System.out.println("Your entry, " + customer_id + ", was invalid, please try again...");
+                }
+            }
+            return customer_id;
+        }
     }
 
-    public void displayOrderEditMenu () {
-        System.out.println("1: Edit Customer");
-        System.out.println("2: Edit Publication");
-        System.out.println("3: Edit Frequency");
-        System.out.print("Enter your choice: ");
+    public int editOrderPublicationID() throws OrderExceptionHandler {
+        {
+            //PublicationView pv = new PublicationView();
+            //pv.displayAllPublication();
+
+            Scanner in = new Scanner(System.in);
+            int publication_id = 0;
+            boolean inputValid = false;
+
+            while (!inputValid) {
+                System.out.println("Please enter the id of the publication that is currently on the order that you would like to edit");
+                if (in.hasNextInt()) {
+                    publication_id = in.nextInt();
+                    try {
+                        order.validatePublicationId(publication_id);
+                        // if validation was successful
+                        inputValid = true;
+                    } catch (OrderExceptionHandler e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    //clear the input buffer and start again
+                    in.nextLine();
+                    System.out.println("Your entry was invalid, please try again...");
+                }
+            }
+            return publication_id;
+        }
     }
+
+    public int editOrderFrequency() throws OrderExceptionHandler {
+        {
+            Scanner in = new Scanner(System.in);
+            int frequency = 0;
+            boolean inputValid = false;
+
+            while (!inputValid) {
+                System.out.println("Please enter the id of the day you like the order to go out on");
+                System.out.println("1 = Monday\n2 = Tuesday\n3 = Wednesday\n4 = Thursday\n5 = Friday\n6 = Saturday\n7 = Sunday");
+
+                if(in.hasNextInt()) {
+                    frequency = in.nextInt();
+
+                    try {
+                        order.validateFrequency(frequency);
+                        // if validation was successful
+                        inputValid = true;
+                    } catch (OrderExceptionHandler e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    //clear the input buffer and start again
+                    in.nextLine();
+                    System.out.println("Your entry was invalid, please enter a number between 1 and 7...");
+                }
+            }
+            return frequency;
+        }
+    }
+
+
+
+
+
+//    public void displayOrderEditMenu () {
+//        System.out.println("1: Edit Customer");
+//        System.out.println("2: Edit Publication");
+//        System.out.println("3: Edit Frequency");
+//        System.out.print("Enter your choice: ");
+//    }
 
 
 //******************************************************************************************************
@@ -507,4 +752,3 @@ public class OrderView {
 
 
     }
-
