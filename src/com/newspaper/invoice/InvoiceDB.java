@@ -239,7 +239,7 @@ public class InvoiceDB {
         }
     }
 
-    public void printPublications(Statement stmt) throws SQLException
+    public void printPublications(Statement stmt)
     {
         int cusid;
         Scanner in = new Scanner(System.in);
@@ -256,64 +256,76 @@ public class InvoiceDB {
         if (cusid > 100 || cusid < 0) {
             System.out.println("There was an error");
         } else {
-            ResultSet rs = stmt.executeQuery(str1);
-            System.out.printf("\n%-25s %-25s %-5s\n", "Publication Name", "Publication Cost", "Delivery Date");
+            try {
+                ResultSet rs = stmt.executeQuery(str1);
+                System.out.printf("\n%-25s %-25s %-5s\n", "Publication Name", "Publication Cost", "Delivery Date");
 //            System.out.println("TESTING");
-            while (rs.next())
-            {
-                String pubName = rs.getString("publication_name");
-                String pubCost = rs.getString("publication_cost");
-                String deliveryDate = rs.getString("delivery_date");
-                System.out.printf("%-25s %-25s %-5s\n", pubName, pubCost, deliveryDate);
+                while (rs.next())
+                {
+                    String pubName = rs.getString("publication_name");
+                    String pubCost = rs.getString("publication_cost");
+                    String deliveryDate = rs.getString("delivery_date");
+                    System.out.printf("%-25s %-25s %-5s\n", pubName, pubCost, deliveryDate);
+                }
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }
 
-    public void paidUpdate(Statement stmt) throws SQLException //TODO Validate
+    public void paidUpdate(Statement stmt)  //TODO Validate
     {
         boolean valid = false;
         getCustomerFromInvoice(stmt);
         System.out.println("Select the invoice which you would like to edit: ");
         String invoiceEdit = in.next();
         String str = "Select * from invoice where customer_id = "+id+" AND invoice_id ="+invoiceEdit;
-        ResultSet rs = stmt.executeQuery(str);
+        try {
+            ResultSet rs = stmt.executeQuery(str);
 
-        System.out.printf("\n%-20s %-25s %-20s %-20s %-20s\n", "Invoice ID", "Customer ID", "Invoice Date", "Price", "Invoice Paid");
+            System.out.printf("\n%-20s %-25s %-20s %-20s %-20s\n", "Invoice ID", "Customer ID", "Invoice Date", "Price", "Invoice Paid");
 
-        while (rs.next())
-        {
-            int invoice_id = rs.getInt("invoice_id");
-            int customer_id = rs.getInt("customer_id");
-            String invoice_date = rs.getString("invoice_date");
-            String price = rs.getString("price");
-            String invoice_paid = rs.getString("price_paid");
-            System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, customer_id, invoice_date, price, invoice_paid);
-
-        while (!valid)
-        {
-            System.out.println("Do you want to change the Invoice Status to paid?");
-            System.out.println("Press 1 for Paid:");
-            System.out.println("Press 2 for Unpaid:");
-            String yesNo = in.next();
-
-            if (yesNo.equals("1")) {
-                String setPaid = "update invoice set price_paid = 'paid' where customer_id =" + id + " and invoice_id =" + invoiceEdit + ";";
-                stmt.executeUpdate(setPaid);
-                System.out.println("Invoice " + invoice_id + " for customer " + id + " has been set to paid.");
-                valid = true;
-
-            } else if (yesNo.equals("2")) {
-                String setUnpaid = "update invoice set price_paid = 'unpaid' where customer_id =" + id + " and invoice_id =" + invoiceEdit + ";";
-                stmt.executeUpdate(setUnpaid);
-                System.out.println("Invoice " + invoice_id + " for customer " + id + " has been set to unpaid.");
-                valid = true;
-            } else
+            while (rs.next())
             {
-                System.out.println("Sorry that was not an option, please try again: ");
+                int invoice_id = rs.getInt("invoice_id");
+                int customer_id = rs.getInt("customer_id");
+                String invoice_date = rs.getString("invoice_date");
+                String price = rs.getString("price");
+                String invoice_paid = rs.getString("price_paid");
+                System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, customer_id, invoice_date, price, invoice_paid);
+
+                while (!valid)
+                {
+                    System.out.println("Do you want to change the Invoice Status to paid?");
+                    System.out.println("Press 1 for Paid:");
+                    System.out.println("Press 2 for Unpaid:");
+                    String yesNo = in.next();
+
+                    if (yesNo.equals("1")) {
+                        String setPaid = "update invoice set price_paid = 'paid' where customer_id =" + id + " and invoice_id =" + invoiceEdit + ";";
+                        stmt.executeUpdate(setPaid);
+                        System.out.println("Invoice " + invoice_id + " for customer " + id + " has been set to paid.");
+                        valid = true;
+
+                    } else if (yesNo.equals("2")) {
+                        String setUnpaid = "update invoice set price_paid = 'unpaid' where customer_id =" + id + " and invoice_id =" + invoiceEdit + ";";
+                        stmt.executeUpdate(setUnpaid);
+                        System.out.println("Invoice " + invoice_id + " for customer " + id + " has been set to unpaid.");
+                        valid = true;
+                    } else
+                    {
+                        System.out.println("Sorry that was not an option, please try again: ");
+                    }
+                }
+                return;
             }
         }
-        return;
+        catch (SQLException e) {
+            e.printStackTrace();
         }
+
+
     }
 
     public double vatAddition(double taxfree)

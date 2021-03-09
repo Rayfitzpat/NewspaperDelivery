@@ -68,66 +68,7 @@ public class InvoiceMain
 
     public static void main(String[] args) throws SQLException, FileNotFoundException {
         DBconnection.init_db(); //Opens the connection to the database.
-        InvoiceDB invoice = new InvoiceDB();
-
-        // Variable used to store menu choice.
-        int menuChoice = 0;
-
-        // value that wil close the application.
-        final int STOP_APP = 10;
-
-        while (menuChoice != STOP_APP)
-        {
-            invoice.displayMainMenu();
-            if (in.hasNextInt())
-            {
-                menuChoice = in.nextInt();
-
-                switch(menuChoice)
-                {
-                    case 1:
-                        invoice.getCustomerFromInvoice(DBconnection.stmt);
-                        break;
-
-                    case 2:
-                        invoice.getCustomerNameFromId(DBconnection.stmt);
-                        break;
-
-                    case 3:
-                        invoice.getCusAddressFromInvoiceId();
-                        break;
-
-                    case 4:
-                        invoice.printPublications(DBconnection.stmt);
-                        break;
-
-                    case 5:
-                        invoice.paidUpdate(DBconnection.stmt);
-                        break;
-
-                    case 6:
-                        // create invoice
-                        break;
-
-                    case 7:
-                        // generate invoices
-                        break;
-                    case 8:
-                        // update invoice
-                        break;
-                    case 9:
-                        // delete invoice
-                        break;
-
-                    default:
-                        System.out.println("You entered an invalid choice please try again.");
-                }
-            }
-            else
-            {
-                in.nextLine();
-                System.out.println("You entered an invalid choice please try again.");
-            }
-        }
+        InvoiceView view = new InvoiceView();
+        view.runMenu();
     }
 }

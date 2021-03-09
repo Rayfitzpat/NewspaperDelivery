@@ -102,6 +102,11 @@ public class Utility {
         return exists(query);
     }
 
+    public boolean ifInvoicesExist(int month) {
+        String query = "select count(*) as total from invoice where MONTH(invoice_date) = " + month +";";
+        return exists(query);
+    }
+
     /**
      * Method is checking if a certain record exists in the database, the only requirement is that
      * SQL statement should only select 'count(*) as total' in it
