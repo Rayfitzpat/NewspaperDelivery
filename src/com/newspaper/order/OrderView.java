@@ -52,7 +52,8 @@ public class OrderView {
                         addNewOrder();
                         break;
                     case 4:
-                        editOrder();
+                        //editOrder();
+                        displayEditOrderMenu();
                         break;
                     case 5:
                         deleteOrder();
@@ -163,7 +164,6 @@ public class OrderView {
 
             System.out.printf("%-20s %-25s %-15s\n", customer_id, publication_id, frequency);
         }
-
     }
 
     public String getCustomerName(int customerID) {
@@ -276,7 +276,6 @@ public class OrderView {
                 System.out.println("Input needs to be an integer");
             }
         }
-        in.close();
     }
 
 
@@ -310,19 +309,22 @@ public class OrderView {
 //******************************************************************************************************
 
     public void addNewOrder() throws OrderExceptionHandler, SQLException {
-        int customer_id = addNewOrderCustomerID();
-        int publication_id = addNewOrderPublicationID();
-        int frequency = addNewOrderFrequency();
+        int cust_id = addNewOrderCustomerID();
+        int pub_id = addNewOrderPublicationID();
+        int freq = addNewOrderFrequency();
 
-        String insertQuery = "Insert into orders (customer_id, publication_id, frequency)" + "values (?, ?, ?)";
+        String insertQuery = "Insert into orders (customer_id, publication_id, frequency) values (" + cust_id + ", " + pub_id + ", " + freq + ")";
 
         try {
-            PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
-            pstmt.setInt(1, customer_id);
-            pstmt.setInt(2, publication_id);
-            pstmt.setInt(3, frequency);
 
-            System.out.println("New Order added successfully for " + getCustomerName(customer_id) + " to get the " + getPublicationByID(publication_id) + " on " + convertFrequency(frequency) + "'s");
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(insertQuery);
+//            PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
+//            pstmt.setInt(1, customer_id);
+//            pstmt.setInt(2, publication_id);
+//            pstmt.setInt(3, frequency);
+
+            System.out.println("New Order added successfully for " + getCustomerName(cust_id) + " to get the " + getPublicationByID(pub_id) + " on " + convertFrequency(freq) + "'s");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -440,68 +442,10 @@ public class OrderView {
 // Beginning of edit an order
 //******************************************************************************************************
 
-    public void editOrder() throws OrderExceptionHandler, SQLException {
+    public void updateOrderPublication() throws OrderExceptionHandler, SQLException {
 
-//        ArrayList<Order> orders = getOrders();
-//        printOrdersWithNames(orders);
-//
-//
-//
-            Order o = new Order();
-//            ordersAsTheyAre();
-//
-//            Scanner in = new Scanner(System.in);
-//
-//            boolean isValid = false;
-//
-//            while (!isValid) {
-//                System.out.println("Please enter the ID of the customer whose order you want to update");
-//                if (in.hasNextInt()) {
-//
-//                    String query;
-//                    ResultSet rs;
-//                    int customer_id;
-//
-//                    customer_id = in.nextInt();
-//
-//                    System.out.println("Please enter the ID of the publication on the order you want to update");
-//                    int publication_id;
-//                    publication_id = in.nextInt();
-//                    //checks if the entered id is present in the db
-//                    try {
-//                        // if id is not validated, the rest of the code won't execute
-//                        validateOrderCustomerId(customer_id);
-//
-//                        o.validatePublicationId(publication_id);
-//
-//                        isValid = true;
-//
-//                        //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-//                        query = "Select * from orders where customer_id = " + customer_id + " and publication_id = " + publication_id ;
-//
-//                        rs = DBconnection.stmt.executeQuery(query);
-//
-//                        while (rs.next()) {
-//
-//                            customer_id = rs.getInt("customer_id");
-//                            publication_id = rs.getInt("publication_id");
-//                            int freq = rs.getInt("frequency");
-//
-//                            // creating an object of Order class, fill it with data from db
-//                            Order order = new Order(customer_id, publication_id, freq);
-//
-//                            // add new object to array list
-//                            orders.add(order);
-//
-//                        }
-//                    } catch (OrderExceptionHandler e) {
-//                        System.out.println(e.getMessage());
-//                    }
-//                } else {
-//                    in.nextLine();
-//                    System.out.println("Input needs to be an integer");
-//                }
-//            }
+        Order o = new Order();
+
         ordersAsTheyAre();
 
         int customer_id = editOrderCustomerID();
@@ -514,57 +458,36 @@ public class OrderView {
 
         while (!isValid) {
             System.out.println("Order to be edited");
-            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
-            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, convertFrequency(frequency));
+            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
+            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, convertFrequency(frequency) + "\n");
 
-            //System.out.printf("%-20s %-25s %-15s\n", getCustomerName(customer_id), getPublicationByID(publication_id), day);
+
 
             System.out.println("Please enter the ID of the new publication you would like to change to");
             if (in.hasNextInt()) {
 
-                String query;
+                int newPublication_id = in.nextInt();
 
-                int newPublication_id;
-                newPublication_id = in.nextInt();
-
-                System.out.println("Please enter the ID of the new frequency you would like to change to");
-                int newFrequency = in.nextInt();
                 //checks if the entered id is present in the db
                 try {
                     // if id is not validated, the rest of the code won't execute
-                    //validateOrderCustomerId(newCustomer_id);
-
+                    validateOrderCustomerId(customer_id);
                     o.validatePublicationId(newPublication_id);
-                    o.validateFrequency(newFrequency);
+                    o.validateFrequency(frequency);
 
                     isValid = true;
 
                     //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                    //query = "Delete from orders where customer_id = " + customer_id + " and publication_id = " + publication_id ;
-                    //String updateQuery = "Update orders set publication_id = " + newPublication_id + " where customer_id = " + customer_id;
+                    String updateQuery = "Update orders set publication_id = " + newPublication_id + " where customer_id = " + customer_id + " and frequency = " + frequency;
 
-                    String updateQuery = "Update orders (publication_id, frequency)" + "values (?, ?);";
-                    try {
-                        PreparedStatement pstmt = DBconnection.con.prepareStatement(updateQuery);
-                        //pstmt.setInt(1, customer_id);
-                        pstmt.setInt(1, newPublication_id);
-                        pstmt.setInt(2, newFrequency);
+                    Statement stmt = DBconnection.con.createStatement();
+                    stmt.executeUpdate(updateQuery);
 
-                        System.out.println("Order updated");
+                    System.out.println("Publication on the order has been successfully updated to " + newPublication_id + " (" + getPublicationByID(newPublication_id) + ")" + " where Customer ID = " + customer_id + " (" + getCustomerName(customer_id) + ")" + " and Publication ID was = " + publication_id + " (" + getPublicationByID(publication_id) + ")");
 
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        System.out.println(updateQuery);
-                    }
+                    //ordersAsTheyAre();
+                    displayMainOrderMenu();
 
-
-//                    Statement stmt = DBconnection.con.createStatement();
-//                    stmt.executeUpdate(updateQuery);
-
-                    System.out.println("Order updated");
-                    ordersAsTheyAre();
-
-                    //System.out.println("Order deleted where Customer ID = " + customer_id + " (" + getCustomerName(customer_id) + ")" + " and Publication ID = " + publication_id + " (" + getPublicationByID(publication_id) + ")");
 
                 } catch (OrderExceptionHandler e) {
                     System.out.println(e.getMessage());
@@ -575,22 +498,62 @@ public class OrderView {
             }
         }
 
-//        String insertQuery = "Insert into orders (customer_id, publication_id, frequency)" + "values (?, ?, ?)";
-//
-//        try {
-//            PreparedStatement pstmt = DBconnection.con.prepareStatement(insertQuery);
-//            pstmt.setInt(1, customer_id);
-//            pstmt.setInt(2, publication_id);
-//            pstmt.setInt(3, frequency);
-//
-//            System.out.println("New Order added successfully for " + getCustomerName(customer_id) + " to get the " + getPublicationByID(publication_id) + " on " + convertFrequency(frequency) + "'s");
-//
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            System.out.println(insertQuery);
-//        }
 
         }
+
+    public void updateOrderFrequency() throws OrderExceptionHandler, SQLException {
+
+        Order o = new Order();
+
+        ordersAsTheyAre();
+
+        int customer_id = editOrderCustomerID();
+        int publication_id = editOrderPublicationID();
+        int frequency = editOrderFrequency();
+
+        Scanner in = new Scanner(System.in);
+
+        boolean isValid = false;
+
+        while (!isValid) {
+            System.out.println("Order to be edited");
+            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
+            System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, convertFrequency(frequency)  + "\n");
+
+
+            System.out.println("Please enter the ID of the new frequency you would like to change to");
+            if (in.hasNextInt()) {
+
+                int newFrequency = in.nextInt();
+                //checks if the entered id is present in the db
+                try {
+                    // if id is not validated, the rest of the code won't execute
+                    validateOrderCustomerId(customer_id);
+                    o.validatePublicationId(publication_id);
+                    o.validateFrequency(newFrequency);
+
+                    isValid = true;
+
+                    //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
+                    String updateQuery = "Update orders set frequency = " + newFrequency + " where customer_id = " + customer_id + " and publication_id = " + publication_id;
+
+                    Statement stmt = DBconnection.con.createStatement();
+                    stmt.executeUpdate(updateQuery);
+
+                    System.out.println("Order updated");
+                    ordersAsTheyAre();
+
+                    System.out.println("Frequency on the order has been successfully updated to " + newFrequency + " (" + convertFrequency(frequency) + ")" + " where Customer ID = " + customer_id + " (" + getCustomerName(customer_id) + ")" + " and Publication ID = " + publication_id + " (" + getPublicationByID(publication_id) + ")");
+
+                } catch (OrderExceptionHandler e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                in.nextLine();
+                System.out.println("Input needs to be an integer");
+            }
+        }
+    }
 
     public int editOrderCustomerID() throws OrderExceptionHandler {
         {
@@ -662,7 +625,7 @@ public class OrderView {
             boolean inputValid = false;
 
             while (!inputValid) {
-                System.out.println("Please enter the id of the day you like the order to go out on");
+                System.out.println("Please enter the id of the frequency that is currently on the order that you would like to edit");
                 System.out.println("1 = Monday\n2 = Tuesday\n3 = Wednesday\n4 = Thursday\n5 = Friday\n6 = Saturday\n7 = Sunday");
 
                 if(in.hasNextInt()) {
@@ -685,16 +648,44 @@ public class OrderView {
         }
     }
 
+    public void displayEditOrderMenu() throws OrderExceptionHandler, SQLException {
+        System.out.println("\nEdit Order Menu");
+        System.out.println("1: Edit Publication on an order");
+        System.out.println("2: Edit Frequency on an order");
+        System.out.println("3: Back to main menu");
+        System.out.print("Enter your choice: ");
 
+        Scanner in  = new Scanner(System.in);
 
+        int menuChoice = 0;
 
+        final int STOP_APP = 3;
 
-//    public void displayOrderEditMenu () {
-//        System.out.println("1: Edit Customer");
-//        System.out.println("2: Edit Publication");
-//        System.out.println("3: Edit Frequency");
-//        System.out.print("Enter your choice: ");
-//    }
+        while (menuChoice != STOP_APP) {
+            //displayMainOrderMenu(); //display the primary menu
+            if (in.hasNextInt()) {
+                //get the menu choice from the user
+                menuChoice = in.nextInt();
+
+                switch (menuChoice) {
+                    case 1:
+                        updateOrderPublication();
+                        break;
+                    case 2:
+                        updateOrderFrequency();
+                        break;
+                    case 3:
+                        return;
+                    default:
+                        System.out.println("You entered an invalid choice, please try again...");
+                }
+            } else {
+                //clear the input buffer and start again
+                in.nextLine();
+                System.out.println("You entered an invalid choice, please try again...");
+            }
+        }
+    }
 
 
 //******************************************************************************************************
