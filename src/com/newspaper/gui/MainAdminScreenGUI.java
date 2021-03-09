@@ -51,7 +51,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
 
 LoginGUI loginGUI = new LoginGUI();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        loginGUI.setVisible(true);
+//        loginGUI.setVisible(true);
         setPreferredSize(new java.awt.Dimension(1564, 983));
         setResizable(false);
 

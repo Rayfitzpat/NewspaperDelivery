@@ -642,7 +642,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
         jLabel12.setText("1-20 characters, no numbers");
 
         jLabel13.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel13.setText("1-4 Characters");
+        jLabel13.setText("1-3 Numbers");
 
         jLabel14.setForeground(new java.awt.Color(49, 117, 108));
         jLabel14.setText("1-20 Characters");
@@ -994,7 +994,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
 
         //        Edit House Number  help text label
         jLabel63.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel63.setText("1-4 Numbers");
+        jLabel63.setText("1-3 Numbers");
 
         //        Edit Street Name  help text label
         jLabel64.setForeground(new java.awt.Color(49, 117, 108));
@@ -2040,7 +2040,7 @@ public class DeliveryPersonMainGUI extends javax.swing.JFrame {
                     jTextField31.setText("You have successfully updated House Number for ID: " + editID + " to " + houseNumber);
                 } else {
                     jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField31.setText("House Numbers must be between 1 to 4 characters");
+                    jTextField31.setText("House Numbers must be between 1 to 3 Numbers");
                 }
             } else {
                 jTextField31.setForeground(new java.awt.Color(255, 0, 0));
