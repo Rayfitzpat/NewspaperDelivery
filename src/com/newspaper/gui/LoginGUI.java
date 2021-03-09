@@ -22,7 +22,7 @@ public class LoginGUI extends javax.swing.JFrame {
      */
     public LoginGUI() {
         initComponents();
-        setVisible(true);
+//        setVisible(true);
         this.setLocationRelativeTo(null);
         setResizable(false);
     }

@@ -1824,7 +1824,7 @@ public class DeliveryDocketEmployeeMainGUI extends javax.swing.JFrame {
 
         LoginGUI loginGUI = new LoginGUI();
         dispose();
-        loginGUI.setVisible(true);
+//        loginGUI.setVisible(true);
     }
 
 
