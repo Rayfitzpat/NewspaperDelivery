@@ -465,16 +465,7 @@ while(re.next()) {
 
         DailySummary dailySummary = new DailySummary();
 
-//        st = "select count(*) as total from daily_summary where delivery_date = '" + date +"'";
-//        ResultSet rss = DBconnection.stmt.executeQuery(st);
-//
-//        count = 0;
-//        while (rss.next()) {
-//            count = rss.getInt("total");
-//        }
-//
-//        if (count <= 0)
-//        {
+
 
             String del = "DELETE from daily_summary where delivery_date = '"+date+"';";
             DBconnection.stmt.executeUpdate(del);
@@ -511,10 +502,7 @@ while(re.next()) {
                 System.out.println(sqle.getMessage());
                 System.out.println(str);
             }
-//        }
-//        else {
-//
-//        }
+
 
         return dailySummary;
     }
