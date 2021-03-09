@@ -3,6 +3,7 @@ package com.newspaper.invoice;
 import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.db.DBconnection;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -66,7 +67,7 @@ public class InvoiceMain
 
 
 
-    public static void main(String[] args) throws  SQLException {
+    public static void main(String[] args) throws SQLException, FileNotFoundException {
         DBconnection.init_db(); //Opens the connection to the database.
         InvoiceDB invoice = new InvoiceDB();
 
@@ -74,7 +75,7 @@ public class InvoiceMain
         int menuChoice = 0;
 
         // value that wil close the application.
-        final int STOP_APP = 6;
+        final int STOP_APP = 7;
 
         while (menuChoice != STOP_APP)
         {
@@ -102,10 +103,14 @@ public class InvoiceMain
                         break;
 
                     case 5:
-                        invoice.deleteInvoice(DBconnection.stmt);
+                        invoice.paidUpdate(DBconnection.stmt);
                         break;
 
                     case 6:
+                        invoice.generateInvoice(DBconnection.stmt);
+                        break;
+
+                    case 7:
                         return;
 
                     default:
