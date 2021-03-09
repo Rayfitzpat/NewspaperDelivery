@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -116,21 +119,20 @@ public class DeliveryDocket {
             throw new DeliveryDocketExceptionHandler("Delivery docket date cannot be null");
         }
         else {
-            // setting the format for date 2021-02-29
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-            // null is acceptable for holiday
-            if (date != null) {
                 // checking the format of start date
                 try {
-                    Date start = format.parse(date);
+                    // ResolverStyle.STRICT for 30, 31 days checking, and also leap year.
+                    LocalDate.parse(date,
+                            DateTimeFormatter.ofPattern("uuuu-M-d")
+                                    .withResolverStyle(ResolverStyle.STRICT)
+                    );
 
                 }
-                catch (ParseException e)
+                catch (DateTimeParseException e)
                 {
                     throw new DeliveryDocketExceptionHandler("Date format is incorrect");
                 }
-            }
+
         }
     }
 
@@ -221,7 +223,7 @@ public class DeliveryDocket {
 
                 sb.append("\n|                                                                                                           |");
                 sb.append("\n|                                                                                                           |");
-                sb.append("\n+---------------------------------------------- PUBLICATIONS -----------------------------------------------+");
+                sb.append("\n+------------------------------------------- PUBLICATIONS --------------------------------------------------+");
                 sb.append(String.format("\n| %-15s %-30s %-20s %-25s %-10s|","Delivery ID", "Customer Address", "Customer Name", "Publication", "Is Delivered"));
                 sb.append("\n+------------------------------------------------------------------------------------------------------------");
                 for (DeliveryItem delivery : this.deliveryItems) {
@@ -241,7 +243,7 @@ public class DeliveryDocket {
                 // if there is, print the items in separate table
                 sb.append("\n|                                                                                                           |");
                 sb.append("\n|                                                                                                           |");
-                sb.append("\n+-------------------------------------------------- INVOICES -----------------------------------------------+");
+                sb.append("\n+----------------------------------------------- INVOICES --------------------------------------------------+");
                 sb.append(String.format("\n| %-15s %-30s %-25s %-33s|", "Invoice ID", "Customer Name","Customer Address", "Is Delivered"));
                 sb.append("\n+-----------------------------------------------------------------------------------------------------------+");
                 for (DeliveryItem delivery : this.deliveryItems) {

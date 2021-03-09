@@ -399,6 +399,9 @@ public class DeliveryView {
                 } catch (DeliveryDocketExceptionHandler e) {
                     System.out.println(e.getMessage());
                 }
+                catch (Exception e) {
+                    System.out.println("Date format incorrect");
+                }
             } else {
                 //clear the input buffer and start again
                 in.nextLine();

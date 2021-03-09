@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static com.newspaper.db.DBconnection.stmt;
@@ -434,14 +435,16 @@ public class Utility {
      * @return LocalDate object containing date from params
      */
     public LocalDate convertDate(String date) {
+        // create a formater
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-M-d");
         LocalDate currDate = null;
         // null is acceptable for holiday
         if (date != null) {
             // checking the format of start date
             try {
-                currDate = LocalDate.parse(date);
+                currDate = LocalDate.parse(date, formatter );
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                throw e;
             }
         }
         return currDate;
