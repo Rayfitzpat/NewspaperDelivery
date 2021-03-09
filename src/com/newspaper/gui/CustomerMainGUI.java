@@ -1905,42 +1905,72 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                                     if (validation.validateDate(jTextField10.getText())) {
                                         if (validation.validateEndDate(jTextField12.getText())) {
                                             if (validation.validateStatus(jTextField11.getText())) {
-                                                if (validation.validateDeliveryID(jTextField15.getText())) {
-                                                    Statement addNewPerson = con.createStatement();
-                                                    addNewPerson.executeUpdate("insert into customer values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
-                                                    jTextField3.setForeground(new java.awt.Color(6, 187, 163));
-                                                    jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
-                                                } else {
+                                                if (validation.validateID(jTextField15.getText())) {
+                                                    String query = "select count(*) as total from delivery_area where delivery_area_id = " + jTextField15.getText();
+                                                    ResultSet rs;
+                                                    int count1 = 0;
+                                                    try {
+                                                        rs = stmt.executeQuery(query);
+                                                        while (rs.next()) {
+                                                            count1 = rs.getInt("total");
+                                                        }
+                                                        if (count1 > 0 ) {
+                                                            Statement addNewPerson = con.createStatement();
+                                                            addNewPerson.executeUpdate("insert into customer values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
+                                                            jTextField3.setForeground(new java.awt.Color(6, 187, 163));
+                                                            jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
+                                                        }
+                                                        else{
+                                                            jTextField3.setForeground(new java.awt.Color(255, 0, 0));
+                                                        jTextField3.setText("Area Id must be between 1-3 Numbers & be a valid Area Id - Check Delivery Area Section");
+                                                    }
+                                                    } catch (Exception e) {
+
+                                                        jTextField3.setForeground(new java.awt.Color(255, 0, 0));
+                                                        jTextField3.setText("Area Id must be between 1-3 Numbers & be a valid Area Id - Check Delivery Area Section");
+                                                    }
+                                                }  else {
+                                                    jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                                                     jTextField3.setText("Invalid Delivery Area ID");
                                                 }
                                             } else {
+                                                jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                                                 jTextField3.setText("Invalid Status");
                                             }
                                         } else {
+                                            jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                                             jTextField3.setText("Invalid Holiday End Date, must be in the format YYYY-MM-DD");
                                         }
                                     } else {
+                                        jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                                         jTextField3.setText("Invalid Holiday Start Date, must be in the format YYYY-MM-DD");
                                     }
                                 } else {
+                                    jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                                     jTextField3.setText("Invalid Phone Number, must be in the format 0## ####### e.g. 087 1234567");
                                 }
                             } else {
+                                jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                                 jTextField3.setText("Invalid Eircode, must be in the format R45XY62 ");
                             }
                         } else {
+                            jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                             jTextField3.setText("Invalid Town Name, must be between 1-20 characters");
                         }
                     } else {
+                        jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                         jTextField3.setText("Invalid Street Name, must be between 1-20 characters");
                     }
                 } else {
+                    jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                     jTextField3.setText("Invalid House Number, 1-4 characters only, beginning with a number.  i.e. 2b or 112");
                 }
             } else {
+                jTextField3.setForeground(new java.awt.Color(255, 0, 0));
                 jTextField3.setText("Invalid Last Name, please use 1-20 characters only - Numbers are not allowed");
             }
         } else {
+            jTextField3.setForeground(new java.awt.Color(255, 0, 0));
             jTextField3.setText("Invalid First Name, please use 1-20 characters only - Numbers are not allowed");
         }
     }
@@ -2314,7 +2344,6 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
 
 
-                String str1;
                 String query = "select count(*) as total from delivery_area where delivery_area_id = " + deliveryId;
                 ResultSet rs;
                 int count1 = 0;
