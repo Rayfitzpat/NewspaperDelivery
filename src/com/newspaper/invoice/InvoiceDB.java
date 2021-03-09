@@ -370,9 +370,9 @@ public class InvoiceDB {
             System.out.println("2: Get Customer Name from Invoice ID");
             System.out.println("3: Get Customer Address from Invoice.");
             System.out.println("4: Get Customer Subscriptions from Customer ID");
-            System.out.println("5: SMT here");
+            System.out.println("5: ----");
             System.out.println("6: Create Invoice");
-            System.out.println("7: Generate Invoices");
+            System.out.println("7: Read Invoice");
             System.out.println("8: Edit Invoice (paid or not paid)");
             System.out.println("9: Delete Invoice");
             System.out.println("10: Return to Main Menu");

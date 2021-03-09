@@ -1,5 +1,8 @@
 package com.newspaper.invoice;
 
+import com.newspaper.customer.CustomerDB;
+import com.newspaper.customer.CustomerExceptionHandler;
+import com.newspaper.customer.CustomerView;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliverydocket.DeliveryView;
 import com.newspaper.deliverydocket.Utility;
@@ -8,6 +11,11 @@ import java.util.Scanner;
 
 public class InvoiceView {
 
+    public static void main(String[] args) {
+        InvoiceView view = new InvoiceView();
+        DBconnection.init_db();
+        view.runMenu();
+    }
     private Utility utility = new Utility();
     private DeliveryView helper = new DeliveryView();
     Scanner in = new Scanner(System.in);
@@ -53,11 +61,11 @@ public class InvoiceView {
 
                     case 6:
                         // create invoice
-
+                        createInvoice();
                         break;
-
                     case 7:
-                        // generate invoices
+                        // read invoice
+                        createInvoice();
                         break;
                     case 8:
                         // update invoice
@@ -65,9 +73,6 @@ public class InvoiceView {
                     case 9:
                         // delete invoice
                         break;
-
-                    default:
-                        System.out.println("You entered an invalid choice please try again.");
                 }
             }
             else
@@ -84,10 +89,22 @@ public class InvoiceView {
         // 2. Ast user to enter the month he wants to create invoice for
         // 3. Run generation of invoices for that month if its not there yet
         // 4. Create invoice file, save in file and output to console window
-        int customerId = helper.askUserToEnterCustomerID();
-        int month = askUserToEnterMonth();
+        //print customers
 
-        invoiceDB.generateInvoicesIfNeeded(month);
+        try {
+            CustomerDB customerDB = new CustomerDB();
+            CustomerView view = new CustomerView();
+            view.printCustomers( customerDB.fetchCustomers());
+
+            int customerId = helper.askUserToEnterCustomerID();
+            int month = askUserToEnterMonth();
+
+            invoiceDB.createInvoice(customerId, month);
+        }
+        catch (CustomerExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public int askUserToEnterMonth() {
