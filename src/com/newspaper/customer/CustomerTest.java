@@ -1,5 +1,6 @@
 package com.newspaper.customer;
 
+import com.newspaper.db.DBconnection;
 import junit.framework.TestCase;
 
 public class CustomerTest extends TestCase {
@@ -8,6 +9,7 @@ public class CustomerTest extends TestCase {
 
     public CustomerTest(){
         customer = new Customer();
+        DBconnection.init_db();
     }
 
 
@@ -26,7 +28,7 @@ public class CustomerTest extends TestCase {
         try {
 
             // call constructor under test
-            Customer customer = new Customer("Jack", "Martin", 23, "Dublin Road", "Athlone","M35UJ99","084 831 6481", "2021-02-19", "2021-02-29",  true, 6);
+            Customer customer = new Customer("Jack", "Martin", 23, "Dublin Road", "Athlone","M35UJ99","084 8316481", "2021-02-19", "2021-02-29",  true, 6);
 
             // checking object creation
             assertEquals(0, customer.getCustomerId());
@@ -36,7 +38,7 @@ public class CustomerTest extends TestCase {
             assertEquals("Dublin Road", customer.getAddress2());
             assertEquals("Athlone", customer.getTown());
             assertEquals("M35UJ99", customer.getEircode());
-            assertEquals("084 831 6481", customer.getPhoneNumber());
+            assertEquals("084 8316481", customer.getPhoneNumber());
             assertEquals("2021-02-19", customer.getHolidayStartDate());
             assertEquals("2021-02-29", customer.getHolidayEndDate());
             assertEquals(true, customer.getStatus());
@@ -336,7 +338,7 @@ public class CustomerTest extends TestCase {
     //Expected Output: No exception
     public void testValidatePhoneNumber001() {
         try {
-            customer.validatePhoneNumber("085 856 7843");
+            customer.validatePhoneNumber("085 8567843");
         }
         catch (CustomerExceptionHandler e) {
             fail("Exception not expected");
@@ -463,6 +465,34 @@ public class CustomerTest extends TestCase {
     public void testValidateDate003() {
         try {
             customer.validateDate(null);
+
+        }
+        catch (CustomerExceptionHandler e) {
+            fail("Exception not excpected");
+        }
+    }
+
+    //Test #: 27
+    //Test Objective: To check validation of an incorrect delivery area id
+    //Inputs: id = 58
+    //Expected Output: CustomerExceptionHandler thrown
+    public void testValidateDeliveryAreaId001() {
+        try {
+            customer.validateDeliveryArea(58);
+            fail("Exception excpected");
+        }
+        catch (CustomerExceptionHandler e) {
+            assertEquals("Delivery Area with id 58 does not exist", e.getMessage());
+        }
+    }
+
+    //Test #: 27
+    //Test Objective: To check validation of an correct delivery area id
+    //Inputs: id = 4
+    //Expected Output: No exception
+    public void testValidateDeliveryAreaId002() {
+        try {
+            customer.validateDeliveryArea(4);
 
         }
         catch (CustomerExceptionHandler e) {

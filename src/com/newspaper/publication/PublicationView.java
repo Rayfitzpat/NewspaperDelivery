@@ -33,7 +33,7 @@ public class PublicationView {
         try {
             ResultSet rs = DBconnection.stmt.executeQuery(str);
 
-            System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "com.newspaper.publication.Publication Name", "Frequency", "Cost", "Stock Level");
+            System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "Publication Name", "Frequency", "Cost", "Stock Level");
             while (rs.next()) {
                 int publication_id = rs.getInt("publication_id");
                 String publication_name = rs.getString("publication_name");
@@ -90,7 +90,7 @@ public class PublicationView {
                     ResultSet rs = DBconnection.stmt.executeQuery(str);
 
 
-                    System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "com.newspaper.publication.Publication Name", "Frequency", "Cost", "Stock Level");
+                    System.out.printf("\n%-12s %-25s %-15s %-10s %-10s \n", "Pub ID", "Publication Name", "Frequency", "Cost", "Stock Level");
                     while (rs.next()) {
                         int publication_id = rs.getInt("publication_id");
                         String publication_name = rs.getString("publication_name");
@@ -295,7 +295,7 @@ public class PublicationView {
     }
 
     // ******************************************************************************************************
-    // Edit com.newspaper.publication.Publication name method
+    // Edit Publication name method
     // ******************************************************************************************************
     public void editpublication_name() throws SQLException {
 
@@ -312,7 +312,7 @@ public class PublicationView {
     }
 
     //  ------------------------------------------------------------------------------------------------------
-    // Edit com.newspaper.publication.Publication frequency method
+    // Edit Publication frequency method
     //  ------------------------------------------------------------------------------------------------------
     public void editpublication_frequency() throws SQLException {
         System.out.println("Please enter a new frequency for the publication, either Daily or Weekly");
@@ -328,7 +328,7 @@ public class PublicationView {
     }
 
     //  ------------------------------------------------------------------------------------------------------
-    // Edit com.newspaper.publication.Publication cost method
+    // Edit Publication cost method
     //  ------------------------------------------------------------------------------------------------------
     public void editpublication_cost() throws SQLException {
         System.out.println("Please enter a new cost for the publication");
@@ -343,7 +343,7 @@ public class PublicationView {
     }
 
     //  ------------------------------------------------------------------------------------------------------
-    // Edit com.newspaper.publication.Publication stock level method
+    // Edit Publication stock level method
     // ------------------------------------------------------------------------------------------------------
     public void editpublication_stock_level() throws SQLException {
         System.out.println("Please enter a new stock level");
@@ -392,7 +392,7 @@ public class PublicationView {
                     //if the user choses yes, the entry is deleted.
                     Statement deletePublication = DBconnection.con.createStatement();
                     deletePublication.executeUpdate("DELETE from publication where publication_id = " + id);
-                    System.out.println("The com.newspaper.publication.Publication with the id of " + id + " has been deleted...... \n\nReturning to menu......");
+                    System.out.println("The Publication with the id of " + id + " has been deleted...... \n\nReturning to menu......");
                     return;
                 }
                 else
@@ -419,11 +419,11 @@ public class PublicationView {
     //Menu for the edit publicatinon method
     // ******************************************************************************************************
     public static void editPublicationMenu() {
-        System.out.println("\nEdit com.newspaper.publication.Publication Menu");
-        System.out.println("1: Edit com.newspaper.publication.Publication Name");
-        System.out.println("2: Edit com.newspaper.publication.Publication Frequency");
-        System.out.println("3: Edit com.newspaper.publication.Publication Cost");
-        System.out.println("4: Edit com.newspaper.publication.Publication Stock level");
+        System.out.println("\nEdit Publication Menu");
+        System.out.println("1: Edit Publication Name");
+        System.out.println("2: Edit Publication Frequency");
+        System.out.println("3: Edit Publication Cost");
+        System.out.println("4: Edit Publication Stock level");
         System.out.println("5: Exit to Main Menu\n");
         System.out.print("Enter your choice: ");
     }
@@ -434,10 +434,10 @@ public class PublicationView {
     public static void displayMainMenu() {
         System.out.println("\nMain Menu");
         System.out.println("1: Display all Publications");
-        System.out.println("2: Display a com.newspaper.publication.Publication with ID ");
-        System.out.println("3: Add new com.newspaper.publication.Publication");
-        System.out.println("4: Edit com.newspaper.publication.Publication");
-        System.out.println("5: Delete com.newspaper.publication.Publication");
+        System.out.println("2: Display a Publication with ID ");
+        System.out.println("3: Add new Publication");
+        System.out.println("4: Edit Publication");
+        System.out.println("5: Delete Publication");
         System.out.println("6: Return to Main Menu\n");
         System.out.print("Enter your choice: ");
     }

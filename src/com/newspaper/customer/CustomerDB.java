@@ -13,6 +13,7 @@ public class CustomerDB {
      * To be finished if I have time:
      * - actual deleting of the customers
      * -mysql.server start
+     * -mysql -u root -p
      * -mysql.server stop
      */
 

@@ -57,6 +57,7 @@ public class Order {
 
 
     public void validateCustomerId(int customer_id) throws OrderExceptionHandler {
+
         String query = "select count(*) as total from customer where customer_id = " + customer_id + ";";
         ResultSet rs;
         int count = 0;
@@ -67,13 +68,51 @@ public class Order {
             }
             if(count == 0)
             {
-                throw new OrderExceptionHandler("com.newspaper.customer.Customer id does not exist");
+                throw new OrderExceptionHandler("Customer id does not exist");
             }
 
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
             System.out.println(query);
+        }
+    }
 
+    public void validatePublicationId(int publication_id) throws OrderExceptionHandler {
+        String query = "select count(*) as total from publication where publication_id = " + publication_id + ";";
+        ResultSet rs;
+        int count = 0;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count == 0)
+            {
+                throw new OrderExceptionHandler("Publication id does not exist");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+        }
+    }
+
+    public void validateFrequency(int frequency) throws OrderExceptionHandler {
+        String query = "select count(*) as total from orders where frequency = " + frequency;
+        ResultSet rs;
+        int count = 0;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while(rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count == 0)
+            {
+                throw new OrderExceptionHandler("Frequency does not exist, please enter a number between 1 and 7");
+            }
+        } catch(SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
         }
     }
 }
