@@ -207,9 +207,7 @@ public class CustomerView {
                 System.out.println("***" + e.getMessage() + "***");
                 System.out.println("There was an error with adding new customer. Please try again");
             }
-
         }
-
     }
 
     public void deactivateCustomer(int customerId, CustomerDB customerDB) {
@@ -567,7 +565,7 @@ public class CustomerView {
 
         while (!inputValid)
         {
-            System.out.println("Enter customer phone number (Example: 086 819 0499): ");
+            System.out.println("Enter customer phone number (Example: 086 8190499): ");
             if (in.hasNextLine())
             {
                 phoneNumber = in.nextLine();
