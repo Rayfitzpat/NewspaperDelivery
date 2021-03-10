@@ -1,5 +1,6 @@
 package com.newspaper.invoice;
 
+import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.db.DBconnection;
 
 import java.io.FileNotFoundException;
@@ -38,7 +39,7 @@ public class InvoiceMain
                         break;
 
                     case 3:
-                        invoice.getCusAddressFromInvoiceId();
+                        invoice.getCusAddressFromInvoiceId(DBconnection.stmt);
                         break;
 
                     case 4:
@@ -63,6 +64,7 @@ public class InvoiceMain
             }
         }
     }
+
 
 
 
