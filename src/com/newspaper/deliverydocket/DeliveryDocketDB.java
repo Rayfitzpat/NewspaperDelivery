@@ -80,7 +80,7 @@ public class DeliveryDocketDB {
 //        }
 
 
-        ut.displayAllDeliveriesOfCustomer(3);
+        //ut.displayAllDeliveriesOfCustomer(3);
     }
 
     private Utility ut;
