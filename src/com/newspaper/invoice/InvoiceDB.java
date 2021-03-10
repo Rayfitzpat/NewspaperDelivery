@@ -252,7 +252,6 @@ public class InvoiceDB {
             System.out.println("Invoice with id: " + deleteId + " has been deleted.");
         }
     }
-
     public void printPublications(Statement stmt) throws SQLException
     {
         String cusid;
@@ -264,14 +263,12 @@ public class InvoiceDB {
             validDesc = false;
         }
         else {
-        String str1 = "SELECT publication.publication_name, publication.publication_cost, delivery.delivery_date, invoice.is_delivered, customer.first_name, customer.last_name\n" +
-                "FROM delivery, customer, publication, invoice\n" +
-                "WHERE delivery.customer_id = customer.customer_id\n" +
-                "\tAND invoice.is_delivered = 'true'"+
-                "\tAND delivery.publication_id = publication.publication_id\n" +
-                "\tAND customer.customer_id =" + cusid + "\n" +
-                "\tAND MONTH(delivery.delivery_date) = " + cusid;
-
+            String str1 = "SELECT publication.publication_name, publication.publication_cost, delivery.delivery_date, invoice.is_delivered, customer.first_name, customer.last_name\n" +
+                    "FROM delivery, customer, publication, invoice\n" +
+                    "WHERE delivery.customer_id = customer.customer_id\n" +
+                    "\tAND invoice.is_delivered = 'true'"+
+                    "\tAND delivery.publication_id = publication.publication_id\n" +
+                    "\tAND customer.customer_id =" + cusid +  ";";
             ResultSet rs = stmt.executeQuery(str1);
             System.out.printf("\n%-25s %-25s %-5s\n", "Publication Name", "Publication Cost", "Delivery Date");
             while (rs.next())
@@ -297,18 +294,15 @@ public class InvoiceDB {
                 Utility utility = new Utility();
                 if (utility.ifInvoiceExists(invoiceId)) {
                     valid = true;
-                }
-                else {
+
+                } else {
                     System.out.println("Invoice with id " + invoiceId + " does not exist. Please choose the option from the table above");
                 }
-            }
-            else {
+            } else {
                 in.next();
                 System.out.println("Invoice ID can have numbers only");
             }
         }
-
-
 
 
         String str = "Select * from invoice where customer_id = " + id + " AND invoice_id =" + invoiceId;
@@ -352,7 +346,7 @@ public class InvoiceDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+    }
 
 
     public double vatAddition(double taxfree)
@@ -361,6 +355,54 @@ public class InvoiceDB {
         aftervat = ((taxfree / 100) * 23) + taxfree;
         double rounded = Math.round(aftervat * 100.0) / 100.0;
         return rounded;
+    }
+
+
+    public void printInvoice(int invoiceId) {
+
+        String str = "Select * from invoice where invoice_id =" + invoiceId;
+        try {
+            ResultSet rs = stmt.executeQuery(str);
+
+            System.out.printf("\n%-20s %-25s %-20s %-20s %-20s\n", "Invoice ID", "Customer ID", "Invoice Date", "Price", "Invoice Paid");
+
+            while (rs.next()) {
+                int invoice_id = rs.getInt("invoice_id");
+                int customer_id = rs.getInt("customer_id");
+                String invoice_date = rs.getString("invoice_date");
+                String price = rs.getString("price");
+                String invoice_paid = rs.getString("price_paid");
+                System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, customer_id, invoice_date, price, invoice_paid);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public int getInvoiceId(int customerId) {
+        boolean valid = false;
+        int invoiceId = 0;
+
+        while (!valid) {
+            System.out.println("Select the invoice ID which you would like to edit: ");
+            if (in.hasNextInt()) {
+                invoiceId = in.nextInt();
+                Utility utility = new Utility();
+                if (utility.ifInvoiceExists(invoiceId)) {
+                    valid = true;
+                }
+                else {
+                    System.out.println("Invoice with id " + invoiceId + " does not exist. Please choose the option from the table above");
+                }
+            }
+            else {
+                in.next();
+                System.out.println("Invoice ID can have numbers only");
+            }
+        }
+        return invoiceId;
     }
 
     // BII6 VIEW THE INVOICE (INVOICE NUMBER, CUSTOMER NAME, CUSTOMER ADDRESS, LIST OF PUBLICATIONS)
@@ -397,12 +439,11 @@ public class InvoiceDB {
         System.out.println("3: Edit Invoice (paid or not paid)");
         System.out.println("4: Delete Invoice");
         System.out.println("-------------------------------");
-        System.out.println("5: Get a Customer from Invoice");
-        System.out.println("6: Get Customer Name from Invoice ID");
-        System.out.println("7: Get Customer Address from Invoice");
-        System.out.println("8: Get Customer Subscriptions from Customer ID");
-        System.out.println("9: See all invoices of a customer");
+        System.out.println("5: Get Customer Name from Invoice ID");
+        System.out.println("6: Get Customer Address from Invoice");
+        System.out.println("7: See all invoices of a customer");
         System.out.println("10: Return to Main Menu");
+        System.out.println("Please, enter your choice: ");
     }
 
     public static void invoiceView() {

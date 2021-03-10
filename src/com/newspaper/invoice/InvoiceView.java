@@ -51,29 +51,27 @@ public class InvoiceView {
 
                     case 3:
                         // update invoice
-                        invoice.paidUpdate(DBconnection.stmt);
+                        try{
+                            invoice.paidUpdate(DBconnection.stmt);
+                        }
+                        catch (SQLException e) {
+                            System.out.println(e.getMessage());
+                        }
                         break;
                     case 4:
                         // delete invoice
                         deleteInvoice();
                         break;
-                    case 5:
-                        invoice.getCustomerFromInvoice(DBconnection.stmt);
-                        break;
 
-                    case 6:
+                    case 5:
                         invoice.getCustomerNameFromId(DBconnection.stmt);
                         break;
 
+                    case 6:
+                        invoice.getCusAddressFromInvoiceId(DBconnection.stmt);
+                        break;
+
                     case 7:
-                        invoice.getCusAddressFromInvoiceId();
-                        break;
-
-                    case 8:
-                        invoice.printPublications(DBconnection.stmt);
-                        break;
-
-                    case 9:
                         seeCustomerInvoices();
                         break;
                 }
