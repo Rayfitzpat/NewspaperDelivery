@@ -62,9 +62,38 @@ public class Invoice
         this.invoicePaid = invoicePaid;
     }
 
+//    public void validateCustomerName(String customerName) {
+//
+//        int maxLength = 52;
+//
+//        if (customerName ==  null) {
+//            throw new DeliveryDocketExceptionHandler("Customer name cannot be null");
+//        }
+//        else if(customerName.isBlank() || customerName.isEmpty()){
+//            throw new DeliveryDocketExceptionHandler("Customer name cannot be empty");
+//        }
+//        else if (customerName.length() < minLength) {
+//            throw new DeliveryDocketExceptionHandler("Customer name does not meet the minimum length requirements");
+//        }
+//        else if (customerName.length() > maxLength) {
+//            throw new DeliveryDocketExceptionHandler("Customer name exceeds the maximum length requirements");
+//        }
+//        else {
+//            // checking if line has any numbers
+//            char[] charArray = customerName.toCharArray();
+//            for (char c : charArray) {
+//                if (Character.isDigit(c)) {
+//                    throw new DeliveryDocketExceptionHandler("Customer name cannot consist of numbers");
+//                }
+//            }
+//        }
+//    }
+
 
 // Class for info, All database fields + comparisons.
     // ARRAY / ARRAYLIST of all publications, As objects.
+
+
 }
 
 

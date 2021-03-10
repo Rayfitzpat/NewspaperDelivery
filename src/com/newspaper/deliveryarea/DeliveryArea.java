@@ -84,14 +84,19 @@ public class DeliveryArea
     {
         if (id.length() > 2)
         {
-            System.out.println("invalid entry, you must enter no more than 2 numbers");
-            return false;
+                System.out.println("invalid entry, you must enter no more than 2 numbers");
+                return false;
         }
         else
             {
             try
             {
                 int tempId = Integer.parseInt(id);
+                if(tempId < 0)
+                {
+                    System.out.println("invalid entry, id must be above 0");
+                    return false;
+                }
             } catch (Exception e)
             {
                 System.out.println("invalid Text entered, please enter a number");
