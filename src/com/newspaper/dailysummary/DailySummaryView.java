@@ -68,12 +68,12 @@ public class DailySummaryView {
 
 
         Statement addNew = DBconnection.con.createStatement();
-        boolean exists = ds.checkIfExists(modifiedDate);
-        if (!exists) {
+
+
             createDailyReportByDate(modifiedDate);
             System.out.println("Daily report created for today: " + modifiedDate + "\n");
 
-        }
+
 
 
         String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date='" + modifiedDate + "';";
@@ -111,7 +111,7 @@ public class DailySummaryView {
         System.out.println("This is your weekly summary");
         System.out.println("From: " +weeklyDate);
         System.out.println("To: " +modifiedDate);
-        String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + weeklyDate + "' and '" + modifiedDate + "'";
+        String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + weeklyDate + "' and '" + modifiedDate + "' order by delivery_date asc";
         try {
             ResultSet rs = DBconnection.stmt.executeQuery(str);
 
@@ -148,7 +148,7 @@ public class DailySummaryView {
         boolean validMonth = ds.validateMonth(delivery_month);
         if (validMonth) {
 
-            String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date like '" + delivery_month + "%';";
+            String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date like '" + delivery_month + "%' order by delivery_date asc;";
             try {
                 ResultSet rs = DBconnection.stmt.executeQuery(str);
 
@@ -202,12 +202,12 @@ public class DailySummaryView {
                     while (rs.next()) {
                         int daily_summary_id = rs.getInt("daily_summary_id");
                         String delivery_date = rs.getString("delivery_date");
-                        double total_revenue = rs.getInt("total_revenue");
+                        double total_revenue = rs.getDouble("total_revenue");
                         int publications_sold = rs.getInt("publications_sold");
                         double publications_revenue = rs.getDouble("publications_revenue");
 
-                        total_revenue = Math.round(total_revenue * 100.0) / 100.0;
-                        publications_revenue = Math.round(publications_revenue * 100.0) / 100.0;
+                        total_revenue = Math.round(total_revenue * 100.00) / 100.00;
+                        publications_revenue = Math.round(publications_revenue * 100.00) / 100.00;
 
                         System.out.printf("%-12s %-20s %-15s %-20s %-25s \n", daily_summary_id, delivery_date, total_revenue, publications_sold, publications_revenue);
                     }
@@ -235,7 +235,8 @@ public class DailySummaryView {
         String delivery_input = in.next();
         boolean validDate = ds.validateDate(delivery_input);
         if (validDate) {
-            String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + delivery_input + "' and '" + modifiedDate + "'";
+            createDailyReportByDate(delivery_input);
+            String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + delivery_input + "' and '" + modifiedDate + "' order by delivery_date asc";
             try {
                 ResultSet rs = DBconnection.stmt.executeQuery(str);
 
@@ -273,24 +274,22 @@ public class DailySummaryView {
         String delivery_choice1 = in.next();
         boolean delchoice1 = ds.validateDate(delivery_choice1);
         if (delchoice1) {
-            boolean exists1 = ds.checkIfExists(delivery_choice1);
-            if (!exists1) {
+
                 createDailyReportByDate(delivery_choice1);
-                System.out.println("\nDaily report created for " + delivery_choice1);
-            }
-//            else if (exists1) {
+
+
+
 
             System.out.println("Please enter the second date in the format YYYY-MM-DD");
             String delivery_choice2 = in.next();
             boolean delchoice2 = ds.validateDate(delivery_choice2);
             if (delchoice2) {
-                boolean exists2 = ds.checkIfExists(delivery_choice2);
-                if (!exists2) {
+
                     createDailyReportByDate(delivery_choice2);
-                    System.out.println("\nDaily report created for " + delivery_choice2);
-                }
-//                    else if(exists2){
-                String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + delivery_choice1 + "' and '" + delivery_choice2 + "'";
+
+
+
+                String str = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + delivery_choice1 + "' and '" + delivery_choice2 + "' order by delivery_date asc";
                 try {
                     ResultSet rs = DBconnection.stmt.executeQuery(str);
 
@@ -316,12 +315,12 @@ public class DailySummaryView {
                 }
 //                }
             } else {
-                System.out.println("Please enter a correct date in the format YYYY-MM-DD");
+                System.out.println("Error with second date: Please enter in format YYYY-MM-DD");
                 chosenRange();
             }
             //}
         } else {
-            System.out.println("Please enter a correct date in the format YYYY-MM-DD");
+            System.out.println("Error with first date: Please enter in format YYYY-MM-DD");
             chosenRange();
         }
 
@@ -381,7 +380,7 @@ public class DailySummaryView {
         System.out.println("2: Weekly");
         System.out.println("3: Monthly");
         System.out.println("4: User entry");
-        System.out.println("5: From chosen date");
+        System.out.println("5: From chosen date to today");
         System.out.println("6: User Chosen Range");
         System.out.println("7: Main Menu");
         System.out.print("\nEnter your choice: ");
