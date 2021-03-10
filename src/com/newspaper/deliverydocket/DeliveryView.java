@@ -5,6 +5,7 @@ import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.customer.CustomerView;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryArea;
+import com.newspaper.invoice.InvoiceGenerator;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -111,6 +112,7 @@ public class DeliveryView {
 
         // 4. Check if deliveries for that date are available
         // 5. Generate deliveries if they are not in the DB
+
         deliveryDocketDB.generateDeliveriesIfNeeded(date);
 
 
