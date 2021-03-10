@@ -72,6 +72,10 @@ public class InvoiceView {
                     case 8:
                         invoice.printPublications(DBconnection.stmt);
                         break;
+
+                    case 9:
+                        seeCustomerInvoices();
+                        break;
                 }
             }
             else
@@ -182,6 +186,23 @@ public class InvoiceView {
             }
         }
 
+    }
+
+    public void seeCustomerInvoices() {
+        try {
+            CustomerDB customerDB = new CustomerDB();
+            CustomerView view = new CustomerView();
+            view.printCustomers( customerDB.fetchCustomers());
+
+        }
+        catch (CustomerExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+
+        InvoiceDB invoiceDB = new InvoiceDB();
+        int customerId = invoiceDB.getCustomerFromInvoice(DBconnection.stmt);
+//        int invoiceId = invoiceDB.getInvoiceId(customerId);
+//        invoiceDB.printInvoice(invoiceId);
     }
 
 

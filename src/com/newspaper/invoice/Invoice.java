@@ -132,7 +132,7 @@ public class Invoice {
             sb.append("\n|                                                INVOICE                                                    |");
             sb.append("\n+-----------------------------------------------------------------------------------------------------------+");
             sb.append(String.format("\n| %-25s %-79s |", "DATE: ", date));
-            sb.append(String.format("\n| %-25s %-79s |", "Customer Name: ", "No " + c.getFirstName() + " " + c.getLastName()));
+            sb.append(String.format("\n| %-25s %-79s |", "Customer Name: ",  c.getFirstName() + " " + c.getLastName()));
 
             // check if there are any invoice items
             if (invoiceItems.size() > 0) {
@@ -144,7 +144,7 @@ public class Invoice {
                 for (InvoiceItem item : this.invoiceItems) {
 
                     double vat =  Math.round(item.getTotalCost() * 0.23 * 100.0) / 100.0;
-                    sb.append(String.format("\n| %-15s %-30s %-20s %-38s|", item.getAmt(), item.getPubName(), item.getPubCost(), item.getTotalCost() + "+( 23% VAT " + vat + ")"));
+                    sb.append(String.format("\n| %-15s %-30s %-20s %-38s|", item.getAmt(), item.getPubName(), item.getPubCost(), item.getTotalCost() + " + (23% VAT " + vat + ")"));
 
                 }
                 sb.append("\n|                                                                                                           |");

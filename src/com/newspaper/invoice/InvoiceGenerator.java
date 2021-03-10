@@ -175,7 +175,7 @@ public class InvoiceGenerator {
 
             int rows = pstmt.executeUpdate();
 
-            System.out.println("Adding new invoice record was successful");
+            //System.out.println("Adding new invoice record was successful");
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
             System.out.println(insertQuery);

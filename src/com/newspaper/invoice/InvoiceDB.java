@@ -433,7 +433,7 @@ public class InvoiceDB {
 
 
     public static void displayMainMenu() {
-        System.out.println("\n Main Menu ");
+        System.out.println("\n Invoice Menu ");
         System.out.println("1: Create Invoice");
         System.out.println("2: Read Invoice");
         System.out.println("3: Edit Invoice (paid or not paid)");
@@ -441,8 +441,9 @@ public class InvoiceDB {
         System.out.println("-------------------------------");
         System.out.println("5: Get a Customer from Invoice");
         System.out.println("6: Get Customer Name from Invoice ID");
-        System.out.println("7: Get Customer Address from Invoice.");
+        System.out.println("7: Get Customer Address from Invoice");
         System.out.println("8: Get Customer Subscriptions from Customer ID");
+        System.out.println("9: See all invoices of a customer");
         System.out.println("10: Return to Main Menu");
     }
 
