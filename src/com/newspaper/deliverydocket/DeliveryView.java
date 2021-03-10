@@ -170,6 +170,9 @@ public class DeliveryView {
         try {
             DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(deliveryPersonId, date);
             System.out.println(docket);
+
+            deliveryDocketDB.generateDeliveriesIfNeeded(date);
+
             // need to create it if it wasn't created yet on this machine
             deliveryDocketDB.createDeliveryDocketFile(docket);
         } catch (DeliveryDocketExceptionHandler e) {
@@ -178,7 +181,8 @@ public class DeliveryView {
 
         // 4. Check if deliveries were not delivered yet
         try {
-            if (!deliveryDocketDB.isFullyDelivered(deliveryPersonId, date)) {
+            int isDelivered = deliveryDocketDB.isFullyDelivered(deliveryPersonId, date);
+            if ( isDelivered == -1) {
                 // 5. Ask the user, does he want to update the delivery status of all deliveries
                 //    at once, or update by id.
                 isValid = false;
@@ -208,6 +212,9 @@ public class DeliveryView {
                 } else if (updateChoice == 2) {
                     updatingDeliveriesByID(deliveryPersonId, date);
                 }
+            }
+            else if (isDelivered == 0) {
+                System.out.println("\n NO NEED TO UPDATE: No deliveries for this day");
             }
             else {
                 System.out.println("\n NO NEED TO UPDATE: All deliveries in this delivery docket were delivered.");
@@ -257,7 +264,8 @@ public class DeliveryView {
                         }
                         else {
                             // updating the delivery
-                            deliveryDocketDB.updateDeliveryStatus(deliveryItem);
+                            String deliveryStatus = getStatus();
+                            deliveryDocketDB.updateDeliveryStatus(deliveryItem, deliveryStatus);
                             System.out.println("Update successful");
                         }
                     }
@@ -277,6 +285,37 @@ public class DeliveryView {
         // show final result
         System.out.println("\n*** Delivery docket after updating: \n");
         refreshAndPrintDeliveryDocketFile(deliveryPersonId, date);
+    }
+
+    public String getStatus() {
+        String status = "";
+        boolean isValid = false;
+
+        while (!isValid) {
+            System.out.println("Update delivery status to ");
+            System.out.println("1 - delivered");
+            System.out.println("2 - not delivered");
+            if (in.hasNextInt()) {
+                int choice = in.nextInt();
+
+                if (choice == 1) {
+                    isValid = true;
+                    status = "delivered";
+                }
+                else if (choice == 2) {
+                    isValid = true;
+                    status = "not delivered";
+                }
+                else {
+                    System.out.println("Invalid input");
+                }
+            }
+            else {
+                in.next();
+                System.out.println("Invalid input");
+            }
+        }
+        return status;
     }
 
     public void deleteDeliveryDocket() {

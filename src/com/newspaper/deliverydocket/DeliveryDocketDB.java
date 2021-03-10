@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import static com.newspaper.db.DBconnection.stmt;
 
 /**
- * @author  Yuliia Dovbak
+ * @author Yuliia Dovbak
  */
 public class DeliveryDocketDB {
 
@@ -91,8 +91,9 @@ public class DeliveryDocketDB {
 
     /**
      * Creates delivery dockets for a delivery person on specfied date
+     *
      * @param deliveryPersonId the id of the delivery person
-     * @param date String representing date "2021-03-25"
+     * @param date             String representing date "2021-03-25"
      * @return an object of DeliveryDocket class with delivery area, delivery person and respective deliveries
      * @throws DeliveryDocketExceptionHandler is thrown in case of error
      */
@@ -113,6 +114,7 @@ public class DeliveryDocketDB {
 
     /**
      * Takes the DeliveryDocket object and saves it in a file
+     *
      * @param docket the object of DeliveryDocket that has to be saved
      */
     public void createDeliveryDocketFile(DeliveryDocket docket) {
@@ -143,8 +145,9 @@ public class DeliveryDocketDB {
 
     /**
      * Method fetches all deliveries of a specified delivery area and date from the DB
+     *
      * @param deliveryAreaId parameter of search for deliveries
-     * @param date parameter of search for deliveries
+     * @param date           parameter of search for deliveries
      * @return an array lost of all deliveries
      * @throws DeliveryDocketExceptionHandler is thrown in case of error
      */
@@ -174,13 +177,11 @@ public class DeliveryDocketDB {
     }
 
 
-
-
-
     /**
      * Method fetches all invoices for specified delivery area
+     *
      * @param deliveryAreaId invoices will be fetched for this delivery area
-     * @param month invoices will be fetched for this delivery month
+     * @param month          invoices will be fetched for this delivery month
      * @return an array list of invoices
      * @throws DeliveryDocketExceptionHandler is thrown in case of error
      */
@@ -244,8 +245,9 @@ public class DeliveryDocketDB {
 
     /**
      * Fetches all deliveries for delivery docket
+     *
      * @param deliveryAreaId publications will be fetched for this delivery area
-     * @param day publications will be fetched for this day
+     * @param day            publications will be fetched for this day
      * @return an array list of all publication deliveries
      * @throws DeliveryDocketExceptionHandler is thrown in case of error
      */
@@ -296,12 +298,13 @@ public class DeliveryDocketDB {
 
 
     /************************************************************************************
-      GENERATION OF DELIVERIES
+     GENERATION OF DELIVERIES
      *************************************************************************************/
 
 
     /**
      * Method checks if any generation of new delivery records is needed
+     *
      * @param date method checks the existence of deliveries with this date
      */
     public void generateDeliveriesIfNeeded(String date) {
@@ -324,6 +327,7 @@ public class DeliveryDocketDB {
 
     /**
      * Generate deliveries for next month using the orders in the DB
+     *
      * @param month for this month deliveries will be generated
      * @return an array list of all deliveries that were generated from the DB
      */
@@ -371,6 +375,7 @@ public class DeliveryDocketDB {
 
     /**
      * Generates the deliveries for the order in parameters. Is used when user creates a new order in the program
+     *
      * @param order object storing info about new order
      * @return an array list of all deliveries that were generated from the new order
      */
@@ -420,6 +425,7 @@ public class DeliveryDocketDB {
 
     /**
      * This method is saving the deliveries to the DB
+     *
      * @param deliveries an array list of all deliveries that should be inserted into Delivery table in the DB
      */
     public void saveDeliveries(ArrayList<Delivery> deliveries) {
@@ -435,6 +441,7 @@ public class DeliveryDocketDB {
 
     /**
      * Method creates an INSERT SQL query for the delivery and executes the update
+     *
      * @param delivery object storing all the data that should be saved in the DB
      * @throws DeliveryDocketExceptionHandler is thrown in case of mistake with the DB connection
      */
@@ -463,6 +470,7 @@ public class DeliveryDocketDB {
 
     /**
      * Method checks if deliveries for the specified month already exist in the DB
+     *
      * @param month integer representing month of the year (1 - Jan, 2 - Feb ... )
      * @return true if deliveries exist, false if not
      */
@@ -494,6 +502,7 @@ public class DeliveryDocketDB {
 
     /**
      * Method gets the object of delivery area where the delivery person works
+     *
      * @param deliveryPersonId the id of the delivery person
      * @return an object of DelivryArea
      * @throws DeliveryDocketExceptionHandler if delivery person with deliveryPersonId is not registered on any area
@@ -531,8 +540,8 @@ public class DeliveryDocketDB {
      UPDATING OF DELIVERIES
      *************************************************************************************/
 
-    public boolean isFullyDelivered(int deliveryPersonId, String date) throws DeliveryDocketExceptionHandler {
-        boolean allDelivered = true;    // default
+    public int isFullyDelivered(int deliveryPersonId, String date) throws DeliveryDocketExceptionHandler {
+        int allDelivered = 1;    // default
         try {
             // get the delivery area id where the delivery person is working
             DeliveryArea area = getDeliveryArea(deliveryPersonId);
@@ -540,23 +549,32 @@ public class DeliveryDocketDB {
             // get all deliveries for delivery docket
             ArrayList<DeliveryItem> deliveries = getAllDeliveryItemsFor(area.getId(), date);
 
-            for (DeliveryItem item : deliveries) {
-                if (!item.isDelivered())  {
-                    allDelivered = false;
+            if (deliveries.size() == 0)
+            {
+                allDelivered = 0;
+            }
+            else {
+                for (DeliveryItem item : deliveries) {
+                    if (!item.isDelivered()) {
+                        allDelivered = -1;
+                    }
                 }
             }
-        }
-        catch (DeliveryDocketExceptionHandler e) {
+
+        } catch (DeliveryDocketExceptionHandler e) {
             throw e;
         }
+
+        // 1 if all delivered, -1 if at least one is not delivered, 0 if no deliveries
         return allDelivered;
     }
 
     /**
      * Method is called from view and updates the delivery status to 'delivered' of
      * all the deliveries that are included in the delivery docket
+     *
      * @param deliveryPersonId the delivery person that delivers that delivery docket
-     * @param date date of delivery docket
+     * @param date             date of delivery docket
      * @throws DeliveryDocketExceptionHandler is case of exception
      */
     public void updateDeliveriesStatus(int deliveryPersonId, String date) throws DeliveryDocketExceptionHandler {
@@ -575,62 +593,62 @@ public class DeliveryDocketDB {
             DeliveryDocket docket = new DeliveryDocket(deliveries, date, area.getId(), area.getDAreaName(), ut.getDeliveryPersonName(deliveryPersonId));
             System.out.println(docket);
             createDeliveryDocketFile(docket);
-        }
-        catch (DeliveryDocketExceptionHandler e) {
+        } catch (DeliveryDocketExceptionHandler e) {
             throw e;
         }
 
     }
 
 
-
     /**
      * Method updates all delivery records in the database and sets delivery_status to 'delivered'
+     *
      * @param deliveries list of deliveries that are updated in the db
      * @throws DeliveryDocketExceptionHandler is thrown if there is an SQL error
      */
-    public void changeDeliveriesStatusToDelivered(ArrayList<DeliveryItem> deliveries) throws DeliveryDocketExceptionHandler{
+    public void changeDeliveriesStatusToDelivered(ArrayList<DeliveryItem> deliveries) throws DeliveryDocketExceptionHandler {
         // list may contain both invoices and publications
         for (DeliveryItem item : deliveries) {
-            updateDeliveryStatus( item);
+            updateDeliveryStatus(item, "delivered");
         }
     }
 
     /**
      * Updates the delivery item in the db
+     *
      * @param item the item that has to be updated
      * @throws DeliveryDocketExceptionHandler thrown in case of error
      */
-    public void updateDeliveryStatus(DeliveryItem item) throws DeliveryDocketExceptionHandler {
+    public void updateDeliveryStatus(DeliveryItem item, String status) throws DeliveryDocketExceptionHandler {
 
-            if (item.getType().equals("invoice")) {
-                // invoice update
-                String updateQuery = "UPDATE invoice\n" +
-                        "SET is_delivered='true'\n" +
-                        "WHERE invoice_id=" + item.getId();
+        boolean isDelivered = status.equals("delivered");
+        if (item.getType().equals("invoice")) {
+            // invoice update
+            String updateQuery = "UPDATE invoice\n" +
+                    "SET is_delivered='" + isDelivered +"'\n" +
+                    "WHERE invoice_id=" + item.getId();
 
-                try {
-                    stmt.executeUpdate(updateQuery);
-                } catch (SQLException sqle) {
-                    System.out.println(sqle.getMessage());
-                    System.out.println(updateQuery);
-                    throw new DeliveryDocketExceptionHandler("Failed to update invoice delivery record");
-                }
+            try {
+                stmt.executeUpdate(updateQuery);
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
+                System.out.println(updateQuery);
+                throw new DeliveryDocketExceptionHandler("Failed to update invoice delivery record");
             }
-            else if (item.getType().equals("publication")) {
-                // publication delivery update
-                String updateQuery = "UPDATE delivery\n" +
-                        "SET delivery_status='delivered'\n" +
-                        "WHERE delivery_id=" + item.getDeliveryId();
+        } else if (item.getType().equals("publication")) {
+            // publication delivery update
+            String updateQuery = "UPDATE delivery\n" +
+                    "SET delivery_status='" + status + "'\n" +
+                    "WHERE delivery_id=" + item.getDeliveryId();
 
-                try {
-                    stmt.executeUpdate(updateQuery);
-                } catch (SQLException sqle) {
-                    System.out.println(sqle.getMessage());
-                    System.out.println(updateQuery);
-                    throw new DeliveryDocketExceptionHandler("Failed to update publication delivery record");
-                }
+            try {
+                stmt.executeUpdate(updateQuery);
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
+                System.out.println(updateQuery);
+                throw new DeliveryDocketExceptionHandler("Failed to update publication delivery record");
             }
+        }
 
     }
 
