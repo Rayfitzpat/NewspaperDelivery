@@ -4,6 +4,7 @@ import com.newspaper.db.DBconnection;
 import junit.framework.TestCase;
 
 import java.sql.SQLException;
+import java.time.DateTimeException;
 
 public class OrderTest extends TestCase {
 
@@ -34,13 +35,13 @@ public class OrderTest extends TestCase {
 
     //Test #: 2
     //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: customer_id = -2, nameOfField = "Customer ID"
+    //Inputs: customer_id = -1, nameOfField = "Customer ID"
     //Expected Output: Exception Message: "Customer id does not exist"
 
     public void testValidateCustomerId002() {
         try {
             //Call method under test
-            order.validateCustomerId(-2);
+            order.validateCustomerId(-1);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
@@ -81,13 +82,13 @@ public class OrderTest extends TestCase {
 
     //Test #: 5
     //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: publication_id = -2, nameOfField = "Publication ID"
+    //Inputs: publication_id = -1, nameOfField = "Publication ID"
     //Expected Output: Exception Message: "Publication id does not exist"
 
     public void testValidatePublicationId002() {
         try {
             //Call method under test
-            order.validatePublicationId(-2);
+            order.validatePublicationId(-1);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
@@ -111,26 +112,25 @@ public class OrderTest extends TestCase {
     }
 
 
-    //Test #: 6
-    //Test Objective: To test that frequency only accepts ints between 1 and 7
-    //Inputs: int frequency = "0"
-    //Expected Output:"Frequency does not exist, please enter a number between 1 and 7"
+    //Test #: 7
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: int frequency = "-1", nameOfField = "Frequency"
+    //Expected Output: Exception Message: "Frequency does not exist, please enter a number between 1 and 7"
+
     public void testValidateFrequency001() {
         try{
-            order.validateFrequency(0);
+            order.validateFrequency(-1);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
             assertEquals("Frequency does not exist, please enter a number between 1 and 7", e.getMessage());
         }
-
-
     }
 
-    //Test #: 7
-    //Test Objective: To test that frequency only accepts ints between 1 and 7
-    //Inputs: int frequency = "8"
-    //Expected Output:"Frequency does not exist, please enter a number between 1 and 7"
+    //Test #: 8
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: int frequency = "8", nameOfField = "Frequency"
+    //Expected Output: Exception Message: "Frequency does not exist, please enter a number between 1 and 7"
     public void testValidateFrequency002() {
         try{
             order.validateFrequency(8);
@@ -139,14 +139,12 @@ public class OrderTest extends TestCase {
         catch (OrderExceptionHandler e) {
             assertEquals("Frequency does not exist, please enter a number between 1 and 7", e.getMessage());
         }
-
     }
 
-
-    //Test #: 7
-    //Test Objective: To test that frequency only accepts ints between 1 and 7
-    //Inputs: int frequency = "f"
-    //Expected Output:"Frequency does not exist, please enter a number between 1 and 7"
+    //Test #: 9
+    //Test Objective: To check validation on a correct ID
+    //Inputs: int frequency = "5", nameOfField = "Frequency"
+    //Expected Output: No Exception
     public void testValidateFrequency003() {
         try{
             order.validateFrequency(5);
@@ -154,23 +152,27 @@ public class OrderTest extends TestCase {
         catch (OrderExceptionHandler e) {
             fail("Exception expected");
         }
-
     }
 
-
+    //Test #: 10
+    //Test Objective: To check validation on a correct ID
+    //Inputs: int customerID = "1", nameOfField = "Customer ID"
+    //Expected Output: Valentino Firman
     public void testGetCustomerName001() {
         try {
             //Call method under test
             ov.getCustomerName(1);
-            //assertEquals("Valentino Firman");
         }
         catch (Exception e) {
             fail("Exception expected");
-            //assertEquals("Valentino Firman");
             assertEquals("Valentino Firman", e.getMessage());
         }
     }
 
+    //Test #: 11
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: int customerID = "-1", nameOfField = "Customer ID"
+    //Expected Output: "Customer does not exist"
     public void testGetCustomerName002() {
         try {
             //Call method under test
@@ -182,6 +184,10 @@ public class OrderTest extends TestCase {
         }
     }
 
+    //Test #: 12
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: int customerID = "58", nameOfField = "Customer ID"
+    //Expected Output: "Customer does not exist"
     public void testGetCustomerName003() {
         try {
             //Call method under test
@@ -192,6 +198,10 @@ public class OrderTest extends TestCase {
         }
     }
 
+    //Test #: 13
+    //Test Objective: To check validation on a correct ID
+    //Inputs: int publicationID = "5", nameOfField = "Publication ID"
+    //Expected Output: "The Sunday Mirror"
     public void testGetPublicationByID001() {
         try {
             //Call method under test
@@ -203,6 +213,10 @@ public class OrderTest extends TestCase {
         }
     }
 
+    //Test #: 14
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: int publicationID = "-1", nameOfField = "Publication ID"
+    //Expected Output: "Publication does not exist"
     public void testGetPublicationByID002() {
         try {
             //Call method under test
@@ -214,6 +228,10 @@ public class OrderTest extends TestCase {
         }
     }
 
+    //Test #: 15
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: int publicationID = "20", nameOfField = "Publication ID"
+    //Expected Output: "Publication does not exist"
     public void testGetPublicationByID003() {
         try {
             //Call method under test
@@ -225,6 +243,10 @@ public class OrderTest extends TestCase {
         }
     }
 
+    //Test #: 16
+    //Test Objective: To check validation on a correct ID
+    //Inputs: int frequency = "5", nameOfField = "Frequency"
+    //Expected Output: "Friday"
     public void testConvertFrequency001() {
         try {
             //Call method under test
@@ -236,45 +258,51 @@ public class OrderTest extends TestCase {
         }
     }
 
+    //Test #: 17
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: int frequency = "-1", nameOfField = "Frequency"
+    //Expected Output: Exception Message: "Frequency does not exist, please enter a number between 1 and 7" || "Invalid value for DayOfWeek: -1"
     public void testConvertFrequency002() {
         try {
             //Call method under test
             ov.convertFrequency(-1);
             fail("Exception expected");
         }
-        catch (OrderExceptionHandler sqle) {
+        catch (OrderExceptionHandler e) {
 
-            assertEquals("Frequency does not exist", sqle.getMessage());
+            assertEquals("Frequency does not exist, please enter a number between 1 and 7", e.getMessage());
+        }
+        catch (DateTimeException e) {
+
+            assertEquals("Invalid value for DayOfWeek: -1", e.getMessage());
         }
     }
 
+    //Test #: 18
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: int frequency = "8", nameOfField = "Frequency"
+    //Expected Output: Exception Message: "Frequency does not exist, please enter a number between 1 and 7" || "Invalid value for DayOfWeek: 8"
     public void testConvertFrequency003() {
         try {
             //Call method under test
             ov.convertFrequency(8);
             fail("Exception expected");
         }
-        catch (OrderExceptionHandler sqle) {
+        catch (OrderExceptionHandler e) {
 
-            assertEquals("Frequency does not exist", sqle.getMessage());
+            assertEquals("Frequency does not exist, please enter a number between 1 and 7", e.getMessage());
+        }
+        catch (DateTimeException e) {
+
+            assertEquals("Invalid value for DayOfWeek: 8", e.getMessage());
         }
     }
 
-//    public void testDisplayOrderByCustomerId() {
-//        try{
-//            ov.displayOrderByCustomerId();
-//
-//        }
-//        catch(){
-//
-//        }
-//    }
 
-
-    //Test #: 1
+    //Test #: 19
     //Test Objective: To see if a number outside the range triggers the exception handler
     //Inputs: customer_id = 100, nameOfField = "Customer ID"
-    //Expected Output: Exception Message: "Customer id does not exist"
+    //Expected Output: Exception Message: "Customer does not have an order"
 
     public void testValidateOrderCustomerId001() {
         try {
@@ -287,15 +315,15 @@ public class OrderTest extends TestCase {
         }
     }
 
-    //Test #: 2
+    //Test #: 20
     //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: customer_id = -2, nameOfField = "Customer ID"
-    //Expected Output: Exception Message: "Customer id does not exist"
+    //Inputs: customer_id = -1, nameOfField = "Customer ID"
+    //Expected Output: Exception Message: "Customer does not have an order"
 
     public void testValidateOrderCustomerId002() {
         try {
             //Call method under test
-            ov.validateOrderCustomerId(-2);
+            ov.validateOrderCustomerId(-1);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
@@ -303,7 +331,7 @@ public class OrderTest extends TestCase {
         }
     }
 
-    //Test #: 3
+    //Test #: 21
     //Test Objective: To check validation on a correct ID
     //Inputs: customer_id = 10, nameOfField = "Customer ID"
     //Expected Output: No Exception
@@ -317,24 +345,5 @@ public class OrderTest extends TestCase {
             fail("Exception expected");
         }
     }
-
-//    public void testAddNewOrder001() {
-//        try {
-//
-//        }
-//        catch() {
-//
-//        }
-//    }
-
-//    public void testAddNewOrderCustomerID001() {
-//        try {
-//            ov.addNewOrderCustomerID();
-//        }
-//        catch (OrderExceptionHandler orderExceptionHandler) {
-//            orderExceptionHandler.printStackTrace();
-//        }
-//    }
-
 
 }
