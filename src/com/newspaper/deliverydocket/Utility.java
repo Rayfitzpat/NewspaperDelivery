@@ -112,6 +112,11 @@ public class Utility {
         return exists(query);
     }
 
+    public boolean ifInvoiceExists(int invoiveId) {
+        String query = "select count(*) as total from invoice where invoice_id = " + invoiveId + ";";
+        return exists(query);
+    }
+
 
     /**
      * Method is checking if a certain record exists in the database, the only requirement is that

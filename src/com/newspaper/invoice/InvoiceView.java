@@ -7,6 +7,7 @@ import com.newspaper.db.DBconnection;
 import com.newspaper.deliverydocket.DeliveryView;
 import com.newspaper.deliverydocket.Utility;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class InvoiceView {
@@ -40,38 +41,36 @@ public class InvoiceView {
                 switch(menuChoice)
                 {
                     case 1:
-                        invoice.getCustomerFromInvoice(DBconnection.stmt);
-                        break;
-
-                    case 2:
-                        invoice.getCustomerNameFromId(DBconnection.stmt);
-                        break;
-
-                    case 3:
-                        invoice.getCusAddressFromInvoiceId();
-                        break;
-
-                    case 4:
-                        invoice.printPublications(DBconnection.stmt);
-                        break;
-
-                    case 5:
-                        invoice.paidUpdate(DBconnection.stmt);
-                        break;
-
-                    case 6:
                         // create invoice
                         createInvoice();
                         break;
-                    case 7:
+                    case 2:
                         // read invoice
                         createInvoice();
                         break;
-                    case 8:
+
+                    case 3:
                         // update invoice
+                        invoice.paidUpdate(DBconnection.stmt);
                         break;
-                    case 9:
+                    case 4:
                         // delete invoice
+                        deleteInvoice();
+                        break;
+                    case 5:
+                        invoice.getCustomerFromInvoice(DBconnection.stmt);
+                        break;
+
+                    case 6:
+                        invoice.getCustomerNameFromId(DBconnection.stmt);
+                        break;
+
+                    case 7:
+                        invoice.getCusAddressFromInvoiceId();
+                        break;
+
+                    case 8:
+                        invoice.printPublications(DBconnection.stmt);
                         break;
                 }
             }
@@ -132,5 +131,73 @@ public class InvoiceView {
         }
 
         return month;
+    }
+
+
+    public void deleteInvoice () {
+        try {
+            CustomerDB customerDB = new CustomerDB();
+            CustomerView view = new CustomerView();
+            view.printCustomers( customerDB.fetchCustomers());
+
+        }
+        catch (CustomerExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+
+        InvoiceDB invoiceDB = new InvoiceDB();
+        int customerId = invoiceDB.getCustomerFromInvoice(DBconnection.stmt);
+        int invoiceId = invoiceDB.getInvoiceId(customerId);
+        invoiceDB.printInvoice(invoiceId);
+
+        boolean isValid = false;
+        while (!isValid) {
+            System.out.println("\nDeleting invoices may bring some legal issues, are you sure you want to delete this invoice? ");
+            System.out.println("1 - Yes");
+            System.out.println("2 - Cancel");
+            if (in.hasNextInt()) {
+                int choice = in.nextInt();
+                if (choice == 1) {
+                    isValid = true;
+                    try {
+                        deleteInvoiceById(invoiceId);
+                    }
+                    catch (CustomerExceptionHandler e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+                else if (choice == 2) {
+                    //cancel, exit the loop
+                    isValid = true;
+                    System.out.println("\nDeleting invoice was cancelled");
+                }
+                else {
+                    System.out.println("\nInvalid input");
+                }
+            }
+            else {
+                in.next();
+                System.out.println("\nInvalid input");
+            }
+        }
+
+    }
+
+
+    public void deleteInvoiceById(int invoiceId) throws CustomerExceptionHandler {
+        // checking if invoice with Id invoiceId exists in the db
+        Utility utility = new Utility();
+        if (utility.ifInvoiceExists(invoiceId)) {
+            String updateQuery = "DELETE FROM invoice WHERE invoice_id = " + invoiceId + ";";
+            try {
+                DBconnection.stmt.executeUpdate(updateQuery);
+                System.out.println("  Invoice with Id " + invoiceId + " was successfully deleted from the DB");
+            } catch (SQLException sqle) {
+                throw new CustomerExceptionHandler(sqle.getMessage() + "\n" + sqle);
+            }
+        } else {
+            throw new CustomerExceptionHandler("There is no invoice with id " + invoiceId + " in the database");
+        }
     }
 }
