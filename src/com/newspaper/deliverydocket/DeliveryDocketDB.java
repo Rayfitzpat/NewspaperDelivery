@@ -5,6 +5,7 @@ package com.newspaper.deliverydocket;
 
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryArea;
+import com.newspaper.invoice.InvoiceGenerator;
 import com.newspaper.order.Order;
 import com.newspaper.order.OrderExceptionHandler;
 
@@ -311,6 +312,10 @@ public class DeliveryDocketDB {
 
         // get the month out of the date
         int month = deliveryDate.getMonthValue();
+
+        // generating invoices
+        InvoiceGenerator generator = new InvoiceGenerator();
+        generator.generateInvoicesIfNeeded(month);
 
         // check if deliveries for this month weren't generated before
         if (!deliveriesForThisMonthExist(month)) {
