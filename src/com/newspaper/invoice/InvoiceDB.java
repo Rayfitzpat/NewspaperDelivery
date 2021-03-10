@@ -1,6 +1,8 @@
 package com.newspaper.invoice;
 
+import com.newspaper.customer.Customer;
 import com.newspaper.db.DBconnection;
+import com.newspaper.deliveryarea.DeliveryArea;
 import com.newspaper.deliveryarea.DeliveryAreaDB;
 import com.newspaper.deliveryarea.DeliveryAreaMain;
 import java.io.File;
@@ -14,9 +16,14 @@ import static java.lang.Double.parseDouble;
 
 public class InvoiceDB {
     DeliveryAreaDB dav = new DeliveryAreaDB();
+    DeliveryArea da = new DeliveryArea();
     Scanner in = new Scanner(System.in);
-    int id = 0;
     Invoice invoice = new Invoice();
+    boolean validName = false;
+    boolean validDesc = false;
+    boolean validEntry = false;
+    int id = 0;
+    String CusID;
 
     public void generateInvoice(Statement stmt) throws SQLException, FileNotFoundException {
         PrintWriter writer1;
@@ -100,9 +107,7 @@ public class InvoiceDB {
     }
 
     public void displayAllInvoices(Statement stmt) {
-        //1: Query the database for all areas
-        //2: Display the result set in an appropriate manner
-        String str = "Select * from invoice";
+        String str = "Select * from invoice;";
         try {
             ResultSet rs = stmt.executeQuery(str);
             System.out.printf("\n%-20s %-25s %-20s %-20s %-20s\n", "Invoice ID", "Customer ID", "Invoice Date", "Price", "Invoice Status");
@@ -111,12 +116,12 @@ public class InvoiceDB {
                 int cus_id = rs.getInt("customer_id");
                 String date = rs.getString("invoice_date");
                 String price = rs.getString("price");
-                String invoiceStatus = rs.getString("invoice_paid");
+                String invoiceStatus = rs.getString("price_paid");
 
                 System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, cus_id, date, price, invoiceStatus);
             }
         } catch (SQLException sqle) {
-            System.out.println("Error: failed to areas.");
+            System.out.println("Error: failed to invoices.");
             System.out.println(sqle.getMessage());
             System.out.println(str);
         }
@@ -125,17 +130,16 @@ public class InvoiceDB {
 
     public void getCustomerFromInvoice(Statement stmt) {
         System.out.println("Please select the Customer ID to see their invoices.");
-        id = in.nextInt();
-        String str = "Select * from invoice where customer_id = " + id;
-
-        if (id > 100 || id < 0)
+        String CusID = in.nextLine();
+        if (!da.validateEntry(CusID))
         {
-            System.out.println("ERROR"); // VALIDATION HERE
+            System.out.println();
+            validDesc = false;
         }
         else
-            {
-            try
-            {
+        {
+            String str = "Select * from invoice where customer_id = " + CusID;
+            try {
 //                System.out.println("Please select the Customer ID to see their invoices.");
 
                 ResultSet rs = stmt.executeQuery(str);
@@ -149,28 +153,24 @@ public class InvoiceDB {
                     String invoice_paid = rs.getString("price_paid");
                     System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, customer_id, invoice_date, price, invoice_paid);
                 }
-            }
-            catch (SQLException sqle) {
+            } catch (SQLException sqle) {
                 System.out.println("Error: failed to areas.");
                 System.out.println(sqle.getMessage());
                 System.out.println(str);
             }
+
         }
     }
 
     public void getCustomerNameFromId(Statement stmt) {
         System.out.println("Please enter the customer ID: ");
-        id = in.nextInt();
-        String str = "Select * from customer where customer_id = " + id;
-
-        if (id > 100 || id < 0) // VALIDATION HERE
-        {
-            System.out.println("ERROR");
-        }
-        else
-            {
-            try
-            {
+        String id = in.nextLine();
+        if (!da.validateEntry(id)) {
+            System.out.println();
+            validDesc = false;
+        } else {
+            String str = "Select * from customer where customer_id = " + id;
+            try {
                 ResultSet rs = stmt.executeQuery(str);
                 System.out.printf("\n%-20s %-25s %-20s\n", "Customer ID", "First Name", "Last Name");
                 while (rs.next()) {
@@ -179,10 +179,8 @@ public class InvoiceDB {
                     String lastName = rs.getString("last_name");
                     System.out.printf("%-20s %-25s %-20s\n", customer_id, firstName, lastName);
                 }
-            }
-            catch (SQLException sqle)
-            {
-                System.out.println("Error: failed to areas.");
+            } catch (SQLException sqle) {
+                System.out.println("Error: Customers.");
                 System.out.println(sqle.getMessage());
                 System.out.println(str);
             }
@@ -192,11 +190,11 @@ public class InvoiceDB {
     public void getCusAddressFromInvoiceId(Statement stmt) {
         Scanner in = new Scanner(System.in);
         System.out.println("Please enter the Invoice ID: ");
-        int id = in.nextInt();
+        String id = in.nextLine();
 
-        if (id > 100 || id < 0) // VALIDATION HERE
-        {
-            System.out.println("ERROR");
+        if (!da.validateEntry(id)) {
+            System.out.println();
+            validDesc = false;
         } else {
 
             String str = "Select address1, address2, town " +
@@ -218,19 +216,20 @@ public class InvoiceDB {
         }
     }
 
+
     public void deleteInvoice(Statement stmt) throws SQLException {
         String str;
         ResultSet rs;
         Scanner in = new Scanner(System.in);
         displayAllInvoices(stmt);
         System.out.println("Please enter the id of the invoice you would like to delete: ");
-        int deleteId = in.nextInt();
+        String deleteId = in.nextLine();
 
-        if (deleteId < 0) {
-            System.out.println("Please Input a valid ID");
+        if (!da.validateEntry(deleteId)) {
+            System.out.println();
+            validDesc = false;
         }
-        if (deleteId > 0) {
-            str = "Select count(*) as total from invoice where invoice_id = " + deleteId;
+        else {
             Statement deletePerson = DBconnection.con.createStatement();
             deletePerson.executeUpdate("delete from invoice where invoice_id =" + deleteId + "");
             System.out.println("Invoice with id: " + deleteId + " has been deleted.");
@@ -239,10 +238,15 @@ public class InvoiceDB {
 
     public void printPublications(Statement stmt) throws SQLException
     {
-        int cusid;
+        String cusid;
         Scanner in = new Scanner(System.in);
-        System.out.println("Please enter customer ID to check for publications customer has recieved.");
-        cusid = in.nextInt();
+        System.out.println("Please enter customer ID to check for publications customer has received.");
+        cusid = in.nextLine();
+        if (!da.validateEntry(cusid)) {
+            System.out.println();
+            validDesc = false;
+        }
+        else {
         String str1 = "SELECT publication.publication_name, publication.publication_cost, delivery.delivery_date, invoice.is_delivered, customer.first_name, customer.last_name\n" +
                 "FROM delivery, customer, publication, invoice\n" +
                 "WHERE delivery.customer_id = customer.customer_id\n" +
@@ -251,12 +255,8 @@ public class InvoiceDB {
                 "\tAND customer.customer_id =" + cusid + "\n" +
                 "\tAND MONTH(delivery.delivery_date) = " + cusid;
 
-        if (cusid > 100 || cusid < 0) {
-            System.out.println("There was an error");
-        } else {
             ResultSet rs = stmt.executeQuery(str1);
             System.out.printf("\n%-25s %-25s %-5s\n", "Publication Name", "Publication Cost", "Delivery Date");
-//            System.out.println("TESTING");
             while (rs.next())
             {
                 String pubName = rs.getString("publication_name");
@@ -273,7 +273,7 @@ public class InvoiceDB {
         getCustomerFromInvoice(stmt);
         System.out.println("Select the invoice which you would like to edit: ");
         String invoiceEdit = in.next();
-        String str = "Select * from invoice where customer_id = "+id+" AND invoice_id ="+invoiceEdit;
+        String str = "Select * from invoice where customer_id = "+CusID+" AND invoice_id ="+invoiceEdit;
         ResultSet rs = stmt.executeQuery(str);
 
         System.out.printf("\n%-20s %-25s %-20s %-20s %-20s\n", "Invoice ID", "Customer ID", "Invoice Date", "Price", "Invoice Paid");
@@ -287,32 +287,34 @@ public class InvoiceDB {
             String invoice_paid = rs.getString("price_paid");
             System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, customer_id, invoice_date, price, invoice_paid);
 
-        while (!valid)
-        {
-            System.out.println("Do you want to change the Invoice Status to paid?");
-            System.out.println("Press 1 for Paid:");
-            System.out.println("Press 2 for Unpaid:");
-            String yesNo = in.next();
-
-            if (yesNo.equals("1")) {
-                String setPaid = "update invoice set price_paid = 'paid' where customer_id =" + id + " and invoice_id =" + invoiceEdit + ";";
-                stmt.executeUpdate(setPaid);
-                System.out.println("Invoice " + invoice_id + " for customer " + id + " has been set to paid.");
-                valid = true;
-
-            } else if (yesNo.equals("2")) {
-                String setUnpaid = "update invoice set price_paid = 'unpaid' where customer_id =" + id + " and invoice_id =" + invoiceEdit + ";";
-                stmt.executeUpdate(setUnpaid);
-                System.out.println("Invoice " + invoice_id + " for customer " + id + " has been set to unpaid.");
-                valid = true;
-            } else
+            while (!valid)
             {
-                System.out.println("Sorry that was not an option, please try again: ");
+                System.out.println("Do you want to change the Invoice Status to paid?");
+                System.out.println("Press 1 for Paid:");
+                System.out.println("Press 2 for Unpaid:");
+                String yesNo = in.next();
+
+                if (yesNo.equals("1")) {
+                    String setPaid = "update invoice set price_paid = 'paid' where customer_id =" + CusID + " and invoice_id =" + invoiceEdit + ";";
+                    stmt.executeUpdate(setPaid);
+                    System.out.println("Invoice " + invoice_id + " for customer " + id + " has been set to paid.");
+                    valid = true;
+
+                } else if (yesNo.equals("2")) {
+                    String setUnpaid = "update invoice set price_paid = 'unpaid' where customer_id =" + CusID + " and invoice_id =" + invoiceEdit + ";";
+                    stmt.executeUpdate(setUnpaid);
+                    System.out.println("Invoice " + invoice_id + " for customer " + CusID + " has been set to unpaid.");
+                    valid = true;
+                } else
+                {
+                    System.out.println("Sorry that was not an option, please try again: ");
+                }
             }
-        }
-        return;
+            return;
         }
     }
+
+
 
     public double vatAddition(double taxfree)
     {
@@ -356,28 +358,10 @@ public class InvoiceDB {
             System.out.println("2: Get Customer Name from Invoice ID");
             System.out.println("3: Get Customer Address from Invoice.");
             System.out.println("4: Get Customer Subscriptions from Customer ID");
-            System.out.println("5: Delete a Delivery Area");
-            System.out.println("6: Return to Main Menu");
-        }
-
-        public static void invoiceView()
-        {
-            System.out.println("\n Invoice View Menu");
-            System.out.println("1. View Invoice Number");
-            System.out.println("2. View Customer Name");
-            System.out.println("3. View Customer Address");
-            System.out.println("4. View the Publications");
-        }
-
-        public static void displayUpdateMenu ()
-        {
-            System.out.println("\n Main Menu ");
-            System.out.println("1: Get a customers com.newspaper.invoice.Invoice");
-            System.out.println("2: Get com.newspaper.customer.Customer Name");
-            System.out.println("3: Get com.newspaper.customer.Customer's Address from com.newspaper.invoice.Invoice.");
-            System.out.println("4: Update Delivery Area Name");
-            System.out.println("5: Delete a Delivery Area");
-            System.out.println("6: Return to Main Menu");
+            System.out.println("5: Delete an Invoice");
+            System.out.println("6: Update if an Invoice has been Paid.");
+            System.out.println("7: Generate an Invoice");
+            System.out.println("8: Return to Main Menu");
         }
     }
 

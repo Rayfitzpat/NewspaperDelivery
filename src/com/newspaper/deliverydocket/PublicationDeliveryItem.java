@@ -1,18 +1,18 @@
 package com.newspaper.deliverydocket;
 
 import com.newspaper.db.DBconnection;
-import com.newspaper.deliverydocket.DeliveryDocketExceptionHandler;
-import com.newspaper.deliverydocket.DeliveryItem;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 // this class will represent publication delivery item in the delivery docket
 public class PublicationDeliveryItem extends DeliveryItem {
 
-    private int publicationId;
-    public PublicationDeliveryItem(int publicationId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
-        super(customerID, customerName, customerAddress, "publication", isDelivered);
+
+    public PublicationDeliveryItem(int deliveryId, int publicationId, int customerID, String customerName, String customerAddress, boolean isDelivered) throws DeliveryDocketExceptionHandler {
+        super(deliveryId, publicationId, customerID, customerName, customerAddress, "publication", isDelivered);
 
         try {
             validatePublicationId(publicationId);
@@ -38,7 +38,7 @@ public class PublicationDeliveryItem extends DeliveryItem {
             }
             if(count == 0)
             {
-                throw new DeliveryDocketExceptionHandler("com.newspaper.publication.Publication with id " + publicationId + " does not exist");
+                throw new DeliveryDocketExceptionHandler("Publication with id " + publicationId + " does not exist");
             }
 
         } catch (SQLException sqle) {
@@ -46,5 +46,10 @@ public class PublicationDeliveryItem extends DeliveryItem {
             System.out.println(query);
 
         }
+    }
+
+    @Override
+    public void print() {
+        System.out.printf("\npub: %-10d cus: %-10s %-20s %-35s %-10s %-10s", this.getId(), this.getCustomerID(), this.getCustomerName(), this.getCustomerAddress(), this.isDelivered(), "publication");
     }
 }

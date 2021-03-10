@@ -62,15 +62,38 @@ public class Invoice
         this.invoicePaid = invoicePaid;
     }
 
+//    public void validateCustomerName(String customerName) {
+//
+//        int maxLength = 52;
+//
+//        if (customerName ==  null) {
+//            throw new DeliveryDocketExceptionHandler("Customer name cannot be null");
+//        }
+//        else if(customerName.isBlank() || customerName.isEmpty()){
+//            throw new DeliveryDocketExceptionHandler("Customer name cannot be empty");
+//        }
+//        else if (customerName.length() < minLength) {
+//            throw new DeliveryDocketExceptionHandler("Customer name does not meet the minimum length requirements");
+//        }
+//        else if (customerName.length() > maxLength) {
+//            throw new DeliveryDocketExceptionHandler("Customer name exceeds the maximum length requirements");
+//        }
+//        else {
+//            // checking if line has any numbers
+//            char[] charArray = customerName.toCharArray();
+//            for (char c : charArray) {
+//                if (Character.isDigit(c)) {
+//                    throw new DeliveryDocketExceptionHandler("Customer name cannot consist of numbers");
+//                }
+//            }
+//        }
+//    }
+
 
 // Class for info, All database fields + comparisons.
     // ARRAY / ARRAYLIST of all publications, As objects.
+
+
 }
 
 
-//TODO Verify Each com.newspaper.invoice.Invoice has individual number (ID) (DONE THROUGH AUTO INCREMEMTNS)  (DONE)
-//TODO VERYIFY CUSTOMER NAME    (DONE)
-//TODO VERIFY INVOICE CONTAINS CUSTOMER ADDRESS (DONE)
-//TODO VERIFY THAT EACH PURCAHSE OR PUBLICATION IS ITEMISED (NEEDS ACCESS TO THE DELIVERY DOCKET) (DONE)
-//TODO VERIFY INVOICE CONTAINS A LIST OF THE PUBLICATIONS DELIVERED (ALSO NEEDS ACCESS TO THE DELIVERY DOCKET) *Check the delivery table*
-//TODO VERIFY THAT EACH ITEM HAS A VAT RATE ((APPLY 23% INCREASE ON PRICE OF EACH ITEM)
