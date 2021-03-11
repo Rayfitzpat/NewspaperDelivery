@@ -275,7 +275,6 @@ public class LoginGUI extends javax.swing.JFrame {
            String userName = jTextField1.getText();
            String password = jPasswordField1.getText();
 
-
            if((userName.equals("mike") && password.equals("9999")) || (userName.equals("admin") && password.equals("1234")))
            {
 //               dispose();
