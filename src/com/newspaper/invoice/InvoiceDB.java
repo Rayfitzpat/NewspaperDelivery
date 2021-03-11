@@ -441,12 +441,11 @@ public class InvoiceDB {
         System.out.println("2: Read Invoice");
         System.out.println("3: Edit Invoice (paid or not paid)");
         System.out.println("4: Delete Invoice");
-        System.out.println("-------------------------------");
         System.out.println("5: Get Customer Name from Invoice ID");
         System.out.println("6: Get Customer Address from Invoice");
         System.out.println("7: See all invoices of a customer");
         System.out.println("10: Return to Main Menu");
-        System.out.println("Please, enter your choice: ");
+        System.out.println("\nPlease, enter your choice: ");
     }
 
     public static void invoiceView() {

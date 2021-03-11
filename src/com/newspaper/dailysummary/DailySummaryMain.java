@@ -17,7 +17,7 @@ public class DailySummaryMain {
 
         int menuChoice = 0;
 
-        final int STOP_APP = 7;
+        final int STOP_APP = 4;
 
         while (menuChoice != STOP_APP) {
             ds.displayDailySummaryMainMenu(); //display the primary menu
@@ -35,6 +35,8 @@ public class DailySummaryMain {
                     case 3:
                         dsv.populateDatabase();
                         break;
+                    case 4:
+                        return;
                     default:
                         System.out.println("You entered an invalid choice, please try again...");
                 }
@@ -46,52 +48,7 @@ public class DailySummaryMain {
         }
     }
 
-//    public void dailySummaryMainPage() throws  SQLException{
-//
-//        Scanner in  = new Scanner(System.in);
-//
-//        DailySummary ds = new DailySummary();
-//
-//        DailySummaryView dsv = new DailySummaryView();
-//
-//        int menuChoice = 0;
-//
-//        final int STOP_APP = 7;
-//
-//        while (menuChoice != STOP_APP) {
-//            ds.displayDailySummaryMainMenu();//display the primary menu
-//            if (in.hasNextInt()) {
-//                //get the menu choice from the user
-//                menuChoice = in.nextInt();
-//
-//                switch (menuChoice) {
-//                    case 1:
-//                        dsv.revenueReport();
-//                        break;
-//                    case 2:
-//                        dsv.monthlyReportFile();
-//                        break;
-//                    case 3:
-//
-//                        break;
-//                    case 4:
-//
-//                        break;
-//                    case 5:
-//
-//                        break;
-//                    case 6:
-//                        return;
-//                    default:
-//                        System.out.println("You entered an invalid choice, please try again...");
-//                }
-//            } else {
-//                //clear the input buffer and start again
-//                in.nextLine();
-//                System.out.println("You entered an invalid choice, please try again...");
-//            }
-//        }
-//    }
+
 
     public static void main(String[] args) throws SQLException, FileNotFoundException {
 
@@ -104,7 +61,7 @@ public class DailySummaryMain {
 
         int menuChoice = 0;
 
-        final int STOP_APP = 7;
+        final int STOP_APP = 4;
 
         while (menuChoice != STOP_APP) {
             ds.displayDailySummaryMainMenu(); //display the primary menu
@@ -122,6 +79,7 @@ public class DailySummaryMain {
                     case 3:
                         dsv.populateDatabase();
                         break;
+
                     default:
                         System.out.println("You entered an invalid choice, please try again...");
                 }
@@ -131,6 +89,7 @@ public class DailySummaryMain {
                 System.out.println("You entered an invalid choice, please try again...");
             }
         }
+        return;
     }
 
 }

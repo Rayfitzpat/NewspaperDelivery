@@ -74,16 +74,17 @@ public class DailySummary {
 
 
     public static void displayDailySummaryMainMenu() {
-        System.out.println("\nMain Menu");
+        System.out.println("\nSummary Menu");
         System.out.println("1: Revenue Report");
         System.out.println("2: Save Monthly Report");
-        System.out.println("3: Populate Database\n");
+        System.out.println("3: Populate Database");
+        System.out.println("4: Exit Menu\n");
         System.out.print("Enter your choice: ");
     }
 
 
     public static boolean validateDate(String date) {
-        if (date.matches("^20[0-2][0-9]-((0[1-9])|(1[0-2]))-([0-2][1-9]|3[0-1])$")) {
+        if (date.matches("^20[0-2][0-9]-((0[1-9])|(1[0-2]))-([0-2][0-9]|3[0-1])$")) {
             return true;
         } else {
             return false;

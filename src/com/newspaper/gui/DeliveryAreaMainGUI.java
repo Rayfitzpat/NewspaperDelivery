@@ -716,7 +716,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jLabel62.setText("1-20 characters");
 
         jLabel63.setForeground(new java.awt.Color(49, 117, 108));
-        jLabel63.setText("1-4 Numbers");
+        jLabel63.setText("1-3 Numbers");
 
         jLabel64.setForeground(new java.awt.Color(49, 117, 108));
         jLabel64.setText("1-4 Numbers");
@@ -820,7 +820,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
                                                                 .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(jLabel57, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                 .addGroup(AddNew2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(AddNew2Layout.createSequentialGroup()
@@ -1307,7 +1307,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
 //                    con.close();
                 } else {
                     jTextField2.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID failed based on ID");
+                    jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID");
                 }
             } else {
                 jTextField2.setForeground(new java.awt.Color(255, 0, 0));
@@ -1564,6 +1564,9 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
                         tblModel.addRow(tbData);
                         personOneDBInitialised[0] = true;
                     }
+                }else {
+                    jTextField30.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField30.setText("ID: " + deleteID + " is invalid please enter a Valid ID");
                 }
             } else {
                 jTextField30.setForeground(new java.awt.Color(255, 0, 0));

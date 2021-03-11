@@ -49,22 +49,27 @@ public class Validation {
 
 //    TODO Valid house number not working for mix of letters and numbers
 
-    public boolean validateHouseNumber(String name) {
+    public boolean validateHouseNumber(String address) {
+        try {
+            if (address.length() >= 1 && address.length() <= 3) {
+                int address1 = Integer.parseInt(address);
+                int minAddress = 1;
+                int maxAddress = 999;
 
-        if (name.length() >= 1 && name.length() < 5) {
-            name = name.toLowerCase();
-            char[] nameArray = name.toCharArray();
-            for (int i = 0; i < nameArray.length; i++) {
-                char ch = nameArray[i];
-                if (ch >= '0' && ch <= '9') {
+                if (address1 < minAddress) {
+                    return false;
+                } else if (address1 > maxAddress) {
+                    return false;
+                } else {
                     return true;
                 }
+            } else {
+                return false;
             }
+        }catch(Exception e) {
             return false;
-        } else
-
-            return false;
-    }
+        }
+        }
 
 
     public boolean validateStringWithNumbers(String name) {
@@ -118,6 +123,41 @@ public class Validation {
         } else {
             return false;
         }
+    }
+
+    public boolean validateHolidayStartBeforeEnd(String startDate, String endDate)  {
+        // null in both fields is acceptable hor holiday field
+
+        if(endDate == null){
+            return true;
+        }
+        else if (startDate != null && endDate != null) {
+            // setting the format for date 2021-02-29
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+            // variables for saving dates in Date type
+            Date start;
+            Date end;
+
+            // converting dates
+            try {
+                start = format.parse(startDate);
+                end = format.parse(endDate);
+
+                // if start date is not before the end date, throwing an exception
+                if (start.before(end)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            catch (ParseException e)
+            {
+                return false;
+            }
+        }else return true;
+
     }
 
     public boolean validateHoliday(String startDate, String endDate)  {
@@ -262,7 +302,7 @@ public class Validation {
     public boolean validateCost(String cost)
     {
         if(cost.length()>=1 && cost.length() <=5){
-            if (cost.matches("[+-]?([0-9]*[.])?[0-9]+")) {
+            if (cost.matches("[+]?([0-9]*[.])?[0-9]+")) {
                 return true;
             }
             else return false;
