@@ -128,56 +128,59 @@ public class InvoiceDB {
     }
 
     public int getCustomerFromInvoice(Statement stmt) {
-
         // print customers
+        String cID = "";
+        int id = 0;
         try {
             CustomerDB customerDB = new CustomerDB();
             CustomerView view = new CustomerView();
-            view.printCustomers( customerDB.fetchCustomers());
+            view.printCustomers(customerDB.fetchCustomers());
+        } catch (CustomerExceptionHandler e) {
+            System.out.println(e.getMessage());
         }
-      catch (CustomerExceptionHandler e) {
-          System.out.println(e.getMessage());
-      }
-
         boolean isvalid = false;
         while (!isvalid) {
             System.out.println("Please select the Customer ID to see their invoices.");
-            if (in.hasNextInt()) {
-                id = in.nextInt();
+                cID = in.nextLine();
+            if (!da.validateEntry(cID)) {
+                System.out.println();
+                validDesc = false;
+            } else
+            {
+                id = Integer.parseInt(cID);
                 Utility utility = new Utility();
-                if (utility.ifCustomerExists(id)) {
-                    isvalid = true;
-                } else {
-                    System.out.println("Customer with id" + id + " does not exist");
+
+
+                    if (utility.ifCustomerExists(id)) {
+                        isvalid = true;
+                    } else {
+                        System.out.println("Customer with id" + id + " does not exist");
+                    }
+
+                    String str = "Select * from invoice where customer_id = " + id;
+                    try {
+                        ResultSet rs = stmt.executeQuery(str);
+                        System.out.printf("\n%-20s %-25s %-20s %-20s %-20s\n", "Invoice ID", "Customer ID", "Invoice Date", "Price", "Invoice Paid");
+                        while (rs.next()) {
+                            int invoice_id = rs.getInt("invoice_id");
+                            int customer_id = rs.getInt("customer_id");
+                            String invoice_date = rs.getString("invoice_date");
+                            String price = rs.getString("price");
+                            String invoice_paid = rs.getString("price_paid");
+                            System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, customer_id, invoice_date, price, invoice_paid);
+                        }
+                    } catch (SQLException sqle) {
+                        System.out.println("Error: Failed to get Invoice.");
+                        System.out.println(sqle.getMessage());
+                        System.out.println(str);
+                    }
                 }
-            } else {
-                System.out.println("Customer ID can have numbers only");
-            }
-        }
 
-        String str = "Select * from invoice where customer_id = " + id;
 
-        try {
-//                System.out.println("Please select the Customer ID to see their invoices.");
-
-            ResultSet rs = stmt.executeQuery(str);
-            System.out.printf("\n%-20s %-25s %-20s %-20s %-20s\n", "Invoice ID", "Customer ID", "Invoice Date", "Price", "Invoice Paid");
-
-            while (rs.next()) {
-                int invoice_id = rs.getInt("invoice_id");
-                int customer_id = rs.getInt("customer_id");
-                String invoice_date = rs.getString("invoice_date");
-                String price = rs.getString("price");
-                String invoice_paid = rs.getString("price_paid");
-                System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, customer_id, invoice_date, price, invoice_paid);
-            }
-        } catch (SQLException sqle) {
-            System.out.println("Error: failed to areas.");
-            System.out.println(sqle.getMessage());
-            System.out.println(str);
         }
         return id;
     }
+
 
     public void getCustomerNameFromId(Statement stmt) {
         System.out.println("Please enter the customer ID: ");
@@ -294,8 +297,8 @@ public class InvoiceDB {
                 Utility utility = new Utility();
                 if (utility.ifInvoiceExists(invoiceId)) {
                     valid = true;
-
                 } else {
+                    displayAllInvoices(stmt);
                     System.out.println("Invoice with id " + invoiceId + " does not exist. Please choose the option from the table above");
                 }
             } else {
@@ -305,7 +308,7 @@ public class InvoiceDB {
         }
 
 
-        String str = "Select * from invoice where customer_id = " + id + " AND invoice_id =" + invoiceId;
+        String str = "Select * from invoice where invoice_id =" + invoiceId;
         valid = false;
         try {
             ResultSet rs = stmt.executeQuery(str);
@@ -327,13 +330,13 @@ public class InvoiceDB {
                     String yesNo = in.next();
 
                     if (yesNo.equals("1")) {
-                        String setPaid = "update invoice set price_paid = 'paid' where customer_id =" + id + " and invoice_id =" + invoiceId + ";";
+                        String setPaid = "update invoice set price_paid = 'paid' where invoice_id =" + invoiceId + ";";
                         stmt.executeUpdate(setPaid);
                         System.out.println("Invoice " + invoice_id + " for customer " + id + " has been set to paid.");
                         valid = true;
 
                     } else if (yesNo.equals("2")) {
-                        String setUnpaid = "update invoice set price_paid = 'unpaid' where customer_id =" + id + " and invoice_id =" + invoiceId + ";";
+                        String setUnpaid = "update invoice set price_paid = 'unpaid' where invoice_id =" + invoiceId + ";";
                         stmt.executeUpdate(setUnpaid);
                         System.out.println("Invoice " + invoice_id + " for customer " + id + " has been set to unpaid.");
                         valid = true;
