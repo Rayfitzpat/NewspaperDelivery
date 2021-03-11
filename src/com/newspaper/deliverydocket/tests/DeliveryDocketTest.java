@@ -1,6 +1,8 @@
-package com.newspaper.deliverydocket;
+package com.newspaper.deliverydocket.tests;
 
 import com.newspaper.db.DBconnection;
+import com.newspaper.deliverydocket.DeliveryDocket;
+import com.newspaper.deliverydocket.DeliveryDocketExceptionHandler;
 import junit.framework.TestCase;
 /**
  * @author  Yuliia Dovbak

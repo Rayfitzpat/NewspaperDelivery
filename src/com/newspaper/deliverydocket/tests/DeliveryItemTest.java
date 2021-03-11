@@ -1,6 +1,10 @@
-package com.newspaper.deliverydocket;
+package com.newspaper.deliverydocket.tests;
 
 import com.newspaper.db.DBconnection;
+import com.newspaper.deliverydocket.DeliveryDocketExceptionHandler;
+import com.newspaper.deliverydocket.DeliveryItem;
+import com.newspaper.deliverydocket.InvoiceDeliveryItem;
+import com.newspaper.deliverydocket.PublicationDeliveryItem;
 import junit.framework.TestCase;
 /**
  * @author  Yuliia Dovbak
@@ -108,7 +112,7 @@ public class DeliveryItemTest extends TestCase {
             assertEquals("John Martin", item.getCustomerName());
             assertEquals("5 Custume Pier, Athlone", item.getCustomerAddress());
             assertEquals("invoice", item.getType());
-            assertEquals(false, item.isDelivered());
+            assertEquals(true, item.isDelivered());
         }
         catch (DeliveryDocketExceptionHandler e) {
             fail("Exception not expected");
@@ -456,7 +460,7 @@ public class DeliveryItemTest extends TestCase {
         try {
 
             //Call method under test
-            invoiceDeliveryItem.validateInvoiceId(51);
+            invoiceDeliveryItem.validateInvoiceId(1);
         }
         catch (DeliveryDocketExceptionHandler e) {
             fail("Exception not expected");
