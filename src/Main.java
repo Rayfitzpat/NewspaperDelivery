@@ -4,6 +4,7 @@ import com.newspaper.db.DBconnection;
 import com.newspaper.deliveryarea.DeliveryAreaMain;
 import com.newspaper.deliverydocket.DeliveryView;
 import com.newspaper.deliveryperson.DeliveryPersonDB;
+import com.newspaper.invoice.InvoiceView;
 import com.newspaper.order.OrderExceptionHandler;
 import com.newspaper.order.OrderView;
 import com.newspaper.publication.PublicationMain;
@@ -30,6 +31,7 @@ public class Main {
         OrderView ov = new OrderView();
         DeliveryView view = new DeliveryView();
         DailySummaryMain dailySummary = new DailySummaryMain();
+        InvoiceView invoiceView = new InvoiceView();
 
         Main main = new Main();
 
@@ -70,7 +72,8 @@ public class Main {
                         break;
                     case 7:
                         //invoice
-
+                        invoiceView.runMenu();
+                        break;
                     case 8:
                         // summary
                         try {
@@ -79,7 +82,7 @@ public class Main {
                         catch(SQLException | FileNotFoundException e) {
                             System.out.println(e.getMessage());
                         }
-                    case 9:
+                        break;
                     case 10:
                         // close
                         System.out.println("Program is closing...");
@@ -108,7 +111,6 @@ public class Main {
         System.out.println("6: Delivery Docket");
         System.out.println("7: Invoice");
         System.out.println("8: Summary");
-        System.out.println("9: Customer Support");
         System.out.println("10: Exit Application\n");
         System.out.print("Enter your choice: ");
     }

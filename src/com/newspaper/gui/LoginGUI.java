@@ -252,10 +252,12 @@ public class LoginGUI extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
         System.exit(0);
     }
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,10 +275,9 @@ public class LoginGUI extends javax.swing.JFrame {
            String userName = jTextField1.getText();
            String password = jPasswordField1.getText();
 
-
            if((userName.equals("mike") && password.equals("9999")) || (userName.equals("admin") && password.equals("1234")))
            {
-               dispose();
+//               dispose();
                mainAdminScreenGUI.setVisible(true);
            }
            else{
@@ -284,8 +285,7 @@ public class LoginGUI extends javax.swing.JFrame {
                rs = stmt.executeQuery(sql);
                if(rs.next()){
                    jTextField2.setForeground(new java.awt.Color(49, 117, 108));
-                   jTextField2.setText("Congratulations - launching Delivery Docket menu");
-                   dispose();
+//                   dispose();
                    deliveryDocketEmployeeMainGUI.setVisible(true);
                }
                else{
@@ -311,22 +311,7 @@ public class LoginGUI extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+
         //</editor-fold>
         //</editor-fold>
 
