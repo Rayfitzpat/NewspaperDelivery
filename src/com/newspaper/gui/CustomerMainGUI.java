@@ -1883,7 +1883,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 //                    con.close();
                 } else {
                     jTextField2.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID failed based on ID");
+                    jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID");
                 }
             } else {
                 jTextField2.setForeground(new java.awt.Color(255, 0, 0));
@@ -1934,11 +1934,11 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                                                     }
                                                 } else {
                                                     jTextField3.setForeground(new java.awt.Color(255, 0, 0));
-                                                    jTextField3.setText("Invalid Delivery Area ID");
+                                                    jTextField3.setText("Invalid Delivery Area ID - please check Delivery Area fro correct ID's");
                                                 }
                                             } else {
                                                 jTextField3.setForeground(new java.awt.Color(255, 0, 0));
-                                                jTextField3.setText("Invalid Status");
+                                                jTextField3.setText("Invalid Status - must be either 'true' or 'false'");
                                             }
                                         } else {
                                             jTextField3.setForeground(new java.awt.Color(255, 0, 0));
@@ -1970,7 +1970,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 }
             } else {
                 jTextField3.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField3.setText("Invalid House Number, 1-4 characters only, beginning with a number.  i.e. 2b or 112");
+                jTextField3.setText("Invalid House Number, 1-3 Numbers only");
             }
         } else {
             jTextField3.setForeground(new java.awt.Color(255, 0, 0));
@@ -2088,7 +2088,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             }
         } else {
             jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID failed based on ID");
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID");
         }
     }
 
@@ -2458,6 +2458,9 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                         tblModel.addRow(tbData);
                         personOneDBInitialised[0] = true;
                     }
+                }else {
+                    jTextField30.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField30.setText("ID: " + deleteID + " is invalid please enter a Valid ID");
                 }
             } else {
                 jTextField30.setForeground(new java.awt.Color(255, 0, 0));

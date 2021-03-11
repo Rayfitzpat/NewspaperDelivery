@@ -302,7 +302,7 @@ public class Validation {
     public boolean validateCost(String cost)
     {
         if(cost.length()>=1 && cost.length() <=5){
-            if (cost.matches("[+-]?([0-9]*[.])?[0-9]+")) {
+            if (cost.matches("[+]?([0-9]*[.])?[0-9]+")) {
                 return true;
             }
             else return false;

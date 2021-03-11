@@ -1304,7 +1304,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 //                    con.close();
                 } else {
                     jTextField2.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID failed based on ID");
+                    jTextField2.setText("ID: " + DPID + " is invalid please enter a Valid ID");
                 }
             } else {
                 jTextField2.setForeground(new java.awt.Color(255, 0, 0));
@@ -1444,7 +1444,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             }
         } else {
             jTextField31.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID failed based on ID");
+            jTextField31.setText("ID: " + editID + " is invalid please enter a Valid ID");
         }
     }
 
@@ -1535,6 +1535,9 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                         tblModel.addRow(tbData);
                         personOneDBInitialised[0] = true;
                     }
+                }else {
+                    jTextField30.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField30.setText("ID: " + deleteID + " is invalid please enter a Valid ID");
                 }
             } else {
                 jTextField30.setForeground(new java.awt.Color(255, 0, 0));
