@@ -452,6 +452,17 @@ public class Utility {
         return currDate;
     }
 
+    public boolean isInFuture(String date) {
+        LocalDate userDate = convertDate(date);
+        LocalDate todaysDate = LocalDate.now();
+        if (userDate.isAfter(todaysDate)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     /**
      * Method gets the object of delivery area where the delivery person works
      * @param deliveryAreaId the id of the delivery person

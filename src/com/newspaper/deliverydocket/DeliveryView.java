@@ -166,61 +166,70 @@ public class DeliveryView {
         // 3. Ask user to enter the date of the delivery docket
         String date = askUserToEnterDate();
 
-        // 4. Read in the delivery docket, show to user
-        try {
-            DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(deliveryPersonId, date);
-            System.out.println(docket);
+        // 3.1 Check if this is future date
+        if (!utility.isInFuture(date)) {
 
-            deliveryDocketDB.generateDeliveriesIfNeeded(date);
+            // 4. Read in the delivery docket, show to user
+            try {
+                deliveryDocketDB.generateDeliveriesIfNeeded(date);
 
-            // need to create it if it wasn't created yet on this machine
-            deliveryDocketDB.createDeliveryDocketFile(docket);
-        } catch (DeliveryDocketExceptionHandler e) {
-            System.out.println(e.getMessage());
+                // need to create it if it wasn't created yet on this machine
+                DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(deliveryPersonId, date);
+                System.out.println(docket);
+                deliveryDocketDB.createDeliveryDocketFile(docket);
+
+            } catch (DeliveryDocketExceptionHandler e) {
+                System.out.println(e.getMessage());
+            }
+
+            // 4. Check if deliveries were not delivered yet
+            try {
+                int isDelivered = deliveryDocketDB.isFullyDelivered(deliveryPersonId, date);
+                if ( isDelivered == -1) {
+                    // 5. Ask the user, does he want to update the delivery status of all deliveries
+                    //    at once, or update by id.
+                    isValid = false;
+                    int updateChoice = -1;
+                    while (!isValid) {
+                        System.out.println("Two options available now: \n" +
+                                " 1: Update all deliveries to 'delivered' status \n" +
+                                " 2: Update deliveries by id\n" +
+                                " 9: Cancel the update, go to main menu");
+                        if (in.hasNextInt()) {
+                            updateChoice = in.nextInt();
+                            isValid = true;
+                        } else {
+                            System.out.println("Your choice should be 1, 2, or 9");
+                        }
+                    }
+
+                    if (updateChoice == 1) {
+                        // update all deliveries to delivered 'status'
+                        try {
+                            deliveryDocketDB.updateDeliveriesStatus(deliveryPersonId, date);
+                            System.out.println("Update was successful");
+                        } catch (DeliveryDocketExceptionHandler e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                    } else if (updateChoice == 2) {
+                        updatingDeliveriesByID(deliveryPersonId, date);
+                    }
+                }
+                else if (isDelivered == 0) {
+                    System.out.println("\n NO NEED TO UPDATE: No deliveries for this day");
+                }
+                else {
+                    System.out.println("\n NO NEED TO UPDATE: All deliveries in this delivery docket were delivered.");
+                }
+            } catch (DeliveryDocketExceptionHandler e) {
+                System.out.println("Error: in line deliveryDocketDB.isFullyDelivered (deliveryPersonId, date)");
+            }
+
         }
-
-        // 4. Check if deliveries were not delivered yet
-        try {
-            int isDelivered = deliveryDocketDB.isFullyDelivered(deliveryPersonId, date);
-            if ( isDelivered == -1) {
-                // 5. Ask the user, does he want to update the delivery status of all deliveries
-                //    at once, or update by id.
-                isValid = false;
-                int updateChoice = -1;
-                while (!isValid) {
-                    System.out.println("Two options available now: \n" +
-                            " 1: Update all deliveries to 'delivered' status \n" +
-                            " 2: Update deliveries by id\n" +
-                            " 9: Cancel the update, go to main menu");
-                    if (in.hasNextInt()) {
-                        updateChoice = in.nextInt();
-                        isValid = true;
-                    } else {
-                        System.out.println("Your choice should be 1, 2, or 9");
-                    }
-                }
-
-                if (updateChoice == 1) {
-                    // update all deliveries to delivered 'status'
-                    try {
-                        deliveryDocketDB.updateDeliveriesStatus(deliveryPersonId, date);
-                        System.out.println("Update was successful");
-                    } catch (DeliveryDocketExceptionHandler e) {
-                        System.out.println(e.getMessage());
-                    }
-
-                } else if (updateChoice == 2) {
-                    updatingDeliveriesByID(deliveryPersonId, date);
-                }
-            }
-            else if (isDelivered == 0) {
-                System.out.println("\n NO NEED TO UPDATE: No deliveries for this day");
-            }
-            else {
-                System.out.println("\n NO NEED TO UPDATE: All deliveries in this delivery docket were delivered.");
-            }
-        } catch (DeliveryDocketExceptionHandler e) {
-            System.out.println("Error: in line deliveryDocketDB.isFullyDelivered (deliveryPersonId, date)");
+        else {
+            System.out.println("You cannot change delivery status of deliveries in the future.");
+            System.out.println("Changing delivery status is available for today or past dates only.");
         }
 
 
