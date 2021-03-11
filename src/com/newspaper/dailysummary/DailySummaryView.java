@@ -401,7 +401,7 @@ public class DailySummaryView {
             try {
                 ResultSet rs = DBconnection.stmt.executeQuery(str);
                 PrintWriter writer1 = null;
-                writer1 = new PrintWriter(new File("src\\com\\newspaper\\dailysummary\\summaryfiles\\" + delivery_month + ".txt"));
+                writer1 = new PrintWriter(new File("out\\production\\NewspaperDelivery\\com\\newspaper\\dailysummary\\summaryfiles\\" + delivery_month + ".txt"));
 
                 writer1.printf("\n%-12s %-20s %-15s %-20s %-25s\n", "Summary ID", "Delivery Date", "Total revenue", "Publications Sold", "Revenue Per Pub");
 
