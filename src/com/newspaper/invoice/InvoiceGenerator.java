@@ -225,7 +225,7 @@ public class InvoiceGenerator {
             Customer c = customerDB.getCustomerById(invoice.getCustomerId());
 
             // create delivery docket text file
-            File docketFile = new File("src\\com\\newspaper\\invoice\\invoicefiles\\" + invoice.getCustomerId() + "_"+ c.getFirstName() + "_" + c.getLastName() + "_" + invoice.getInvoiceDate() + ".txt");
+            File docketFile = new File("out\\production\\NewspaperDelivery\\com\\newspaper\\invoice\\invoicefiles\\" + invoice.getCustomerId() + "_"+ c.getFirstName() + "_" + c.getLastName() + "_" + invoice.getInvoiceDate() + ".txt");
             //File docketFile = new File( docket.getDeliveryPersonName() + "_" + docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
 
             try {
