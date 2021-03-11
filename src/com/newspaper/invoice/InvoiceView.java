@@ -137,15 +137,15 @@ public class InvoiceView {
 
 
     public void deleteInvoice () {
-        try {
-            CustomerDB customerDB = new CustomerDB();
-            CustomerView view = new CustomerView();
-            view.printCustomers( customerDB.fetchCustomers());
-
-        }
-        catch (CustomerExceptionHandler e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            CustomerDB customerDB = new CustomerDB();
+//            CustomerView view = new CustomerView();
+//            view.printCustomers( customerDB.fetchCustomers());
+//
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            System.out.println(e.getMessage());
+//        }
 
         InvoiceDB invoiceDB = new InvoiceDB();
         int customerId = invoiceDB.getCustomerFromInvoice(DBconnection.stmt);
@@ -187,15 +187,15 @@ public class InvoiceView {
     }
 
     public void seeCustomerInvoices() {
-        try {
-            CustomerDB customerDB = new CustomerDB();
-            CustomerView view = new CustomerView();
-            view.printCustomers( customerDB.fetchCustomers());
-
-        }
-        catch (CustomerExceptionHandler e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            CustomerDB customerDB = new CustomerDB();
+//            CustomerView view = new CustomerView();
+//            view.printCustomers( customerDB.fetchCustomers());
+//
+//        }
+//        catch (CustomerExceptionHandler e) {
+//            System.out.println(e.getMessage());
+//        }
 
         InvoiceDB invoiceDB = new InvoiceDB();
         int customerId = invoiceDB.getCustomerFromInvoice(DBconnection.stmt);
