@@ -17,7 +17,7 @@ public class DailySummaryMain {
 
         int menuChoice = 0;
 
-        final int STOP_APP = 7;
+        final int STOP_APP = 4;
 
         while (menuChoice != STOP_APP) {
             ds.displayDailySummaryMainMenu(); //display the primary menu

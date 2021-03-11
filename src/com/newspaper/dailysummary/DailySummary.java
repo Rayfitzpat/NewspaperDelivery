@@ -74,11 +74,11 @@ public class DailySummary {
 
 
     public static void displayDailySummaryMainMenu() {
-        System.out.println("\nMain Menu");
+        System.out.println("\nSummary Menu");
         System.out.println("1: Revenue Report");
         System.out.println("2: Save Monthly Report");
         System.out.println("3: Populate Database");
-        System.out.println("4: Main Menu\n ");
+        System.out.println("4: Exit Menu\n");
         System.out.print("Enter your choice: ");
     }
 
