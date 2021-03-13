@@ -16,6 +16,8 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
      */
     public DeliveryDocketMainGUI() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     /**
@@ -565,8 +567,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         DeleteDeliveryDocket.setLayout(DeleteDeliveryDocketLayout);
         DeleteDeliveryDocketLayout.setHorizontalGroup(
                 DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(DeleteDeliveryDocketLayout.createSequentialGroup()
-                                .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DeleteDeliveryDocketLayout.createSequentialGroup()
+                                .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jTextField44)
                                         .addGroup(DeleteDeliveryDocketLayout.createSequentialGroup()
                                                 .addContainerGap()
                                                 .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -588,8 +591,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                                                                                 .addGap(18, 18, 18)
                                                                                 .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                                 .addGap(0, 479, Short.MAX_VALUE))
-                                                        .addComponent(jTextField41)))
-                                        .addComponent(jTextField44))
+                                                        .addComponent(jTextField41))))
                                 .addContainerGap())
         );
         DeleteDeliveryDocketLayout.setVerticalGroup(
@@ -612,9 +614,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                                         .addComponent(jButton33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16))
         );
 
         CentrePanel.add(DeleteDeliveryDocket, "card8");
