@@ -11,6 +11,7 @@ import com.newspaper.db.DBconnection;
 import jdk.swing.interop.SwingInterOpUtils;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -371,6 +372,13 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
         jTable1.setRowHeight(40);
 
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=3; i++){
+            jTable1.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
         javax.swing.GroupLayout DisplayAllLayout = new javax.swing.GroupLayout(DisplayAll);
         DisplayAll.setLayout(DisplayAllLayout);
         DisplayAllLayout.setHorizontalGroup(
@@ -444,6 +452,13 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jTable2.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane2.setViewportView(jTable2);
         jTable2.setRowHeight(40);
+
+
+        DefaultTableCellRenderer centerRenderer1 = new DefaultTableCellRenderer();
+        centerRenderer1.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=3; i++){
+            jTable2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer1);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1054,6 +1069,14 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         ));
         jTable3.setGridColor(new java.awt.Color(49, 117, 108));
         jTable3.setRowHeight(40);
+
+
+        DefaultTableCellRenderer centerRenderer2 = new DefaultTableCellRenderer();
+        centerRenderer2.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=3; i++){
+            jTable3.getColumnModel().getColumn(i).setCellRenderer(centerRenderer2);
+        }
+
         jScrollPane3.setViewportView(jTable3);
 
         jPanel5.setBackground(new java.awt.Color(19, 28, 33));
