@@ -2,7 +2,9 @@ package com.newspaper.customer;
 
 import com.newspaper.db.DBconnection;
 import junit.framework.TestCase;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class CustomerTest extends TestCase {
 
     private Customer customer;

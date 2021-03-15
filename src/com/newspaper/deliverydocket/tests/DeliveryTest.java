@@ -5,7 +5,9 @@ import com.newspaper.deliverydocket.Utility;
 import junit.framework.TestCase;
 
 import java.time.LocalDate;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class DeliveryTest extends TestCase {
 
     Delivery delivery;

@@ -14,7 +14,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class InvoiceGenerator {
 
     public static void main(String[] args) {
