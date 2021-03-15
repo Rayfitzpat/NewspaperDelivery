@@ -1,8 +1,8 @@
 package com.newspaper.order;
 
 import com.newspaper.db.DBconnection;
-import com.newspaper.deliverydocket.Delivery;
-import com.newspaper.deliverydocket.DeliveryDocketDB;
+//import com.newspaper.deliverydocket.Delivery;
+//import com.newspaper.deliverydocket.DeliveryDocketDB;
 import com.newspaper.publication.PublicationView;
 
 import java.sql.ResultSet;
@@ -47,7 +47,7 @@ public class OrderView {
                         displayOrderByCustomerId();
                         break;
                     case 3:
-                        addNewOrder();
+                        //addNewOrder();
                         break;
                     case 4:
                         editOptions();
@@ -101,12 +101,13 @@ public class OrderView {
             rs = stmt.executeQuery(query);
             while (rs.next()) {
 
+                int order_id = rs.getInt("order_id");
                 int customer_id = rs.getInt("customer_id");
                 int publication_id = rs.getInt("publication_id");
                 int freq = rs.getInt("frequency");
 
                 // creating an object of Order class, fill it with data from db
-                Order order = new Order(customer_id, publication_id, freq);
+                Order order = new Order(order_id, customer_id, publication_id, freq);
 
                 // add new object to array list
                 orders.add(order);
@@ -124,18 +125,37 @@ public class OrderView {
     }
 
     public void printOrdersWithNames(ArrayList<Order> orders) throws OrderExceptionHandler {
-        System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
+        System.out.printf("\n%-10s %-8s %-25s %-8s %-32s %-9s %-35s\n", "Order ID", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
 
         System.out.println("--------------------------------------------------------------------------------------------------");
         for (Order order : orders) {
+            int orderId = order.getOrder_id();
+            String orderIdKey = getOrderById(order.getOrder_id());
             int nameId = order.getCustomer_id();
             String name = getCustomerName(order.getCustomer_id());
             int publicationId = order.getPublication_id();
             String publication = getPublicationByID(order.getPublication_id());
             int frequencyId = order.getFrequency();
             String frequency = convertFrequency(order.getFrequency());
-            System.out.printf("%-8d %-25s %-8d %-32s %-9d %-35s\n", nameId, name, publicationId, publication, frequencyId, frequency);
+            System.out.printf("%-10d %-8d %-25s %-8d %-32s %-9d %-35s\n", orderId, nameId, name, publicationId, publication, frequencyId, frequency);
         }
+    }
+
+    public String getOrderById(int orderId) throws OrderExceptionHandler {
+        String orderIdKey = "";
+
+        String query = "SELECT order_id from orders;";
+
+        ResultSet rs;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()){
+                orderIdKey = rs.getString("order_id");
+            }
+        } catch (SQLException sqle) {
+            throw new OrderExceptionHandler("Customer does not exist");
+        }
+        return orderIdKey;
     }
 
     public String getCustomerName(int customerID) throws OrderExceptionHandler {
@@ -277,127 +297,127 @@ public class OrderView {
 // Beginning of add an order
 //******************************************************************************************************
 
-    public void addNewOrder() throws OrderExceptionHandler {
-        int cust_id = addNewOrderCustomerID();
-        int pub_id = addNewOrderPublicationID();
-        int freq = addNewOrderFrequency();
-
-        String insertQuery = "Insert into orders (customer_id, publication_id, frequency) values (" + cust_id + ", " + pub_id + ", " + freq + ")";
-
-        try {
-            Statement stmt = DBconnection.con.createStatement();
-            stmt.executeUpdate(insertQuery);
-
-            System.out.println("New Order added successfully for " + getCustomerName(cust_id) + " to get the " + getPublicationByID(pub_id) + " on " + convertFrequency(freq) + "'s");
-
-            // generating deliveries for the new order
-            DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
-
-            try {
-                Order order = new Order(cust_id, pub_id, freq);
-                ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
-                deliveryDocketDB.saveDeliveries(deliveries);
-            } catch (OrderExceptionHandler e) {
-                e.getMessage();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(insertQuery);
-        }
-    }
-
-    public int addNewOrderCustomerID() throws OrderExceptionHandler {
-        {
-            ArrayList<Order> orders = getOrders();
-            printOrdersWithNames(orders);
-
-            Scanner in = new Scanner(System.in);
-            int customer_id = 0;
-            boolean inputValid = false;
-
-            while (!inputValid) {
-                System.out.println("Please enter the id of the customer you would like to create a new order for");
-
-                if (in.hasNextInt()) {
-                    customer_id = in.nextInt();
-
-                    try {
-                        order.validateCustomerId(customer_id);
-                        // if validation was successful
-                        inputValid = true;
-
-                    } catch (OrderExceptionHandler e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else {
-                    //clear the input buffer and start again
-                    in.nextLine();
-                    System.out.println("Your entry was invalid, please try again...");
-                }
-            }
-            return customer_id;
-        }
-    }
-
-    public int addNewOrderPublicationID() throws OrderExceptionHandler {
-        {
-            PublicationView pv = new PublicationView();
-            pv.displayAllPublication();
-
-            Scanner in = new Scanner(System.in);
-            int publication_id = 0;
-            boolean inputValid = false;
-
-            while (!inputValid) {
-                System.out.println("Please enter the id of the publication you would like to add to the new order");
-                if (in.hasNextInt()) {
-                    publication_id = in.nextInt();
-                    try {
-                        order.validatePublicationId(publication_id);
-                        // if validation was successful
-                        inputValid = true;
-                    } catch (OrderExceptionHandler e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else {
-                    //clear the input buffer and start again
-                    in.nextLine();
-                    System.out.println("Your entry was invalid, please try again...");
-                }
-            }
-            return publication_id;
-        }
-    }
-
-    public int addNewOrderFrequency() throws OrderExceptionHandler {
-        {
-            Scanner in = new Scanner(System.in);
-            int frequency = 0;
-            boolean inputValid = false;
-
-            while (!inputValid) {
-                System.out.println("Please enter the id of the day you would like the new order to go out on");
-                System.out.println("1 = Monday\n2 = Tuesday\n3 = Wednesday\n4 = Thursday\n5 = Friday\n6 = Saturday\n7 = Sunday");
-
-                if (in.hasNextInt()) {
-                    frequency = in.nextInt();
-
-                    try {
-                        order.validateFrequency(frequency);
-                        // if validation was successful
-                        inputValid = true;
-                    } catch (OrderExceptionHandler e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else {
-                    //clear the input buffer and start again
-                    in.nextLine();
-                    System.out.println("Your entry was invalid, please enter a number between 1 and 7...");
-                }
-            }
-            return frequency;
-        }
-    }
+//    public void addNewOrder() throws OrderExceptionHandler {
+//        int cust_id = addNewOrderCustomerID();
+//        int pub_id = addNewOrderPublicationID();
+//        int freq = addNewOrderFrequency();
+//
+//        String insertQuery = "Insert into orders (customer_id, publication_id, frequency) values (" + cust_id + ", " + pub_id + ", " + freq + ")";
+//
+//        try {
+//            Statement stmt = DBconnection.con.createStatement();
+//            stmt.executeUpdate(insertQuery);
+//
+//            System.out.println("New Order added successfully for " + getCustomerName(cust_id) + " to get the " + getPublicationByID(pub_id) + " on " + convertFrequency(freq) + "'s");
+//
+//            // generating deliveries for the new order
+//            DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+//
+//            try {
+//                //Order order = new Order(cust_id, pub_id, freq);
+//                ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
+//                deliveryDocketDB.saveDeliveries(deliveries);
+//            } catch (OrderExceptionHandler e) {
+//                e.getMessage();
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            System.out.println(insertQuery);
+//        }
+//    }
+//
+//    public int addNewOrderCustomerID() throws OrderExceptionHandler {
+//        {
+//            ArrayList<Order> orders = getOrders();
+//            printOrdersWithNames(orders);
+//
+//            Scanner in = new Scanner(System.in);
+//            int customer_id = 0;
+//            boolean inputValid = false;
+//
+//            while (!inputValid) {
+//                System.out.println("Please enter the id of the customer you would like to create a new order for");
+//
+//                if (in.hasNextInt()) {
+//                    customer_id = in.nextInt();
+//
+//                    try {
+//                        order.validateCustomerId(customer_id);
+//                        // if validation was successful
+//                        inputValid = true;
+//
+//                    } catch (OrderExceptionHandler e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//                } else {
+//                    //clear the input buffer and start again
+//                    in.nextLine();
+//                    System.out.println("Your entry was invalid, please try again...");
+//                }
+//            }
+//            return customer_id;
+//        }
+//    }
+//
+//    public int addNewOrderPublicationID() throws OrderExceptionHandler {
+//        {
+//            PublicationView pv = new PublicationView();
+//            pv.displayAllPublication();
+//
+//            Scanner in = new Scanner(System.in);
+//            int publication_id = 0;
+//            boolean inputValid = false;
+//
+//            while (!inputValid) {
+//                System.out.println("Please enter the id of the publication you would like to add to the new order");
+//                if (in.hasNextInt()) {
+//                    publication_id = in.nextInt();
+//                    try {
+//                        order.validatePublicationId(publication_id);
+//                        // if validation was successful
+//                        inputValid = true;
+//                    } catch (OrderExceptionHandler e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//                } else {
+//                    //clear the input buffer and start again
+//                    in.nextLine();
+//                    System.out.println("Your entry was invalid, please try again...");
+//                }
+//            }
+//            return publication_id;
+//        }
+//    }
+//
+//    public int addNewOrderFrequency() throws OrderExceptionHandler {
+//        {
+//            Scanner in = new Scanner(System.in);
+//            int frequency = 0;
+//            boolean inputValid = false;
+//
+//            while (!inputValid) {
+//                System.out.println("Please enter the id of the day you would like the new order to go out on");
+//                System.out.println("1 = Monday\n2 = Tuesday\n3 = Wednesday\n4 = Thursday\n5 = Friday\n6 = Saturday\n7 = Sunday");
+//
+//                if (in.hasNextInt()) {
+//                    frequency = in.nextInt();
+//
+//                    try {
+//                        order.validateFrequency(frequency);
+//                        // if validation was successful
+//                        inputValid = true;
+//                    } catch (OrderExceptionHandler e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//                } else {
+//                    //clear the input buffer and start again
+//                    in.nextLine();
+//                    System.out.println("Your entry was invalid, please enter a number between 1 and 7...");
+//                }
+//            }
+//            return frequency;
+//        }
+//    }
 
 //******************************************************************************************************
 // Beginning of edit an order
