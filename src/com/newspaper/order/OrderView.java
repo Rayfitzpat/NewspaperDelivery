@@ -44,7 +44,8 @@ public class OrderView {
                         printOrdersWithNames(orders);
                         break;
                     case 2:
-                        displayOrderByCustomerId();
+                        //displayOrderByCustomerId();
+                        displayByIdOptions();
                         break;
                     case 3:
                         //addNewOrder();
@@ -71,7 +72,7 @@ public class OrderView {
     public void displayMainOrderMenu() {
         System.out.println("\nMain Menu");
         System.out.println("1: Display all Orders");
-        System.out.println("2: Display Order(s) by customer ID ");
+        System.out.println("2: Display Order(s) by specific ID");
         System.out.println("3: Add new Order");
         System.out.println("4: Edit Order");
         System.out.println("5: Delete Order");
@@ -127,10 +128,9 @@ public class OrderView {
     public void printOrdersWithNames(ArrayList<Order> orders) throws OrderExceptionHandler {
         System.out.printf("\n%-10s %-8s %-25s %-8s %-32s %-9s %-35s\n", "Order ID", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
 
-        System.out.println("--------------------------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------------------------------");
         for (Order order : orders) {
             int orderId = order.getOrder_id();
-            String orderIdKey = getOrderById(order.getOrder_id());
             int nameId = order.getCustomer_id();
             String name = getCustomerName(order.getCustomer_id());
             int publicationId = order.getPublication_id();
@@ -141,22 +141,6 @@ public class OrderView {
         }
     }
 
-    public String getOrderById(int orderId) throws OrderExceptionHandler {
-        String orderIdKey = "";
-
-        String query = "SELECT order_id from orders;";
-
-        ResultSet rs;
-        try {
-            rs = DBconnection.stmt.executeQuery(query);
-            while (rs.next()){
-                orderIdKey = rs.getString("order_id");
-            }
-        } catch (SQLException sqle) {
-            throw new OrderExceptionHandler("Customer does not exist");
-        }
-        return orderIdKey;
-    }
 
     public String getCustomerName(int customerID) throws OrderExceptionHandler {
         String name = "";
@@ -219,7 +203,7 @@ public class OrderView {
         return day;
     }
 //******************************************************************************************************
-// Beginning of display a certain order with entered ID.
+// Beginning of display a certain order with entered customer ID.
 //******************************************************************************************************
 
     public void displayOrderByCustomerId() throws SQLException {
@@ -248,7 +232,7 @@ public class OrderView {
                     ResultSet rs = stmt.executeQuery(query);
 
                     System.out.printf("\n%-10s %-8s %-25s %-8s %-32s %-9s %-35s\n", "Order ID", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
-                    System.out.println("--------------------------------------------------------------------------------------------------");
+                    System.out.println("-----------------------------------------------------------------------------------------------------------------");
                     while (rs.next()) {
                         int order_id = rs.getInt("order_id");
                         int customer_id = rs.getInt("customer_id");
@@ -290,6 +274,106 @@ public class OrderView {
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
             System.out.println(query);
+        }
+    }
+//******************************************************************************************************
+// Beginning of display a certain order with entered order ID.
+//******************************************************************************************************
+
+    public void displayOrderByOrderId() throws SQLException {
+        Scanner in = new Scanner(System.in);
+
+        boolean isValid = false;
+
+        while (!isValid) {
+            System.out.println("Please enter the ID of the order you want to display");
+            if (in.hasNextInt()) {
+
+                String query;
+
+                int orderID = in.nextInt();
+
+                //checks if the entered id is present in the db
+                try {
+                    // if id is not validated, the rest of the code won't execute
+                    order.validateOrderId(orderID);
+                    isValid = true;
+
+                    //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
+                    query = "Select * from orders where order_id = " + orderID + ";";
+
+                    Statement stmt = DBconnection.con.createStatement();
+                    ResultSet rs = stmt.executeQuery(query);
+
+                    System.out.printf("\n%-10s %-8s %-25s %-8s %-32s %-9s %-35s\n", "Order ID", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
+                    System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                    while (rs.next()) {
+                        int order_id = rs.getInt("order_id");
+                        int customer_id = rs.getInt("customer_id");
+                        int publication_id = rs.getInt("publication_id");
+                        int frequency = rs.getInt("frequency");
+
+                        String day = DayOfWeek.of(frequency).toString();
+
+                        System.out.printf("%-10d %-8d %-25s %-8d %-32s %-9d %-35s\n", order_id, customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, day);
+                    }
+                } catch (OrderExceptionHandler e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                in.nextLine();
+                System.out.println("Input needs to be an integer");
+            }
+        }
+    }
+
+
+    public void displayOrderByIdMenu() throws OrderExceptionHandler, SQLException {
+        System.out.println("\nDisplay by ID Menu");
+        System.out.println("1: Display an order by Order ID");
+        System.out.println("2: Display order(s) by Customer ID");
+        System.out.println("3: Display order(s) by Publication ID");
+        System.out.println("4: Display order(s) by Frequency");
+        System.out.print("Please enter your choice: ");
+    }
+
+    public void displayByIdOptions() throws OrderExceptionHandler, SQLException {
+
+        Scanner in = new Scanner(System.in);
+
+        int menuChoice = 0;
+
+        final int STOP_APP = 5;
+
+        while (menuChoice != STOP_APP) {
+            displayOrderByIdMenu(); //display the primary menu
+            if (in.hasNextInt()) {
+                //get the menu choice from the user
+                menuChoice = in.nextInt();
+
+                switch (menuChoice) {
+                    case 1:
+                        displayOrderByOrderId();
+                        break;
+                    case 2:
+                        displayOrderByCustomerId();
+                        break;
+                    case 3:
+                        //displayOrderByPublicationId();
+                        break;
+                    case 4:
+                        //displayOrderByFrequency();
+                        break;
+                    case 5:
+                        return;
+                    default:
+                        System.out.println("You entered an invalid choice, please try again...");
+                }
+            } else {
+                //clear the input buffer and start again
+                in.nextLine();
+                System.out.println("You entered an invalid choice, please try again...");
+            }
         }
     }
 
