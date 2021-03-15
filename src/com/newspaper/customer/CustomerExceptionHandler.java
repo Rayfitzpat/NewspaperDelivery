@@ -1,5 +1,7 @@
 package com.newspaper.customer;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class CustomerExceptionHandler  extends Exception{
 
     private String message;
