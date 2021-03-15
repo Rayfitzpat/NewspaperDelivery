@@ -346,4 +346,50 @@ public class OrderTest extends TestCase {
         }
     }
 
+    //Test #: 22
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: order_id = 200, nameOfField = "Order ID"
+    //Expected Output: Exception Message: "Order id does not exist"
+
+    public void testValidateOrderId001() {
+        try {
+            //Call method under test
+            order.validateOrderId(200);
+            fail("Exception expected");
+        }
+        catch (OrderExceptionHandler e) {
+            assertEquals("Order id does not exist", e.getMessage());
+        }
+    }
+
+    //Test #: 23
+    //Test Objective: To see if a number outside the range triggers the exception handler
+    //Inputs: order_id = -1, nameOfField = "Order ID"
+    //Expected Output: Exception Message: "Order id does not exist"
+
+    public void testValidateOrderId002() {
+        try {
+            //Call method under test
+            order.validateOrderId(-1);
+            fail("Exception expected");
+        }
+        catch (OrderExceptionHandler e) {
+            assertEquals("Order id does not exist", e.getMessage());
+        }
+    }
+
+    //Test #: 24
+    //Test Objective: To check validation on a correct ID
+    //Inputs: order_id = 10, nameOfField = "Order ID"
+    //Expected Output: No Exception
+
+    public void testValidateOrderId003() {
+        try {
+            //Call method under test
+            order.validateOrderId(10);
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+        }
+    }
 }
