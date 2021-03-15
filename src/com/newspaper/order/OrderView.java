@@ -232,32 +232,32 @@ public class OrderView {
             if (in.hasNextInt()) {
 
                 String query;
-                int id;
 
-                id = in.nextInt();
+                int customerID = in.nextInt();
 
                 //checks if the entered id is present in the db
                 try {
                     // if id is not validated, the rest of the code won't execute
-                    validateOrderCustomerId(id);
+                    validateOrderCustomerId(customerID);
                     isValid = true;
 
                     //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                    query = "Select * from orders where customer_id = " + id;
+                    query = "Select * from orders where customer_id = " + customerID;
 
                     Statement stmt = DBconnection.con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
 
-                    System.out.printf("\n%-8s %-25s %-8s %-32s %-9s %-35s\n", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
+                    System.out.printf("\n%-10s %-8s %-25s %-8s %-32s %-9s %-35s\n", "Order ID", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
                     System.out.println("--------------------------------------------------------------------------------------------------");
                     while (rs.next()) {
+                        int order_id = rs.getInt("order_id");
                         int customer_id = rs.getInt("customer_id");
                         int publication_id = rs.getInt("publication_id");
                         int frequency = rs.getInt("frequency");
 
                         String day = DayOfWeek.of(frequency).toString();
 
-                        System.out.printf("%-8d %-25s %-8d %-32s %-9d %-35s\n", customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, day);
+                        System.out.printf("%-10d %-8d %-25s %-8d %-32s %-9d %-35s\n", order_id, customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, day);
                     }
                 } catch (OrderExceptionHandler e) {
                     System.out.println(e.getMessage());
