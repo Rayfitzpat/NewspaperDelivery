@@ -33,6 +33,20 @@ public class Order {
 
     }
 
+
+    public Order(int customer_id, int publication_id, int frequency) throws OrderExceptionHandler {
+        this.customer_id = customer_id;
+        this.publication_id = publication_id;
+        this.frequency = frequency;
+
+        try {
+            validateCustomerId(customer_id);
+        }
+        catch (OrderExceptionHandler e){
+            throw e;
+        }
+    }
+
     public int getOrder_id() {
         return order_id;
     }
