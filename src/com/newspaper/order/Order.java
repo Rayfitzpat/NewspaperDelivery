@@ -115,4 +115,25 @@ public class Order {
             System.out.println(query);
         }
     }
+
+    public void validateOrderId(int order_id) throws OrderExceptionHandler {
+
+        String query = "select count(*) as total from orders where order_id = " + order_id + ";";
+        ResultSet rs;
+        int count = 0;
+        try {
+            rs = DBconnection.stmt.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+            if(count == 0)
+            {
+                throw new OrderExceptionHandler("Order id does not exist");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+        }
+    }
 }
