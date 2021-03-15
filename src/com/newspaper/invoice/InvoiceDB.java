@@ -200,7 +200,7 @@ public class InvoiceDB {
                     System.out.printf("%-20s %-25s %-20s\n", customer_id, firstName, lastName);
                 }
             } catch (SQLException sqle) {
-                System.out.println("Error: Customers.");
+                System.out.println("Error: No customer with that ID.");
                 System.out.println(sqle.getMessage());
                 System.out.println(str);
             }
@@ -434,6 +434,61 @@ public class InvoiceDB {
         }
     }
 
+//    public void getInvoiceFromCustomerName (String firstName, String lastName)
+//    {
+//        System.out.println("Please Enter Customer First Name: ");
+//        String fName = in.nextLine();
+//
+//            String str = "Select * from customer where customer_id = " + id;
+//            try {
+//                ResultSet rs = stmt.executeQuery(str);
+//                System.out.printf("\n%-20s %-25s %-20s\n", "Customer ID", "First Name", "Last Name");
+//                while (rs.next()) {
+//                    int customer_id = rs.getInt("customer_id");
+//                    String firstName = rs.getString("first_name");
+//                    String lastName = rs.getString("last_name");
+//                    System.out.printf("%-20s %-25s %-20s\n", customer_id, firstName, lastName);
+//                }
+//            } catch (SQLException sqle) {
+//                System.out.println("Error: Customers.");
+//                System.out.println(sqle.getMessage());
+//                System.out.println(str);
+//            }
+//        }
+//    }
+
+    public int getCustomerIDFromName() {
+        int customerId = 0;
+        System.out.println("Please Enter Customer First Name: ");
+        String firstName = in.nextLine();
+        if (!da.validateDeliveryAreaName(firstName)) {
+            System.out.println();
+            validDesc = false;
+        }
+        else {
+            System.out.println("Please Enter Customer Last Name: ");
+            String lastName = in.nextLine();
+            if(!da.validateDeliveryAreaName(lastName)) {
+                System.out.println();
+                validDesc = false;
+            }
+            else{
+            String str = "select * from customer where first_name = '"+firstName+"' AND last_name = '"+lastName+"';";
+            try {
+                ResultSet rs = stmt.executeQuery(str);
+                while (rs.next()) {
+                    customerId = rs.getInt("customer_id");
+
+                }
+            } catch (SQLException sqle) {
+                System.out.println("Error: No customer with that ID.");
+                System.out.println(sqle.getMessage());
+                System.out.println(str);
+            }
+            }
+        }
+        return customerId;
+    }
 
     public static void displayMainMenu() {
         System.out.println("\n Invoice Menu ");

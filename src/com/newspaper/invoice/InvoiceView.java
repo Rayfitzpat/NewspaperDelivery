@@ -45,8 +45,8 @@ public class InvoiceView {
                         createInvoice();
                         break;
                     case 2:
-                        // read invoice
-                        createInvoice();
+                        // read invoice //was CreateInvoice;
+                        seeInvoiceByCusName();
                         break;
 
                     case 3:
@@ -217,6 +217,29 @@ public class InvoiceView {
             }
         } else {
             throw new CustomerExceptionHandler("There is no invoice with id " + invoiceId + " in the database");
+        }
+    }
+
+    public void seeInvoiceByCusName()
+    {
+        // 1. Ask user to enter id of the customer
+        // 2. Ast user to enter the month he wants to create invoice for
+        // 3. Run generation of invoices for that month if its not there yet
+        // 4. Create invoice file, save in file and output to console window
+        //print customers
+        InvoiceDB invoice = new InvoiceDB();
+        int customerId = invoice.getCustomerIDFromName();
+        try {
+            CustomerDB customerDB = new CustomerDB();
+            CustomerView view = new CustomerView();
+            view.printCustomers( customerDB.fetchCustomers());
+            int month = askUserToEnterMonth();
+            System.out.println(customerId);
+
+            invoiceDB.createInvoice(customerId, month);
+        }
+        catch (CustomerExceptionHandler e) {
+            System.out.println(e.getMessage());
         }
     }
 }
