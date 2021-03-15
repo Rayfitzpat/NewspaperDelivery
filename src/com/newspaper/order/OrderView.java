@@ -1,7 +1,7 @@
 package com.newspaper.order;
 
 import com.newspaper.db.DBconnection;
-//import com.newspaper.deliverydocket.Delivery;
+import com.newspaper.deliverydocket.Delivery;
 //import com.newspaper.deliverydocket.DeliveryDocketDB;
 import com.newspaper.publication.PublicationView;
 
@@ -44,11 +44,10 @@ public class OrderView {
                         printOrdersWithNames(orders);
                         break;
                     case 2:
-                        //displayOrderByCustomerId();
                         displayByIdOptions();
                         break;
                     case 3:
-                        //addNewOrder();
+//                        addNewOrder();
                         break;
                     case 4:
                         editOptions();
@@ -484,13 +483,14 @@ public class OrderView {
 //******************************************************************************************************
 // Beginning of add an order
 //******************************************************************************************************
-
+//
 //    public void addNewOrder() throws OrderExceptionHandler {
+//        int ord_id = Integer.parseInt(null);
 //        int cust_id = addNewOrderCustomerID();
 //        int pub_id = addNewOrderPublicationID();
 //        int freq = addNewOrderFrequency();
 //
-//        String insertQuery = "Insert into orders (customer_id, publication_id, frequency) values (" + cust_id + ", " + pub_id + ", " + freq + ")";
+//        String insertQuery = "Insert into orders (order_id, customer_id, publication_id, frequency) values (null, " + cust_id + ", " + pub_id + ", " + freq + ")";
 //
 //        try {
 //            Statement stmt = DBconnection.con.createStatement();
@@ -502,7 +502,7 @@ public class OrderView {
 //            DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
 //
 //            try {
-//                //Order order = new Order(cust_id, pub_id, freq);
+//                Order order = new Order(ord_id, cust_id, pub_id, freq);
 //                ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
 //                deliveryDocketDB.saveDeliveries(deliveries);
 //            } catch (OrderExceptionHandler e) {
@@ -861,40 +861,27 @@ public class OrderView {
         boolean isValid = false;
 
         while (!isValid) {
-            System.out.println("Please enter the ID of the customer whose order you want to delete");
+            System.out.println("Please enter the ID of the order you want to delete");
             if (in.hasNextInt()) {
 
                 String query;
-                int customer_id = in.nextInt();
 
-
-                System.out.println("Please enter the ID of the publication on the order you want to delete");
-                int publication_id = in.nextInt();
-
-
-                System.out.println("Please enter the ID of the frequency on the order you want to delete");
-                int frequency = in.nextInt();
+                int order_id = in.nextInt();
 
                 //checks if the entered id is present in the db
                 try {
                     // if id is not validated, the rest of the code won't execute
-                    validateOrderCustomerId(customer_id);
-
-                    o.validatePublicationId(publication_id);
-
-                    o.validateFrequency(frequency);
+                    o.validateOrderId(order_id);
 
                     isValid = true;
 
                     //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                    query = "Delete from orders where customer_id = " + customer_id + " and publication_id = " + publication_id + " and frequency = " + frequency;
-
+                    query = "Delete from orders where order_id = " + order_id + ";";
 
                     Statement stmt = DBconnection.con.createStatement();
                     stmt.executeUpdate(query);
 
-                    System.out.println("Order deleted where Customer ID = " + customer_id + " (" + getCustomerName(customer_id) + ")" + ", Publication ID = " + publication_id + " (" + getPublicationByID(publication_id) + ")" + " and Frequency = " + frequency + " (" + convertFrequency(frequency) + ")");
-
+                    System.out.println("Order deleted where Order ID = " + order_id + ";");
                 } catch (OrderExceptionHandler e) {
                     System.out.println(e.getMessage());
                 }
