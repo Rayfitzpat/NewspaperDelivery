@@ -4,77 +4,12 @@ import com.newspaper.db.DBconnection;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class CustomerView {
 
     public static void main(String[] args) {
-//
-//        com.newspaper.db.DBconnection.init_db();  // open the connection to the database
-//        int menuChoice = 0; // variable used to store main menu choice
-//        final int STOP_APP = 7; //value from menu that is used to quit the application
-//        int customerID; // setting variable to temporary customer info storage
-//         CustomerDB customerDB;
-//         CustomerView view = new  CustomerView();
-//        Scanner in = new Scanner(System.in);
-//
-//        // initialising view
-//        try {
-//            // if view can be initialised with no errors, then connection
-//            // with db is set correctly
-//            customerDB = new  CustomerDB();
-//
-//            // running the menu
-//            while (menuChoice != STOP_APP) {
-//                view.displayCustomerMenu(); //display the primary customer menu
-//                if (in.hasNextInt()) {
-//                    //get the menu choice from the user
-//                    menuChoice = in.nextInt();
-//                    customerDB.fetchCustomers(); // resetting local copy of customers
-//                    switch (menuChoice) {
-//                        case 1:
-//                            ArrayList< Customer> customers = customerDB.fetchCustomers();
-//                            printCustomers(customers);
-//                            break;
-//                        case 2 :
-//                            customerID = view.askUserToEnterCustomerID(customerDB);
-//                            System.out.println(customerDB.getCustomers().get(customerID - 1));
-//                            break;
-//                        case 3 :
-//                            view.addNewCustomer(customerDB);
-//                            break;
-//                        case 4 :
-//                            customerID = view.askUserToEnterCustomerID(customerDB);
-//                            System.out.println(customerDB.getCustomers().get(customerID - 1));    // print customer details
-//                            view.editCustomer(customerID, customerDB); //You need to code this method below
-//                            break;
-//
-//                        case 5 :
-//                            customerID = view.askUserToEnterCustomerID(customerDB);
-//                            view.deactivateCustomer(customerID, customerDB); //You need to code this method below
-//                            break;
-//                        case 6 :
-//                            customerID = view.askUserToEnterCustomerID(customerDB);
-//                            view.deleteCustomer(customerID, customerDB); //You need to code this method below
-//                            break;
-//                        case 9 :
-//                            System.out.println("Program is closing...");
-//                            com.newspaper.db.DBconnection.cleanup_resources();  // close the connection to the database when finished program
-//                            break;
-//                        default :
-//                            System.out.println("You entered an invalid choice, please try again...");
-//                    }
-//                } else {
-//                    //clear the input buffer and start again
-//                    in.nextLine();
-//                    System.out.println("You entered an invalid choice, please try again...");
-//                    //in.nextLine();
-//                }
-//            }
-//        }
-//        catch ( CustomerExceptionHandler e) {
-//            System.out.println("Error in the first menu");
-//            System.out.println(e.getMessage());
-//        }
 
     }
 

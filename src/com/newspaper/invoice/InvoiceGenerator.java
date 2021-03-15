@@ -14,7 +14,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class InvoiceGenerator {
 
     public static void main(String[] args) {
@@ -225,7 +227,7 @@ public class InvoiceGenerator {
             Customer c = customerDB.getCustomerById(invoice.getCustomerId());
 
             // create delivery docket text file
-            File docketFile = new File("src\\com\\newspaper\\invoice\\invoicefiles\\" + invoice.getCustomerId() + "_"+ c.getFirstName() + "_" + c.getLastName() + "_" + invoice.getInvoiceDate() + ".txt");
+            File docketFile = new File("out\\production\\NewspaperDelivery\\com\\newspaper\\invoice\\invoicefiles\\" + invoice.getCustomerId() + "_"+ c.getFirstName() + "_" + c.getLastName() + "_" + invoice.getInvoiceDate() + ".txt");
             //File docketFile = new File( docket.getDeliveryPersonName() + "_" + docket.getDeliveryAreaName() + "_" + docket.getDate() + ".txt");
 
             try {

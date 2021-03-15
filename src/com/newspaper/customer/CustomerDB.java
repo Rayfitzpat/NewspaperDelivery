@@ -4,14 +4,13 @@ import com.newspaper.db.DBconnection;
 
 import java.sql.*;
 import java.util.ArrayList;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class CustomerDB {
 
     /**
-     * The class will be handling the outputs into the console and fetching data with the database
-     * <p>
-     * To be finished if I have time:
-     * - actual deleting of the customers
+     * Running mysqlserver on mac
      * -mysql.server start
      * -mysql -u root -p
      * -mysql.server stop

@@ -9,7 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class Customer {
     private int customerId, address1, deliveryAreaId;
     private String firstName, lastName, address2, town, eircode, phoneNumber, holidayStartDate, holidayEndDate;
