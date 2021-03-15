@@ -17,6 +17,7 @@ public class InvoiceView {
         DBconnection.init_db();
         view.runMenu();
     }
+
     private Utility utility = new Utility();
     private DeliveryView helper = new DeliveryView();
     Scanner in = new Scanner(System.in);
@@ -31,30 +32,26 @@ public class InvoiceView {
         // value that wil close the application.
         final int STOP_APP = 10;
 
-        while (menuChoice != STOP_APP)
-        {
+        while (menuChoice != STOP_APP) {
             invoice.displayMainMenu();
-            if (in.hasNextInt())
-            {
+            if (in.hasNextInt()) {
                 menuChoice = in.nextInt();
 
-                switch(menuChoice)
-                {
+                switch (menuChoice) {
                     case 1:
                         // create invoice
                         createInvoice();
                         break;
                     case 2:
-                        // read invoice
+                        // read invoice //was CreateInvoice;
                         createInvoice();
                         break;
 
                     case 3:
                         // update invoice
-                        try{
+                        try {
                             invoice.paidUpdate(DBconnection.stmt);
-                        }
-                        catch (SQLException e) {
+                        } catch (SQLException e) {
                             System.out.println(e.getMessage());
                         }
                         break;
@@ -74,10 +71,14 @@ public class InvoiceView {
                     case 7:
                         seeCustomerInvoices();
                         break;
+                    case 8:
+                        seeInvoiceByCusName();
+                        break;
+                    case 9:
+                        seeInvoiceByDate();
+                        break;
                 }
-            }
-            else
-            {
+            } else {
                 in.nextLine();
                 System.out.println("You entered an invalid choice please try again.");
             }
@@ -95,14 +96,13 @@ public class InvoiceView {
         try {
             CustomerDB customerDB = new CustomerDB();
             CustomerView view = new CustomerView();
-            view.printCustomers( customerDB.fetchCustomers());
+            view.printCustomers(customerDB.fetchCustomers());
 
             int customerId = helper.askUserToEnterCustomerID();
             int month = askUserToEnterMonth();
 
             invoiceDB.createInvoice(customerId, month);
-        }
-        catch (CustomerExceptionHandler e) {
+        } catch (CustomerExceptionHandler e) {
             System.out.println(e.getMessage());
         }
 
@@ -136,7 +136,7 @@ public class InvoiceView {
     }
 
 
-    public void deleteInvoice () {
+    public void deleteInvoice() {
 //        try {
 //            CustomerDB customerDB = new CustomerDB();
 //            CustomerView view = new CustomerView();
@@ -163,22 +163,18 @@ public class InvoiceView {
                     isValid = true;
                     try {
                         deleteInvoiceById(invoiceId);
-                    }
-                    catch (CustomerExceptionHandler e) {
+                    } catch (CustomerExceptionHandler e) {
                         System.out.println(e.getMessage());
                     }
 
-                }
-                else if (choice == 2) {
+                } else if (choice == 2) {
                     //cancel, exit the loop
                     isValid = true;
                     System.out.println("\nDeleting invoice was cancelled");
-                }
-                else {
+                } else {
                     System.out.println("\nInvalid input");
                 }
-            }
-            else {
+            } else {
                 in.next();
                 System.out.println("\nInvalid input");
             }
@@ -218,5 +214,29 @@ public class InvoiceView {
         } else {
             throw new CustomerExceptionHandler("There is no invoice with id " + invoiceId + " in the database");
         }
+    }
+
+    public void seeInvoiceByCusName() {
+        // 1. Ask user to enter id of the customer
+        // 2. Ast user to enter the month he wants to create invoice for
+        // 3. Run generation of invoices for that month if its not there yet
+        // 4. Create invoice file, save in file and output to console window
+        //print customers
+        InvoiceDB invoice = new InvoiceDB();
+        int customerId = invoice.getCustomerIDFromName();
+
+        int month = askUserToEnterMonth();
+        System.out.println(customerId);
+
+        invoiceDB.createInvoice(customerId, month);
+
+
+    }
+
+    public void seeInvoiceByDate() {
+        int month = askUserToEnterMonth();
+        InvoiceDB db = new InvoiceDB();
+        db.displayAllInvoicesByDate(month);
+
     }
 }
