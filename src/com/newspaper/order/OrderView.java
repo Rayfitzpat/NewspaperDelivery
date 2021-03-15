@@ -212,7 +212,7 @@ public class OrderView {
         boolean isValid = false;
 
         while (!isValid) {
-            System.out.println("Please enter the ID of the customer whose order you want to display");
+            System.out.println("\nPlease enter the ID of the customer whose order you want to display");
             if (in.hasNextInt()) {
 
                 String query;
@@ -286,7 +286,7 @@ public class OrderView {
         boolean isValid = false;
 
         while (!isValid) {
-            System.out.println("Please enter the ID of the order you want to display");
+            System.out.println("\nPlease enter the ID of the order you want to display");
             if (in.hasNextInt()) {
 
                 String query;
@@ -337,7 +337,7 @@ public class OrderView {
         boolean isValid = false;
 
         while (!isValid) {
-            System.out.println("Please enter the ID of the publication that is on the orders you want to display");
+            System.out.println("\nPlease enter the ID of the publication that is on the orders you want to display");
             if (in.hasNextInt()) {
 
                 String query;
@@ -378,13 +378,67 @@ public class OrderView {
         }
     }
 
+    //******************************************************************************************************
+// Beginning of display a certain order with entered order ID.
+//******************************************************************************************************
+
+    public void displayOrderByFrequency() throws SQLException {
+        Scanner in = new Scanner(System.in);
+
+        boolean isValid = false;
+
+        while (!isValid) {
+            System.out.println("\nPlease enter the ID of the frequency that is on the orders you want to display");
+            System.out.println("1 = Monday\n2 = Tuesday\n3 = Wednesday\n4 = Thursday\n5 = Friday\n6 = Saturday\n7 = Sunday");
+            if (in.hasNextInt()) {
+
+                String query;
+
+                int frequencyID = in.nextInt();
+
+                //checks if the entered id is present in the db
+                try {
+                    // if id is not validated, the rest of the code won't execute
+                    order.validateFrequency(frequencyID);
+                    isValid = true;
+
+                    //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
+                    query = "Select * from orders where frequency = " + frequencyID + ";";
+
+                    Statement stmt = DBconnection.con.createStatement();
+                    ResultSet rs = stmt.executeQuery(query);
+
+                    System.out.printf("\n%-10s %-8s %-25s %-8s %-32s %-9s %-35s\n", "Order ID", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
+                    System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                    while (rs.next()) {
+                        int order_id = rs.getInt("order_id");
+                        int customer_id = rs.getInt("customer_id");
+                        int publication_id = rs.getInt("publication_id");
+                        int frequency = rs.getInt("frequency");
+
+                        String day = DayOfWeek.of(frequency).toString();
+
+                        System.out.printf("%-10d %-8d %-25s %-8d %-32s %-9d %-35s\n", order_id, customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, day);
+                    }
+                } catch (OrderExceptionHandler e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                in.nextLine();
+                System.out.println("Input needs to be an integer");
+            }
+        }
+    }
+
     public void displayOrderByIdMenu() throws OrderExceptionHandler, SQLException {
         System.out.println("\nDisplay by ID Menu");
         System.out.println("1: Display an order by Order ID");
         System.out.println("2: Display order(s) by Customer ID");
         System.out.println("3: Display order(s) by Publication ID");
         System.out.println("4: Display order(s) by Frequency");
-        System.out.print("Please enter your choice: ");
+        System.out.println("5: Back to Order menu");
+        System.out.println("Please enter your choice: ");
+        //System.out.println("\n");
     }
 
     public void displayByIdOptions() throws OrderExceptionHandler, SQLException {
@@ -412,7 +466,7 @@ public class OrderView {
                         displayOrderByPublicationId();
                         break;
                     case 4:
-                        //displayOrderByFrequency();
+                        displayOrderByFrequency();
                         break;
                     case 5:
                         return;
