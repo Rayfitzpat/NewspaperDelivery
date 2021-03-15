@@ -74,6 +74,12 @@ public class InvoiceView {
                     case 7:
                         seeCustomerInvoices();
                         break;
+                    case 8:
+                        seeInvoiceByCusName();
+                        break;
+                    case 9:
+                        seeInvoiceByDate();
+                        break;
                 }
             }
             else
@@ -241,5 +247,12 @@ public class InvoiceView {
         catch (CustomerExceptionHandler e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void seeInvoiceByDate() {
+        int month = askUserToEnterMonth();
+        InvoiceDB db = new InvoiceDB();
+        db.displayAllInvoicesByDate(month);
+
     }
 }

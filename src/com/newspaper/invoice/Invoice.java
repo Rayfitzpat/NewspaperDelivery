@@ -148,7 +148,8 @@ public class Invoice {
 
                 }
                 sb.append("\n|                                                                                                           |");
-                sb.append("\n| TOTAL: " + Math.round(getPrice() * 100.0) / 100.0 +"                                                                                              |");
+                //sb.append("\n| TOTAL: " + Math.round(getPrice() * 100.0) / 100.0 +"                                                                                              |");
+                sb.append(String.format("\n| %-15s %-89s |", "TOTAL: ", Math.round(getPrice() * 100.0) / 100.0));
             } else {
                 sb.append("\n|                                                                                                           |");
                 sb.append("\n|Customer did not receive any deliveries this month.                                                        |");

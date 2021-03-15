@@ -127,6 +127,37 @@ public class InvoiceDB {
 
     }
 
+    public void displayAllInvoicesByDate(int month) {
+        String query = "select * from invoice where Month(invoice_date) = " + month + ";";
+        try {
+            ResultSet rs = stmt.executeQuery(query);
+
+            // if result set is not empty, we print the table
+            if(rs.next()) {
+
+                System.out.printf("\n%-20s %-25s %-20s %-20s %-20s\n", "Invoice ID", "Customer ID", "Invoice Date", "Price", "Invoice Status");
+                while (rs.next()) {
+                    int invoice_id = rs.getInt("invoice_id");
+                    int cus_id = rs.getInt("customer_id");
+                    String date = rs.getString("invoice_date");
+                    String price = rs.getString("price");
+                    String invoiceStatus = rs.getString("price_paid");
+
+                    System.out.printf("%-20s %-25s %-20s %-20s %-20s\n", invoice_id, cus_id, date, price, invoiceStatus);
+                }
+            }
+            else {
+                System.out.println("There are no invoices for month " + month + " yet.");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println("Error: failed to invoices.");
+            System.out.println(sqle.getMessage());
+            System.out.println(query);
+        }
+
+    }
+
     public int getCustomerFromInvoice(Statement stmt) {
         // print customers
         String cID = "";
@@ -498,7 +529,9 @@ public class InvoiceDB {
         System.out.println("4: Delete Invoice");
         System.out.println("5: Get Customer Name from Invoice ID");
         System.out.println("6: Get Customer Address from Invoice");
-        System.out.println("7: See all invoices of a customer");
+        System.out.println("7: See all invoices of a customer by id");
+        System.out.println("8: See all invoices of a customer by name");
+        System.out.println("9: See all invoices by date");
         System.out.println("10: Return to Main Menu");
         System.out.println("\nPlease, enter your choice: ");
     }
