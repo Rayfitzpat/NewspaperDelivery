@@ -5,7 +5,9 @@ import com.newspaper.deliverydocket.*;
 import junit.framework.TestCase;
 
 import java.time.LocalDate;
-
+/**
+ * @author  Yuliia Dovbak
+ */
 public class DeliveryDocketDBTest extends TestCase {
 
     DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();

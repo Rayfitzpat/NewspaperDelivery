@@ -11,6 +11,10 @@ import junit.framework.TestCase;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * @author  Yuliia Dovbak
+ */
+
 public class UtilityTest extends TestCase {
 
     Utility utility = new Utility();
