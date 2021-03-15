@@ -46,7 +46,7 @@ public class InvoiceView {
                         break;
                     case 2:
                         // read invoice //was CreateInvoice;
-                        seeInvoiceByCusName();
+                        createInvoice();
                         break;
 
                     case 3:
