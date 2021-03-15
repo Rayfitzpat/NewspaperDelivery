@@ -8,13 +8,15 @@ import java.sql.SQLException;
 
 //all validation
 public class Order {
+    private int order_id;
     private int customer_id;
     private int publication_id;
     private int frequency;
 
     //constructor
 
-    public Order(int customer_id, int publication_id, int frequency) throws OrderExceptionHandler {
+    public Order(int order_id, int customer_id, int publication_id, int frequency) throws OrderExceptionHandler {
+        this.order_id = order_id;
         this.customer_id = customer_id;
         this.publication_id = publication_id;
         this.frequency = frequency;
@@ -29,6 +31,14 @@ public class Order {
 
     public Order(){
 
+    }
+
+    public int getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 
     public int getCustomer_id() {
