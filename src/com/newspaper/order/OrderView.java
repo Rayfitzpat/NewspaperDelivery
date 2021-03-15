@@ -327,6 +327,56 @@ public class OrderView {
         }
     }
 
+//******************************************************************************************************
+// Beginning of display a certain order with entered order ID.
+//******************************************************************************************************
+
+    public void displayOrderByPublicationId() throws SQLException {
+        Scanner in = new Scanner(System.in);
+
+        boolean isValid = false;
+
+        while (!isValid) {
+            System.out.println("Please enter the ID of the publication that is on the orders you want to display");
+            if (in.hasNextInt()) {
+
+                String query;
+
+                int publicationID = in.nextInt();
+
+                //checks if the entered id is present in the db
+                try {
+                    // if id is not validated, the rest of the code won't execute
+                    order.validatePublicationId(publicationID);
+                    isValid = true;
+
+                    //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
+                    query = "Select * from orders where publication_id = " + publicationID + ";";
+
+                    Statement stmt = DBconnection.con.createStatement();
+                    ResultSet rs = stmt.executeQuery(query);
+
+                    System.out.printf("\n%-10s %-8s %-25s %-8s %-32s %-9s %-35s\n", "Order ID", "Cus ID", "Customer Name", "Pub ID", "Publication Name", "Freq ID", "Frequency");
+                    System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                    while (rs.next()) {
+                        int order_id = rs.getInt("order_id");
+                        int customer_id = rs.getInt("customer_id");
+                        int publication_id = rs.getInt("publication_id");
+                        int frequency = rs.getInt("frequency");
+
+                        String day = DayOfWeek.of(frequency).toString();
+
+                        System.out.printf("%-10d %-8d %-25s %-8d %-32s %-9d %-35s\n", order_id, customer_id, getCustomerName(customer_id), publication_id, getPublicationByID(publication_id), frequency, day);
+                    }
+                } catch (OrderExceptionHandler e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                in.nextLine();
+                System.out.println("Input needs to be an integer");
+            }
+        }
+    }
 
     public void displayOrderByIdMenu() throws OrderExceptionHandler, SQLException {
         System.out.println("\nDisplay by ID Menu");
@@ -359,7 +409,7 @@ public class OrderView {
                         displayOrderByCustomerId();
                         break;
                     case 3:
-                        //displayOrderByPublicationId();
+                        displayOrderByPublicationId();
                         break;
                     case 4:
                         //displayOrderByFrequency();
