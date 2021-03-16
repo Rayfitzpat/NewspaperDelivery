@@ -185,7 +185,10 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
-                System.out.println("Order Menu not yet initialised");
+               OrderMainGUI orderMainGUI = new OrderMainGUI();
+               dispose();
+               orderMainGUI.setVisible(true);
+
             }
         });
 
