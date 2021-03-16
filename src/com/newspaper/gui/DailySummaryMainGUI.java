@@ -16,9 +16,6 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
      */
     public DailySummaryMainGUI() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        setResizable(false);
-
     }
 
     /**
@@ -83,7 +80,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jLabel69 = new javax.swing.JLabel();
         jTextField44 = new javax.swing.JTextField();
         jTextField30 = new javax.swing.JTextField();
-        PopulateDB = new javax.swing.JPanel();
+        GenerateFile = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jTextField22 = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
@@ -91,7 +88,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jTextField24 = new javax.swing.JTextField();
         jButton27 = new javax.swing.JButton();
         jTextField41 = new javax.swing.JTextField();
-        GenerateFile = new javax.swing.JPanel();
+        PopulateDB = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         jTextField25 = new javax.swing.JTextField();
@@ -203,7 +200,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jButton21.setBackground(new java.awt.Color(19, 28, 33));
         jButton21.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton21.setForeground(new java.awt.Color(49, 117, 108));
-        jButton21.setText("Populate DB");
+        jButton21.setText("Populate Db");
         jButton21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -750,7 +747,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         CentrePanel.add(UserChosenRange, "card7");
 
-        PopulateDB.setBackground(new java.awt.Color(19, 28, 33));
+        GenerateFile.setBackground(new java.awt.Color(19, 28, 33));
 
         jPanel9.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -822,24 +819,24 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                                 .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout PopulateDBLayout = new javax.swing.GroupLayout(PopulateDB);
-        PopulateDB.setLayout(PopulateDBLayout);
-        PopulateDBLayout.setHorizontalGroup(
-                PopulateDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(PopulateDBLayout.createSequentialGroup()
+        javax.swing.GroupLayout GenerateFileLayout = new javax.swing.GroupLayout(GenerateFile);
+        GenerateFile.setLayout(GenerateFileLayout);
+        GenerateFileLayout.setHorizontalGroup(
+                GenerateFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(GenerateFileLayout.createSequentialGroup()
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 1314, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 4, Short.MAX_VALUE))
         );
-        PopulateDBLayout.setVerticalGroup(
-                PopulateDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(PopulateDBLayout.createSequentialGroup()
+        GenerateFileLayout.setVerticalGroup(
+                GenerateFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(GenerateFileLayout.createSequentialGroup()
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 41, Short.MAX_VALUE))
         );
 
-        CentrePanel.add(PopulateDB, "card3");
+        CentrePanel.add(GenerateFile, "card3");
 
-        GenerateFile.setBackground(new java.awt.Color(19, 28, 33));
+        PopulateDB.setBackground(new java.awt.Color(19, 28, 33));
 
         jPanel12.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -927,22 +924,22 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                                 .addComponent(jTextField45, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout GenerateFileLayout = new javax.swing.GroupLayout(GenerateFile);
-        GenerateFile.setLayout(GenerateFileLayout);
-        GenerateFileLayout.setHorizontalGroup(
-                GenerateFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(GenerateFileLayout.createSequentialGroup()
+        javax.swing.GroupLayout PopulateDBLayout = new javax.swing.GroupLayout(PopulateDB);
+        PopulateDB.setLayout(PopulateDBLayout);
+        PopulateDBLayout.setHorizontalGroup(
+                PopulateDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PopulateDBLayout.createSequentialGroup()
                                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 1314, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 4, Short.MAX_VALUE))
         );
-        GenerateFileLayout.setVerticalGroup(
-                GenerateFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(GenerateFileLayout.createSequentialGroup()
+        PopulateDBLayout.setVerticalGroup(
+                PopulateDBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PopulateDBLayout.createSequentialGroup()
                                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 41, Short.MAX_VALUE))
         );
 
-        CentrePanel.add(GenerateFile, "card3");
+        CentrePanel.add(PopulateDB, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
