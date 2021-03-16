@@ -49,7 +49,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
 
-LoginGUI loginGUI = new LoginGUI();
+        LoginGUI loginGUI = new LoginGUI();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 //        loginGUI.setVisible(true);
         setPreferredSize(new java.awt.Dimension(1564, 983));
@@ -153,7 +153,10 @@ LoginGUI loginGUI = new LoginGUI();
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
-                System.out.println("Delivery Summary not yet initialised");
+               DailySummaryMainGUI dailySummaryMainGUI = new DailySummaryMainGUI();
+                dispose();
+                jButton5ActionPerformed(evt);
+                dailySummaryMainGUI.setVisible(true);
             }
         });
 
