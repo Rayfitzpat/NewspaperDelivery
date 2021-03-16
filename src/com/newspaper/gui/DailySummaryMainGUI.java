@@ -85,13 +85,11 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jTextField30 = new javax.swing.JTextField();
         PopulateDB = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
         jTextField22 = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jTextField23 = new javax.swing.JTextField();
         jTextField24 = new javax.swing.JTextField();
         jButton27 = new javax.swing.JButton();
-        jTextField28 = new javax.swing.JTextField();
         jTextField41 = new javax.swing.JTextField();
         GenerateFile = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -756,10 +754,6 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(19, 28, 33));
 
-        jLabel31.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel31.setText("Please Enter the Month in the format MM or M");
-
         jTextField22.setBackground(new java.awt.Color(19, 28, 39));
         jTextField22.setForeground(new java.awt.Color(18, 30, 49));
         jTextField22.setBorder(null);
@@ -769,7 +763,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         jLabel32.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel32.setText("Please Enter the Year in the format YYYY");
+        jLabel32.setText("Please Enter the Year AND Month in the format YYYY-MM");
 
         jTextField23.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -781,8 +775,6 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jButton27.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton27.setForeground(new java.awt.Color(0, 0, 0));
         jButton27.setText("Submit");
-
-        jTextField28.setBackground(new java.awt.Color(0, 102, 102));
 
         jTextField41.setBackground(new java.awt.Color(19, 28, 33));
         jTextField41.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -797,27 +789,21 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                 jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 1311, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel9Layout.createSequentialGroup()
-                                                .addGap(0, 0, 0)
+                                                .addComponent(jLabel32)
+                                                .addGap(79, 79, 79)
                                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 1311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(jPanel9Layout.createSequentialGroup()
-                                                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                        .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                .addGap(79, 79, 79)
-                                                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addGroup(jPanel9Layout.createSequentialGroup()
-                                                                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                        .addComponent(jTextField23, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                                                                                        .addComponent(jTextField28))
-                                                                                .addGap(269, 269, 269)
-                                                                                .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                                        .addGroup(jPanel9Layout.createSequentialGroup()
-                                                .addGap(56, 56, 56)
-                                                .addComponent(jTextField41, javax.swing.GroupLayout.PREFERRED_SIZE, 1185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(269, 269, 269)
+                                                                .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(jTextField41, javax.swing.GroupLayout.PREFERRED_SIZE, 1185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
                 jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -826,21 +812,14 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextField23, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel9Layout.createSequentialGroup()
-                                                .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 126, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jButton27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(46, 46, 46)))
+                                        .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton27))
+                                .addGap(18, 18, 18)
                                 .addComponent(jTextField41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout PopulateDBLayout = new javax.swing.GroupLayout(PopulateDB);
@@ -1189,7 +1168,6 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel36;
@@ -1227,7 +1205,6 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField24;
     private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField28;
     private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField30;
     private javax.swing.JTextField jTextField41;
