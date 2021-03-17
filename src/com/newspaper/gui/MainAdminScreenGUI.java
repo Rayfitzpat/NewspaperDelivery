@@ -202,7 +202,9 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
-                System.out.println("Invoice Menu not yet initialised");
+                InvoiceMainGUI invoiceMainGUI = new InvoiceMainGUI();
+                dispose();
+                invoiceMainGUI.setVisible(true);
             }
         });
 
