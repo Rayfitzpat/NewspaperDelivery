@@ -333,8 +333,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         tfDeliveryDocketAreaCREATE.setEditable(false);
         tfDeliveryDocketAreaCREATE.setBackground(new java.awt.Color(19, 28, 33));
         tfDeliveryDocketAreaCREATE.setColumns(20);
-        tfDeliveryDocketAreaCREATE.setForeground(new java.awt.Color(255, 0, 0));
+        tfDeliveryDocketAreaCREATE.setForeground(new java.awt.Color(49, 117, 108));
         tfDeliveryDocketAreaCREATE.setRows(5);
+        tfDeliveryDocketAreaCREATE.setFont(new java.awt.Font("sansserif", 0, 24));
         tfDeliveryDocketAreaCREATE.setText("Text Here");
         jScrollPane2.setViewportView(tfDeliveryDocketAreaCREATE);
 
