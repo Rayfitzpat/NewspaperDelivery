@@ -5,6 +5,12 @@
  */
 package com.newspaper.gui;
 
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  *
  * @author Ray
@@ -136,9 +142,52 @@ public class OrderMainGUI extends javax.swing.JFrame {
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+
                 jButton1ActionPerformed(evt);
+
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
+                    Connection con = DriverManager.getConnection(url, "root", "admin");
+                    Statement stmt = con.createStatement();
+                    String sql = "Select * from delivery_person";
+                    ResultSet rs = stmt.executeQuery(sql);
+
+                    while (rs.next()) {
+
+                        int id = rs.getInt("order_id");
+                        int customer_id = rs.getInt("customer_id");
+
+                        String firstName = rs.getString("first_name");
+                        String lastName = rs.getString("last_name");
+                        String address1 = rs.getString("address1");
+                        String address2 = rs.getString("address2");
+                        String town = rs.getString("town");
+                        String phone_number = rs.getString("delivery_phone_number");
+                        String dob = rs.getString("dob");
+                        String access_level = rs.getString("access_level");
+                        String status = rs.getString("delivery_status");
+                        String user_name = rs.getString("user_name");
+                        String password = rs.getString("password");
+
+
+                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable4.getModel();
+
+                        tblModel.addRow(tbData);
+//                        personDBInitialised[0] = true;
+
+                    }
+                    con.close();
+
+                } catch (Exception e) {
+                    System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+                }
+
             }
+
         });
+
 
         jButton3.setBackground(new java.awt.Color(19, 28, 33));
         jButton3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
