@@ -183,7 +183,13 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
         btnYesOnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yesClickedOnDelete();
+            }
+        });
 
+        btnNoOnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noClickedOnDelete();
             }
         });
 
@@ -399,7 +405,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         textAreaDeliveryDocketAreaCREATE.setForeground(new java.awt.Color(49, 117, 108));
         textAreaDeliveryDocketAreaCREATE.setRows(5);
         textAreaDeliveryDocketAreaCREATE.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
-        textAreaDeliveryDocketAreaCREATE.setText("Text Here");
         jScrollPane2.setViewportView(textAreaDeliveryDocketAreaCREATE);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -662,7 +667,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         textAreaDelete.setForeground(new java.awt.Color(49, 117, 108));
         textAreaDelete.setRows(5);
         textAreaDelete.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
-        textAreaDelete.setText("Text Here");
         jScrollPane2.setViewportView(textAreaDeliveryDocketAreaCREATE);
 
 
@@ -1326,6 +1330,8 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     /********************************DELETE*******************************/
     /*********************************************************************/
 
+    private int dpIdOnDelete = 0;
+    private String dateOnDelete = "";
     // "Submit" button click listener on DELETE tab
     private void submitOnDelete() {
         // reset warning
@@ -1333,6 +1339,10 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
         int id = checkDeliveryPersonIdOnDelete();
         String date = getDateOnDelete();
+
+        // set local data
+        dpIdOnDelete = id;
+        dateOnDelete = date;
 
         if (id == 0) {
             tfWarningOnDelete.setText("Delivery person id input is not valid");
@@ -1397,15 +1407,46 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         }
     }
 
-//    // "Yes" button click listener on DELETE tab
-//    public void yesClickedOnDelete() {
-//        // get the delivery area id where the delivery person is working
-//        DeliveryArea area = utility.getDeliveryArea(deliveryAreaId);
-//        String deliveryAreaName = area.getDAreaName();
-//        String deliveryPersonName = utility.getDeliveryPersonName(area.getDeliveryPersonId());
-//        String fileName = deliveryPersonName + "_" + deliveryAreaName + "_" + date + ".txt";
-//        deliveryDocketDB.deleteFileIfExists(fileName);
-//    }
+    // "Yes" button click listener on DELETE tab
+    public void yesClickedOnDelete() {
+        tfWarningOnDelete.setText("");
+
+        if (textAreaDelete.getText().equals("")) {
+            tfWarningOnDelete.setText("Nothing to delete");
+        }
+        else {
+            if (dpIdOnDelete!= 0 && !dateOnDelete.equals("")) {
+                try {
+                    // get the delivery area id where the delivery person is working
+                    DeliveryArea area = deliveryDocketDB.getDeliveryArea(dpIdOnDelete);
+                    String deliveryAreaName = area.getDAreaName();
+                    String deliveryPersonName = utility.getDeliveryPersonName(area.getDeliveryPersonId());
+                    String fileName = deliveryPersonName + "_" + deliveryAreaName + "_" + date + ".txt";
+                    deliveryDocketDB.deleteFileIfExists(fileName);
+                    tfWarningOnDelete.setText("Delivery docket was deleted successfully");
+                    textAreaDelete.setText("");
+                }
+                catch (DeliveryDocketExceptionHandler e) {
+                    tfWarningOnDelete.setText(e.getMessage());
+                }
+            }
+        }
+    }
+
+    //
+    public void noClickedOnDelete() {
+        // reset warning
+        tfWarningOnDelete.setText("");
+
+        // if text are is empty, nothing to delete
+        if (textAreaDelete.getText().equals("")) {
+            tfWarningOnDelete.setText("Nothing to delete");
+        }
+        else {
+            tfWarningOnDelete.setText("Delivery docket was not deleted");
+        }
+
+    }
 
 
 
