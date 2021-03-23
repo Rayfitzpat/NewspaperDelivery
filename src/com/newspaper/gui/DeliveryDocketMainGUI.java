@@ -6,13 +6,18 @@
 package com.newspaper.gui;
 
 import com.newspaper.db.DBconnection;
-import com.newspaper.deliverydocket.DeliveryDocket;
-import com.newspaper.deliverydocket.DeliveryDocketDB;
-import com.newspaper.deliverydocket.DeliveryDocketExceptionHandler;
+import com.newspaper.deliveryarea.DeliveryArea;
+import com.newspaper.deliverydocket.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -71,14 +76,14 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        jButton25 = new javax.swing.JButton();
-        jTextField22 = new javax.swing.JTextField();
-        jTextField24 = new javax.swing.JTextField();
-        jTextField25 = new javax.swing.JTextField();
-        jButton26 = new javax.swing.JButton();
-        jButton27 = new javax.swing.JButton();
-        jButton28 = new javax.swing.JButton();
-        jTextField23 = new javax.swing.JTextField();
+        editSubmitDPidBtn = new javax.swing.JButton();
+        editDPidTf = new javax.swing.JTextField();
+        editEnterDateTf = new javax.swing.JTextField();
+        editEnterIdNonDeliveredTf = new javax.swing.JTextField();
+        editSubmitDateBtn = new javax.swing.JButton();
+        editConfirmAllDeliveredBtn = new javax.swing.JButton();
+        editEnterIdNonDeliveredBtn = new javax.swing.JButton();
+        editWarningTf = new javax.swing.JTextField();
         DeleteDeliveryDocket = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
@@ -109,8 +114,12 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jTextField29 = new javax.swing.JTextField();
         jButton22 = new javax.swing.JButton();
         jTextField30 = new javax.swing.JTextField();
+        editEnterDateTf.setText(LocalDate.now().toString());
+        editDPidTf.setText("1");
+        tfDeliveryPersonIDoncreate.setText("1");
 
 
+        /*** Create Listeners***/
         btnSubmitDeliveryPersonIdOnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitDeliveryPersonIdOnCreate(evt);
@@ -120,6 +129,31 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         btnSubmitDateOnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitDateOnCreate(evt);
+            }
+        });
+
+        /*** Edit Listeners***/
+        editSubmitDateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitDateOnEdit();
+            }
+        });
+
+        editSubmitDPidBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitDBidOnEdit(evt);
+            }
+        });
+
+        editConfirmAllDeliveredBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmDeliveredOnEdit(evt);
+            }
+        });
+
+        editEnterIdNonDeliveredBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmUndeliveredOnEdit();
             }
         });
 
@@ -327,7 +361,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         tfWarningCREATE.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         tfWarningCREATE.setForeground(new java.awt.Color(255, 0, 0));
         tfWarningCREATE.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfWarningCREATE.setText("Warning Messages");
         tfWarningCREATE.setBorder(null);
 
         tfDeliveryDocketAreaCREATE.setEditable(false);
@@ -335,7 +368,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         tfDeliveryDocketAreaCREATE.setColumns(20);
         tfDeliveryDocketAreaCREATE.setForeground(new java.awt.Color(49, 117, 108));
         tfDeliveryDocketAreaCREATE.setRows(5);
-        tfDeliveryDocketAreaCREATE.setFont(new java.awt.Font("sansserif", 0, 24));
+        tfDeliveryDocketAreaCREATE.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
         tfDeliveryDocketAreaCREATE.setText("Text Here");
         jScrollPane2.setViewportView(tfDeliveryDocketAreaCREATE);
 
@@ -415,18 +448,29 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable1.setBackground(new java.awt.Color(19, 28, 33));
-        jTable1.setForeground(new java.awt.Color(49, 117, 108));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
 
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
-                }
-        ));
+
         jTable1.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane1.setViewportView(jTable1);
+
+
+
+        JTableHeader tableHeader1 = jTable1.getTableHeader();
+        tableHeader1.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader1.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader1.setFont(new Font(null, Font.BOLD, 15));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable1.setBackground(new java.awt.Color(19, 28, 33));
+        jTable1.setForeground(new java.awt.Color(6, 187, 163));
+        jTable1.setFont(new Font(null, 0, 15));
+        jTable1.setFillsViewportHeight(true);
+        setTable1Model();
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(new java.awt.Color(49, 117, 108));
+        jTable1.setRowHeight(40);
+        ((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(SwingConstants.CENTER);
+
 
         jLabel32.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(6, 187, 163));
@@ -444,38 +488,37 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jLabel35.setForeground(new java.awt.Color(6, 187, 163));
         jLabel35.setText("Enter ID's of any non Delivered Items");
 
-        jButton25.setBackground(new java.awt.Color(49, 117, 108));
-        jButton25.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton25.setForeground(new java.awt.Color(0, 0, 0));
-        jButton25.setText("Submit");
+        editSubmitDPidBtn.setBackground(new java.awt.Color(49, 117, 108));
+        editSubmitDPidBtn.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        editSubmitDPidBtn.setForeground(new java.awt.Color(0, 0, 0));
+        editSubmitDPidBtn.setText("Set ID");
 
-        jTextField22.setBackground(new java.awt.Color(0, 102, 102));
+        editDPidTf.setBackground(new java.awt.Color(0, 102, 102));
 
-        jTextField24.setBackground(new java.awt.Color(0, 102, 102));
+        editEnterDateTf.setBackground(new java.awt.Color(0, 102, 102));
 
-        jTextField25.setBackground(new java.awt.Color(0, 102, 102));
+        editEnterIdNonDeliveredTf.setBackground(new java.awt.Color(0, 102, 102));
 
-        jButton26.setBackground(new java.awt.Color(49, 117, 108));
-        jButton26.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton26.setForeground(new java.awt.Color(0, 0, 0));
-        jButton26.setText("Submit");
+        editSubmitDateBtn.setBackground(new java.awt.Color(49, 117, 108));
+        editSubmitDateBtn.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        editSubmitDateBtn.setForeground(new java.awt.Color(0, 0, 0));
+        editSubmitDateBtn.setText("Submit");
 
-        jButton27.setBackground(new java.awt.Color(49, 117, 108));
-        jButton27.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton27.setForeground(new java.awt.Color(0, 0, 0));
-        jButton27.setText("YES");
+        editConfirmAllDeliveredBtn.setBackground(new java.awt.Color(49, 117, 108));
+        editConfirmAllDeliveredBtn.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        editConfirmAllDeliveredBtn.setForeground(new java.awt.Color(0, 0, 0));
+        editConfirmAllDeliveredBtn.setText("YES");
 
-        jButton28.setBackground(new java.awt.Color(49, 117, 108));
-        jButton28.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton28.setForeground(new java.awt.Color(0, 0, 0));
-        jButton28.setText("Submit");
+        editEnterIdNonDeliveredBtn.setBackground(new java.awt.Color(49, 117, 108));
+        editEnterIdNonDeliveredBtn.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        editEnterIdNonDeliveredBtn.setForeground(new java.awt.Color(0, 0, 0));
+        editEnterIdNonDeliveredBtn.setText("Submit");
 
-        jTextField23.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField23.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jTextField23.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField23.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField23.setText("Warning Text");
-        jTextField23.setBorder(null);
+        editWarningTf.setBackground(new java.awt.Color(19, 28, 33));
+        editWarningTf.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        editWarningTf.setForeground(new java.awt.Color(255, 0, 0));
+        editWarningTf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        editWarningTf.setBorder(null);
 
         javax.swing.GroupLayout DisplayAllLayout = new javax.swing.GroupLayout(DisplayAll);
         DisplayAll.setLayout(DisplayAllLayout);
@@ -493,17 +536,17 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                                                         .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                 .addGap(34, 34, 34)
                                                 .addGroup(DisplayAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(editEnterIdNonDeliveredTf, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(editEnterDateTf, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(editDPidTf, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(56, 56, 56)
                                                 .addGroup(DisplayAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(editSubmitDPidBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(editSubmitDateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(editEnterIdNonDeliveredBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(editConfirmAllDeliveredBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(0, 598, Short.MAX_VALUE))
-                                        .addComponent(jTextField23))
+                                        .addComponent(editWarningTf))
                                 .addContainerGap())
         );
         DisplayAllLayout.setVerticalGroup(
@@ -512,24 +555,24 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                                 .addGap(11, 11, 11)
                                 .addGroup(DisplayAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(editSubmitDPidBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(editDPidTf, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(DisplayAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(editEnterDateTf, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(editSubmitDateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(DisplayAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(editConfirmAllDeliveredBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(DisplayAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(editEnterIdNonDeliveredTf, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(editEnterIdNonDeliveredBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(editWarningTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36))
@@ -901,6 +944,16 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    public void setTable1Model() {
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                        "Delivery ID", "Customer Name", "Address", "Delivery Type", "Is Delivered"
+                }
+        ));
+    }
     private void jButton1ActionPerformed(ActionEvent evt) {
         if (evt.getSource() == btnCreateDocketMenu) {
 
@@ -970,17 +1023,25 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         mainAdminScreenGUI.setVisible(true);
     }
 
+    /*********************************************************************/
+    /********************************CREATE*******************************/
+    /*********************************************************************/
+
     // error check on submitting
     private void submitDeliveryPersonIdOnCreate(ActionEvent evt) {
-        checkDeliveryPersonIdObCreate();
+        // reset warning
+        tfWarningCREATE.setText("");
+
+        checkDeliveryPersonIdOnCreate();
     }
 
-    public int checkDeliveryPersonIdObCreate() {
+    public int checkDeliveryPersonIdOnCreate() {
         String deliveryPersonId = tfDeliveryPersonIDoncreate.getText();
         int id = 0;
         try {
             id = handler.validateDeliveryPersonId(deliveryPersonId);
-            tfWarningCREATE.setText("All ok");
+            String date = getDateFromCreate();
+            displayDeliveryDocket(id, date);
         }
         catch (DeliveryDocketExceptionHandler e) {
             tfWarningCREATE.setText(e.getMessage());
@@ -988,8 +1049,11 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         return id;
     }
 
-    // error check on submitting
+
     private void submitDateOnCreate(ActionEvent evt) {
+
+        // reset error msg
+        tfWarningCREATE.setText("");
         String date = tfDateOnCreate.getText();
 
         try {
@@ -999,18 +1063,10 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
             // if date is correct, create and display delivery docket
             deliveryDocketDB.generateDeliveriesIfNeeded(date);
 
-            int deliveryPersonId = checkDeliveryPersonIdObCreate();
+            int deliveryPersonId = checkDeliveryPersonIdOnCreate();
 
 
-            // 6. Create delivery docket file and show on console
-            try {
-
-                DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(deliveryPersonId, date);
-                tfDeliveryDocketAreaCREATE.setText(docket.toString());
-                deliveryDocketDB.createDeliveryDocketFile(docket);
-            } catch (DeliveryDocketExceptionHandler e) {
-                System.out.println(e.getMessage());
-            }
+            displayDeliveryDocket(deliveryPersonId, date);
 
         } catch (DeliveryDocketExceptionHandler e) {
             tfWarningCREATE.setText(e.getMessage());
@@ -1020,6 +1076,229 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         }
     }
 
+    public String getDateFromCreate() throws DeliveryDocketExceptionHandler {
+        String date = tfDateOnCreate.getText();
+
+        try {
+            // try validating date
+            deliveryDocket.validateDate(date);
+
+        } catch (DeliveryDocketExceptionHandler e) {
+            throw e;
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        return date;
+    }
+
+
+
+    public void displayDeliveryDocket(int deliveryPersonId, String date) {
+        try {
+
+            DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(deliveryPersonId, date);
+            tfDeliveryDocketAreaCREATE.setText(docket.toString());
+            deliveryDocketDB.createDeliveryDocketFile(docket);
+        } catch (DeliveryDocketExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /*********************************************************************/
+    /********************************EDIT*******************************/
+    /*********************************************************************/
+
+    // save current deliveries displayed
+    private ArrayList<DeliveryItem> deliveries = new ArrayList<DeliveryItem>();
+    private String date = "";
+    private int id = 0;
+
+    public void submitDBidOnEdit(ActionEvent evt) {
+        // reset error msg
+        editWarningTf.setText("");
+        getDeliveryPersonIdOnEdit();
+    }
+
+
+    public void submitDateOnEdit() {
+
+        // reset error msg and table
+        editWarningTf.setText("");
+
+        try {
+            this.date = getDateFromEdit();
+            id = getDeliveryPersonIdOnEdit();
+
+            if (id != 0) {
+                // if date is correct, create and display delivery docket
+                deliveryDocketDB.generateDeliveriesIfNeeded(date);
+                DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(id, date);
+                deliveryDocketDB.createDeliveryDocketFile(docket);
+
+                // get list of deliveries
+                // get the delivery area id where the delivery person is working
+                DeliveryArea area = deliveryDocketDB.getDeliveryArea(id);
+
+                // get all deliveries for delivery docket
+                deliveries.clear();
+                this.deliveries = docket.getDeliveryItems();
+                displayDeliveries(deliveries);
+            }
+
+        } catch (DeliveryDocketExceptionHandler e) {
+            editWarningTf.setText(e.getMessage());
+        }
+        catch (Exception e) {
+            editWarningTf.setText("Date format incorrect");
+        }
+
+    }
+
+    public void displayDeliveries(ArrayList<DeliveryItem> deliveryList) {
+
+        setTable1Model();
+
+        try {
+            for (DeliveryItem delivery : deliveryList) {
+                String isDelivered = delivery.isDelivered() ? "yes" : "no";
+
+                if (delivery.getType().equals("publication")) {
+
+                    String tbData[] = {delivery.getDeliveryId()+"", delivery.getCustomerAddress(), delivery.getCustomerName(), utility.getPublicationByID(delivery.getId()), isDelivered};
+                    DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+                    tblModel.addRow(tbData);
+                }
+                else {
+                    String tbData[] = {delivery.getId()+"", delivery.getCustomerAddress(), delivery.getCustomerName(), "Invoice", isDelivered};
+                    DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+                    tblModel.addRow(tbData);
+                }
+            }
+        }
+        catch (DeliveryDocketExceptionHandler e ) {
+            e.printStackTrace();
+        }
+        // centering the output
+        setCellsAlignment(jTable1, SwingConstants.CENTER);
+
+    }
+
+    public String getDateFromEdit() throws DeliveryDocketExceptionHandler {
+        String date = editEnterDateTf.getText();
+
+        try {
+            // try validating date
+            deliveryDocket.validateDate(date);
+        } catch (DeliveryDocketExceptionHandler e) {
+            throw e;
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        return date;
+    }
+
+    public int getDeliveryPersonIdOnEdit() {
+        String deliveryPersonId = editDPidTf.getText();
+        try {
+            if (deliveryPersonId.length() == 0) {
+                editWarningTf.setText("Please enter Delivery Person ID");
+                return 0;
+            }
+
+            id = handler.validateDeliveryPersonId(deliveryPersonId);
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            editWarningTf.setText(e.getMessage());
+        }
+        return id;
+    }
+
+    public int confirmUndeliveredOnEdit() {
+        String deliveryId = editEnterIdNonDeliveredTf.getText();
+        int id = 0;
+
+            if (deliveryId.length() == 0) {
+                editWarningTf.setText("Please enter delivery id");
+                return 0;
+            }
+            else {
+                id = Integer.parseInt(deliveryId);
+                if (handler.validateDelivery(id)) {
+                    // delivery id valid
+                    // find the correct delivery
+                    DeliveryItem deliveryItem = null;
+                    for (DeliveryItem item : deliveries) {
+                        if (item.getDeliveryId() == id) {
+                            deliveryItem = item;
+                        }
+                        if (item.getId() == id) {
+                            deliveryItem = item;
+                        }
+                    }
+
+                    // if delivery was found and its not delivered yet, update the delivery
+                    if (deliveryItem == null) {
+                        editWarningTf.setText("Delivery with delivery id " + deliveryId + " is not found");
+                    }
+                    else {
+                        // updating the delivery
+                        try {
+                            deliveryDocketDB.updateDeliveryStatus(deliveryItem, "not delivered");
+                            submitDateOnEdit();
+                            editWarningTf.setText("Update successful");
+                        }catch (DeliveryDocketExceptionHandler e)
+                        {
+                            editWarningTf.setText(e.getMessage());
+                        }
+                    }
+
+                }
+                else {
+                    editWarningTf.setText("Delivery with id " + id + " does not exist.");
+                }
+            }
+
+
+        return id;
+    }
+
+    public void  confirmDeliveredOnEdit(ActionEvent evt) {
+        // reset warning
+        editWarningTf.setText("");
+
+        if (id != 0 && !date.equals("")) {
+            try {
+                deliveryDocketDB.generateDeliveriesIfNeeded(date);
+                deliveryDocketDB.updateDeliveriesStatus(id, date);
+
+                DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(id, date);
+                deliveryDocketDB.createDeliveryDocketFile(docket);
+
+                // get all deliveries for delivery docket
+                deliveries.clear();
+                this.deliveries = docket.getDeliveryItems();
+                displayDeliveries(deliveries);
+                editWarningTf.setText("All deliveries status changed to delivered");
+            }
+           catch (DeliveryDocketExceptionHandler e) {
+               editWarningTf.setText(e.getMessage());
+           }
+        }
+        else {
+            editWarningTf.setText("Changing status not possible");
+        }
+    }
+
+    public void  confirmUndeliveredOnEdit(ActionEvent evt) {
+        // reset warning
+        editWarningTf.setText("");
+
+       //int deliveryId = handler.validateDelivery();
+    }
+
+
 
     private void jTextField30ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1027,6 +1306,23 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
     private void jTextField41ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+    }
+
+
+    public static void setCellsAlignment(JTable table, int alignment)
+    {
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(alignment);
+
+        TableModel tableModel = table.getModel();
+
+        for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++)
+        {
+            table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
+        }
+
+        ((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     /**
@@ -1093,10 +1389,18 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton22;
     private javax.swing.JButton btnSubmitDateOnCreate;
     private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton25;
-    private javax.swing.JButton jButton26;
-    private javax.swing.JButton jButton27;
-    private javax.swing.JButton jButton28;
+
+    private javax.swing.JButton editSubmitDPidBtn;
+    private javax.swing.JButton editSubmitDateBtn;
+    private javax.swing.JButton editConfirmAllDeliveredBtn;
+    private javax.swing.JButton editEnterIdNonDeliveredBtn;
+    private javax.swing.JTextField editWarningTf;
+    private javax.swing.JTextField editDPidTf;
+    private javax.swing.JTextField editEnterDateTf;
+    private javax.swing.JTextField editEnterIdNonDeliveredTf;
+    private javax.swing.JTable jTable1;
+
+
     private javax.swing.JButton jButton29;
     private javax.swing.JButton btnEditDocketMenu;
     private javax.swing.JButton jButton30;
@@ -1131,7 +1435,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable1;
+
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable5;
     private javax.swing.JTextArea tfDeliveryDocketAreaCREATE;
@@ -1141,10 +1445,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField tfDateOnCreate;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField tfWarningCREATE;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
-    private javax.swing.JTextField jTextField25;
+
     private javax.swing.JTextField jTextField26;
     private javax.swing.JTextField jTextField27;
     private javax.swing.JTextField jTextField29;
@@ -1157,4 +1458,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     DeliveryDocketHandler handler = new DeliveryDocketHandler();
     DeliveryDocket deliveryDocket = new DeliveryDocket();
     DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+
+    Utility utility = new Utility();
 }

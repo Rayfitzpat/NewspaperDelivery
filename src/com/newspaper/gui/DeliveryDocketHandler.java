@@ -31,4 +31,10 @@ public class DeliveryDocketHandler {
 
         return id;
     }
+
+    public boolean validateDelivery(int deliveryId) {
+        String query = "select count(*) as total from delivery where delivery_id = " + deliveryId + ";";
+
+        return ut.exists(query);
+    }
 }
