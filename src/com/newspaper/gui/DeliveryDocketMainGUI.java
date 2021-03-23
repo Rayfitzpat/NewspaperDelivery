@@ -31,7 +31,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     public DeliveryDocketMainGUI() {
         initComponents();
         DBconnection.init_db();
-        tfDateOnCreate.setText(LocalDate.now().toString());
+
     }
 
     /**
@@ -67,7 +67,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         btnSubmitDateOnCreate = new javax.swing.JButton();
         tfWarningCREATE = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tfDeliveryDocketAreaCREATE = new javax.swing.JTextArea();
+        textAreaDeliveryDocketAreaCREATE = new javax.swing.JTextArea();
         jScrollBar1 = new javax.swing.JScrollBar();
         DisplayAll = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -88,14 +88,13 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jButton29 = new javax.swing.JButton();
-        jTextField26 = new javax.swing.JTextField();
-        jTextField27 = new javax.swing.JTextField();
-        jButton30 = new javax.swing.JButton();
-        jButton31 = new javax.swing.JButton();
-        jTextField41 = new javax.swing.JTextField();
-        jButton33 = new javax.swing.JButton();
-        jTextField44 = new javax.swing.JTextField();
+        tfDPidOnDelete = new javax.swing.JTextField();
+        tfDateOnDelete = new javax.swing.JTextField();
+        btnSubmitOnDelete = new javax.swing.JButton();
+        btnYesOnDelete = new javax.swing.JButton();
+        tfWarningOnDelete = new javax.swing.JTextField();
+        btnNoOnDelete = new javax.swing.JButton();
+        textAreaDelete = new javax.swing.JTextArea();
         SeeAllCustomerDeliveries = new javax.swing.JPanel();
         DisplayOne3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -114,9 +113,18 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jTextField29 = new javax.swing.JTextField();
         jButton22 = new javax.swing.JButton();
         jTextField30 = new javax.swing.JTextField();
-        editEnterDateTf.setText(LocalDate.now().toString());
+        this.setLocationRelativeTo(null);
+        setResizable(false);
+
+        // default values
+        String defaultdate = LocalDate.now().toString();
+        tfDateOnCreate.setText(defaultdate);
+        editEnterDateTf.setText(defaultdate);
         editDPidTf.setText("1");
         tfDeliveryPersonIDoncreate.setText("1");
+        tfWarningOnDelete.setText("");
+        tfDPidOnDelete.setText("1");
+        tfDateOnDelete.setText(defaultdate);
 
 
         /*** Create Listeners***/
@@ -154,6 +162,28 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         editEnterIdNonDeliveredBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmUndeliveredOnEdit();
+            }
+        });
+
+        /*** Delete Listeners ***/
+
+        /*    private JTextArea textAreaDelete;
+    private JButton btnSubmitOnDelete;
+    private JButton btnYesOnDelete;
+    private JButton btnNoOnDelete;
+    private JTextField tfWarningOnDelete;
+    private JTextField tfDPidOnDelete;
+    private JTextField tfDateOnDelete;*/
+
+        btnSubmitOnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitOnDelete();
+            }
+        });
+
+        btnYesOnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
             }
         });
 
@@ -363,14 +393,14 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         tfWarningCREATE.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfWarningCREATE.setBorder(null);
 
-        tfDeliveryDocketAreaCREATE.setEditable(false);
-        tfDeliveryDocketAreaCREATE.setBackground(new java.awt.Color(19, 28, 33));
-        tfDeliveryDocketAreaCREATE.setColumns(20);
-        tfDeliveryDocketAreaCREATE.setForeground(new java.awt.Color(49, 117, 108));
-        tfDeliveryDocketAreaCREATE.setRows(5);
-        tfDeliveryDocketAreaCREATE.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
-        tfDeliveryDocketAreaCREATE.setText("Text Here");
-        jScrollPane2.setViewportView(tfDeliveryDocketAreaCREATE);
+        textAreaDeliveryDocketAreaCREATE.setEditable(false);
+        textAreaDeliveryDocketAreaCREATE.setBackground(new java.awt.Color(19, 28, 33));
+        textAreaDeliveryDocketAreaCREATE.setColumns(20);
+        textAreaDeliveryDocketAreaCREATE.setForeground(new java.awt.Color(49, 117, 108));
+        textAreaDeliveryDocketAreaCREATE.setRows(5);
+        textAreaDeliveryDocketAreaCREATE.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
+        textAreaDeliveryDocketAreaCREATE.setText("Text Here");
+        jScrollPane2.setViewportView(textAreaDeliveryDocketAreaCREATE);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -594,47 +624,49 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jLabel38.setForeground(new java.awt.Color(6, 187, 163));
         jLabel38.setText("Are You SURE you want to DELETE this Docket");
 
-        jButton29.setBackground(new java.awt.Color(49, 117, 108));
-        jButton29.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton29.setForeground(new java.awt.Color(0, 0, 0));
-        jButton29.setText("Submit");
+        tfDPidOnDelete.setBackground(new java.awt.Color(0, 102, 102));
 
-        jTextField26.setBackground(new java.awt.Color(0, 102, 102));
+        tfDateOnDelete.setBackground(new java.awt.Color(0, 102, 102));
 
-        jTextField27.setBackground(new java.awt.Color(0, 102, 102));
+        btnSubmitOnDelete.setBackground(new java.awt.Color(49, 117, 108));
+        btnSubmitOnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        btnSubmitOnDelete.setForeground(new java.awt.Color(0, 0, 0));
+        btnSubmitOnDelete.setText("Submit");
 
-        jButton30.setBackground(new java.awt.Color(49, 117, 108));
-        jButton30.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton30.setForeground(new java.awt.Color(0, 0, 0));
-        jButton30.setText("Submit");
+        btnYesOnDelete.setBackground(new java.awt.Color(49, 117, 108));
+        btnYesOnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        btnYesOnDelete.setForeground(new java.awt.Color(0, 0, 0));
+        btnYesOnDelete.setText("YES");
 
-        jButton31.setBackground(new java.awt.Color(49, 117, 108));
-        jButton31.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton31.setForeground(new java.awt.Color(0, 0, 0));
-        jButton31.setText("YES");
-
-        jTextField41.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField41.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jTextField41.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField41.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField41.setText("Warning Text ****");
-        jTextField41.setBorder(null);
-        jTextField41.addActionListener(new java.awt.event.ActionListener() {
+        tfWarningOnDelete.setBackground(new java.awt.Color(19, 28, 33));
+        tfWarningOnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        tfWarningOnDelete.setForeground(new java.awt.Color(255, 0, 0));
+        tfWarningOnDelete.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfWarningOnDelete.setBorder(null);
+        tfWarningOnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField41ActionPerformed(evt);
             }
         });
 
-        jButton33.setBackground(new java.awt.Color(49, 117, 108));
-        jButton33.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton33.setForeground(new java.awt.Color(0, 0, 0));
-        jButton33.setText("NO");
+        btnNoOnDelete.setBackground(new java.awt.Color(49, 117, 108));
+        btnNoOnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        btnNoOnDelete.setForeground(new java.awt.Color(0, 0, 0));
+        btnNoOnDelete.setText("NO");
 
-        jTextField44.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField44.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField44.setForeground(new java.awt.Color(49, 117, 108));
-        jTextField44.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField44.setText("**** TEXT AREA FOR DELIVERY DOCKET ****");
+
+        /**************************DELETE****************************/
+        textAreaDelete.setEditable(false);
+        textAreaDelete.setBackground(new java.awt.Color(19, 28, 33));
+        textAreaDelete.setColumns(20);
+        textAreaDelete.setForeground(new java.awt.Color(49, 117, 108));
+        textAreaDelete.setRows(5);
+        textAreaDelete.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
+        textAreaDelete.setText("Text Here");
+        jScrollPane2.setViewportView(textAreaDeliveryDocketAreaCREATE);
+
+
+
 
         javax.swing.GroupLayout DeleteDeliveryDocketLayout = new javax.swing.GroupLayout(DeleteDeliveryDocket);
         DeleteDeliveryDocket.setLayout(DeleteDeliveryDocketLayout);
@@ -642,7 +674,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                 DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DeleteDeliveryDocketLayout.createSequentialGroup()
                                 .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jTextField44)
+                                        .addComponent(textAreaDelete)
                                         .addGroup(DeleteDeliveryDocketLayout.createSequentialGroup()
                                                 .addContainerGap()
                                                 .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -653,18 +685,17 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                                                                         .addComponent(jLabel38, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                                 .addGap(18, 18, 18)
                                                                 .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addComponent(tfDateOnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(tfDPidOnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                 .addGap(56, 56, 56)
                                                                 .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(btnSubmitOnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addGroup(DeleteDeliveryDocketLayout.createSequentialGroup()
-                                                                                .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(btnYesOnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGap(18, 18, 18)
-                                                                                .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                                .addComponent(btnNoOnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                                 .addGap(0, 479, Short.MAX_VALUE))
-                                                        .addComponent(jTextField41))))
+                                                        .addComponent(tfWarningOnDelete))))
                                 .addContainerGap())
         );
         DeleteDeliveryDocketLayout.setVerticalGroup(
@@ -673,22 +704,21 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                                 .addGap(11, 11, 11)
                                 .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(tfDPidOnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(tfDateOnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnSubmitOnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(DeleteDeliveryDocketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(btnYesOnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnNoOnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfWarningOnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textAreaDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16))
         );
 
@@ -1098,7 +1128,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         try {
 
             DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(deliveryPersonId, date);
-            tfDeliveryDocketAreaCREATE.setText(docket.toString());
+            textAreaDeliveryDocketAreaCREATE.setText(docket.toString());
             deliveryDocketDB.createDeliveryDocketFile(docket);
         } catch (DeliveryDocketExceptionHandler e) {
             System.out.println(e.getMessage());
@@ -1291,12 +1321,91 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         }
     }
 
-    public void  confirmUndeliveredOnEdit(ActionEvent evt) {
-        // reset warning
-        editWarningTf.setText("");
 
-       //int deliveryId = handler.validateDelivery();
+    /*********************************************************************/
+    /********************************DELETE*******************************/
+    /*********************************************************************/
+
+    // "Submit" button click listener on DELETE tab
+    private void submitOnDelete() {
+        // reset warning
+        tfWarningOnDelete.setText("");
+
+        int id = checkDeliveryPersonIdOnDelete();
+        String date = getDateOnDelete();
+
+        if (id == 0) {
+            tfWarningOnDelete.setText("Delivery person id input is not valid");
+        }
+        else if(date.equals("")){
+            tfWarningOnDelete.setText("Date input is not valid");
+        }
+        else {
+            displayDeliveryDocketOnDelete(id, date);
+        }
     }
+
+    public int checkDeliveryPersonIdOnDelete() {
+        String deliveryPersonId = tfDPidOnDelete.getText();
+        int id = 0;
+        try {
+            id = handler.validateDeliveryPersonId(deliveryPersonId);
+        }
+        catch (DeliveryDocketExceptionHandler e) {
+            tfWarningOnDelete.setText(e.getMessage());
+        }
+        return id;
+    }
+
+
+    private String getDateOnDelete() {
+
+        // reset error msg
+        tfWarningOnDelete.setText("");
+        String date = "";
+
+        try {
+            date = tfDateOnDelete.getText();
+            // try validating date
+            deliveryDocket.validateDate(date);
+
+            // if date is correct, create and display delivery docket
+            deliveryDocketDB.generateDeliveriesIfNeeded(date);
+
+
+        } catch (DeliveryDocketExceptionHandler e) {
+            tfWarningOnDelete.setText(e.getMessage());
+        }
+        catch (Exception e) {
+            tfWarningOnDelete.setText("Date format incorrect");
+        }
+
+        return date;
+    }
+
+
+
+
+    public void displayDeliveryDocketOnDelete(int deliveryPersonId, String date) {
+        try {
+
+            DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(deliveryPersonId, date);
+            textAreaDelete.setText(docket.toString());
+            deliveryDocketDB.createDeliveryDocketFile(docket);
+        } catch (DeliveryDocketExceptionHandler e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+//    // "Yes" button click listener on DELETE tab
+//    public void yesClickedOnDelete() {
+//        // get the delivery area id where the delivery person is working
+//        DeliveryArea area = utility.getDeliveryArea(deliveryAreaId);
+//        String deliveryAreaName = area.getDAreaName();
+//        String deliveryPersonName = utility.getDeliveryPersonName(area.getDeliveryPersonId());
+//        String fileName = deliveryPersonName + "_" + deliveryAreaName + "_" + date + ".txt";
+//        deliveryDocketDB.deleteFileIfExists(fileName);
+//    }
 
 
 
@@ -1390,22 +1499,28 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnSubmitDateOnCreate;
     private javax.swing.JButton jButton24;
 
-    private javax.swing.JButton editSubmitDPidBtn;
-    private javax.swing.JButton editSubmitDateBtn;
-    private javax.swing.JButton editConfirmAllDeliveredBtn;
-    private javax.swing.JButton editEnterIdNonDeliveredBtn;
-    private javax.swing.JTextField editWarningTf;
-    private javax.swing.JTextField editDPidTf;
-    private javax.swing.JTextField editEnterDateTf;
-    private javax.swing.JTextField editEnterIdNonDeliveredTf;
-    private javax.swing.JTable jTable1;
+    // edit
+    private JButton editSubmitDPidBtn;
+    private JButton editSubmitDateBtn;
+    private JButton editConfirmAllDeliveredBtn;
+    private JButton editEnterIdNonDeliveredBtn;
+    private JTextField editWarningTf;
+    private JTextField editDPidTf;
+    private JTextField editEnterDateTf;
+    private JTextField editEnterIdNonDeliveredTf;
+    private JTable jTable1;
+
+    // delete
+    private JTextArea textAreaDelete;
+    private JButton btnSubmitOnDelete;
+    private JButton btnYesOnDelete;
+    private JButton btnNoOnDelete;
+    private JTextField tfWarningOnDelete;
+    private JTextField tfDPidOnDelete;
+    private JTextField tfDateOnDelete;
 
 
-    private javax.swing.JButton jButton29;
     private javax.swing.JButton btnEditDocketMenu;
-    private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton31;
-    private javax.swing.JButton jButton33;
     private javax.swing.JButton btnDeleteDocketMenu;
     private javax.swing.JButton btnCustomerDeliveriesMenu;
     private javax.swing.JButton btnPublicationDeliveries;
@@ -1438,7 +1553,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable5;
-    private javax.swing.JTextArea tfDeliveryDocketAreaCREATE;
+    private javax.swing.JTextArea textAreaDeliveryDocketAreaCREATE;
     private javax.swing.JTextField tfDeliveryPersonIDoncreate;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
@@ -1446,12 +1561,11 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField tfWarningCREATE;
 
-    private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField27;
+
     private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField30;
-    private javax.swing.JTextField jTextField41;
-    private javax.swing.JTextField jTextField44;
+
+
     // End of variables declaration
 
 
