@@ -1476,6 +1476,21 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
                         }
                     } else if (enterMonth.equals("2") || enterMonth.equals("02")) {
+                        int leapYear = Integer.parseInt(enterYear.trim());
+                        //David do I get extra marks for checking if it's a leap year?
+                        if(leapYear%4==0){
+                            for (int i = 1; i <= 29; i++) {
+                                dsv.createDailyReportByDate(enterYear + "-02-" + i);
+                                validmonth = true;
+                                String del = "delete from daily_summary where delivery_date between '" + tomorrowDate + "'  AND '" + monthend + "';";
+                                DBconnection.stmt.executeUpdate(del);
+                                jTextField47.setForeground(Color.green);
+                                jTextField47.setFont(new java.awt.Font(null, 0, 12));
+                                jTextField47.setText(" Databse populated for month of : "+enterYear+"-"+enterMonth+"");
+
+                            }
+                        }
+                        else{
                         for (int i = 1; i <= 28; i++) {
                             dsv.createDailyReportByDate(enterYear + "-02-" + i);
                             validmonth = true;
@@ -1483,8 +1498,8 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                             DBconnection.stmt.executeUpdate(del);
                             jTextField47.setForeground(Color.green);
                             jTextField47.setFont(new java.awt.Font(null, 0, 12));
-                            jTextField47.setText(" Databse populated for month of : "+enterYear+"-"+enterMonth+"");
-
+                            jTextField47.setText(" Databse populated for month of : " + enterYear + "-" + enterMonth + "");
+                        }
                         }
                     } else if (enterMonth.equals("3") || enterMonth.equals("03")) {
                         for (int i = 1; i < 31; i++) {
