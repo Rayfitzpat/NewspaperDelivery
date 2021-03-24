@@ -1,22 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.newspaper.gui;
 
-import javax.swing.table.DefaultTableModel;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import com.newspaper.db.DBconnection;
+import com.newspaper.deliverydocket.Delivery;
+import com.newspaper.deliverydocket.DeliveryDocketDB;
+import com.newspaper.order.Order;
+import com.newspaper.order.OrderExceptionHandler;
+import com.newspaper.order.OrderView;
 
-/**
- *
- * @author Ray
- */
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.sql.*;
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+
+
 public class OrderMainGUI extends javax.swing.JFrame {
 
+    OrderView ov = new OrderView();
+    Validation v = new Validation();
     /**
      * Creates new form GuiMainMenu
      */
@@ -26,6 +30,8 @@ public class OrderMainGUI extends javax.swing.JFrame {
         setResizable(false);
     }
 
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,6 +40,8 @@ public class OrderMainGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
+
+        DBconnection.init_db();
 
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -146,46 +154,34 @@ public class OrderMainGUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
 
                 try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-                    Connection con = DriverManager.getConnection(url, "root", "admin");
-                    Statement stmt = con.createStatement();
-                    String sql = "Select * from delivery_person";
-                    ResultSet rs = stmt.executeQuery(sql);
+                    String sql = "Select * from orders;";
+                    ResultSet rs = DBconnection.stmt.executeQuery(sql);
 
-                    while (rs.next()) {
+                    while(rs.next()) {
 
                         int id = rs.getInt("order_id");
                         int customer_id = rs.getInt("customer_id");
+//                        int publication_id = rs.getInt("publication_id");
+//                        int frequency = rs.getInt("frequency");
+//
+                        String customerName = ov.getCustomerName(customer_id);
+//
+//                        String publication = ov.getPublicationByID(publication_id);
+//
+//                        System.out.println(customerName);
+//
+//                        String day = DayOfWeek.of(frequency).toString();
 
-                        String firstName = rs.getString("first_name");
-                        String lastName = rs.getString("last_name");
-                        String address1 = rs.getString("address1");
-                        String address2 = rs.getString("address2");
-                        String town = rs.getString("town");
-                        String phone_number = rs.getString("delivery_phone_number");
-                        String dob = rs.getString("dob");
-                        String access_level = rs.getString("access_level");
-                        String status = rs.getString("delivery_status");
-                        String user_name = rs.getString("user_name");
-                        String password = rs.getString("password");
-
-
-                        String tbData[] = {id + "", firstName, lastName, address1, address2, town, phone_number, dob, access_level, status, user_name, password + ""};
+                        String tbData[] = {id + "", customer_id + "", customerName};
                         DefaultTableModel tblModel = (DefaultTableModel) jTable4.getModel();
 
                         tblModel.addRow(tbData);
-//                        personDBInitialised[0] = true;
 
                     }
-                    con.close();
-
                 } catch (Exception e) {
                     System.out.println("Error: Failed to connect to database\n" + e.getMessage());
                 }
-
             }
-
         });
 
 
@@ -278,10 +274,38 @@ public class OrderMainGUI extends javax.swing.JFrame {
         jButton21.setText("Add New");
         jButton21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
-            }
-        });
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                            jButton21ActionPerformed(evt);
+//                int cust_id = ov.addNewOrderCustomerID();
+//                int pub_id = addNewOrderPublicationID();
+//                int freq = addNewOrderFrequency();
+//
+//                String insertQuery = "Insert into orders (order_id, customer_id, publication_id, frequency) values (null, " + cust_id + ", " + pub_id + ", " + freq + ")";
+//
+//                try {
+//                    Statement stmt = DBconnection.con.createStatement();
+//                    stmt.executeUpdate(insertQuery);
+//
+//                    System.out.println("New Order added successfully for " + getCustomerName(cust_id) + " to get the " + getPublicationByID(pub_id) + " on " + convertFrequency(freq) + "'s");
+//
+//                    // generating deliveries for the new order
+//                    DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+//
+//                    try {
+//                        Order order = new Order(cust_id, pub_id, freq);
+//                        ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
+//                        deliveryDocketDB.saveDeliveries(deliveries);
+//                    } catch (OrderExceptionHandler e) {
+//                        e.getMessage();
+//                    }
+//                } catch (Exception e) {
+//                    System.out.println(e.getMessage());
+//                    System.out.println(insertQuery);
+//                }
+//            }
+
+                                        }
+                                    });
 
         jButton23.setBackground(new java.awt.Color(19, 28, 33));
         jButton23.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -395,7 +419,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
                 },
                 new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
+                        "Order ID", "Customer ID", "Customer", "Publication ID", "Publication", "Frequency", "Day"
                 }
         ));
         jTable4.setGridColor(new java.awt.Color(49, 117, 108));
@@ -909,6 +933,43 @@ public class OrderMainGUI extends javax.swing.JFrame {
         jButton22.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton22.setForeground(new java.awt.Color(0, 0, 0));
         jButton22.setText("Submit");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton22ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+//                int cust_id = ov.addNewOrderCustomerID();
+//                int pub_id = addNewOrderPublicationID();
+//                int freq = addNewOrderFrequency();
+//
+//                String insertQuery = "Insert into orders (order_id, customer_id, publication_id, frequency) values (null, " + cust_id + ", " + pub_id + ", " + freq + ")";
+//
+//                try {
+//                    Statement stmt = DBconnection.con.createStatement();
+//                    stmt.executeUpdate(insertQuery);
+//
+//                    System.out.println("New Order added successfully for " + getCustomerName(cust_id) + " to get the " + getPublicationByID(pub_id) + " on " + convertFrequency(freq) + "'s");
+//
+//                    // generating deliveries for the new order
+//                    DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+//
+//                    try {
+//                        Order order = new Order(cust_id, pub_id, freq);
+//                        ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
+//                        deliveryDocketDB.saveDeliveries(deliveries);
+//                    } catch (OrderExceptionHandler e) {
+//                        e.getMessage();
+//                    }
+//                } catch (Exception e) {
+//                    System.out.println(e.getMessage());
+//                    System.out.println(insertQuery);
+//                }
+//            }
+
+            }
+        });
 
         jLabel68.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel68.setForeground(new java.awt.Color(6, 187, 163));
@@ -1402,6 +1463,59 @@ public class OrderMainGUI extends javax.swing.JFrame {
         }
     }
 
+    private void jButton22ActionPerformed(ActionEvent evt) throws SQLException {
+
+        if(v.validateID(jTextField29.getText())) {
+            String query = "select count(*) as total from orders where customer_id = " + jTextField29.getText();
+            ResultSet rs;
+            int count1 = 0;
+            try {
+                rs = DBconnection.stmt.executeQuery(query);
+                while (rs.next()) {
+                    count1 = rs.getInt("total");
+                }
+                if (count1 > 0) {
+                    if(v.validateID((jTextField44.getText()))) {
+                        String query2 = "select count(*) as total from orders where publication_id = " + jTextField44.getText();
+                        ResultSet rs2;
+                        int count2 = 0;
+                        try {
+                            rs2 = DBconnection.stmt.executeQuery(query2);
+                            while (rs2.next()) {
+                                count2 = rs2.getInt("total");
+                            }
+                            if (count2 > 0) {
+                                if(v.validateOrderFrequency((jTextField48.getText()))) {
+                                    jTextField30.setForeground(new java.awt.Color(6, 187, 163));
+                                    jTextField30.setText("You have successfully added a new Order");
+                                }
+                                else {
+                                    jTextField30.setForeground(new java.awt.Color(255, 0, 0));
+                                    jTextField30.setText("Frequency ID not valid - must be a number between 1 and 7");
+                                }
+                            }
+                            else {
+                                jTextField30.setText("Publication ID not valid - please check Publication section for valid Publication ID");
+
+                            }
+                        }catch (Exception e) {
+                            jTextField30.setText("Publication ID not valid - please check Publication section for valid Publication ID");
+                        }
+                    }else {
+                        jTextField30.setText("Publication ID not valid - ID must contain 1 - 3 numbers only");
+                    }
+                }
+                else {
+                    jTextField30.setText("Customer ID not valid - please check Customer section for valid Customer ID");
+                }
+            } catch (Exception e) {
+                jTextField30.setText("Customer ID not valid - please check Customer section for valid Customer ID");
+            }
+        }else {
+            jTextField30.setText("Customer ID not valid - ID must contain 1 - 3 numbers only");
+        }
+
+            };
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {
         if (evt.getSource() == jButton23) {
             DisplayAll.setVisible(false);
