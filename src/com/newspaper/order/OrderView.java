@@ -940,4 +940,18 @@ public class OrderView {
         }
     }
 
+    public void deleteOrderGUI(String orderID) throws SQLException {
+
+        String query = "Delete from orders where order_id = " + orderID + ";";
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(query);
+
+        } catch(Exception e) {
+            e.getMessage();
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

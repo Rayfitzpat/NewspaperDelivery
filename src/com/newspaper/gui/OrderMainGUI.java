@@ -1291,6 +1291,17 @@ public class OrderMainGUI extends javax.swing.JFrame {
         jButton33.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton33.setForeground(new java.awt.Color(0, 0, 0));
         jButton33.setText("Submit");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton33ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+
+            }
+        });
 
         jTextField38.setBackground(new java.awt.Color(19, 28, 39));
         jTextField38.setForeground(new java.awt.Color(18, 30, 49));
@@ -1742,6 +1753,44 @@ public class OrderMainGUI extends javax.swing.JFrame {
             Edit.setVisible(false);
             Delete.setVisible(true);
         }
+    }
+
+//    deleteOrderGUIHello-----------------------------------------------------------------------------------------------
+
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+
+        String orderID = jTextField37.getText();
+
+        if(v.validateID(orderID)) {
+            String query = "select count(*) as total from orders where order_id = " + orderID;
+            Statement stmt = DBconnection.con.createStatement();
+            ResultSet rs;
+            int count1 = 0;
+            try {
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    count1 = rs.getInt("total");
+                }
+                try {
+                    ov.deleteOrderGUI(orderID);
+                    jTextField38.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField38.setText("Successfully deleted order: " + orderID);
+
+                } catch (Exception e) {
+                    jTextField38.setForeground(new java.awt.Color(255, 0, 0));
+                    jTextField38.setText(e.getMessage());
+                }
+            } catch (Exception e) {
+                jTextField38.setForeground(new java.awt.Color(255, 0, 0));
+                jTextField38.setText("Order ID not valid - please check Display All Orders section for valid ID");
+            }
+        }else {
+            jTextField38.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField38.setText("Order ID not valid - ID must contain 1 - 3 numbers only");
+        }
+
+
+
     }
 
 //    private void jButton30ActionPerformed(ActionEvent evt) throws SQLException {
