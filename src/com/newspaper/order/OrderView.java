@@ -147,9 +147,11 @@ public class OrderView {
         String query = "SELECT first_name, last_name " +
                 "FROM customer\n" +
                 "WHERE customer_id = " + customerID + ";";
+
         ResultSet rs;
         try {
-            rs = DBconnection.stmt.executeQuery(query);
+            Statement stmt = DBconnection.con.createStatement();
+            rs = stmt.executeQuery(query);
             while (rs.next()) {
                 String fName = rs.getString("first_name");
                 String lName = rs.getString("last_name");
@@ -251,6 +253,29 @@ public class OrderView {
             }
         }
     }
+
+    public void displayOrderByCustomerIdGUI(String customerID) throws SQLException {
+
+        String displayQuery = "Select * from orders where customer_id = " + customerID + ";";
+
+                try {
+                    Statement stmt = DBconnection.con.createStatement();
+                    ResultSet rs = stmt.executeQuery(displayQuery);
+
+                    while (rs.next()) {
+                        int order_id = rs.getInt("order_id");
+                        int customer_id = rs.getInt("customer_id");
+                        int publication_id = rs.getInt("publication_id");
+                        int frequency = rs.getInt("frequency");
+
+                        String day = DayOfWeek.of(frequency).toString();
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+
 
     /**
      * Method is checking if customer_id is available in orders table
@@ -513,6 +538,34 @@ public class OrderView {
         }
     }
 
+    public void addNewOrderGUI(String customerID, String publicationID, String frequency) throws OrderExceptionHandler {
+
+        String insertQuery = "Insert into orders (order_id, customer_id, publication_id, frequency) values (null, " + customerID + ", " + publicationID + ", " + frequency + ")";
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(insertQuery);
+
+            // generating deliveries for the new order
+            DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+
+            try {
+                int cID = Integer.parseInt(customerID);
+                int pID = Integer.parseInt(publicationID);
+                int freq = Integer.parseInt(frequency);
+
+                Order order = new Order(cID, pID, freq);
+                ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
+                deliveryDocketDB.saveDeliveries(deliveries);
+            } catch (OrderExceptionHandler e) {
+                e.getMessage();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(insertQuery);
+        }
+    }
+
     public int addNewOrderCustomerID() throws OrderExceptionHandler {
         {
             ArrayList<Order> orders = getOrders();
@@ -657,6 +710,21 @@ public class OrderView {
         }
     }
 
+
+    public void updateOrderPublicationGUI(String orderID, String publicationID) throws SQLException {
+
+        String updateQuery = "Update orders set publication_id = " + publicationID + " where order_id = " + orderID;
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(updateQuery);
+
+
+        } catch(Exception e) {
+            e.getMessage();
+        }
+    }
+
     public void printOrderById(int orderID) {
 
         try {
@@ -732,6 +800,20 @@ public class OrderView {
                 in.nextLine();
                 System.out.println("Input needs to be an integer");
             }
+        }
+    }
+
+    public void updateOrderFrequencyGUI(String orderID, String frequency) throws SQLException {
+
+        String updateQuery = "Update orders set frequency = " + frequency + " where order_id = " + orderID;
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(updateQuery);
+
+
+        } catch(Exception e) {
+            e.getMessage();
         }
     }
 
