@@ -1700,6 +1700,13 @@ public class OrderMainGUI extends javax.swing.JFrame {
                 while (rs.next()) {
                     count1 = rs.getInt("total");
                 }
+                try {
+                    ov.displayOrderByOrderIdGUI(orderID);
+                    jTextField30.setForeground(new java.awt.Color(6, 187, 163));
+                    jTextField30.setText("Order " + orderID + " successfully displayed");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
             } catch (Exception e) {
                 jTextField20.setForeground(new java.awt.Color(255, 0, 0));
                 jTextField20.setText("Order ID not valid - please check Display All Orders section for valid ID");
@@ -1707,38 +1714,6 @@ public class OrderMainGUI extends javax.swing.JFrame {
         }else {
             jTextField20.setForeground(new java.awt.Color(255, 0, 0));
             jTextField20.setText("Order ID not valid - ID must contain 1 - 3 numbers only");
-        }
-
-
-        try {
-            String sql = "Select * from orders where order_id = " + orderID + ";";
-            Statement stmt = DBconnection.con.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while(rs.next()) {
-
-                int id = rs.getInt("order_id");
-                int customer_id = rs.getInt("customer_id");
-                int publication_id = rs.getInt("publication_id");
-                int frequency = rs.getInt("frequency");
-
-                String customerName = ov.getCustomerName(customer_id);
-
-                String publication = ov.getPublicationByID(publication_id);
-
-                String day = DayOfWeek.of(frequency).toString();
-
-                String tbData[] = {id + "", customer_id + "", customerName, publication_id + "", publication, frequency + "", day};
-                DefaultTableModel tblModel = (DefaultTableModel) jTable7.getModel();
-
-                tblModel.addRow(tbData);
-
-                jTextField20.setForeground(new java.awt.Color(6, 187, 163));
-                jTextField20.setText("Successfully displayed order: " + orderID);
-
-            }
-        } catch (Exception e) {
-            e.getMessage();
         }
     }
 
@@ -1755,107 +1730,38 @@ public class OrderMainGUI extends javax.swing.JFrame {
         }
     }
 
-//    deleteOrderGUIHello-----------------------------------------------------------------------------------------------
+    private void jButton30ActionPerformed(ActionEvent evt) throws SQLException {
 
-    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        String customerID = jTextField21.getText();
 
-        String orderID = jTextField37.getText();
+        if(v.validateID(customerID)) {
 
-        if(v.validateID(orderID)) {
-            String query = "select count(*) as total from orders where order_id = " + orderID;
-            Statement stmt = DBconnection.con.createStatement();
-            ResultSet rs;
+            String query = "select count(*) as total from orders where customer_id = " + customerID;
+            Statement stmt1 = DBconnection.con.createStatement();
+            ResultSet rs1;
             int count1 = 0;
             try {
-                rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    count1 = rs.getInt("total");
+                rs1 = stmt1.executeQuery(query);
+                while (rs1.next()) {
+                    count1 = rs1.getInt("total");
                 }
                 try {
-                    ov.deleteOrderGUI(orderID);
-                    jTextField38.setForeground(new java.awt.Color(6, 187, 163));
-                    jTextField38.setText("Successfully deleted order: " + orderID);
-
+                    ov.displayOrderByCustomerIdGUI(customerID);
                 } catch (Exception e) {
-                    jTextField38.setForeground(new java.awt.Color(255, 0, 0));
-                    jTextField38.setText(e.getMessage());
+                    e.getMessage();
                 }
             } catch (Exception e) {
-                jTextField38.setForeground(new java.awt.Color(255, 0, 0));
-                jTextField38.setText("Order ID not valid - please check Display All Orders section for valid ID");
+                jTextField27.setForeground(new Color(255, 0, 0));
+                jTextField27.setText("Customer ID not valid - please check the Customer section for valid ID");
             }
         }else {
-            jTextField38.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField38.setText("Order ID not valid - ID must contain 1 - 3 numbers only");
+            jTextField27.setForeground(new Color(255, 0, 0));
+            jTextField27.setText("Customer ID not valid - ID must contain 1 - 3 numbers only");
         }
 
 
 
-    }
-
-//    private void jButton30ActionPerformed(ActionEvent evt) throws SQLException {
-//
-//        String customerID = jTextField21.getText();
-//
-//        if(v.validateID(customerID)) {
-//
-//            String query = "select count(*) as total from orders where customer_id = " + customerID;
-//            Statement stmt1 = DBconnection.con.createStatement();
-//            ResultSet rs1;
-//            int count1 = 0;
-//            try {
-//                rs1 = stmt1.executeQuery(query);
-//                while (rs1.next()) {
-//                    count1 = rs1.getInt("total");
-//                }
-//                try {
-//                    ov.displayOrderByCustomerIdGUI(customerID);
-//                } catch (Exception e) {
-//                    e.getMessage();
-//                }
-//            } catch (Exception e) {
-//                jTextField27.setForeground(new Color(255, 0, 0));
-//                jTextField27.setText("Customer ID not valid - please check the Customer section for valid ID");
-//            }
-//        }else {
-//            jTextField27.setForeground(new Color(255, 0, 0));
-//            jTextField27.setText("Customer ID not valid - ID must contain 1 - 3 numbers only");
-//        }
-//
-//
-//        try {
-////            String sql = "Select * from orders where customer_id = " + customerID + ";";
-////            Statement stmt2 = DBconnection.con.createStatement();
-////            ResultSet rs2 = stmt2.executeQuery(sql);
-////
-////            while(rs2.next()) {
-////
-////                int id = rs2.getInt("order_id");
-////                int customer_id = rs2.getInt("customer_id");
-////                int publication_id = rs2.getInt("publication_id");
-////                int frequency = rs2.getInt("frequency");
-//
-//                ov.displayOrderByCustomerIdGUI(customerID);
-//
-//                String customerName = ov.getCustomerName(customer_id);
-//
-//                String publication = ov.getPublicationByID(publication_id);
-//
-//                String day = DayOfWeek.of(frequency).toString();
-//
-//                String tbData[] = {id + "", customer_id + "", customerName, publication_id + "", publication, frequency + "", day};
-//                DefaultTableModel tblModel = (DefaultTableModel) jTable8.getModel();
-//
-//                tblModel.addRow(tbData);
-//
-//                jTextField27.setForeground(new Color(6, 187, 163));
-//                jTextField27.setText("Successfully displayed customer orders: " + customerID + ": " + customerName);
-//
-//            }
-//        } catch (Exception e) {
-//            e.getMessage();
-//        }
-//    }
+        }
 
     /**
      * @param args the command line arguments

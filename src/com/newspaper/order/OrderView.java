@@ -3,8 +3,10 @@ package com.newspaper.order;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliverydocket.Delivery;
 import com.newspaper.deliverydocket.DeliveryDocketDB;
+import com.newspaper.gui.OrderMainGUI;
 import com.newspaper.publication.PublicationView;
 
+import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -262,14 +264,14 @@ public class OrderView {
                     Statement stmt = DBconnection.con.createStatement();
                     ResultSet rs = stmt.executeQuery(displayQuery);
 
-                    while (rs.next()) {
-                        int order_id = rs.getInt("order_id");
-                        int customer_id = rs.getInt("customer_id");
-                        int publication_id = rs.getInt("publication_id");
-                        int frequency = rs.getInt("frequency");
+                        while (rs.next()) {
+                            int order_id = rs.getInt("order_id");
+                            int customer_id = rs.getInt("customer_id");
+                            int publication_id = rs.getInt("publication_id");
+                            int frequency = rs.getInt("frequency");
 
-                        String day = DayOfWeek.of(frequency).toString();
-                    }
+                            String day = DayOfWeek.of(frequency).toString();
+                        }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -350,6 +352,52 @@ public class OrderView {
             }
         }
     }
+
+    public void displayOrderByOrderIdGUI(String orderID) throws SQLException {
+
+        String query = "Select * from orders where order_id = " + orderID + ";";
+        try{
+            Statement stmt = DBconnection.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while(rs.next()) {
+
+                int id = rs.getInt("order_id");
+                int customer_id = rs.getInt("customer_id");
+                int publication_id = rs.getInt("publication_id");
+                int frequency = rs.getInt("frequency");
+
+                String customerName = getCustomerName(customer_id);
+
+                String publication = getPublicationByID(publication_id);
+
+                String day = DayOfWeek.of(frequency).toString();
+
+                String tbData[] = {id + "", customer_id + "", customerName, publication_id + "", publication, frequency + "", day};
+                DefaultTableModel tblModel = (DefaultTableModel) jTable7.getModel();
+
+                tblModel.addRow(tbData);
+            }
+        }catch (Exception e) {
+            e.getMessage();
+        }
+
+    }
+
+//    try {
+//        String query = "Select * from orders where order_id = " + orderID + ";";
+//        Statement stmt = DBconnection.con.createStatement();
+//        ResultSet rs = stmt.executeQuery(query);
+//
+
+//
+//            jTextField20.setForeground(new java.awt.Color(6, 187, 163));
+//            jTextField20.setText("Successfully displayed order: " + orderID);
+//
+//        }
+//    } catch (Exception e) {
+//        e.getMessage();
+//    }
 
 //******************************************************************************************************
 // Beginning of display a certain order with entered order ID.
@@ -937,20 +985,6 @@ public class OrderView {
                 in.nextLine();
                 System.out.println("Input needs to be an integer");
             }
-        }
-    }
-
-    public void deleteOrderGUI(String orderID) throws SQLException {
-
-        String query = "Delete from orders where order_id = " + orderID + ";";
-
-        try {
-            Statement stmt = DBconnection.con.createStatement();
-            stmt.executeUpdate(query);
-
-        } catch(Exception e) {
-            e.getMessage();
-            System.out.println(e.getMessage());
         }
     }
 
