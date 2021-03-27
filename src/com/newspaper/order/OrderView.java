@@ -256,26 +256,6 @@ public class OrderView {
         }
     }
 
-    public void displayOrderByCustomerIdGUI(String customerID) throws SQLException {
-
-        String displayQuery = "Select * from orders where customer_id = " + customerID + ";";
-
-                try {
-                    Statement stmt = DBconnection.con.createStatement();
-                    ResultSet rs = stmt.executeQuery(displayQuery);
-
-                        while (rs.next()) {
-                            int order_id = rs.getInt("order_id");
-                            int customer_id = rs.getInt("customer_id");
-                            int publication_id = rs.getInt("publication_id");
-                            int frequency = rs.getInt("frequency");
-
-                            String day = DayOfWeek.of(frequency).toString();
-                        }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
 
 
 

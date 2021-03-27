@@ -584,6 +584,12 @@ public class OrderMainGUI extends javax.swing.JFrame {
         jButton30.setText("Submit");
         jButton30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton30ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
 
             }
         });
@@ -678,7 +684,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
                 },
                 new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
+                        "Order ID", "Customer ID", "Customer", "Publication ID", "Publication", "Frequency", "Day"
                 }
         ));
         jTable9.setGridColor(new java.awt.Color(49, 117, 108));
@@ -696,6 +702,17 @@ public class OrderMainGUI extends javax.swing.JFrame {
         jButton31.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton31.setForeground(new java.awt.Color(0, 0, 0));
         jButton31.setText("Submit");
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton31ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+
+            }
+        });
 
         jTextField31.setBackground(new java.awt.Color(19, 28, 39));
         jTextField31.setForeground(new java.awt.Color(18, 30, 49));
@@ -1767,6 +1784,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
         }
     }
 
+//    displayOrderByCusIDGUIHello---------------------------------------------------------------------------------------
     private void jButton30ActionPerformed(ActionEvent evt) throws SQLException {
 
         String customerID = jTextField21.getText();
@@ -1782,10 +1800,17 @@ public class OrderMainGUI extends javax.swing.JFrame {
                 while (rs1.next()) {
                     count1 = rs1.getInt("total");
                 }
-                try {
-                    ov.displayOrderByCustomerIdGUI(customerID);
-                } catch (Exception e) {
-                    e.getMessage();
+                if(count1 > 0) {
+                    try {
+                        displayOrderByCustomerIdGUI(customerID);
+                        jTextField27.setForeground(new java.awt.Color(6, 187, 163));
+                        jTextField27.setText("Orders for customer: " + customerID + " - " + ov.getCustomerName(Integer.parseInt(customerID)) + " successfully displayed");
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                } else {
+                    jTextField27.setForeground(new Color(255, 0, 0));
+                    jTextField27.setText("Customer ID not valid - please check the Customer section for valid ID");
                 }
             } catch (Exception e) {
                 jTextField27.setForeground(new Color(255, 0, 0));
@@ -1796,11 +1821,112 @@ public class OrderMainGUI extends javax.swing.JFrame {
             jTextField27.setText("Customer ID not valid - ID must contain 1 - 3 numbers only");
         }
 
-
-
         }
 
-    //    deleteOrderGUIHello-----------------------------------------------------------------------------------------------
+
+    public void displayOrderByCustomerIdGUI(String customerID) throws SQLException {
+
+        String displayQuery = "Select * from orders where customer_id = " + customerID + ";";
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            ResultSet rs = stmt.executeQuery(displayQuery);
+
+            while(rs.next()) {
+
+                int id = rs.getInt("order_id");
+                int customer_id = rs.getInt("customer_id");
+                int publication_id = rs.getInt("publication_id");
+                int frequency = rs.getInt("frequency");
+
+                String customerName = ov.getCustomerName(customer_id);
+
+                String publication = ov.getPublicationByID(publication_id);
+
+                String day = DayOfWeek.of(frequency).toString();
+
+                String tbData[] = {id + "", customer_id + "", customerName, publication_id + "", publication, frequency + "", day};
+                DefaultTableModel tblModel = (DefaultTableModel) jTable8.getModel();
+
+                tblModel.addRow(tbData);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+//    displayOrderByPubIDGUIHello-----------------------------------------------------------------------------------------------
+
+    private void jButton31ActionPerformed(ActionEvent evt) throws SQLException {
+
+        String publicationID = jTextField28.getText();
+
+        if(v.validateID(publicationID)) {
+
+            String query = "select count(*) as total from orders where publication_id = " + publicationID;
+            Statement stmt1 = DBconnection.con.createStatement();
+            ResultSet rs1;
+            int count1 = 0;
+            try {
+                rs1 = stmt1.executeQuery(query);
+                while (rs1.next()) {
+                    count1 = rs1.getInt("total");
+                }
+                if(count1 > 0) {
+                    try {
+                        displayOrderByPublicationIdGUI(publicationID);
+                        jTextField31.setForeground(new Color(6, 187, 163));
+                        jTextField31.setText("Orders for publication: " + publicationID + " - " + ov.getPublicationByID(Integer.parseInt(publicationID)) + " successfully displayed");
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }else {
+                    jTextField31.setForeground(new Color(255, 0, 0));
+                    jTextField31.setText("Publication ID not valid - please check the Publication section for valid ID");
+                }
+            } catch (Exception e) {
+                jTextField31.setForeground(new Color(255, 0, 0));
+                jTextField31.setText("Publication ID not valid - please check the Publication section for valid ID");
+            }
+        }else {
+            jTextField31.setForeground(new Color(255, 0, 0));
+            jTextField31.setText("Publication ID not valid - ID must contain numbers only");
+        }
+
+    }
+
+    public void displayOrderByPublicationIdGUI(String publicationID) throws SQLException {
+
+        String displayQuery = "Select * from orders where publication_id = " + publicationID + ";";
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            ResultSet rs = stmt.executeQuery(displayQuery);
+
+            while(rs.next()) {
+
+                int id = rs.getInt("order_id");
+                int customer_id = rs.getInt("customer_id");
+                int publication_id = rs.getInt("publication_id");
+                int frequency = rs.getInt("frequency");
+
+                String customerName = ov.getCustomerName(customer_id);
+
+                String publication = ov.getPublicationByID(publication_id);
+
+                String day = DayOfWeek.of(frequency).toString();
+
+                String tbData[] = {id + "", customer_id + "", customerName, publication_id + "", publication, frequency + "", day};
+                DefaultTableModel tblModel = (DefaultTableModel) jTable9.getModel();
+
+                tblModel.addRow(tbData);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+//    deleteOrderGUIHello-----------------------------------------------------------------------------------------------
 
     private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
 
@@ -1837,7 +1963,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
             }
         }else {
             jTextField38.setForeground(new java.awt.Color(255, 0, 0));
-            jTextField38.setText("Order ID not valid - ID must contain 1 - 3 numbers only");
+            jTextField38.setText("Order ID not valid - ID must numbers only");
         }
 
 
