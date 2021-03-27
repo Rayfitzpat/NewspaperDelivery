@@ -353,52 +353,6 @@ public class OrderView {
         }
     }
 
-    public void displayOrderByOrderIdGUI(String orderID) throws SQLException {
-
-        String query = "Select * from orders where order_id = " + orderID + ";";
-        try{
-            Statement stmt = DBconnection.con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            while(rs.next()) {
-
-                int id = rs.getInt("order_id");
-                int customer_id = rs.getInt("customer_id");
-                int publication_id = rs.getInt("publication_id");
-                int frequency = rs.getInt("frequency");
-
-                String customerName = getCustomerName(customer_id);
-
-                String publication = getPublicationByID(publication_id);
-
-                String day = DayOfWeek.of(frequency).toString();
-
-                String tbData[] = {id + "", customer_id + "", customerName, publication_id + "", publication, frequency + "", day};
-                DefaultTableModel tblModel = (DefaultTableModel) jTable7.getModel();
-
-                tblModel.addRow(tbData);
-            }
-        }catch (Exception e) {
-            e.getMessage();
-        }
-
-    }
-
-//    try {
-//        String query = "Select * from orders where order_id = " + orderID + ";";
-//        Statement stmt = DBconnection.con.createStatement();
-//        ResultSet rs = stmt.executeQuery(query);
-//
-
-//
-//            jTextField20.setForeground(new java.awt.Color(6, 187, 163));
-//            jTextField20.setText("Successfully displayed order: " + orderID);
-//
-//        }
-//    } catch (Exception e) {
-//        e.getMessage();
-//    }
-
 //******************************************************************************************************
 // Beginning of display a certain order with entered order ID.
 //******************************************************************************************************
@@ -899,6 +853,7 @@ public class OrderView {
     }
 
 
+
     public void displayEditOrderMenu() {
         System.out.println("\nEdit Order Menu");
         System.out.println("1: Edit Publication on an order");
@@ -988,4 +943,17 @@ public class OrderView {
         }
     }
 
+    public void deleteOrderGUI(String orderID) throws SQLException {
+
+        String deleteQuery = "Delete from orders where order_id = " + orderID + ";";
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(deleteQuery);
+
+
+        } catch(Exception e) {
+            e.getMessage();
+        }
+    }
 }
