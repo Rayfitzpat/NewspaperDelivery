@@ -694,9 +694,9 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                         .addGap(0, 1423, Short.MAX_VALUE)
                         .addGroup(MonthlySummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(MonthlySummaryLayout.createSequentialGroup()
-                                        .addGap(0, 0, 0)
+                                        .addGap(0, 10, 10)
                                         .addComponent(DisplayOne3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, 0)))
+                                        .addGap(0, 10, 10)))
         );
         MonthlySummaryLayout.setVerticalGroup(
                 MonthlySummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -995,11 +995,11 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         UserChosenRange.setLayout(UserChosenRangeLayout);
         UserChosenRangeLayout.setHorizontalGroup(
                 UserChosenRangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 1331, Short.MAX_VALUE)
+                        .addGap(0, 1290, Short.MAX_VALUE)
                         .addGroup(UserChosenRangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(UserChosenRangeLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(DisplayOne1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(DisplayOne1, javax.swing.GroupLayout.PREFERRED_SIZE, 1293, GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))
         );
         UserChosenRangeLayout.setVerticalGroup(
@@ -1055,7 +1055,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jTextField41.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextField41.setForeground(new java.awt.Color(250, 0, 0));
         jTextField41.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField41.setText("Warning Messages");
+        jTextField41.setText("");
         jTextField41.setBorder(null);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1160,7 +1160,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jTextField47.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextField47.setForeground(new java.awt.Color(250, 0, 0));
         jTextField47.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField47.setText("Warning Messages");
+        jTextField47.setText("");
         jTextField47.setBorder(null);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
