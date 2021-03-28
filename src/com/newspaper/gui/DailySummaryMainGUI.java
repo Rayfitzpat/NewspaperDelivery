@@ -10,14 +10,17 @@ package com.newspaper.gui;
 //TODO Bigger Text on tables
 //TODO Monthly center textfields, make text bigger(24 font size)
 //TODO Empty space on tables when move to another tab (19, 28, 33, background color code).
-//TODO Daily bu
 
 
 
 import com.newspaper.dailysummary.DailySummary;
 import com.newspaper.dailysummary.DailySummaryView;
 import com.newspaper.db.DBconnection;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -449,8 +452,14 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         jScrollPane4.setBackground(new java.awt.Color(19, 28, 33));
 
+        JTableHeader tableHeader1 = jTable4.getTableHeader();
+        tableHeader1.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader1.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader1.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader1.setOpaque(true);
         jTable4.setBackground(new java.awt.Color(19, 28, 33));
         jTable4.setForeground(new java.awt.Color(49, 117, 108));
+        jTable4.setFont(new Font( null,0, 15));
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -459,8 +468,18 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                         "Summary Date ", "Total Revenue", "Publications Sold", "Revenue Per Pub"
                 }
         ));
+        jTable4.setShowGrid(true);
         jTable4.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane4.setViewportView(jTable4);
+        jTable4.setRowHeight(40);
+        jTable4.setBackground(new java.awt.Color(19, 28, 33));
+        jScrollPane4.setViewportView(jTable4);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=3; i++){
+            jTable4.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -497,8 +516,14 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         jScrollPane6.setBackground(new java.awt.Color(19, 28, 33));
 
+        JTableHeader tableHeader6 = jTable6.getTableHeader();
+        tableHeader6.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader6.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader6.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader6.setOpaque(true);
         jTable6.setBackground(new java.awt.Color(19, 28, 33));
         jTable6.setForeground(new java.awt.Color(49, 117, 108));
+        jTable6.setFont(new Font( null,0, 15));
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -507,14 +532,25 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                         "Summary Date ", "Total Revenue", "Publications Sold", "Revenue Per Pub"
                 }
         ));
+        jTable6.setShowGrid(true);
         jTable6.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane6.setViewportView(jTable6);
+        jTable6.setRowHeight(40);
+        jTable6.setBackground(new java.awt.Color(19, 28, 33));
+        jScrollPane6.setViewportView(jTable6);
+
+        DefaultTableCellRenderer centerRenderer6 = new DefaultTableCellRenderer();
+        centerRenderer6.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=3; i++){
+            jTable6.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
                 jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1318, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
                 jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,8 +578,14 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         jScrollPane5.setBackground(new java.awt.Color(19, 28, 33));
 
+        JTableHeader tableHeader5 = jTable5.getTableHeader();
+        tableHeader5.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader5.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader5.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader5.setOpaque(true);
         jTable5.setBackground(new java.awt.Color(19, 28, 33));
         jTable5.setForeground(new java.awt.Color(49, 117, 108));
+        jTable5.setFont(new Font( null,0, 15));
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -552,8 +594,19 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                         "Summary Date ", "Total Revenue", "Publications Sold", "Revenue Per Pub"
                 }
         ));
+        jTable5.setShowGrid(true);
         jTable5.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane5.setViewportView(jTable5);
+        jTable5.setRowHeight(40);
+        jTable5.setBackground(new java.awt.Color(19, 28, 33));
+        jScrollPane5.setViewportView(jTable5);
+
+        DefaultTableCellRenderer centerRenderer5 = new DefaultTableCellRenderer();
+        centerRenderer5.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=3; i++){
+            jTable5.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
 
         jPanel8.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -622,16 +675,16 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         DisplayOne3.setLayout(DisplayOne3Layout);
         DisplayOne3Layout.setHorizontalGroup(
                 DisplayOne3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel8, GroupLayout.PREFERRED_SIZE, 1318,GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane5)
         );
         DisplayOne3Layout.setVerticalGroup(
                 DisplayOne3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DisplayOne3Layout.createSequentialGroup()
                                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17))
+                                .addGap(0, 0, 0)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout MonthlySummaryLayout = new javax.swing.GroupLayout(MonthlySummary);
@@ -641,18 +694,18 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                         .addGap(0, 1423, Short.MAX_VALUE)
                         .addGroup(MonthlySummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(MonthlySummaryLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGap(0, 0, 0)
                                         .addComponent(DisplayOne3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(0, 0, 0)))
         );
         MonthlySummaryLayout.setVerticalGroup(
                 MonthlySummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 776, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)
                         .addGroup(MonthlySummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(MonthlySummaryLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGap(0, 0, 0)
                                         .addComponent(DisplayOne3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(0, 0, 0)))
         );
 
         CentrePanel.add(MonthlySummary, "card6");
@@ -661,8 +714,14 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         jScrollPane7.setBackground(new java.awt.Color(19, 28, 33));
 
+        JTableHeader tableHeader7 = jTable7.getTableHeader();
+        tableHeader7.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader7.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader7.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader7.setOpaque(true);
         jTable7.setBackground(new java.awt.Color(19, 28, 33));
         jTable7.setForeground(new java.awt.Color(49, 117, 108));
+        jTable7.setFont(new Font( null,0, 15));
         jTable7.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -671,8 +730,18 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                         "Summary Date ", "Total Revenue", "Publications Sold", "Revenue Per Pub"
                 }
         ));
+        jTable7.setShowGrid(true);
         jTable7.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane7.setViewportView(jTable7);
+        jTable7.setRowHeight(40);
+        jTable7.setBackground(new java.awt.Color(19, 28, 33));
+        jScrollPane7.setViewportView(jTable7);
+
+        DefaultTableCellRenderer centerRenderer7 = new DefaultTableCellRenderer();
+        centerRenderer7.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=3; i++){
+            jTable7.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
 
         jPanel11.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -714,7 +783,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel11Layout.createSequentialGroup()
                                                 .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
+                                                .addGap(0, 0, 0)
                                                 .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -741,7 +810,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         DisplayOne5Layout.setHorizontalGroup(
                 DisplayOne5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane7)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1289, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         DisplayOne5Layout.setVerticalGroup(
                 DisplayOne5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -754,23 +823,24 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         javax.swing.GroupLayout UserInputLayout = new javax.swing.GroupLayout(UserInput);
         UserInput.setLayout(UserInputLayout);
+        UserInput.setBackground(new java.awt.Color(19,28,33));
         UserInputLayout.setHorizontalGroup(
                 UserInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 1423, Short.MAX_VALUE)
+                        .addGap(0, 1318, Short.MAX_VALUE)
                         .addGroup(UserInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(UserInputLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInputLayout.createSequentialGroup()
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(DisplayOne5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addContainerGap(23, Short.MAX_VALUE)))
         );
         UserInputLayout.setVerticalGroup(
                 UserInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 776, Short.MAX_VALUE)
+                        .addGap(0, 788, Short.MAX_VALUE)
                         .addGroup(UserInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(UserInputLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInputLayout.createSequentialGroup()
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(DisplayOne5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         CentrePanel.add(UserInput, "card6");
@@ -779,10 +849,14 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         DisplayOne1.setBackground(new java.awt.Color(19, 28, 33));
 
-        jScrollPane3.setBackground(new java.awt.Color(19, 28, 33));
-
+        JTableHeader tableHeader3 = jTable3.getTableHeader();
+        tableHeader3.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader3.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader3.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader3.setOpaque(true);
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setForeground(new java.awt.Color(49, 117, 108));
+        jTable3.setFont(new Font( null,0, 15));
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -791,15 +865,25 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                         "Summary Date ", "Total Revenue", "Publications Sold", "Revenue Per Pub"
                 }
         ));
+        jTable3.setShowGrid(true);
         jTable3.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane3.setViewportView(jTable3);
+        jTable3.setRowHeight(40);
+        jTable3.setBackground(new java.awt.Color(19, 28, 33));
+        jScrollPane3.setViewportView(jTable3);
+
+        DefaultTableCellRenderer centerRenderer3 = new DefaultTableCellRenderer();
+        centerRenderer3.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=3; i++){
+            jTable3.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
 
         jPanel5.setBackground(new java.awt.Color(19, 28, 33));
 
 
         jLabel53.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel53.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel53.setText("Please Eneter a START date AND an END date to display a range of reports (YYYY-MM-DD)");
+        jLabel53.setText("Please Enter a START date AND an END date to display a range of reports (YYYY-MM-DD)");
 
         jTextField29.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -1476,9 +1560,9 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
                         }
                     } else if (enterMonth.equals("2") || enterMonth.equals("02")) {
-                        int leapYear = Integer.parseInt(enterYear.trim());
+                        int yearInput = Integer.parseInt(enterYear.trim());
                         //David do I get extra marks for checking if it's a leap year?
-                        if(leapYear%4==0){
+                        if(yearInput%4==0){
                             for (int i = 1; i <= 29; i++) {
                                 dsv.createDailyReportByDate(enterYear + "-02-" + i);
                                 validmonth = true;
