@@ -614,7 +614,10 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(6, 187, 163));
         jLabel4.setText("Please enter the Year and Month of the report you want to display (YYYY-MM)");
 
-        jTextField16.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField16.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField16.setFont(new java.awt.Font(null, 0, 18));
+        jTextField16.setHorizontalAlignment(JTextField.CENTER);
+        jTextField16.setForeground(new java.awt.Color(6,187,163));
 
         jButton24.setBackground(new java.awt.Color(49, 117, 108));
         jButton24.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -749,7 +752,10 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jLabel30.setForeground(new java.awt.Color(6, 187, 163));
         jLabel30.setText("Please enter the Date of the report you want to display (YYYY-MM-DD)");
 
-        jTextField19.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField19.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField19.setFont(new java.awt.Font(null, 0, 18));
+        jTextField19.setHorizontalAlignment(JTextField.CENTER);
+        jTextField19.setForeground(new java.awt.Color(6,187,163));
 
         jButton26.setBackground(new java.awt.Color(49, 117, 108));
         jButton26.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -885,7 +891,10 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jLabel53.setForeground(new java.awt.Color(6, 187, 163));
         jLabel53.setText("Please Enter a START date AND an END date to display a range of reports (YYYY-MM-DD)");
 
-        jTextField29.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField29.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField29.setFont(new java.awt.Font(null, 0, 18));
+        jTextField29.setHorizontalAlignment(JTextField.CENTER);
+        jTextField29.setForeground(new java.awt.Color(6,187,163));
 
         jButton22.setBackground(new java.awt.Color(49, 117, 108));
         jButton22.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -911,7 +920,10 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jLabel69.setForeground(new java.awt.Color(6, 187, 163));
         jLabel69.setText("Start Date");
 
-        jTextField44.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField44.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField44.setFont(new java.awt.Font(null, 0, 18));
+        jTextField44.setHorizontalAlignment(JTextField.CENTER);
+        jTextField44.setForeground(new java.awt.Color(6,187,163));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1029,7 +1041,10 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jLabel32.setForeground(new java.awt.Color(6, 187, 163));
         jLabel32.setText("Please Enter the Year AND Month in the format YYYY-MM");
 
-        jTextField23.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField23.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField23.setFont(new java.awt.Font(null, 0, 18));
+        jTextField23.setHorizontalAlignment(JTextField.CENTER);
+        jTextField23.setForeground(new java.awt.Color(6,187,163));
 
         jTextField24.setBackground(new java.awt.Color(19, 28, 33));
         jTextField24.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1133,7 +1148,10 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jLabel36.setForeground(new java.awt.Color(6, 187, 163));
         jLabel36.setText("Please Enter the Year in the format YYYY");
 
-        jTextField26.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField26.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField26.setFont(new java.awt.Font(null, 0, 18));
+        jTextField26.setHorizontalAlignment(JTextField.CENTER);
+        jTextField26.setForeground(new java.awt.Color(6,187,163));
 
         jTextField45.setBackground(new java.awt.Color(19, 28, 33));
         jTextField45.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1154,7 +1172,10 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField46.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField46.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField46.setFont(new java.awt.Font(null, 0, 18));
+        jTextField46.setHorizontalAlignment(JTextField.CENTER);
+        jTextField46.setForeground(new java.awt.Color(6,187,163));
 
         jTextField47.setBackground(new java.awt.Color(19, 28, 33));
         jTextField47.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
