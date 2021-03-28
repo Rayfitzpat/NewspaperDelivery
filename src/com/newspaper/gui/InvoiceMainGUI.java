@@ -195,12 +195,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jButton6.setActionCommand("");
         jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton6ActionPerformed(evt);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
+                jButton6ActionPerformed(evt);
+//                System.out.println("TESTESTSET");
             }
         });
 
@@ -905,7 +903,16 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jButton8.setBackground(new java.awt.Color(49, 117, 108));
         jButton8.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton8.setForeground(new java.awt.Color(0, 0, 0));
-        jButton8.setText("8");
+        jButton8.setText("Submit");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton8ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
         jTextField2.setBackground(new java.awt.Color(19, 28, 39));
         jTextField2.setForeground(new java.awt.Color(18, 30, 49));
@@ -923,7 +930,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
                 },
                 new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
+                        "Invoice ID", "Customer ID", "Invoice Date", "Price", "Price Paid?", "Delivered"
                 }
         ));
         jTable2.setGridColor(new java.awt.Color(49, 117, 108));
@@ -1122,7 +1129,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     }
 
     //GET CUSTOMER DETAILS
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
         if (evt.getSource() == jButton6) {
             DisplayAll.setVisible(false);
             CreateInvoice.setVisible(false);
@@ -1130,33 +1137,6 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             EditInvoice.setVisible(false);
             GetCustomerDetails.setVisible(true);
             DeleteInvoice.setVisible(false);
-
-            private int id = 0;
-            jTextField1.setText("Test");
-
-            String sql = "Select * from invoice where customer_id = "+cusID;
-            Statement DeleteStmt = con.createStatement();
-            ResultSet rs = DeleteStmt.executeQuery(sql);
-
-            while (rs.next())
-            {
-                int invoiceId = rs.getInt("invoice_id");
-                int cusId = rs.getInt("customer_id");
-
-                String invoice_date = rs.getString("invoice_date");
-                String price = rs.getString("price");
-                String price_paid = rs.getString("price_paid");
-                String delivered = rs.getString("is_delivered");
-
-                String tbData[] = {invoiceId + "",cusId + "",invoice_date, price, price_paid, delivered};
-                DefaultTableModel tblModel = (DefaultTableModel) jTable4.getModel();
-
-                tblModel.addRow(tbData);
-                personOneDBInitialised[0] = true;
-
-            }
-
-
         }
     }
     boolean[] personOneDBInitialised = {false};
@@ -1178,13 +1158,41 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             GetCustomerDetails.setVisible(false);
             DeleteInvoice.setVisible(true);
 
-                    jTextField25.setText("25"); //25 Enter The cust id to show Invoice
-                    jTextField44.setText("44"); //ID of Invoice you would like to Delete
+            jTextField25.setText("25"); //25 Enter The cust id to show Invoice
+            jTextField44.setText("44"); //ID of Invoice you would like to Delete
 
 
         }
     }
 
+
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        if (evt.getSource() == jButton8) {
+                String cusID = jTextField1.getText();
+                String sql = "Select * from invoice where customer_id = " + cusID;
+                Statement DeleteStmt = con.createStatement();
+                ResultSet rs = DeleteStmt.executeQuery(sql);
+//                System.out.println("8");
+
+
+                while (rs.next()) {
+                    int invoiceId = rs.getInt("invoice_id");
+                    int cusId = rs.getInt("customer_id");
+
+                    String invoice_date = rs.getString("invoice_date");
+                    String price = rs.getString("price");
+                    String price_paid = rs.getString("price_paid");
+                    String delivered = rs.getString("is_delivered");
+
+                    String tbData[] = {invoiceId + "", cusId + "", invoice_date, price, price_paid, delivered};
+                    DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
+
+                    tblModel.addRow(tbData);
+                    personOneDBInitialised[0] = true;
+                }
+            }
+        }
     /**
      * @param args the command line arguments
      */
