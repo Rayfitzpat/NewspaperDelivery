@@ -452,6 +452,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
         );
 
         CentrePanel.add(DisplayAll, "card3");
+        OrderId.setBackground(new java.awt.Color(19,28,33));
 
         DisplayOne5.setBackground(new Color(19, 28, 33));
 
@@ -527,76 +528,146 @@ public class OrderMainGUI extends javax.swing.JFrame {
         jTextField20.setFocusable(false);
         jTextField20.setSelectedTextColor(new Color(19, 28, 33));
 
-        GroupLayout jPanel11Layout = new GroupLayout(jPanel11);
+//        GroupLayout jPanel11Layout = new GroupLayout(jPanel11);
+//        jPanel11.setLayout(jPanel11Layout);
+//        jPanel11Layout.setHorizontalGroup(
+//                jPanel11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                        .addGroup(jPanel11Layout.createSequentialGroup()
+//                                .addContainerGap()
+//                                .addGroup(jPanel11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                                        .addComponent(jLabel30, GroupLayout.PREFERRED_SIZE, 606, GroupLayout.PREFERRED_SIZE)
+//                                        .addGroup(jPanel11Layout.createSequentialGroup()
+//                                                .addComponent(jTextField19, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
+//                                                .addGap(18, 18, 18)
+//                                                .addComponent(jButton26, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+//                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+//                                                .addComponent(jTextField20, GroupLayout.PREFERRED_SIZE, 803, GroupLayout.PREFERRED_SIZE)))
+//                                .addGap(0, 340, Short.MAX_VALUE))
+//        );
+//        jPanel11Layout.setVerticalGroup(
+//                jPanel11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                        .addGroup(jPanel11Layout.createSequentialGroup()
+//                                .addGap(22, 22, 22)
+//                                .addComponent(jLabel30, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+//                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+//                                .addGroup(jPanel11Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+//                                        .addGroup(jPanel11Layout.createSequentialGroup()
+//                                                .addComponent(jTextField19, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+//                                                .addGap(2, 2, 2))
+//                                        .addGroup(jPanel11Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+//                                                .addComponent(jTextField20, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+//                                                .addComponent(jButton26, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+//                                .addGap(16, 16, 16))
+//        );
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
-                jPanel11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel11Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(jPanel11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel30, GroupLayout.PREFERRED_SIZE, 606, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel11Layout.createSequentialGroup()
-                                                .addComponent(jTextField19, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jButton26, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTextField20, GroupLayout.PREFERRED_SIZE, 803, GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 340, Short.MAX_VALUE))
+                                                .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 233, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
-                jPanel11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel11Layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
-                                .addComponent(jLabel30, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel11Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel11Layout.createSequentialGroup()
-                                                .addComponent(jTextField19, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                                                .addComponent(jTextField19, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                                                 .addGap(2, 2, 2))
-                                        .addGroup(jPanel11Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jTextField20, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jButton26, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(16, 16, 16))
         );
 
-
-
-        GroupLayout DisplayOne5Layout = new GroupLayout(DisplayOne5);
+        javax.swing.GroupLayout DisplayOne5Layout = new javax.swing.GroupLayout(DisplayOne5);
         DisplayOne5.setLayout(DisplayOne5Layout);
         DisplayOne5Layout.setHorizontalGroup(
-                DisplayOne5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel11, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane7)
+                DisplayOne5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(DisplayOne5Layout.createSequentialGroup()
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
         );
         DisplayOne5Layout.setVerticalGroup(
-                DisplayOne5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                DisplayOne5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DisplayOne5Layout.createSequentialGroup()
-                                .addComponent(jPanel11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane7, GroupLayout.PREFERRED_SIZE, 636, GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17))
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0))
         );
 
-        GroupLayout OrderIdLayout = new GroupLayout(OrderId);
+        javax.swing.GroupLayout OrderIdLayout = new javax.swing.GroupLayout(OrderId);
         OrderId.setLayout(OrderIdLayout);
         OrderIdLayout.setHorizontalGroup(
-                OrderIdLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 1423, Short.MAX_VALUE)
-                        .addGroup(OrderIdLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                OrderIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 1316, Short.MAX_VALUE)
+                        .addGroup(OrderIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(OrderIdLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(DisplayOne5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(DisplayOne5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))
         );
         OrderIdLayout.setVerticalGroup(
-                OrderIdLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                OrderIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 776, Short.MAX_VALUE)
-                        .addGroup(OrderIdLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(OrderIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(OrderIdLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(DisplayOne5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(DisplayOne5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+
+//        GroupLayout DisplayOne5Layout = new GroupLayout(DisplayOne5);
+//        DisplayOne5.setLayout(DisplayOne5Layout);
+//        DisplayOne5Layout.setHorizontalGroup(
+//                DisplayOne5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                        .addComponent(jPanel11, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//                        .addComponent(jScrollPane7)
+//        );
+//        DisplayOne5Layout.setVerticalGroup(
+//                DisplayOne5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                        .addGroup(DisplayOne5Layout.createSequentialGroup()
+//                                .addComponent(jPanel11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+//                                .addGap(0, 0, Short.MAX_VALUE)
+//                                .addComponent(jScrollPane7, GroupLayout.PREFERRED_SIZE, 636, GroupLayout.PREFERRED_SIZE)
+//                                .addGap(17, 17, 17))
+//        );
+//
+//        GroupLayout OrderIdLayout = new GroupLayout(OrderId);
+//        OrderId.setLayout(OrderIdLayout);
+//        OrderIdLayout.setHorizontalGroup(
+//                OrderIdLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                        .addGap(0, 1423, Short.MAX_VALUE)
+//                        .addGroup(OrderIdLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                                .addGroup(OrderIdLayout.createSequentialGroup()
+//                                        .addGap(0, 0, Short.MAX_VALUE)
+//                                        .addComponent(DisplayOne5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+//                                        .addGap(0, 0, Short.MAX_VALUE)))
+//        );
+//        OrderIdLayout.setVerticalGroup(
+//                OrderIdLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                        .addGap(0, 776, Short.MAX_VALUE)
+//                        .addGroup(OrderIdLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                                .addGroup(OrderIdLayout.createSequentialGroup()
+//                                        .addGap(0, 0, Short.MAX_VALUE)
+//                                        .addComponent(DisplayOne5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+//                                        .addGap(0, 0, Short.MAX_VALUE)))
+//        );
 
         CentrePanel.add(OrderId, "card6");
 
@@ -1375,8 +1446,6 @@ public class OrderMainGUI extends javax.swing.JFrame {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-
-
             }
         });
 
