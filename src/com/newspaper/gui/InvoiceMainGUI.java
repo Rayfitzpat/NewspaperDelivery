@@ -339,21 +339,42 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         DisplayAll.setBackground(new java.awt.Color(19, 28, 33));
 
         jPanel7.setBackground(new java.awt.Color(19, 28, 33));
-
         jScrollPane4.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable4.setBackground(new java.awt.Color(19, 28, 33));
-        jTable4.setForeground(new java.awt.Color(49, 117, 108));
+        JTableHeader tableHeader4 = jTable4.getTableHeader();
+        tableHeader4.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader4.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader4.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader4.setOpaque(true);
+        jTable4.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        jTable4.setForeground(new java.awt.Color(6, 187, 163));
+        jTable4.setFont(new Font( null,0, 15));
+        jTable4.setFillsViewportHeight(true);
+        jTable4.setOpaque(true);
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
+                new String[]{
                         "Invoice ID", "Customer ID", "Invoice Date", "Price", "Price Paid?", "Delivered"
                 }
         ));
+        jTable4.setShowGrid(true);
         jTable4.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane4.setViewportView(jTable4);
+        jTable4.setRowHeight(40);
+        jTable4.setBackground(new java.awt.Color(19, 28, 33));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=5; i++){
+            jTable4.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+
+
+
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -396,7 +417,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jLabel30.setForeground(new java.awt.Color(6, 187, 163));
         jLabel30.setText("Please Enter the month of the Invoice that you would like to Create");
 
-        jTextField19.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField19.setBackground(new Color(19, 28, 33));
+        jTextField19.setForeground(new Color(6, 187, 163));
+        jTextField19.setFont(new java.awt.Font(null, 0, 18));
+        jTextField19.setHorizontalAlignment(JTextField.CENTER);
 
         jButton32.setBackground(new java.awt.Color(49, 117, 108));
         jButton32.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -410,7 +434,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField20.setFocusable(false);
         jTextField20.setSelectedTextColor(new java.awt.Color(19, 28, 33));
 
-        jTextField21.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField21.setBackground(new Color(19, 28, 33));
+        jTextField21.setForeground(new Color(6, 187, 163));
+        jTextField21.setFont(new java.awt.Font(null, 0, 18));
+        jTextField21.setHorizontalAlignment(JTextField.CENTER);
 
         jLabel38.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(6, 187, 163));
@@ -436,7 +463,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(53, 53, 53)
-                                                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -527,12 +554,15 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jLabel39.setForeground(new java.awt.Color(6, 187, 163));
         jLabel39.setText("Please Enter the month of the Invoice that you would like to View");
 
-        jTextField45.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField45.setBackground(new Color(19, 28, 33));
+        jTextField45.setForeground(new Color(6, 187, 163));
+        jTextField45.setFont(new java.awt.Font(null, 0, 18));
+        jTextField45.setHorizontalAlignment(JTextField.CENTER);
 
         jButton33.setBackground(new java.awt.Color(49, 117, 108));
         jButton33.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton33.setForeground(new java.awt.Color(0, 0, 0));
-        jButton33.setText("33");
+        jButton33.setText("View");
 
         jTextField46.setBackground(new java.awt.Color(19, 28, 39));
         jTextField46.setForeground(new java.awt.Color(18, 30, 49));
@@ -541,7 +571,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField46.setFocusable(false);
         jTextField46.setSelectedTextColor(new java.awt.Color(19, 28, 33));
 
-        jTextField47.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField47.setBackground(new Color(19, 28, 33));
+        jTextField47.setForeground(new Color(6, 187, 163));
+        jTextField47.setFont(new java.awt.Font(null, 0, 18));
+        jTextField47.setHorizontalAlignment(JTextField.CENTER);
 
         jLabel40.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(6, 187, 163));
@@ -606,7 +639,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextField5.setForeground(new java.awt.Color(255, 0, 0));
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField5.setText("Text Field 5");
+        jTextField5.setText("");
 
         javax.swing.GroupLayout DisplayOne6Layout = new javax.swing.GroupLayout(DisplayOne6);
         DisplayOne6.setLayout(DisplayOne6Layout);
@@ -663,7 +696,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jLabel41.setForeground(new java.awt.Color(6, 187, 163));
         jLabel41.setText("Please Enter the Customer Id to change Invoice Status");
 
-        jTextField48.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField48.setBackground(new Color(19, 28, 33));
+        jTextField48.setForeground(new Color(6, 187, 163));
+        jTextField48.setFont(new java.awt.Font(null, 0, 18));
+        jTextField48.setHorizontalAlignment(JTextField.CENTER);
 
         jButton34.setBackground(new java.awt.Color(49, 117, 108));
         jButton34.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -679,18 +715,30 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jScrollPane9.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable9.setBackground(new java.awt.Color(19, 28, 33));
-        jTable9.setForeground(new java.awt.Color(49, 117, 108));
+        JTableHeader tableHeader9 = jTable9.getTableHeader();
+        tableHeader9.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader9.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader9.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader9.setOpaque(true);
+        jTable9.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        jTable9.setForeground(new java.awt.Color(6, 187, 163));
+        jTable9.setFont(new Font( null,0, 15));
+        jTable9.setFillsViewportHeight(true);
+        jTable9.setOpaque(true);
         jTable9.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
+                new String[]{
                         "Invoice ID", "Customer ID", "Invoice Date", "Price", "Price Paid?", "Delivered"
                 }
         ));
+        jTable9.setShowGrid(true);
         jTable9.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane9.setViewportView(jTable9);
+        jTable9.setRowHeight(40);
+        jTable9.setBackground(new java.awt.Color(19, 28, 33));
 
         jLabel42.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(6, 187, 163));
@@ -710,9 +758,13 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jLabel43.setForeground(new java.awt.Color(6, 187, 163));
         jLabel43.setText("Select Paid or Unpaid to update the Chosen Invoice");
 
-        jTextField50.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField50.setBackground(new Color(19, 28, 33));
+        jTextField50.setForeground(new Color(6, 187, 163));
+        jTextField50.setFont(new java.awt.Font(null, 0, 18));
+        jTextField50.setHorizontalAlignment(JTextField.CENTER);
 
         jTextField6.setText("");
+
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -800,7 +852,11 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jLabel33.setForeground(new java.awt.Color(6, 187, 163));
         jLabel33.setText("Please Enter the Customer Id to show their Invoices");
 
-        jTextField25.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField25.setBackground(new Color(19, 28, 33));
+        jTextField25.setForeground(new Color(6, 187, 163));
+
+        jTextField25.setFont(new Font(null, 0, 24));
+        jTextField25.setHorizontalAlignment(JTextField.CENTER);
 
         jButton26.setBackground(new java.awt.Color(49, 117, 108));
         jButton26.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -825,24 +881,39 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jScrollPane6.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable6.setBackground(new java.awt.Color(19, 28, 33));
-        jTable6.setForeground(new java.awt.Color(49, 117, 108));
+        JTableHeader tableHeader6 = jTable6.getTableHeader();
+        tableHeader6.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader6.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader6.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader6.setOpaque(true);
+        jTable6.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        jTable6.setForeground(new java.awt.Color(6, 187, 163));
+        jTable6.setFont(new Font( null,0, 15));
+        jTable6.setFillsViewportHeight(true);
+        jTable6.setOpaque(true);
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
+                new String[]{
                         "Invoice ID", "Customer ID", "Invoice Date", "Price", "Price Paid?", "Delivered"
                 }
         ));
+        jTable6.setShowGrid(true);
         jTable6.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane6.setViewportView(jTable6);
+        jTable6.setRowHeight(40);
+        jTable6.setBackground(new java.awt.Color(19, 28, 33));
 
         jLabel36.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(6, 187, 163));
         jLabel36.setText("Select the ID of the Invoice that you would like to DELETE");
 
-        jTextField44.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField44.setBackground(new Color(19, 28, 33));
+        jTextField44.setForeground(new Color(6, 187, 163));
+        jTextField44.setFont(new Font(null, 0, 24));
+        jTextField44.setHorizontalAlignment(JTextField.CENTER);
 
         jButton37.setBackground(new java.awt.Color(49, 117, 108));
         jButton37.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -929,7 +1000,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
         jLabel3.setText("Please Enter the Invoice ID to get Customer Details");
 
-        jTextField1.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField1.setBackground(new Color(19, 28, 33));
+        jTextField1.setForeground(new Color(6, 187, 163));
+        jTextField1.setFont(new java.awt.Font(null, 0, 18));
+        jTextField1.setHorizontalAlignment(JTextField.CENTER);
 
         jButton8.setBackground(new java.awt.Color(49, 117, 108));
         jButton8.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -999,20 +1073,32 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField2.setFocusable(false);
         jTextField2.setSelectedTextColor(new java.awt.Color(19, 28, 33));
 
-        jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
+        jScrollPane9.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable2.setBackground(new java.awt.Color(19, 28, 33));
-        jTable2.setForeground(new java.awt.Color(49, 117, 108));
+        JTableHeader tableHeader2 = jTable2.getTableHeader();
+        tableHeader2.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader2.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader2.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader2.setOpaque(true);
+        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        jTable2.setForeground(new java.awt.Color(6, 187, 163));
+        jTable2.setFont(new Font( null,0, 15));
+        jTable2.setFillsViewportHeight(true);
+        jTable2.setOpaque(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
+                new String[]{
                         "Invoice ID", "Customer ID", "Invoice Date", "Price", "Price Paid?", "Delivered"
                 }
         ));
+        jTable2.setShowGrid(true);
         jTable2.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane2.setViewportView(jTable2);
+        jTable2.setRowHeight(40);
+        jTable2.setBackground(new java.awt.Color(19, 28, 33));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1178,10 +1264,8 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             GetCustomerDetails.setVisible(false);
             DeleteInvoice.setVisible(false);
 
-            jTextField45.setText("45"); //INVOICE ID
-            jTextField47.setText("47"); //MONTH
-
-
+            jTextField45.setText(""); //INVOICE ID
+            jTextField47.setText(""); //MONTH
         }
     }
 
@@ -1234,7 +1318,6 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             EditInvoice.setVisible(false);
             GetCustomerDetails.setVisible(true);
             DeleteInvoice.setVisible(false);
-
         }
     }
     boolean[] personOneDBInitialised = {false};
