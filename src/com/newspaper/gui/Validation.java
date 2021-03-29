@@ -1,6 +1,10 @@
 package com.newspaper.gui;
 import com.newspaper.customer.CustomerExceptionHandler;
 import com.newspaper.db.DBconnection;
+import com.newspaper.order.Order;
+import com.newspaper.order.OrderExceptionHandler;
+import com.newspaper.order.OrderView;
+//import com.newspaper.order;
 
 
 import java.sql.ResultSet;
@@ -8,7 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,11 +45,12 @@ public class Validation {
     }
 
     public boolean validateEntry(String DPID) {
-        if (DPID.length() > 2 || DPID.length() <1) {
+        if (DPID.length() > 2 || DPID.length() < 1) {
             return false;
         } else if (DPID.matches("[0-9\\d]*")) {
             return true;
-        }return false;
+        }
+        return false;
     }
 
 
@@ -66,10 +73,10 @@ public class Validation {
             } else {
                 return false;
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
-        }
+    }
 
 
     public boolean validateStringWithNumbers(String name) {
@@ -125,13 +132,12 @@ public class Validation {
         }
     }
 
-    public boolean validateHolidayStartBeforeEnd(String startDate, String endDate)  {
+    public boolean validateHolidayStartBeforeEnd(String startDate, String endDate) {
         // null in both fields is acceptable hor holiday field
 
-        if(endDate == null){
+        if (endDate == null) {
             return true;
-        }
-        else if (startDate != null && endDate != null) {
+        } else if (startDate != null && endDate != null) {
             // setting the format for date 2021-02-29
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -147,20 +153,17 @@ public class Validation {
                 // if start date is not before the end date, throwing an exception
                 if (start.before(end)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
-            }
-            catch (ParseException e)
-            {
+            } catch (ParseException e) {
                 return false;
             }
-        }else return true;
+        } else return true;
 
     }
 
-    public boolean validateHoliday(String startDate, String endDate)  {
+    public boolean validateHoliday(String startDate, String endDate) {
         // null in both fields is acceptable hor holiday field
         if (startDate != null && endDate != null) {
             // setting the format for date 2021-02-29
@@ -178,16 +181,13 @@ public class Validation {
                 // if start date is not before the end date, throwing an exception
                 if (start.before(end)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
+            } catch (ParseException e) {
+                return false;
             }
-            catch (ParseException e)
-            {
-               return false;
-            }
-        }else return false;
+        } else return false;
     }
 
     public boolean validateAccess(String access) {
@@ -215,21 +215,23 @@ public class Validation {
             return false;
         } else if (eircode.matches("[A-Z0-9]{7}")) {
             return true;
-        }return false;
+        }
+        return false;
     }
 
 
     public boolean validateID(String DPID) {
-        if (DPID.length() < 1 || DPID.length() >3) {
+        if (DPID.length() < 1 || DPID.length() > 3) {
             return false;
         } else if (DPID.matches("[0-9\\d]*")) {
             return true;
-        }return false;
+        }
+        return false;
     }
 
 
     public boolean validateDeliveryID(String DPID) {
-        if (DPID.length() < 1 || DPID.length() >3) {
+        if (DPID.length() < 1 || DPID.length() > 3) {
             return false;
         } else if (DPID.matches("[0-9\\d]*")) {
             String query = "select count(*) as total from delivery_area where delivery_area_id = " + DPID;
@@ -237,29 +239,29 @@ public class Validation {
             int count = 0;
             try {
                 rs = DBconnection.stmt.executeQuery(query);
-                while(rs.next()) {
+                while (rs.next()) {
                     count = rs.getInt("total");
                 }
-                if(count == 0)
-                {
+                if (count == 0) {
                     System.out.println("fghfhgfghfghfghjfjghfghjfgjh");
                     return false;
-                }
-                else return true;
-            } catch(SQLException sqle) {
+                } else return true;
+            } catch (SQLException sqle) {
                 System.out.println(sqle.getMessage());
                 System.out.println(query);
                 return false;
             }
-        }return false;
+        }
+        return false;
     }
 
     public boolean validateDPIDIsNum(String dpid) {
-        if (dpid.length() <1  || dpid.length() >3) {
+        if (dpid.length() < 1 || dpid.length() > 3) {
             return false;
         } else if (dpid.matches("[0-9\\d]*")) {
             return true;
-        }return false;
+        }
+        return false;
     }
 
     public boolean validateDPID(String dpid) throws SQLException {
@@ -275,7 +277,7 @@ public class Validation {
             ResultSet rs = DBconnection.stmt.executeQuery(strg);
             count1 = 0;
             while (rs.next()) {
-                count1= rs.getInt("total");
+                count1 = rs.getInt("total");
             }
             if (count1 > 0) {
                 System.out.println("************************************");
@@ -285,43 +287,61 @@ public class Validation {
                 System.out.println("$%£$%£$%£$%£$%^£$%£^$%£^%$£%$");
                 return false;
             }
-        }return false;
+        }
+        return false;
 
     }
-
 
 
     public boolean validateStock(String DPID) {
-        if (DPID.length() < 1 || DPID.length() >3) {
+        if (DPID.length() < 1 || DPID.length() > 3) {
             return false;
         } else if (DPID.matches("[0-9\\d]*")) {
             return true;
-        }return false;
+        }
+        return false;
     }
 
-    public boolean validateCost(String cost)
-    {
-        if(cost.length()>=1 && cost.length() <=5){
+    public boolean validateCost(String cost) {
+        if (cost.length() >= 1 && cost.length() <= 5) {
             if (cost.matches("[+]?([0-9]*[.])?[0-9]+")) {
                 return true;
+            } else return false;
+        } else return false;
+    }
+
+
+    public boolean validateFrequency(String frequency) {
+        if (frequency.equals("daily") || frequency.equals("weekly")) {
+
+            return true;
+        } else return false;
+    }
+
+
+//----------------------------------------------------------------------------------------------------------------------
+//Order Validation
+//----------------------------------------------------------------------------------------------------------------------
+
+    public boolean validateOrderFrequency(String frequency) {
+        try {
+            if (frequency.length() == 1) {
+                int orderFrequency = Integer.parseInt(frequency);
+                int minFrequency = 1;
+                int maxFrequency = 7;
+
+                if (orderFrequency < minFrequency) {
+                    return false;
+                } else if (orderFrequency > maxFrequency) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
             }
-            else return false;
+        } catch (Exception e) {
+            return false;
         }
-        else return false;
     }
-
-
-    public boolean validateFrequency(String frequency)
-    {
-        if(frequency.equals("daily") || frequency.equals("weekly")){
-
-                return true;
-        }
-        else return false;
-    }
-
 }
-
-
-
-
