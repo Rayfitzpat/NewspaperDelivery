@@ -164,7 +164,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                     String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
                     Connection con = DriverManager.getConnection(url, "root", "admin");
                     Statement stmt = con.createStatement();
-                    String sql = "Select * from publication";
+                    String sql = "Select * from publication order by publication_id asc";
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
@@ -1247,7 +1247,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
             Edit.setVisible(false);
             Delete.setVisible(true);
 
-            String sql = "Select * from publication";
+            String sql = "Select * from publication order by publication_id asc";
             Statement DeleteStmt = con.createStatement();
             ResultSet rs = DeleteStmt.executeQuery(sql);
 
@@ -1538,7 +1538,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                     Statement statement = con.createStatement();
                     statement.executeUpdate("DELETE from publication where publication_id = " + deleteID);
                     Statement DeleteStmt = con.createStatement();
-                    String sql = "Select * from publication";
+                    String sql = "Select * from publication order by publication_id asc";
                     ResultSet rs = DeleteStmt.executeQuery(sql);
 
                     while (rs.next()) {
