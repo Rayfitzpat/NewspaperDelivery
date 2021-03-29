@@ -104,7 +104,6 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
                 CustomerSupportGUI customerSupportGUI = new CustomerSupportGUI();
                 dispose();
                 jButton1ActionPerformed(evt);
-                System.out.println("hello Customer Support");
                 customerSupportGUI.setVisible(true);
             }
         });

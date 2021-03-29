@@ -122,7 +122,7 @@ public class CustomerSupportGUI extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel11.setText("A00276551@student.ait.ie");
+        jLabel11.setText("A00273586@student.ait.ie");
 
         jLabel13.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(6, 187, 163));
@@ -151,7 +151,7 @@ public class CustomerSupportGUI extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(6, 187, 163));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("A00276551@student.ait.ie");
+        jLabel18.setText("A00277458@student.ait.ie");
 
         jLabel19.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(6, 187, 163));
