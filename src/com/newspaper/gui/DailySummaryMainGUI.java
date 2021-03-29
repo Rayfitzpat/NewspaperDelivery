@@ -16,6 +16,8 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
      */
     public DailySummaryMainGUI() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     /**

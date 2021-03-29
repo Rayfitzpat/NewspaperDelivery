@@ -104,7 +104,6 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
                 CustomerSupportGUI customerSupportGUI = new CustomerSupportGUI();
                 dispose();
                 jButton1ActionPerformed(evt);
-                System.out.println("hello Customer Support");
                 customerSupportGUI.setVisible(true);
             }
         });
@@ -202,7 +201,9 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
-                System.out.println("Invoice Menu not yet initialised");
+                InvoiceMainGUI invoiceMainGUI = new InvoiceMainGUI();
+                dispose();
+                invoiceMainGUI.setVisible(true);
             }
         });
 
