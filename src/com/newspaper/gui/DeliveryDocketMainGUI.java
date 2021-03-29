@@ -1027,7 +1027,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
                 },
                 new String[]{
-                        "Delivery ID", "Customer Name", "Address", "Delivery Type", "Is Delivered"
+                        "Delivery ID", "Address", "Customer Name",  "Delivery Type", "Is Delivered"
                 }
         ));
     }
@@ -1121,7 +1121,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
             String date = getDateFromCreate();
             displayDeliveryDocket(id, date);
         } catch (DeliveryDocketExceptionHandler e) {
-            tfWarningCREATE.setText(e.getMessage());
+            showError(tfWarningCREATE, e.getMessage());
         }
         return id;
     }
@@ -1146,9 +1146,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
             displayDeliveryDocket(deliveryPersonId, date);
 
         } catch (DeliveryDocketExceptionHandler e) {
-            tfWarningCREATE.setText(e.getMessage());
+            showError(tfWarningCREATE, e.getMessage());
         } catch (Exception e) {
-            tfWarningCREATE.setText("Date format incorrect");
+            showError(tfWarningCREATE,"Date format incorrect");
         }
     }
 
@@ -1221,9 +1221,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
             }
 
         } catch (DeliveryDocketExceptionHandler e) {
-            editWarningTf.setText(e.getMessage());
+            showError(editWarningTf, e.getMessage());
         } catch (Exception e) {
-            editWarningTf.setText("Date format incorrect");
+            showError(editWarningTf, "Date format incorrect");
         }
 
     }
@@ -1232,7 +1232,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
         setTable1Model();
         if (deliveryList.size() == 0) {
-            editWarningTf.setText("No deliveries for this day");
+            showInfo(editWarningTf, "No deliveries for this day");
         } else {
             try {
                 for (DeliveryItem delivery : deliveryList) {
@@ -1275,13 +1275,13 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         String deliveryPersonId = editDPidTf.getText();
         try {
             if (deliveryPersonId.length() == 0) {
-                editWarningTf.setText("Please enter Delivery Person ID");
+                showInfo(editWarningTf, "Please enter Delivery Person ID");
                 return 0;
             }
 
             id = handler.validateDeliveryPersonId(deliveryPersonId);
         } catch (DeliveryDocketExceptionHandler e) {
-            editWarningTf.setText(e.getMessage());
+            showError(editWarningTf, e.getMessage());
         }
         return id;
     }
@@ -1293,49 +1293,63 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
 
         if (deliveries.size() == 0) {
-            editWarningTf.setText("Deliveries list is empty");
+            showInfo(editWarningTf, "Deliveries list is empty");
         } else {
             String deliveryId = editEnterIdNonDeliveredTf.getText();
 
             if (deliveryId.length() == 0) {
-                editWarningTf.setText("Please enter delivery id");
+                showInfo(editWarningTf, "Please enter delivery id");
                 return 0;
             } else {
-                id = Integer.parseInt(deliveryId);
-                if (handler.validateDelivery(id)) {
-                    // delivery id valid
-                    // find the correct delivery
-                    DeliveryItem deliveryItem = null;
-                    for (DeliveryItem item : deliveries) {
-                        if (item.getDeliveryId() == id) {
-                            deliveryItem = item;
+                try {
+                    id = Integer.parseInt(deliveryId);
+                    if (handler.validateDelivery(id) && containsIdInDeliveries(id)) {
+                        // delivery id valid
+                        // find the correct delivery
+                        DeliveryItem deliveryItem = null;
+                        for (DeliveryItem item : deliveries) {
+                            if (item.getDeliveryId() == id) {
+                                deliveryItem = item;
+                            }
+                            if (item.getId() == id) {
+                                deliveryItem = item;
+                            }
                         }
-                        if (item.getId() == id) {
-                            deliveryItem = item;
-                        }
-                    }
 
-                    // if delivery was found and its not delivered yet, update the delivery
-                    if (deliveryItem == null) {
-                        editWarningTf.setText("Delivery with delivery id " + deliveryId + " is not found");
+                        // if delivery was found and its not delivered yet, update the delivery
+                        if (deliveryItem == null) {
+                            showError(editWarningTf, "Delivery with delivery id " + deliveryId + " is not found");
+                        } else {
+                            // updating the delivery
+                            try {
+                                deliveryDocketDB.updateDeliveryStatus(deliveryItem, "not delivered");
+                                submitDateOnEdit();
+                                showInfo(editWarningTf, "Update successful");
+                            } catch (DeliveryDocketExceptionHandler e) {
+                                showError(editWarningTf, e.getMessage());
+                            }
+                        }
+
                     } else {
-                        // updating the delivery
-                        try {
-                            deliveryDocketDB.updateDeliveryStatus(deliveryItem, "not delivered");
-                            submitDateOnEdit();
-                            editWarningTf.setText("Update successful");
-                        } catch (DeliveryDocketExceptionHandler e) {
-                            editWarningTf.setText(e.getMessage());
-                        }
+                        showInfo(editWarningTf, "Delivery with id " + id + " is not available.");
                     }
-
-                } else {
-                    editWarningTf.setText("Delivery with id " + id + " does not exist.");
+                }
+                catch (NumberFormatException e) {
+                    showError(editWarningTf, "Input is incorrect");
                 }
             }
         }
 
         return id;
+    }
+
+    public boolean containsIdInDeliveries(int id) {
+        for (DeliveryItem deliveryItem : deliveries) {
+            if (deliveryItem.getDeliveryId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void confirmDeliveredOnEdit(ActionEvent evt) {
@@ -1344,9 +1358,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
         // check if the list of deliveries is not empty
         if (deliveries.size() == 0) {
-            editWarningTf.setText("Deliveries list is empty");
+            showInfo(editWarningTf, "Deliveries list is empty");
         } else if (id == 0 || date.equals("")) {
-            editWarningTf.setText("Changing status not possible");
+            showError(editWarningTf, "Changing status not possible");
         } else {
             try {
                 deliveryDocketDB.generateDeliveriesIfNeeded(date);
@@ -1359,9 +1373,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                 deliveries.clear();
                 this.deliveries = docket.getDeliveryItems();
                 displayDeliveries(deliveries);
-                editWarningTf.setText("All deliveries status changed to delivered");
+                showInfo(editWarningTf, "All deliveries status changed to delivered");
             } catch (DeliveryDocketExceptionHandler e) {
-                editWarningTf.setText(e.getMessage());
+                showError(editWarningTf, e.getMessage());
             }
         }
 
@@ -1388,9 +1402,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         dateOnDelete = date;
 
         if (id == 0) {
-            tfWarningOnDelete.setText("Delivery person id input is not valid");
+            showError(tfWarningOnDelete, "Delivery person id input is not valid");
         } else if (date.equals("")) {
-            tfWarningOnDelete.setText("Date input is not valid");
+            showError(tfWarningOnDelete, "Date input is not valid");
         } else {
             displayDeliveryDocketOnDelete(id, date);
         }
@@ -1402,7 +1416,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         try {
             id = handler.validateDeliveryPersonId(deliveryPersonId);
         } catch (DeliveryDocketExceptionHandler e) {
-            tfWarningOnDelete.setText(e.getMessage());
+            showError(tfWarningOnDelete, e.getMessage());
         }
         return id;
     }
@@ -1424,9 +1438,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
 
         } catch (DeliveryDocketExceptionHandler e) {
-            tfWarningOnDelete.setText(e.getMessage());
+            showError(tfWarningOnDelete, e.getMessage());
         } catch (Exception e) {
-            tfWarningOnDelete.setText("Date format incorrect");
+            showError(tfWarningOnDelete, "Date format incorrect");
         }
 
         return date;
@@ -1449,7 +1463,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         tfWarningOnDelete.setText("");
 
         if (textAreaDelete.getText().equals("")) {
-            tfWarningOnDelete.setText("Nothing to delete");
+            showInfo(tfWarningOnDelete, "Nothing to delete");
         } else {
             if (dpIdOnDelete != 0 && !dateOnDelete.equals("")) {
                 try {
@@ -1459,10 +1473,10 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                     String deliveryPersonName = utility.getDeliveryPersonName(area.getDeliveryPersonId());
                     String fileName = deliveryPersonName + "_" + deliveryAreaName + "_" + date + ".txt";
                     deliveryDocketDB.deleteFileIfExists(fileName);
-                    tfWarningOnDelete.setText("Delivery docket was deleted successfully");
+                    showInfo(tfWarningOnDelete, "Delivery docket was deleted successfully");
                     textAreaDelete.setText("");
                 } catch (DeliveryDocketExceptionHandler e) {
-                    tfWarningOnDelete.setText(e.getMessage());
+                    showError(tfWarningOnDelete, e.getMessage());
                 }
             }
         }
@@ -1475,9 +1489,9 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
         // if text are is empty, nothing to delete
         if (textAreaDelete.getText().equals("")) {
-            tfWarningOnDelete.setText("Nothing to delete");
+            showInfo(tfWarningOnDelete, "Nothing to delete");
         } else {
-            tfWarningOnDelete.setText("Delivery docket was not deleted");
+            showInfo(tfWarningOnDelete, "Delivery docket was not deleted");
         }
 
     }
@@ -1507,15 +1521,15 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         int customerId = getCustomerIDOnCustomerDeliveries();
 
         if (customerId == 0) {
-            tfWarningOnCustomerDeliveries.setText("Incorrect format for customer ID");
+            showError(tfWarningOnCustomerDeliveries, "Incorrect format for customer ID");
         }
         else {
             // check if customer exists
             if (!utility.ifCustomerExists(customerId)) {
-                tfWarningOnCustomerDeliveries.setText("Customer with ID " + customerId + " does not exist");
+                showError(tfWarningOnCustomerDeliveries,"Customer with ID " + customerId + " does not exist");
             }
             else if (!utility.customerDeliveryExists(customerId)) {
-                tfWarningOnCustomerDeliveries.setText("Customer with ID " + customerId + " does not have any deliveries");
+                showInfo(tfWarningOnCustomerDeliveries, "Customer with ID " + customerId + " does not have any deliveries");
             }
             else {
                 //display deliveries in the table
@@ -1594,12 +1608,12 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         int publicationId = getPublicationIdOnPublications();
 
         if (publicationId == 0) {
-            tfWarningOnPublications.setText("Incorrect format for publication ID");
+            showError(tfWarningOnPublications, "Incorrect format for publication ID");
         }
         else {
             // check if publication exists
             if (!utility.publicationExists(publicationId)) {
-                tfWarningOnPublications.setText("Publication with ID " + publicationId + " does not exist");
+                showInfo(tfWarningOnPublications, "Publication with ID " + publicationId + " does not exist");
             }
             else {
                 //display deliveries in the table
@@ -1626,7 +1640,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
                     }
 
                 } catch (SQLException sqle) {
-                    tfWarningOnPublications.setText("Error: failed to display all Deliveries");
+                    showError(tfWarningOnPublications, "Error: failed to display all Deliveries");
                     System.out.println(sqle.getMessage());
                     System.out.println(query);
                 }
@@ -1670,6 +1684,30 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
         ((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    // Showing warning message in red color
+    public void showError(JTextField warningTextField, String msg) {
+        warningTextField.setForeground(new Color(255, 0, 0));
+        warningTextField.setText(msg);
+    }
+
+    // Showing warning message in blue color
+    public void showInfo(JTextField warningTextField, String msg) {
+        warningTextField.setForeground(new Color(6, 187, 163));
+        warningTextField.setText(msg);
+    }
+
+    // Showing warning message in red color
+    public void showError(JLabel warningTextField, String msg) {
+        warningTextField.setForeground(new Color(255, 0, 0));
+        warningTextField.setText(msg);
+    }
+
+    // Showing warning message in blue color
+    public void showInfo(JLabel warningTextField, String msg) {
+        warningTextField.setForeground(new Color(6, 187, 163));
+        warningTextField.setText(msg);
     }
 
     /**
