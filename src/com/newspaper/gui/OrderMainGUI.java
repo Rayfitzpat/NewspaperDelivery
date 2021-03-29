@@ -160,7 +160,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
 
                 try {
-                    String sql = "Select * from orders;";
+                    String sql = "Select * from orders order by order_id;";
                     Statement stmt = DBconnection.con.createStatement();
                     ResultSet rs = stmt.executeQuery(sql);
 
@@ -2283,7 +2283,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                                         jTextField30.setText("You have successfully added a new Order, scroll to bottom to view");
 
                                         try {
-                                            String sql = "Select * from orders;";
+                                            String sql = "Select * from orders order by order_id;";
                                             Statement stmt = DBconnection.con.createStatement();
                                             ResultSet rss = stmt.executeQuery(sql);
 
@@ -2400,7 +2400,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
     public void displayOrderByOrderIdGUI(String orderID) throws SQLException {
 
-        String query = "Select * from orders where order_id = " + orderID + ";";
+        String query = "Select * from orders where order_id = " + orderID + " order by order_id;";
         try{
             Statement stmt1 = DBconnection.con.createStatement();
             ResultSet rs1 = stmt1.executeQuery(query);
@@ -2484,7 +2484,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
     public void displayOrderByCustomerIdGUI(String customerID) throws SQLException {
 
-        String displayQuery = "Select * from orders where customer_id = " + customerID + ";";
+        String displayQuery = "Select * from orders where customer_id = " + customerID + " order by order_id;";
 
         try {
             Statement stmt = DBconnection.con.createStatement();
@@ -2555,7 +2555,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
     public void displayOrderByPublicationIdGUI(String publicationID) throws SQLException {
 
-        String displayQuery = "Select * from orders where publication_id = " + publicationID + ";";
+        String displayQuery = "Select * from orders where publication_id = " + publicationID + " order by order_id;";
 
         try {
             Statement stmt = DBconnection.con.createStatement();
@@ -2629,7 +2629,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
     public void displayOrderByFrequencyGUI(String freq) throws SQLException {
 
-        String displayQuery = "Select * from orders where frequency = " + freq + ";";
+        String displayQuery = "Select * from orders where frequency = " + freq + " order by order_id;";
 
         try {
             Statement stmt = DBconnection.con.createStatement();
@@ -2680,7 +2680,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                         jTextField38.setForeground(new java.awt.Color(6, 187, 163));
                         jTextField38.setText("Successfully deleted order: " + orderID);
                         try {
-                            String sql = "Select * from orders;";
+                            String sql = "Select * from orders order by order_id;";
                             Statement stmt2 = DBconnection.con.createStatement();
                             ResultSet rss = stmt2.executeQuery(sql);
 
