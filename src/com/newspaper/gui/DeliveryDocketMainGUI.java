@@ -138,6 +138,17 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         tfPubIdOnDisplayPublications.setHorizontalAlignment(JTextField.CENTER);
         editEnterIdNonDeliveredTf.setHorizontalAlignment(JTextField.CENTER);
 
+        // make text bigger
+        tfPubIdOnDisplayPublications.setFont(new java.awt.Font(null, 0, 18));
+        tfCustomerDeliveriesId.setFont(new java.awt.Font(null, 0, 18));
+        tfDPidOnDelete.setFont(new java.awt.Font(null, 0, 18));
+        tfDateOnDelete.setFont(new java.awt.Font(null, 0, 18));
+        editDPidTf.setFont(new java.awt.Font(null, 0, 18));
+        editEnterDateTf.setFont(new java.awt.Font(null, 0, 18));
+        editEnterIdNonDeliveredTf.setFont(new java.awt.Font(null, 0, 18));
+        tfDeliveryPersonIDoncreate.setFont(new java.awt.Font(null, 0, 18));
+        tfDateOnCreate.setFont(new java.awt.Font(null, 0, 18));
+
         /*** Create Listeners***/
         btnSubmitDeliveryPersonIdOnCreate.addActionListener(this::submitDeliveryPersonIdOnCreate);
 
@@ -1794,5 +1805,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     DeliveryDocket deliveryDocket = new DeliveryDocket();
     DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
     Utility utility = new Utility();
+
+
     // End of variables declaration
 }
