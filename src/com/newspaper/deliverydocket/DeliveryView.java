@@ -333,9 +333,6 @@ public class DeliveryView {
         int deliveryAreaId = askUserToEnterDeliveryAreaId();
         String date = askUserToEnterDate();
         try {
-            // get the file name, which consists of delivery person name, delivery area and date
-
-
             // get the delivery area id where the delivery person is working
             DeliveryArea area = utility.getDeliveryArea(deliveryAreaId);
             String deliveryAreaName = area.getDAreaName();
