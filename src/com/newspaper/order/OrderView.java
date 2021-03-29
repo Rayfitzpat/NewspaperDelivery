@@ -3,8 +3,10 @@ package com.newspaper.order;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliverydocket.Delivery;
 import com.newspaper.deliverydocket.DeliveryDocketDB;
+import com.newspaper.gui.OrderMainGUI;
 import com.newspaper.publication.PublicationView;
 
+import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -94,7 +96,7 @@ public class OrderView {
         // array list for saving all the objects of the Order class
         ArrayList<Order> orders = new ArrayList<>();
 
-        String query = "Select * from orders";
+        String query = "Select * from orders order by order_id";
         ResultSet rs;
         try {
             Statement stmt = DBconnection.con.createStatement();
@@ -147,9 +149,11 @@ public class OrderView {
         String query = "SELECT first_name, last_name " +
                 "FROM customer\n" +
                 "WHERE customer_id = " + customerID + ";";
+
         ResultSet rs;
         try {
-            rs = DBconnection.stmt.executeQuery(query);
+            Statement stmt = DBconnection.con.createStatement();
+            rs = stmt.executeQuery(query);
             while (rs.next()) {
                 String fName = rs.getString("first_name");
                 String lName = rs.getString("last_name");
@@ -211,7 +215,7 @@ public class OrderView {
         boolean isValid = false;
 
         while (!isValid) {
-            System.out.println("\nPlease enter the ID of the customer whose order you want to display");
+            System.out.println("\nPlease enter the ID of the customer whose order(s) you want to display");
             if (in.hasNextInt()) {
 
                 String query;
@@ -225,7 +229,7 @@ public class OrderView {
                     isValid = true;
 
                     //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                    query = "Select * from orders where customer_id = " + customerID;
+                    query = "Select * from orders where customer_id = " + customerID + " order by order_id;";
 
                     Statement stmt = DBconnection.con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
@@ -251,6 +255,9 @@ public class OrderView {
             }
         }
     }
+
+
+
 
     /**
      * Method is checking if customer_id is available in orders table
@@ -299,7 +306,7 @@ public class OrderView {
                     isValid = true;
 
                     //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                    query = "Select * from orders where order_id = " + orderID + ";";
+                    query = "Select * from orders where order_id = " + orderID + " order by order_id;";
 
                     Statement stmt = DBconnection.con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
@@ -350,7 +357,7 @@ public class OrderView {
                     isValid = true;
 
                     //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                    query = "Select * from orders where publication_id = " + publicationID + ";";
+                    query = "Select * from orders where publication_id = " + publicationID + " order by order_id;";
 
                     Statement stmt = DBconnection.con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
@@ -402,7 +409,7 @@ public class OrderView {
                     isValid = true;
 
                     //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-                    query = "Select * from orders where frequency = " + frequencyID + ";";
+                    query = "Select * from orders where frequency = " + frequencyID + " order by order_id;";
 
                     Statement stmt = DBconnection.con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
@@ -512,6 +519,8 @@ public class OrderView {
             System.out.println(insertQuery);
         }
     }
+
+
 
     public int addNewOrderCustomerID() throws OrderExceptionHandler {
         {
@@ -657,6 +666,21 @@ public class OrderView {
         }
     }
 
+
+    public void updateOrderPublicationGUI(String orderID, String publicationID) throws SQLException {
+
+        String updateQuery = "Update orders set publication_id = " + publicationID + " where order_id = " + orderID;
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(updateQuery);
+
+
+        } catch(Exception e) {
+            e.getMessage();
+        }
+    }
+
     public void printOrderById(int orderID) {
 
         try {
@@ -665,7 +689,7 @@ public class OrderView {
 
 
             //checks if the id entered is a valid ID in the list of publications, if it is, print out the associated data with that entry.
-            String query = "Select * from orders where order_id = " + orderID + ";";
+            String query = "Select * from orders where order_id = " + orderID + " order by order_id;";
 
             Statement stmt = DBconnection.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -735,6 +759,20 @@ public class OrderView {
         }
     }
 
+    public void updateOrderFrequencyGUI(String orderID, String frequency) throws SQLException {
+
+        String updateQuery = "Update orders set frequency = " + frequency + " where order_id = " + orderID;
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(updateQuery);
+
+
+        } catch(Exception e) {
+            e.getMessage();
+        }
+    }
+
     public int editOrderByOrderID() throws OrderExceptionHandler {
         {
             ArrayList<Order> orders = getOrders();
@@ -767,6 +805,7 @@ public class OrderView {
             return order_id;
         }
     }
+
 
 
     public void displayEditOrderMenu() {
@@ -858,4 +897,17 @@ public class OrderView {
         }
     }
 
+    public void deleteOrderGUI(String orderID) throws SQLException {
+
+        String deleteQuery = "Delete from orders where order_id = " + orderID + ";";
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(deleteQuery);
+
+
+        } catch(Exception e) {
+            e.getMessage();
+        }
+    }
 }

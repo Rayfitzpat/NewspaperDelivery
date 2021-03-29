@@ -49,7 +49,7 @@ public class MainAdminScreenGUI extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
 
-LoginGUI loginGUI = new LoginGUI();
+        LoginGUI loginGUI = new LoginGUI();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 //        loginGUI.setVisible(true);
         setPreferredSize(new java.awt.Dimension(1564, 983));
@@ -104,7 +104,6 @@ LoginGUI loginGUI = new LoginGUI();
                 CustomerSupportGUI customerSupportGUI = new CustomerSupportGUI();
                 dispose();
                 jButton1ActionPerformed(evt);
-                System.out.println("hello Customer Support");
                 customerSupportGUI.setVisible(true);
             }
         });
@@ -153,7 +152,10 @@ LoginGUI loginGUI = new LoginGUI();
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
-                System.out.println("Delivery Summary not yet initialised");
+               DailySummaryMainGUI dailySummaryMainGUI = new DailySummaryMainGUI();
+                dispose();
+                jButton5ActionPerformed(evt);
+                dailySummaryMainGUI.setVisible(true);
             }
         });
 
@@ -182,7 +184,10 @@ LoginGUI loginGUI = new LoginGUI();
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
-                System.out.println("Order Menu not yet initialised");
+               OrderMainGUI orderMainGUI = new OrderMainGUI();
+               dispose();
+               orderMainGUI.setVisible(true);
+
             }
         });
 
@@ -196,7 +201,9 @@ LoginGUI loginGUI = new LoginGUI();
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
-                System.out.println("Invoice Menu not yet initialised");
+                InvoiceMainGUI invoiceMainGUI = new InvoiceMainGUI();
+                dispose();
+                invoiceMainGUI.setVisible(true);
             }
         });
 
