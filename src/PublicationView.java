@@ -24,7 +24,7 @@ public class PublicationView {
     // ******************************************************************************************************
     //Prints out the publication table
     public void displayAllPublication() {
-        String str = "Select * from publication";
+        String str = "Select * from publication order by publication_id asc";
 
 
         try {
