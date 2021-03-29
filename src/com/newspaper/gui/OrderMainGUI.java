@@ -2278,9 +2278,8 @@ public class OrderMainGUI extends javax.swing.JFrame {
                             if (count2 > 0) {
                                 if(v.validateOrderFrequency((freq))) {
                                     try {
-                                        ov.addNewOrderGUI(customerID, publicationID, freq);
-                                        jTextField30.setForeground(new java.awt.Color(6, 187, 163));
-                                        jTextField30.setText("You have successfully added a new Order, scroll to bottom to view");
+                                        addNewOrderGUI(customerID, publicationID, freq);
+
 
                                         try {
                                             String sql = "Select * from orders order by order_id;";
@@ -2344,6 +2343,39 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
 
             };
+
+    public void addNewOrderGUI(String customerID, String publicationID, String frequency) throws OrderExceptionHandler {
+
+        String insertQuery = "Insert into orders (order_id, customer_id, publication_id, frequency) values (null, " + customerID + ", " + publicationID + ", " + frequency + ")";
+
+        try {
+            Statement stmt = DBconnection.con.createStatement();
+            stmt.executeUpdate(insertQuery);
+
+            jTextField30.setForeground(new java.awt.Color(6, 187, 163));
+            jTextField30.setText("You have successfully added a new Order, scroll to bottom to view");
+
+            // generating deliveries for the new order
+            DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+
+            try {
+                int cID = Integer.parseInt(customerID);
+                int pID = Integer.parseInt(publicationID);
+                int freq = Integer.parseInt(frequency);
+
+                Order order = new Order(cID, pID, freq);
+                ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
+                deliveryDocketDB.saveDeliveries(deliveries);
+            } catch (OrderExceptionHandler e) {
+                e.getMessage();
+            }
+        } catch (Exception e) {
+            jTextField30.setForeground(new java.awt.Color(255, 0, 0));
+            jTextField30.setText("Error, cannot add this order");
+            System.out.println(e.getMessage());
+            System.out.println(insertQuery);
+        }
+    }
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {
         if (evt.getSource() == jButton23) {

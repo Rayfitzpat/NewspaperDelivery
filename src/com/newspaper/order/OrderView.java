@@ -520,33 +520,7 @@ public class OrderView {
         }
     }
 
-    public void addNewOrderGUI(String customerID, String publicationID, String frequency) throws OrderExceptionHandler {
 
-        String insertQuery = "Insert into orders (order_id, customer_id, publication_id, frequency) values (null, " + customerID + ", " + publicationID + ", " + frequency + ")";
-
-        try {
-            Statement stmt = DBconnection.con.createStatement();
-            stmt.executeUpdate(insertQuery);
-
-            // generating deliveries for the new order
-            DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
-
-            try {
-                int cID = Integer.parseInt(customerID);
-                int pID = Integer.parseInt(publicationID);
-                int freq = Integer.parseInt(frequency);
-
-                Order order = new Order(cID, pID, freq);
-                ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
-                deliveryDocketDB.saveDeliveries(deliveries);
-            } catch (OrderExceptionHandler e) {
-                e.getMessage();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(insertQuery);
-        }
-    }
 
     public int addNewOrderCustomerID() throws OrderExceptionHandler {
         {
