@@ -106,11 +106,11 @@ public class CustomerSupportGUI extends javax.swing.JFrame {
         });
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/Mark.PNG")));
 //        jLabel5.setIcon(new javax.swing.ImageIcon("../images/NewspaperLogoDarkGreenSmall.png")); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/Mark.PNG")));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/yuliia.jpg")));
 //        jLabel6.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/rayCover2.png")));
 //        jLabel7.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/Mark.PNG")));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/remi.jpg")));
 //        jLabel8.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/jack.jpg")));
 //        jLabel9.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
