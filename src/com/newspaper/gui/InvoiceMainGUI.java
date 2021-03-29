@@ -5,7 +5,12 @@
  */
 package com.newspaper.gui;
 
+import com.newspaper.db.DBconnection;
+import com.newspaper.deliverydocket.DeliveryDocket;
+import com.newspaper.deliverydocket.DeliveryDocketExceptionHandler;
 import com.newspaper.invoice.Invoice;
+import com.newspaper.invoice.InvoiceGenerator;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -23,27 +28,15 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
      * Creates new form GuiMainMenu
      */
     public InvoiceMainGUI() {
+        DBconnection.init_db();
         initComponents();
         this.setLocationRelativeTo(null);
         setResizable(false);
     }
 
     Validation validation = new Validation();
+    InvoiceGenerator ig = new InvoiceGenerator();
 
-    public static Connection con = null;
-    public static Statement stmt = null;
-    static ResultSet rs = null;
-
-    static {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-            con = DriverManager.getConnection(url, "root", "admin");
-            stmt = con.createStatement();
-        } catch (Exception e) {
-            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,7 +74,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField20 = new javax.swing.JTextField();
         jTextField21 = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
-        jTextField54 = new javax.swing.JTextField();
+        jTextArea54 = new javax.swing.JTextArea();
         jTextField4 = new javax.swing.JTextField();
         ViewInvoice1 = new javax.swing.JPanel();
         DisplayOne6 = new javax.swing.JPanel();
@@ -92,7 +85,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField46 = new javax.swing.JTextField();
         jTextField47 = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextArea();
         jTextField5 = new javax.swing.JTextField();
         EditInvoice = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
@@ -162,6 +155,13 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             }
         });
 
+        jTextArea54.setEditable(false);
+        jTextArea54.setBackground(new java.awt.Color(19, 28, 33));
+        jTextArea54.setColumns(20);
+        jTextArea54.setForeground(new java.awt.Color(49, 117, 108));
+        jTextArea54.setRows(5);
+        jTextArea54.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
+
         jButton4.setBackground(new java.awt.Color(19, 28, 33));
         jButton4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton4.setForeground(new java.awt.Color(49, 117, 108));
@@ -187,6 +187,17 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
             }
         });
+
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            try {
+                jButton33ActionPerformed(evt);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    });
+
 
         jButton6.setBackground(new java.awt.Color(19, 28, 33));
         jButton6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -250,6 +261,8 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 jButton29ActionPerformed(evt);
             }
         });
+
+
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -388,7 +401,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jButton32.setBackground(new java.awt.Color(49, 117, 108));
         jButton32.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton32.setForeground(new java.awt.Color(0, 0, 0));
-        jButton32.setText("32");
+        jButton32.setText("Generate");
 
         jTextField20.setBackground(new java.awt.Color(19, 28, 39));
         jTextField20.setForeground(new java.awt.Color(18, 30, 49));
@@ -448,11 +461,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                                 .addContainerGap())))
         );
 
-        jTextField54.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField54.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField54.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField54.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField54.setText("Details From Invoice here");
+        jTextArea54.setText("Details From Invoice here");
 
         jTextField4.setBackground(new java.awt.Color(19, 28, 33));
         jTextField4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -470,7 +479,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                         .addGroup(DisplayOne5Layout.createSequentialGroup()
                                                 .addGroup(DisplayOne5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 1262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jTextField54, javax.swing.GroupLayout.PREFERRED_SIZE, 1299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jTextArea54, javax.swing.GroupLayout.PREFERRED_SIZE, 1299, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(0, 6, Short.MAX_VALUE)))
                                 .addContainerGap())
         );
@@ -481,7 +490,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField54, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextArea54, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(58, 58, 58))
         );
 
@@ -584,16 +593,20 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         );
 
         jTextField3.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField3.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("Invoice Details Go Here");
+
+        jTextField3.setEditable(false);
+        jTextField3.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField3.setColumns(20);
+        jTextField3.setForeground(new java.awt.Color(49, 117, 108));
+        jTextField3.setRows(5);
+        jTextField3.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
 
         jTextField5.setBackground(new java.awt.Color(19, 28, 33));
         jTextField5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextField5.setForeground(new java.awt.Color(255, 0, 0));
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField5.setText("Warning Message Here");
+        jTextField5.setText("Text Field 5");
 
         javax.swing.GroupLayout DisplayOne6Layout = new javax.swing.GroupLayout(DisplayOne6);
         DisplayOne6.setLayout(DisplayOne6Layout);
@@ -932,6 +945,17 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             }
         });
 
+
+        jButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton32ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
         jButton34.setBackground(new java.awt.Color(49, 117, 108));
         jButton34.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton34.setForeground(new java.awt.Color(0, 0, 0));
@@ -1076,7 +1100,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             DeleteInvoice.setVisible(false);
 
             String sql = "Select * from invoice";
-            Statement DeleteStmt = con.createStatement();
+            Statement DeleteStmt = DBconnection.con.createStatement();
             ResultSet rs = DeleteStmt.executeQuery(sql);
 
             while (rs.next())
@@ -1103,7 +1127,6 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     //CREATE INVOICE
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         if (evt.getSource() == jButton3) {
-
             DisplayAll.setVisible(false);
             CreateInvoice.setVisible(true);
             ViewInvoice1.setVisible(false);
@@ -1111,28 +1134,36 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             GetCustomerDetails.setVisible(false);
             DeleteInvoice.setVisible(false);
 
-            jTextField19.setText("19"); //ID OF CUSTOMER
-            jTextField21.setText("21"); //Month of the invoice
-            jTextField19.setText("4");  //Warning Text Field
-            jTextField19.setText("54"); //INVOICE TEXT FIELD
-            if (evt.getSource() == jButton8) {
-                System.out.println("8");
-            }
-            if (evt.getSource() == jButton37) {
-                System.out.println("37");
-            }
-            if (evt.getSource() == jButton32) {
-                System.out.println("32");
-            }
-            if (evt.getSource() == jButton36) {
-                System.out.println("36");
-            }
-            if (evt.getSource() == jButton34) {
-                System.out.println("34");
-            }
-            if (evt.getSource() == jButton26) {
-                System.out.println("26");
-            }
+            jTextField19.setText(""); //ID OF CUSTOMER
+            jTextField21.setText(""); //Month of the invoice
+            jTextField4.setText("");  //Warning Text Field
+            jTextArea54.setText(""); //INVOICE TEXT FIELD+
+
+        }
+    }
+
+    public void displayInvoice(int cusId, int month) {
+        Invoice invoice = ig.createInvoice(cusId, month);
+        if (invoice != null) {
+                jTextArea54.setText(invoice.toString());
+                ig.createInvoiceFile(invoice);
+        }
+        else
+        {
+            jTextField4.setText("Error");
+        }
+    }
+
+    //Generate Functionality
+    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        if (evt.getSource() == jButton32)
+        {
+            String cusId = jTextField19.getText();
+            String month = jTextField21.getText();
+
+            int cId = Integer.parseInt(cusId);
+            int monthNo = Integer.parseInt(month);
+            displayInvoice(cId, monthNo);
         }
     }
 
@@ -1147,9 +1178,35 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             GetCustomerDetails.setVisible(false);
             DeleteInvoice.setVisible(false);
 
-            jTextField45.setText("45");
-            jTextField47.setText("47");
+            jTextField45.setText("45"); //INVOICE ID
+            jTextField47.setText("47"); //MONTH
 
+
+        }
+    }
+
+    public void displayInvoice2(int cusId, int month) {
+        Invoice invoice = ig.createInvoice(cusId, month);
+        if (invoice != null) {
+            jTextField3.setText(invoice.toString());
+            ig.createInvoiceFile(invoice);
+        }
+        else
+        {
+            jTextField5.setText("Error");
+        }
+    }
+
+    //Generate for View Invoice
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        if (evt.getSource() == jButton33)
+        {
+            String cusId = jTextField45.getText();
+            String month = jTextField47.getText();
+
+            int cId = Integer.parseInt(cusId);
+            int monthNo = Integer.parseInt(month);
+            displayInvoice2(cId, monthNo);
         }
     }
 
@@ -1165,7 +1222,6 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             DeleteInvoice.setVisible(false);
             jTextField48.setText("");
             jTextField50.setText("");
-
             }
     }
 
@@ -1210,7 +1266,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         if (evt.getSource() == jButton8) {
                 String cusID = jTextField1.getText();
                 String sql = "Select * from invoice where customer_id = " + cusID;
-                Statement DeleteStmt = con.createStatement();
+                Statement DeleteStmt = DBconnection.con.createStatement();
                 ResultSet rs = DeleteStmt.executeQuery(sql);
 //                System.out.println("8");
 
@@ -1237,7 +1293,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         if (evt.getSource() == jButton34) {
             String cusID = jTextField48.getText();
             String sql = "Select * from invoice where customer_id = " + cusID;
-            Statement DeleteStmt = con.createStatement();
+            Statement DeleteStmt = DBconnection.con.createStatement();
             ResultSet rs = DeleteStmt.executeQuery(sql);
 //                System.out.println("8");
 
@@ -1267,6 +1323,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             String invoiceId = jTextField50.getText();
 
            String setPaid = "update invoice set price_paid = 'paid' where invoice_id =" + invoiceId + " and customer_id = "+cusId;
+           Statement stmt = DBconnection.con.createStatement();
            stmt.executeUpdate(setPaid);
 
            jTextField6.setText("Updated");
@@ -1283,6 +1340,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             String invoiceId = jTextField50.getText();
 
             String setPaid = "update invoice set price_paid = 'unpaid' where invoice_id =" + invoiceId + " and customer_id = "+cusId;
+            Statement stmt = DBconnection.con.createStatement();
             stmt.executeUpdate(setPaid);
 
             jTextField6.setText("Updated");
@@ -1296,7 +1354,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         if (evt.getSource() == jButton26) {
             String cusID = jTextField25.getText();
             String sql = "Select * from invoice where customer_id = " + cusID;
-            Statement DeleteStmt = con.createStatement();
+            Statement DeleteStmt = DBconnection.con.createStatement();
             ResultSet rs = DeleteStmt.executeQuery(sql);
 //                System.out.println("8");
 
@@ -1321,9 +1379,11 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     // Delete Button Functionality
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         if (evt.getSource() == jButton37) {
+            
             String invoiceId = jTextField44.getText();
+            
             String updateQuery = "DELETE FROM invoice WHERE invoice_id = " + invoiceId + ";";
-            Statement DeleteStmt = con.createStatement();
+            Statement DeleteStmt = DBconnection.con.createStatement();
             DeleteStmt.executeUpdate(updateQuery);
         }
     }
@@ -1463,7 +1523,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextArea jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField44;
     private javax.swing.JTextField jTextField45;
@@ -1473,7 +1533,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField49;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField50;
-    private javax.swing.JTextField jTextField54;
+    private javax.swing.JTextArea jTextArea54;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration
 }

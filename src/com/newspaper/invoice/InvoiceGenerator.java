@@ -36,7 +36,9 @@ public class InvoiceGenerator {
     DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
 
 
-    public void createInvoice(int customerId, int month) {
+    public Invoice createInvoice(int customerId, int month) {
+        Invoice invoice = null;
+
         // if deliveries for this month don't exist yet, you can create an invoice yt as well
         if (!deliveryDocketDB.deliveriesForThisMonthExist(month)) {
             System.out.println("Deliveries for this month are not available yet. Please generate and deliver them first.");
@@ -47,7 +49,7 @@ public class InvoiceGenerator {
 
             try {
                 // get the invoice from db
-                Invoice invoice = getInvoice(customerId,month);
+                invoice = getInvoice(customerId,month);
 
                 if (invoice != null) {
                     // get the deliveries
@@ -69,6 +71,7 @@ public class InvoiceGenerator {
             }
 
         }
+        return invoice;
     }
 
     public ArrayList<InvoiceItem> getAllDeliveriesOfCustomerOfMonth(int customerId, int month) {
