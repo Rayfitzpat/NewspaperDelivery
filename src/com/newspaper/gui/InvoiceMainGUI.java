@@ -718,12 +718,14 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jButton34.setForeground(new java.awt.Color(0, 0, 0));
         jButton34.setText("34");
 
-        jTextField49.setBackground(new java.awt.Color(19, 28, 39));
-        jTextField49.setForeground(new java.awt.Color(18, 30, 49));
+        jTextField49.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField49.setForeground(new java.awt.Color(255, 0, 0));
         jTextField49.setBorder(null);
         jTextField49.setDisabledTextColor(new java.awt.Color(19, 28, 33));
         jTextField49.setFocusable(false);
         jTextField49.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+        jTextField49.setFont(new java.awt.Font(null,0,18));
+
 
         jScrollPane9.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -809,6 +811,31 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField50.setHorizontalAlignment(JTextField.CENTER);
 
         jTextField6.setText("");
+
+
+
+        jTextField1.setText("1");
+        jTextField19.setText("19");
+        jTextField2.setText("");
+        jTextField2.setForeground(new java.awt.Color(255,0,0));
+        jTextField2.setBackground(new java.awt.Color(255,255,255));
+        jTextField20.setText("20");
+        jTextField21.setText("21");
+        jTextField25.setText("25");
+        jTextField26.setText("26");
+        jTextField3.setText("3");
+        jTextField4.setText("4");
+        jTextField44.setText("44");
+        jTextField45.setText("45");
+        jTextField46.setText("46");
+        jTextField47.setText("47");
+        jTextField48.setText("48");
+        jTextField5.setText("5");
+        jTextField50.setText("50");
+        jTextField46.setText("46");
+        jTextField6.setText("6");
+
+
 
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -1132,12 +1159,14 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
 
 
-        jTextField2.setBackground(new java.awt.Color(19, 28, 39));
-        jTextField2.setForeground(new java.awt.Color(18, 30, 49));
+        jTextField2.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField2.setForeground(new java.awt.Color(255, 0, 0));
         jTextField2.setBorder(null);
         jTextField2.setDisabledTextColor(new java.awt.Color(19, 28, 33));
         jTextField2.setFocusable(false);
         jTextField2.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+        jTextField2.setFont(new java.awt.Font(null,0,18));
+        jTextField2.setHorizontalAlignment(jTextField2.CENTER);
 
         jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -1499,6 +1528,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                         personOneDBInitialised[0] = true;
                     }
                 }
+                else
+                {
+                    jTextField2.setText("ID Invalid");
+                }
             }
         }
 
@@ -1535,7 +1568,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             }
             else
             {
-                jTextField6.setText("Error!");
+                jTextField49.setText("Customer Id not Valid");
             }
         }
     }
@@ -1553,15 +1586,16 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                     stmt.executeUpdate(setPaid);
 
                     jTextField6.setText("Updated");
+                    jTextField49.setText("");
                 }
                 else
                 {
-                    jTextField6.setText("Error!");
+                    jTextField49.setText("Invoice Id not valid");
                 }
             }
             else
             {
-                jTextField6.setText("Error!");
+                jTextField49.setText("Customer Id not valid");
             }
         }
         }
@@ -1581,15 +1615,16 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                     Statement stmt = DBconnection.con.createStatement();
                     stmt.executeUpdate(setPaid);
                     jTextField6.setText("Updated");
+                    jTextField49.setText("");
                 }
                 else
                 {
-                    jTextField6.setText("Error!");
+                    jTextField49.setText("Invoice Id not valid");
                 }
             }
             else
             {
-                jTextField6.setText("Error!");
+                jTextField49.setText("Customer Id not valid");
             }
         }
     }
@@ -1637,7 +1672,6 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 Statement DeleteStmt = DBconnection.con.createStatement();
                 DeleteStmt.executeUpdate(updateQuery);
             }
-
         }
     }
 
@@ -1791,14 +1825,5 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     // End of variables declaration
 }
 
-//        jTextField2.setText("2");
-//        jTextField3.setText("3");
-//        jTextField5.setText("5");
-//        jTextField6.setText("6");
-//        jTextField20.setText("20");
-//        
-//        jTextField46.setText("46");
-//        jTextField49.setText("49");
-//        jTextField44.setText("44");
-//        
-//        jTextField26.setText("26");
+
+
