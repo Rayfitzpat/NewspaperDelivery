@@ -1469,15 +1469,55 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
 
     //SUBMIT FOR CUSTOMER
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        if (evt.getSource() == jButton8) {
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException
+    {
+        if (evt.getSource() == jButton8)
+        {
                 String cusID = jTextField1.getText();
-                String sql = "Select * from invoice where customer_id = " + cusID;
-                Statement DeleteStmt = DBconnection.con.createStatement();
-                ResultSet rs = DeleteStmt.executeQuery(sql);
-//                System.out.println("8");
 
-                while (rs.next()) {
+
+                if (v.validateID(cusID))
+                {
+                    String sql = "Select * from invoice where customer_id = " + cusID;
+                    Statement DeleteStmt = DBconnection.con.createStatement();
+                    ResultSet rs = DeleteStmt.executeQuery(sql);
+
+                    while (rs.next())
+                    {
+                        int invoiceId = rs.getInt("invoice_id");
+                        int cusId = rs.getInt("customer_id");
+
+                        String invoice_date = rs.getString("invoice_date");
+                        String price = rs.getString("price");
+                        String price_paid = rs.getString("price_paid");
+                        String delivered = rs.getString("is_delivered");
+
+                        String tbData[] = {invoiceId + "", cusId + "", invoice_date, price, price_paid, delivered};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
+
+                        tblModel.addRow(tbData);
+                        personOneDBInitialised[0] = true;
+                    }
+                }
+            }
+        }
+
+    // EDIT VIEW BUTTON
+    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException
+    {
+        if (evt.getSource() == jButton34)
+        {
+            String cusID = jTextField48.getText();
+            String sql = "Select * from invoice where customer_id = " + cusID;
+            Statement DeleteStmt = DBconnection.con.createStatement();
+
+            if (v.validateID(cusID))
+            {
+                int cId = Integer.parseInt(cusID);
+                ResultSet rs = DeleteStmt.executeQuery(sql);
+
+                while (rs.next())
+                {
                     int invoiceId = rs.getInt("invoice_id");
                     int cusId = rs.getInt("customer_id");
 
@@ -1487,52 +1527,42 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                     String delivered = rs.getString("is_delivered");
 
                     String tbData[] = {invoiceId + "", cusId + "", invoice_date, price, price_paid, delivered};
-                    DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
+                    DefaultTableModel tblModel = (DefaultTableModel) jTable9.getModel();
 
                     tblModel.addRow(tbData);
                     personOneDBInitialised[0] = true;
                 }
             }
-        }
-    // EDIT VIEW BUTTON
-    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        if (evt.getSource() == jButton34) {
-            String cusID = jTextField48.getText();
-            String sql = "Select * from invoice where customer_id = " + cusID;
-            Statement DeleteStmt = DBconnection.con.createStatement();
-            ResultSet rs = DeleteStmt.executeQuery(sql);
-//                System.out.println("8");
-
-            while (rs.next()) {
-                int invoiceId = rs.getInt("invoice_id");
-                int cusId = rs.getInt("customer_id");
-
-                String invoice_date = rs.getString("invoice_date");
-                String price = rs.getString("price");
-                String price_paid = rs.getString("price_paid");
-                String delivered = rs.getString("is_delivered");
-
-                String tbData[] = {invoiceId + "", cusId + "", invoice_date, price, price_paid, delivered};
-                DefaultTableModel tblModel = (DefaultTableModel) jTable9.getModel();
-
-                tblModel.addRow(tbData);
-                personOneDBInitialised[0] = true;
+            else
+            {
+                jTextField6.setText("Error!");
             }
         }
     }
 
     // EDIT PAID FUNCTIONALITY (MAKE PAID)
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        if (evt.getSource() == jButton35)
-        {
+        if (evt.getSource() == jButton35) {
             String cusId = jTextField48.getText();
             String invoiceId = jTextField50.getText();
 
-           String setPaid = "update invoice set price_paid = 'paid' where invoice_id =" + invoiceId + " and customer_id = "+cusId;
-           Statement stmt = DBconnection.con.createStatement();
-           stmt.executeUpdate(setPaid);
+            if (v.validateID(cusId)) {
+                if (v.validateID(invoiceId)) {
+                    String setPaid = "update invoice set price_paid = 'paid' where invoice_id =" + invoiceId + " and customer_id = " + cusId;
+                    Statement stmt = DBconnection.con.createStatement();
+                    stmt.executeUpdate(setPaid);
 
-           jTextField6.setText("Updated");
+                    jTextField6.setText("Updated");
+                }
+                else
+                {
+                    jTextField6.setText("Error!");
+                }
+            }
+            else
+            {
+                jTextField6.setText("Error!");
+            }
         }
         }
 
@@ -1545,39 +1575,52 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             String cusId = jTextField48.getText();
             String invoiceId = jTextField50.getText();
 
-            String setPaid = "update invoice set price_paid = 'unpaid' where invoice_id =" + invoiceId + " and customer_id = "+cusId;
-            Statement stmt = DBconnection.con.createStatement();
-            stmt.executeUpdate(setPaid);
-
-            jTextField6.setText("Updated");
-
+            if (v.validateID(cusId)) {
+                if (v.validateID(invoiceId)) {
+                    String setPaid = "update invoice set price_paid = 'unpaid' where invoice_id =" + invoiceId + " and customer_id = " + cusId;
+                    Statement stmt = DBconnection.con.createStatement();
+                    stmt.executeUpdate(setPaid);
+                    jTextField6.setText("Updated");
+                }
+                else
+                {
+                    jTextField6.setText("Error!");
+                }
+            }
+            else
+            {
+                jTextField6.setText("Error!");
+            }
         }
     }
 
 
     // Delete View Button
-    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        if (evt.getSource() == jButton26) {
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException
+    {
+        if (evt.getSource() == jButton26)
+        {
             String cusID = jTextField25.getText();
-            String sql = "Select * from invoice where customer_id = " + cusID;
-            Statement DeleteStmt = DBconnection.con.createStatement();
-            ResultSet rs = DeleteStmt.executeQuery(sql);
-//                System.out.println("8");
+            if (v.validateID(cusID))
+            {
+                String sql = "Select * from invoice where customer_id = " + cusID;
+                Statement DeleteStmt = DBconnection.con.createStatement();
+                ResultSet rs = DeleteStmt.executeQuery(sql);
+                while (rs.next()) {
+                    int invoiceId = rs.getInt("invoice_id");
+                    int cusId = rs.getInt("customer_id");
 
-            while (rs.next()) {
-                int invoiceId = rs.getInt("invoice_id");
-                int cusId = rs.getInt("customer_id");
+                    String invoice_date = rs.getString("invoice_date");
+                    String price = rs.getString("price");
+                    String price_paid = rs.getString("price_paid");
+                    String delivered = rs.getString("is_delivered");
 
-                String invoice_date = rs.getString("invoice_date");
-                String price = rs.getString("price");
-                String price_paid = rs.getString("price_paid");
-                String delivered = rs.getString("is_delivered");
+                    String tbData[] = {invoiceId + "", cusId + "", invoice_date, price, price_paid, delivered};
+                    DefaultTableModel tblModel = (DefaultTableModel) jTable6.getModel();
 
-                String tbData[] = {invoiceId + "", cusId + "", invoice_date, price, price_paid, delivered};
-                DefaultTableModel tblModel = (DefaultTableModel) jTable6.getModel();
-
-                tblModel.addRow(tbData);
-                personOneDBInitialised[0] = true;
+                    tblModel.addRow(tbData);
+                    personOneDBInitialised[0] = true;
+                }
             }
         }
     }
@@ -1587,10 +1630,14 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         if (evt.getSource() == jButton37) {
             
             String invoiceId = jTextField44.getText();
-            
-            String updateQuery = "DELETE FROM invoice WHERE invoice_id = " + invoiceId + ";";
-            Statement DeleteStmt = DBconnection.con.createStatement();
-            DeleteStmt.executeUpdate(updateQuery);
+
+            if (v.validateID(invoiceId))
+            {
+                String updateQuery = "DELETE FROM invoice WHERE invoice_id = " + invoiceId + ";";
+                Statement DeleteStmt = DBconnection.con.createStatement();
+                DeleteStmt.executeUpdate(updateQuery);
+            }
+
         }
     }
 
