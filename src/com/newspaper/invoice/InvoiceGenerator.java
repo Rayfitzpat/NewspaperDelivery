@@ -30,6 +30,7 @@ public class InvoiceGenerator {
         generator.createInvoice(42, 3);
         generator.createInvoice(40, 3);
         generator.createInvoice(415, 3);
+        generator.createInvoice2(1,3);
     }
 
     Utility utility = new Utility();
@@ -68,6 +69,42 @@ public class InvoiceGenerator {
             }
             catch (DeliveryDocketExceptionHandler e) {
                 System.out.println(e.getMessage());
+            }
+
+        }
+        return invoice;
+    }
+
+    public Invoice createInvoice2(int customerId, int month)
+    {
+        Invoice invoice = null;
+
+        // if deliveries for this month don't exist yet, you can create an invoice yt as well
+        if (!deliveryDocketDB.deliveriesForThisMonthExist(month)) {
+        }
+        else {
+            // generate invoices
+            generateInvoicesIfNeeded(month);
+
+            try {
+                // get the invoice from db
+                invoice = getInvoice(customerId,month);
+
+                if (invoice != null) {
+                    // get the deliveries
+                    ArrayList<InvoiceItem> deliveries = getAllDeliveriesOfCustomerOfMonth(customerId, month);
+                    invoice.setInvoiceItems(deliveries);
+
+                    // print invoice to cli
+//                    System.out.println(invoice);
+
+                    // save to file
+                    createInvoiceFile(invoice);
+                }
+                else { }
+            }
+            catch (DeliveryDocketExceptionHandler e) {
+//                System.out.println(e.getMessage());
             }
 
         }
@@ -158,8 +195,6 @@ public class InvoiceGenerator {
             catch (CustomerExceptionHandler | DeliveryDocketExceptionHandler e) {
                 System.out.println(e.getMessage());
             }
-
-
 
         }
     }

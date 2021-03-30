@@ -15,6 +15,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.sql.*;
 
@@ -36,6 +37,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
     Validation validation = new Validation();
     InvoiceGenerator ig = new InvoiceGenerator();
+    Validation v = new Validation();
 
 
     /**
@@ -151,14 +153,13 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
-                //TODO Display Invoice
             }
         });
 
         jTextArea54.setEditable(false);
         jTextArea54.setBackground(new java.awt.Color(19, 28, 33));
         jTextArea54.setColumns(20);
-        jTextArea54.setForeground(new java.awt.Color(49, 117, 108));
+        jTextArea54.setForeground(new java.awt.Color(6, 186, 163));
         jTextArea54.setRows(5);
         jTextArea54.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
 
@@ -366,6 +367,11 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTable4.setRowHeight(40);
         jTable4.setBackground(new java.awt.Color(19, 28, 33));
 
+
+        TableCellRenderer rendererFromHeader = jTable4.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
         for(int i=0; i<=5; i++){
@@ -495,6 +501,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField4.setForeground(new java.awt.Color(255, 0, 0));
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField4.setText("Warning Message Here");
+        jTextField4.setBorder(null);
 
         javax.swing.GroupLayout DisplayOne5Layout = new javax.swing.GroupLayout(DisplayOne5);
         DisplayOne5.setLayout(DisplayOne5Layout);
@@ -625,13 +632,16 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                                 .addContainerGap())))
         );
 
+
+
+
         jTextField3.setBackground(new java.awt.Color(19, 28, 33));
         jTextField3.setForeground(new java.awt.Color(255, 0, 0));
 
         jTextField3.setEditable(false);
         jTextField3.setBackground(new java.awt.Color(19, 28, 33));
         jTextField3.setColumns(20);
-        jTextField3.setForeground(new java.awt.Color(49, 117, 108));
+        jTextField3.setForeground(new java.awt.Color(6, 186, 163));
         jTextField3.setRows(5);
         jTextField3.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
 
@@ -640,6 +650,8 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField5.setForeground(new java.awt.Color(255, 0, 0));
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField5.setText("");
+        jTextField5.setBorder(null);
+
 
         javax.swing.GroupLayout DisplayOne6Layout = new javax.swing.GroupLayout(DisplayOne6);
         DisplayOne6.setLayout(DisplayOne6Layout);
@@ -725,6 +737,24 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTable9.setForeground(new java.awt.Color(6, 187, 163));
         jTable9.setFont(new Font( null,0, 15));
         jTable9.setFillsViewportHeight(true);
+        jTable9.setShowGrid(true);
+        jTable9.setGridColor(new java.awt.Color(49, 117, 108));
+        jScrollPane9.setViewportView(jTable9);
+        jTable9.setRowHeight(40);
+        jTable9.setBackground(new java.awt.Color(19, 28, 33));
+
+        jScrollPane9.setBackground(new java.awt.Color(19, 28, 33));
+
+        JTableHeader tableHeader1 = jTable9.getTableHeader();
+        tableHeader9.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader9.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader9.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader9.setOpaque(true);
+        jTable9.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        jTable9.setForeground(new java.awt.Color(6, 187, 163));
+        jTable9.setFont(new Font( null,0, 15));
+        jTable9.setFillsViewportHeight(true);
         jTable9.setOpaque(true);
         jTable9.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
@@ -739,6 +769,21 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jScrollPane9.setViewportView(jTable9);
         jTable9.setRowHeight(40);
         jTable9.setBackground(new java.awt.Color(19, 28, 33));
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=5; i++){
+            jTable9.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         jLabel42.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(6, 187, 163));
@@ -881,11 +926,11 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jScrollPane6.setBackground(new java.awt.Color(19, 28, 33));
 
-        JTableHeader tableHeader6 = jTable6.getTableHeader();
-        tableHeader6.setForeground(new java.awt.Color(19, 28, 33));
-        tableHeader6.setBackground(new java.awt.Color(255, 255, 255));
-        tableHeader6.setFont(new Font(null, Font.BOLD, 15));
-        tableHeader6.setOpaque(true);
+        tableHeader1 = jTable6.getTableHeader();
+        tableHeader1.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader1.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader1.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader1.setOpaque(true);
         jTable6.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         jTable6.setForeground(new java.awt.Color(6, 187, 163));
@@ -905,6 +950,27 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jScrollPane6.setViewportView(jTable6);
         jTable6.setRowHeight(40);
         jTable6.setBackground(new java.awt.Color(19, 28, 33));
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=5; i++){
+            jTable6.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+
+        rendererFromHeader = jTable6.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
 
         jLabel36.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(6, 187, 163));
@@ -1073,14 +1139,14 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField2.setFocusable(false);
         jTextField2.setSelectedTextColor(new java.awt.Color(19, 28, 33));
 
-        jScrollPane9.setBackground(new java.awt.Color(19, 28, 33));
+        jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
 
         JTableHeader tableHeader2 = jTable2.getTableHeader();
         tableHeader2.setForeground(new java.awt.Color(19, 28, 33));
         tableHeader2.setBackground(new java.awt.Color(255, 255, 255));
         tableHeader2.setFont(new Font(null, Font.BOLD, 15));
         tableHeader2.setOpaque(true);
-        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable9.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         jTable2.setForeground(new java.awt.Color(6, 187, 163));
         jTable2.setFont(new Font( null,0, 15));
@@ -1099,6 +1165,22 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
         jTable2.setRowHeight(40);
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=5; i++){
+            jTable2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+
+        rendererFromHeader = jTable2.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1224,32 +1306,52 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             jTextField21.setText(""); //Month of the invoice
             jTextField4.setText("");  //Warning Text Field
             jTextArea54.setText(""); //INVOICE TEXT FIELD+
-
         }
     }
 
     public void displayInvoice(int cusId, int month) {
-        Invoice invoice = ig.createInvoice(cusId, month);
-        if (invoice != null) {
+        Invoice invoice = ig.createInvoice2(cusId, month);
+        if (invoice != null)
+        {
                 jTextArea54.setText(invoice.toString());
                 ig.createInvoiceFile(invoice);
         }
         else
         {
-            jTextField4.setText("Error");
+            jTextField4.setText("Invoice for this customer does not exist");
         }
     }
 
     //Generate Functionality
     private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
-        if (evt.getSource() == jButton32)
-        {
+        if (evt.getSource() == jButton32) {
             String cusId = jTextField19.getText();
             String month = jTextField21.getText();
+            if (v.validateID(cusId))
+            {
+                if (v.validateID(month))
+                {
+                    int cId = Integer.parseInt(cusId);
+                    int monthNo = Integer.parseInt(month);
 
-            int cId = Integer.parseInt(cusId);
-            int monthNo = Integer.parseInt(month);
-            displayInvoice(cId, monthNo);
+                    if (monthNo < 13 && monthNo > 0)
+                    {
+                        displayInvoice(cId, monthNo);
+                    }
+                    else
+                    {
+                        jTextField4.setText("Month not valid");
+                    }
+                }
+                else
+                {
+                    jTextField4.setText("Month not valid");
+                }
+            }
+            else
+            {
+                jTextField4.setText("Customer Id not Valid");
+            }
         }
     }
 
@@ -1270,7 +1372,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     }
 
     public void displayInvoice2(int cusId, int month) {
-        Invoice invoice = ig.createInvoice(cusId, month);
+        Invoice invoice = ig.createInvoice2(cusId, month);
         if (invoice != null) {
             jTextField3.setText(invoice.toString());
             ig.createInvoiceFile(invoice);
@@ -1285,13 +1387,35 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         if (evt.getSource() == jButton33)
         {
-            String cusId = jTextField45.getText();
-            String month = jTextField47.getText();
+                String cusId = jTextField45.getText();
+                String month = jTextField47.getText();
+                if (v.validateID(cusId))
+                {
+                    if (v.validateID(month))
+                    {
+                        int cId = Integer.parseInt(cusId);
+                        int monthNo = Integer.parseInt(month);
 
-            int cId = Integer.parseInt(cusId);
-            int monthNo = Integer.parseInt(month);
-            displayInvoice2(cId, monthNo);
-        }
+                        if ( monthNo > 0 && monthNo < 13 )
+                        {
+                            displayInvoice2(cId, monthNo);
+                            jTextField5.setText("");
+                        }
+                        else
+                        {
+                            jTextField5.setText("Month not valid");
+                        }
+                    }
+                    else
+                    {
+                        jTextField5.setText("Month not valid");
+                    }
+                }
+                else
+                {
+                    jTextField5.setText("Customer Id not Valid");
+                }
+            }
     }
 
     //EDIT INVOICE
@@ -1352,7 +1476,6 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 Statement DeleteStmt = DBconnection.con.createStatement();
                 ResultSet rs = DeleteStmt.executeQuery(sql);
 //                System.out.println("8");
-
 
                 while (rs.next()) {
                     int invoiceId = rs.getInt("invoice_id");
@@ -1621,14 +1744,14 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     // End of variables declaration
 }
 
-//            jTextField2.setText("2");
-//            jTextField3.setText("3");
-//            jTextField5.setText("5");
-//            jTextField6.setText("6");
-//            jTextField20.setText("20");
-//
-//            jTextField46.setText("46");
-//            jTextField49.setText("49");
-//            jTextField44.setText("44");
-//
-//            jTextField26.setText("26");
+//        jTextField2.setText("2");
+//        jTextField3.setText("3");
+//        jTextField5.setText("5");
+//        jTextField6.setText("6");
+//        jTextField20.setText("20");
+//        
+//        jTextField46.setText("46");
+//        jTextField49.setText("49");
+//        jTextField44.setText("44");
+//        
+//        jTextField26.setText("26");
