@@ -834,6 +834,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField2.setForeground(new java.awt.Color(255,0,0));
         jTextField2.setBackground(new java.awt.Color(255,255,255));
 
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -1017,6 +1018,12 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
             }
         });
+
+        jTextField6.setForeground(new java.awt.Color(6, 187, 163));
+        jTextField6.setBackground(new java.awt.Color(19,28,33));
+        jTextField6.setFont(new java.awt.Font("sansserif", 0, 17));
+        jTextField6.setBorder(null);
+
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
