@@ -101,7 +101,6 @@ public class InvoiceGenerator {
                     // save to file
                     createInvoiceFile(invoice);
                 }
-                else { }
             }
             catch (DeliveryDocketExceptionHandler e) {
 //                System.out.println(e.getMessage());
