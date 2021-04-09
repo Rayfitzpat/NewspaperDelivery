@@ -164,7 +164,7 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                     String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
                     Connection con = DriverManager.getConnection(url, "root", "admin");
                     Statement stmt = con.createStatement();
-                    String sql = "Select * from publication";
+                    String sql = "Select * from publication order by publication_id";
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {

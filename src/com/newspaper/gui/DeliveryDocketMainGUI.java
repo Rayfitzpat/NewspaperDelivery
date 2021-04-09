@@ -30,6 +30,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
     public DeliveryDocketMainGUI() {
         initComponents();
         DBconnection.init_db();
+        this.setLocationRelativeTo(null);
 
     }
 
