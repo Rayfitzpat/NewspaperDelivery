@@ -421,7 +421,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel30.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel30.setText("Please Enter the month of the Invoice that you would like to Create");
+        jLabel30.setText("Please enter the month of the invoice that you would like to create");
 
         jTextField19.setBackground(new Color(19, 28, 33));
         jTextField19.setForeground(new Color(6, 187, 163));
@@ -447,7 +447,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel38.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel38.setText("Please enter the id of the Customer  whose Invoice that you would like to Create");
+        jLabel38.setText("Please enter the ID of the customer whose invoice you would like to create");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -559,7 +559,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel39.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel39.setText("Please Enter the month of the Invoice that you would like to View");
+        jLabel39.setText("Please enter the month of the invoice that you would like to view");
 
         jTextField45.setBackground(new Color(19, 28, 33));
         jTextField45.setForeground(new Color(6, 187, 163));
@@ -585,7 +585,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel40.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel40.setText("Please enter the id of the Customer  whose Invoice that you would like to View");
+        jLabel40.setText("Please enter the ID of the customer whose invoice you would like to view");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -651,6 +651,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField5.setText("");
         jTextField5.setBorder(null);
+        jTextField5.setEditable(false);
 
 
         javax.swing.GroupLayout DisplayOne6Layout = new javax.swing.GroupLayout(DisplayOne6);
@@ -706,7 +707,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel41.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel41.setText("Please Enter the Customer Id to change Invoice Status");
+        jLabel41.setText("Please enter the Customer ID to change invoice status");
 
         jTextField48.setBackground(new Color(19, 28, 33));
         jTextField48.setForeground(new Color(6, 187, 163));
@@ -919,7 +920,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel33.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel33.setText("Please Enter the Customer Id to show their Invoices");
+        jLabel33.setText("Please enter the customer ID to show their invoices");
 
         jTextField25.setBackground(new Color(19, 28, 33));
         jTextField25.setForeground(new Color(6, 187, 163));
@@ -1004,6 +1005,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField44.setForeground(new Color(6, 187, 163));
         jTextField44.setFont(new Font(null, 0, 24));
         jTextField44.setHorizontalAlignment(JTextField.CENTER);
+        jTextField4.setEditable(false);
 
         jButton37.setBackground(new java.awt.Color(49, 117, 108));
         jButton37.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -1094,7 +1096,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel3.setText("Please Enter the Invoice ID to get Customer Details");
+        jLabel3.setText("Please enter the invoice ID to get customer details");
 
         jTextField1.setBackground(new Color(19, 28, 33));
         jTextField1.setForeground(new Color(6, 187, 163));

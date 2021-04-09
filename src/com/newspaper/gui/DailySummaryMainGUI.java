@@ -642,7 +642,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField17.setBackground(new java.awt.Color(19, 28, 39));
+        jTextField17.setBackground(new java.awt.Color(19, 28, 33));
         jTextField17.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField17.setForeground(new java.awt.Color(18, 30, 49));
         jTextField17.setBorder(null);
@@ -783,7 +783,7 @@ MonthlySummary.setBackground(new java.awt.Color(19,28,33));
             }
         });
 
-        jTextField20.setBackground(new java.awt.Color(19, 28, 39));
+        jTextField20.setBackground(new java.awt.Color(19, 28, 33));
         jTextField20.setForeground(new java.awt.Color(18, 30, 49));
         jTextField20.setBorder(null);
         jTextField20.setDisabledTextColor(new java.awt.Color(19, 28, 33));
@@ -1089,6 +1089,7 @@ MonthlySummary.setBackground(new java.awt.Color(19,28,33));
         jTextField41.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField41.setText("");
         jTextField41.setBorder(null);
+        jTextField41.setEditable(false);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -1432,8 +1433,8 @@ MonthlySummary.setBackground(new java.awt.Color(19,28,33));
             }
         } else {
             jTextField17.setForeground(Color.red);
-            jTextField17.setFont(new java.awt.Font(null, 0, 12));
-           jTextField17.setText("Please enter a year and  month in the format YYYY-MM. Ensure your date is in the range of 2011-2099 and the month is in range 1-12");
+            jTextField17.setFont(new java.awt.Font(null, 0, 18));
+            jTextField17.setText("Please enter a year and month in the format YYYY-MM in the range of 2011-2099");
 
         }
 
@@ -1479,8 +1480,9 @@ MonthlySummary.setBackground(new java.awt.Color(19,28,33));
             }
         } else {
             jTextField20.setForeground(Color.red);
-            jTextField20.setFont(new java.awt.Font(null, 0, 12));
-           jTextField20.setText("Inalid date, please enter a date in the format YYYY-MM-DD");
+            jTextField20.setFont(new java.awt.Font(null, 0, 18));
+            jTextField20.setText("Invalid date, please enter a date in the format YYYY-MM-DD");
+            jTextField20.setHorizontalAlignment(JTextField.CENTER);
 
 
         }
@@ -1555,12 +1557,12 @@ MonthlySummary.setBackground(new java.awt.Color(19,28,33));
                 System.out.println(str);
             }
             jTextField41.setForeground(Color.green);
-            jTextField41.setFont(new java.awt.Font(null, 0, 12));
+            jTextField41.setFont(new java.awt.Font(null, 0, 18));
             jTextField41.setText("File Created Successfully!");
 
         } else {jTextField41.setForeground(Color.red);
-            jTextField41.setFont(new java.awt.Font(null, 0, 12));
-            jTextField41.setText("Inalid date, please enter a date in the format YYYY-MM-DD");
+            jTextField41.setFont(new java.awt.Font(null, 0, 18));
+            jTextField41.setText("Invalid date, please enter a date in the format YYYY-MM-DD");
         }
     }
 
@@ -1741,15 +1743,14 @@ MonthlySummary.setBackground(new java.awt.Color(19,28,33));
                 }
                 else
                 {
-                    System.out.println("Test3");
                     jTextField47.setForeground(Color.red);
-                    jTextField47.setFont(new java.awt.Font(null, 0, 12));
+                    jTextField47.setFont(new java.awt.Font(null, 0, 18));
                     jTextField47.setText("Invalid year, please only enter this year or last year.");
 
                 }
             }
             else if(!validyear){jTextField47.setForeground(Color.red);
-                jTextField47.setFont(new java.awt.Font(null, 0, 12));
+                jTextField47.setFont(new java.awt.Font(null, 0, 18));
                 jTextField47.setText("Invalid year, please only enter this year or last year.");
 
 
@@ -1815,14 +1816,14 @@ MonthlySummary.setBackground(new java.awt.Color(19,28,33));
 //                }
             } else {
                 jTextField30.setForeground(Color.red);
-                jTextField30.setFont(new java.awt.Font(null, 0, 12));
+                jTextField30.setFont(new java.awt.Font(null, 0, 18));
                 jTextField30.setText("Error with second date: Please enter in format YYYY-MM-DD");
 
             }
             //}
         } else {
             jTextField30.setForeground(Color.red);
-            jTextField30.setFont(new java.awt.Font(null, 0, 12));
+            jTextField30.setFont(new java.awt.Font(null, 0, 18));
             jTextField30.setText("Error with first date: Please enter in format YYYY-MM-DD");
 
         }

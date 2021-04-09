@@ -2152,6 +2152,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                         try {
                             ov.updateOrderPublicationGUI(orderID, publicationID);
                             jTextField34.setForeground(new java.awt.Color(6, 187, 163));
+                            jTextField34.setBackground(new java.awt.Color(19,28,33));
                             jTextField34.setText("Successfully edited publication on order: " + orderID);
                         } catch (Exception e) {
                             e.getMessage();
@@ -2208,6 +2209,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                         try {
                             ov.updateOrderFrequencyGUI(orderID, frequency);
                             jTextField34.setForeground(new Color(6, 187, 163));
+                            jTextField34.setBackground(new java.awt.Color(19,28,33));
                             jTextField34.setText("Successfully edited frequency on order: " + orderID);
                         } catch (Exception e) {
                             e.getMessage();
@@ -2353,6 +2355,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
             stmt.executeUpdate(insertQuery);
 
             jTextField30.setForeground(new java.awt.Color(6, 187, 163));
+            jTextField30.setBackground(new java.awt.Color(19,28,33));
             jTextField30.setText("You have successfully added a new Order, scroll to bottom to view");
 
             // generating deliveries for the new order
@@ -2411,6 +2414,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                     try {
                         displayOrderByOrderIdGUI(orderID);
                         jTextField20.setForeground(new java.awt.Color(6, 187, 163));
+                        jTextField20.setBackground(new java.awt.Color(19, 28, 33));
                         jTextField20.setText("Order " + orderID + " successfully displayed");
                     } catch (Exception e) {
                         e.getMessage();
@@ -2471,8 +2475,39 @@ public class OrderMainGUI extends javax.swing.JFrame {
             AddNew.setVisible(false);
             Edit.setVisible(false);
             Delete.setVisible(true);
+
+            try {
+                String sql = "Select * from orders order by order_id;";
+                Statement stmt = DBconnection.con.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while(rs.next()) {
+
+                    int id = rs.getInt("order_id");
+                    int customer_id = rs.getInt("customer_id");
+                    int publication_id = rs.getInt("publication_id");
+                    int frequency = rs.getInt("frequency");
+
+                    String customerName = ov.getCustomerName(customer_id);
+
+                    String publication = ov.getPublicationByID(publication_id);
+
+                    String day = DayOfWeek.of(frequency).toString();
+
+                    String tbData[] = {id + "", customer_id + "", customerName, publication_id + "", publication, frequency + "", day};
+                    DefaultTableModel tblModel = (DefaultTableModel) jTable11.getModel();
+
+                    tblModel.addRow(tbData);
+
+                }
+            } catch (Exception e) {
+                System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+            }
         }
-    }
+
+        }
+
+
 
 //    displayOrderByCusIDGUIHello---------------------------------------------------------------------------------------
     private void jButton30ActionPerformed(ActionEvent evt) throws SQLException {
@@ -2494,6 +2529,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                     try {
                         displayOrderByCustomerIdGUI(customerID);
                         jTextField27.setForeground(new java.awt.Color(6, 187, 163));
+                        jTextField27.setBackground(new java.awt.Color(19,28,33));
                         jTextField27.setText("Orders for customer: " + customerID + " - " + ov.getCustomerName(Integer.parseInt(customerID)) + " successfully displayed");
                     } catch (Exception e) {
                         e.getMessage();
@@ -2566,6 +2602,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                     try {
                         displayOrderByPublicationIdGUI(publicationID);
                         jTextField31.setForeground(new Color(6, 187, 163));
+                        jTextField31.setForeground(new java.awt.Color(19,28,33));
                         jTextField31.setText("Orders for publication: " + publicationID + " - " + ov.getPublicationByID(Integer.parseInt(publicationID)) + " successfully displayed");
                     } catch (Exception e) {
                         e.getMessage();
@@ -2640,6 +2677,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                     try {
                         displayOrderByFrequencyGUI(freq);
                         jTextField33.setForeground(new Color(6, 187, 163));
+                        jTextField33.setForeground(new java.awt.Color(19,28,33));
                         jTextField33.setText("Orders for " + DayOfWeek.of(Integer.parseInt(freq)).toString() + "'s successfully displayed");
                     } catch (Exception e) {
                         e.getMessage();
@@ -2741,6 +2779,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
                     } catch (Exception e) {
                         jTextField38.setForeground(new java.awt.Color(255, 0, 0));
+                        jTextField38.setBackground(new java.awt.Color(19,28,33));
                         jTextField38.setText(e.getMessage());
                     }
                 }

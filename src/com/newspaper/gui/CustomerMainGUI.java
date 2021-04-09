@@ -479,8 +479,8 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
         jLabel3.setText("Please enter the id of the Customer that you would like to display");
 
-        jTextField1.setBackground(new java.awt.Color(0, 102, 102));
-        jTextField1.setForeground(new java.awt.Color(255, 0, 0));
+        jTextField1.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField1.setForeground(new java.awt.Color(6, 187, 163));
         jTextField1.setFont(new java.awt.Font(null, 0, 18));
         jTextField1.setHorizontalAlignment(JTextField.CENTER);
 
@@ -1271,7 +1271,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jTextField18.setBackground(new java.awt.Color(19, 28, 33));
         jTextField18.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextField18.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField18.setText("  ID Here");
+        jTextField18.setText("ID Here");
         jTextField18.setToolTipText("");
         jTextField18.setHorizontalAlignment(JTextField.CENTER);
 
@@ -1646,10 +1646,10 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         jLabel53.setForeground(new java.awt.Color(6, 187, 163));
         jLabel53.setText("Please enter the id of the Customer that you would like to DELETE");
 
-        jTextField29.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField29.setBackground(new java.awt.Color(19, 28, 33));
         jTextField29.setFont(new java.awt.Font(null, 0, 18));
         jTextField29.setHorizontalAlignment(JTextField.CENTER);
-        jTextField29.setForeground(new java.awt.Color(255, 0, 0));
+        jTextField29.setForeground(new java.awt.Color(6, 187, 163));
 
 
 //        Submit button for Delete Functionality
@@ -2464,7 +2464,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                     Statement statement = con.createStatement();
                     statement.executeUpdate("DELETE from customer where customer_id = " + deleteID);
                     Statement DeleteStmt = con.createStatement();
-                    String sql = "Select * from customer";
+                    String sql = "Select * from customer order by customer_id";
                     ResultSet rs = DeleteStmt.executeQuery(sql);
 
                     while (rs.next()) {

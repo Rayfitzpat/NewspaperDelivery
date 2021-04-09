@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class Validation {
 
     public boolean validateString(String name) {
-        if (name.length() > 1 && name.length() < 20) {
+        if (name.length() > 0 && name.length() < 20) {
             if (name.matches("[a-zA-z\\s]*")) {
                 return true;
             } else {
@@ -33,7 +33,7 @@ public class Validation {
     }
 
     public boolean validateCustomer(String name) {
-        if (name.length() > 1 && name.length() < 20) {
+        if (name.length() > 0 && name.length() < 20) {
             if (name.matches("[a-zA-z\\s]*")) {
                 return true;
             } else {
@@ -80,21 +80,21 @@ public class Validation {
 
 
     public boolean validateStringWithNumbers(String name) {
-        if (name.length() > 1 && name.length() < 20) {
+        if (name.length() > 0 && name.length() < 20) {
             return true;
         } else
             return false;
     }
 
     public boolean validatePublication(String name) {
-        if (name.length() > 1 && name.length() < 25) {
+        if (name.length() > 0 && name.length() < 25) {
             return true;
         } else
             return false;
     }
 
     public boolean validateCustomer35(String name) {
-        if (name.length() > 1 && name.length() < 20) {
+        if (name.length() > 0 && name.length() < 20) {
             return true;
         } else
             return false;
