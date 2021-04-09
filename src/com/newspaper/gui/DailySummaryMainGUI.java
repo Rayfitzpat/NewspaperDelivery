@@ -1555,9 +1555,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         boolean validyear = false;
         String enterYear = "";
         String enterMonth ="";
-        System.out.println("Test1");
 
-            System.out.println("Test2");
             enterYear = jTextField26.getText();
 
             validyear = ds.validateYear(enterYear);
@@ -1724,7 +1722,6 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                 }
                 else
                 {
-                    System.out.println("Test3");
                     jTextField47.setForeground(Color.red);
                     jTextField47.setFont(new java.awt.Font(null, 0, 12));
                     jTextField47.setText("Invalid year, please only enter this year or last year.");
