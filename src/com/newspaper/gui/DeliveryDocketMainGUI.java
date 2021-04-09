@@ -150,6 +150,25 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         tfDeliveryPersonIDoncreate.setFont(new java.awt.Font(null, 0, 18));
         tfDateOnCreate.setFont(new java.awt.Font(null, 0, 18));
 
+        tfPubIdOnDisplayPublications.setBackground(new java.awt.Color(19, 28, 33));
+        tfPubIdOnDisplayPublications.setForeground(new java.awt.Color(6, 187, 163));
+        tfCustomerDeliveriesId.setBackground(new java.awt.Color(19, 28, 33));
+        tfCustomerDeliveriesId.setForeground(new java.awt.Color(6, 187, 163));
+        tfDPidOnDelete.setBackground(new java.awt.Color(19, 28, 33));
+        tfDPidOnDelete.setForeground(new java.awt.Color(6, 187, 163));
+        tfDateOnDelete.setBackground(new java.awt.Color(19, 28, 33));
+        tfDateOnDelete.setForeground(new java.awt.Color(6, 187, 163));
+        editEnterDateTf.setBackground(new java.awt.Color(19, 28, 33));
+        editEnterDateTf.setForeground(new java.awt.Color(6, 187, 163));
+        editEnterIdNonDeliveredTf.setBackground(new java.awt.Color(19, 28, 33));
+        editEnterIdNonDeliveredTf.setForeground(new java.awt.Color(6, 187, 163));
+        tfDeliveryPersonIDoncreate.setBackground(new java.awt.Color(19, 28, 33));
+        tfDeliveryPersonIDoncreate.setForeground(new java.awt.Color(6, 187, 163));
+        tfDateOnCreate.setBackground(new java.awt.Color(19, 28, 33));
+        tfDateOnCreate.setForeground(new java.awt.Color(6, 187, 163));
+        editDPidTf.setBackground(new java.awt.Color(19, 28, 33));
+        editDPidTf.setForeground(new java.awt.Color(6, 187, 163));
+
         /*** Create Listeners***/
         btnSubmitDeliveryPersonIdOnCreate.addActionListener(this::submitDeliveryPersonIdOnCreate);
 
@@ -343,7 +362,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
         jLabel3.setText("Enter Delivery Person ID");
 
-        tfDeliveryPersonIDoncreate.setBackground(new java.awt.Color(0, 102, 102));
 
         jTextField2.setBackground(new java.awt.Color(19, 28, 39));
         jTextField2.setForeground(new java.awt.Color(18, 30, 49));
@@ -356,7 +374,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jLabel30.setForeground(new java.awt.Color(6, 187, 163));
         jLabel30.setText("Enter Date of Delivery Docket");
 
-        tfDateOnCreate.setBackground(new java.awt.Color(0, 102, 102));
 
         btnSubmitDeliveryPersonIdOnCreate.setBackground(new java.awt.Color(49, 117, 108));
         btnSubmitDeliveryPersonIdOnCreate.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -499,12 +516,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         editSubmitDPidBtn.setForeground(new java.awt.Color(0, 0, 0));
         editSubmitDPidBtn.setText("Set ID");
 
-        editDPidTf.setBackground(new java.awt.Color(0, 102, 102));
-
-        editEnterDateTf.setBackground(new java.awt.Color(0, 102, 102));
-
-        editEnterIdNonDeliveredTf.setBackground(new java.awt.Color(0, 102, 102));
-
         editSubmitDateBtn.setBackground(new java.awt.Color(49, 117, 108));
         editSubmitDateBtn.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         editSubmitDateBtn.setForeground(new java.awt.Color(0, 0, 0));
@@ -600,9 +611,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jLabel38.setForeground(new java.awt.Color(6, 187, 163));
         jLabel38.setText("Are You SURE you want to DELETE this Docket");
 
-        tfDPidOnDelete.setBackground(new java.awt.Color(0, 102, 102));
-
-        tfDateOnDelete.setBackground(new java.awt.Color(0, 102, 102));
 
         btnSubmitOnDelete.setBackground(new java.awt.Color(49, 117, 108));
         btnSubmitOnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -730,7 +738,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(6, 187, 163));
         jLabel4.setText("If you want to see ALL deliveries that are planned for a customer, enter customer id: ");
 
-        tfCustomerDeliveriesId.setBackground(new java.awt.Color(0, 102, 102));
 
         btnSubmitOnCustomerPublications.setBackground(new java.awt.Color(49, 117, 108));
         btnSubmitOnCustomerPublications.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -860,7 +867,6 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
         jLabel53.setForeground(new java.awt.Color(6, 187, 163));
         jLabel53.setText("To see all deliveries for a publication, enter publication id:");
 
-        tfPubIdOnDisplayPublications.setBackground(new java.awt.Color(0, 102, 102));
 
         btnSubmitOnPublication.setBackground(new java.awt.Color(49, 117, 108));
         btnSubmitOnPublication.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
