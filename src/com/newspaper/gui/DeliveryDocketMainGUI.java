@@ -183,7 +183,7 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
 
 
-        jButton7.addActionListener(evt -> System.out.println("Button 7 clicked"));
+//        jButton7.addActionListener(evt -> System.out.println("Button 7 clicked"));
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(19, 28, 33));
