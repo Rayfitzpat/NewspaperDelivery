@@ -1391,8 +1391,10 @@ public class DeliveryDocketMainGUI extends javax.swing.JFrame {
 
         } catch (DeliveryDocketExceptionHandler e) {
             showError(tfWarningOnDelete, e.getMessage());
+            date = "";
         } catch (Exception e) {
             showError(tfWarningOnDelete, "Date format incorrect");
+            date = "";
         }
 
         return date;
