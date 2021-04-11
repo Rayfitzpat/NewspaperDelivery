@@ -185,7 +185,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
                     }
                 } catch (Exception e) {
-                    System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+                    e.getMessage();
                 }
             }
         });
@@ -2328,11 +2328,11 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
                                             }
                                         } catch (Exception e) {
-                                            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+                                            e.getMessage();
                                         }
 
                                     } catch (Exception e){
-                                        jTextField30.setText(e.getMessage());
+                                        e.getMessage();
                                     }
 
                                 }
@@ -2389,13 +2389,12 @@ public class OrderMainGUI extends javax.swing.JFrame {
                 ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
                 deliveryDocketDB.saveDeliveries(deliveries);
             } catch (OrderExceptionHandler e) {
-                e.getMessage();
+                jTextField30.setText("Error, cannot add this order");
             }
         } catch (Exception e) {
             jTextField30.setForeground(new java.awt.Color(255, 0, 0));
             jTextField30.setText("Error, cannot add this order");
-            System.out.println(e.getMessage());
-            System.out.println(insertQuery);
+            e.getMessage();
         }
     }
 
@@ -2563,7 +2562,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                 tblModel.addRow(tbData);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.getMessage();
         }
     }
 
@@ -2634,7 +2633,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                 tblModel.addRow(tbData);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.getMessage();
         }
     }
 
@@ -2708,7 +2707,7 @@ public class OrderMainGUI extends javax.swing.JFrame {
                 tblModel.addRow(tbData);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.getMessage();
         }
     }
 
@@ -2758,12 +2757,12 @@ public class OrderMainGUI extends javax.swing.JFrame {
 
                             }
                         } catch (Exception e) {
-                            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+                            e.getMessage();
                         }
 
                     } catch (Exception e) {
                         jTextField38.setForeground(new java.awt.Color(255, 0, 0));
-                        jTextField38.setText(e.getMessage());
+                        jTextField38.setText("Order ID not valid - please check Display All Orders section for valid ID");
                     }
                 }
                 else {
