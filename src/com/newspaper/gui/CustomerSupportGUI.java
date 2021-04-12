@@ -110,7 +110,7 @@ public class CustomerSupportGUI extends javax.swing.JFrame {
 //        jLabel6.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/rayCover2.png")));
 //        jLabel7.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/remi.jpg")));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/marty.png")));
 //        jLabel8.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/jack.png")));
 //        jLabel9.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
