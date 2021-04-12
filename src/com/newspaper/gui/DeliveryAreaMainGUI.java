@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.sql.*;
 
@@ -163,7 +164,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
                     String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
                     Connection con = DriverManager.getConnection(url, "root", "admin");
                     Statement stmt = con.createStatement();
-                    String sql = "Select * from delivery_area";
+                    String sql = "Select * from delivery_area order by delivery_area_id";
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
@@ -404,8 +405,8 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
         jLabel3.setText("Please enter the id of the Area that you would like to display");
 
-        jTextField1.setBackground(new java.awt.Color(0, 102, 102));
-        jTextField1.setForeground(new java.awt.Color(255, 0, 0));
+        jTextField1.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField1.setForeground(new java.awt.Color(6, 187, 163));
         jTextField1.setFont(new java.awt.Font(null, 0, 18));
         jTextField1.setHorizontalAlignment(JTextField.CENTER);
 
@@ -435,6 +436,10 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         tableHeader2.setBackground(new java.awt.Color(255,255,255));
         tableHeader2.setForeground(new java.awt.Color(19, 28, 33));
         tableHeader2.setFont(new Font(null, Font.BOLD, 15));
+        TableCellRenderer rendererFromHeader2 = jTable2.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader2;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setBackground(new java.awt.Color(19, 28, 33));
         jTable2.setForeground(new java.awt.Color(6, 187, 163));
@@ -817,7 +822,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jTextField18.setBackground(new java.awt.Color(19, 28, 33));
         jTextField18.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextField18.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField18.setText("  ID Here");
+        jTextField18.setText("ID Here");
         jTextField18.setToolTipText("");
         jTextField18.setHorizontalAlignment(JTextField.CENTER);
 
@@ -1055,6 +1060,10 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         tableHeader3.setBackground(new java.awt.Color(255,255,255));
         tableHeader3.setForeground(new java.awt.Color(19, 28, 33));
         tableHeader3.setFont(new Font(null, Font.BOLD, 15));
+        TableCellRenderer rendererFromHeader3 = jTable3.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel3 = (JLabel) rendererFromHeader3;
+        headerLabel3.setHorizontalAlignment(JLabel.CENTER);
+
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
         jTable3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setFillsViewportHeight(true);
@@ -1085,10 +1094,10 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
         jLabel53.setForeground(new java.awt.Color(6, 187, 163));
         jLabel53.setText("Please enter the id of the area that you would like to DELETE");
 
-        jTextField29.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField29.setBackground(new java.awt.Color(19, 28, 33));
         jTextField29.setFont(new java.awt.Font(null, 0, 18));
         jTextField29.setHorizontalAlignment(JTextField.CENTER);
-        jTextField29.setForeground(new java.awt.Color(255, 0, 0));
+        jTextField29.setForeground(new java.awt.Color(6, 187, 163));
 
 
 //        Submit button for Delete Functionality
@@ -1252,7 +1261,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
             Edit.setVisible(false);
             Delete.setVisible(true);
 
-            String sql = "Select * from delivery_area";
+            String sql = "Select * from delivery_area order by delivery_area_id";
             Statement DeleteStmt = con.createStatement();
             ResultSet rs = DeleteStmt.executeQuery(sql);
 
@@ -1568,7 +1577,7 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
                     Statement statement = con.createStatement();
                     statement.executeUpdate("DELETE from delivery_area where delivery_area_id = " + deleteID);
                     Statement DeleteStmt = con.createStatement();
-                    String sql = "Select * from delivery_area";
+                    String sql = "Select * from delivery_area order by delivery_area_id";
                     ResultSet rs = DeleteStmt.executeQuery(sql);
 
                     while (rs.next()) {

@@ -35,8 +35,8 @@ public class InvoiceGenerator {
 
     Utility utility = new Utility();
     DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
-
-
+    
+    
     public Invoice createInvoice(int customerId, int month) {
         Invoice invoice = null;
 
@@ -101,7 +101,6 @@ public class InvoiceGenerator {
                     // save to file
                     createInvoiceFile(invoice);
                 }
-                else { }
             }
             catch (DeliveryDocketExceptionHandler e) {
 //                System.out.println(e.getMessage());

@@ -25,63 +25,10 @@ import static com.newspaper.db.DBconnection.stmt;
  */
 public class DeliveryDocketDB {
 
-    // --- Talk with Mark about adding generate deliveries for person, after he adds a subscription
 
     public static void main(String[] args) throws DeliveryDocketExceptionHandler {
-        DBconnection.init_db();
-        DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
-        Utility ut = new Utility();
-//        ArrayList <PublicationDeliveryItem> deliveries = deliveryDocketDB.getAllDeliveryItemsForDeliveryArea(3, "2021-03-07");
-//        System.out.println(deliveries.size());
-//        for (PublicationDeliveryItem p : deliveries){
-//            p.print();
-//        }
 
 
-//        ArrayList <InvoiceDeliveryItem> deliveries = deliveryDocketDB.getInvoicesForDeliveryArea(3, 12);
-//        System.out.println(deliveries.size());
-//        for (InvoiceDeliveryItem p : deliveries){
-//            p.print();
-//        }
-
-
-//        ArrayList <DeliveryItem> deliveries = deliveryDocketDB.getAllDeliveryItemsFor(4, "2021-03-07");
-//        System.out.println(deliveries.size());
-//        for (DeliveryItem p : deliveries){
-//            p.print();
-//        }
-
-
-//        DeliveryDocket docket = deliveryDocketDB.createDeliveryDocketFor(10, "2021-01-01"); // delivery person inactiv exception may be thrown
-//        System.out.println(docket);
-//        System.out.println("Saving...");
-//        deliveryDocketDB.createDeliveryDocketFile(docket);
-
-//        // generating deliveries flow
-//        int month = 3; // Feb
-//        // check if deliveries for this month weren't generated before
-//        if (!deliveryDocketDB.deliveriesForThisMonthExist(month)) {
-//            ArrayList <Delivery> deliveries = deliveryDocketDB.generateDeliveriesForMonth(month);
-//            for (Delivery d : deliveries) {
-//                d.printInserts();
-//            }
-//        }
-//        else {
-//            System.out.println("Deliveries for " + month + " month already exist");
-//        }
-
-
-//        try {
-//            Order order = new Order(11, 5, 7);
-//            ArrayList<Delivery> deliveries = deliveryDocketDB.generateDeliveriesForNewOrder(order);
-//            System.out.println(deliveries.size());
-//            deliveryDocketDB.saveDeliveries(deliveries);
-//        } catch (OrderExceptionHandler e) {
-//            e.getMessage();
-//        }
-
-
-        //ut.displayAllDeliveriesOfCustomer(3);
     }
 
     private Utility ut;

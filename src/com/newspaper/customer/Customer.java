@@ -17,7 +17,7 @@ public class Customer {
     private String firstName, lastName, address2, town, eircode, phoneNumber, holidayStartDate, holidayEndDate;
     private boolean status;
 
-    // constructor for initialising com.newspaper.customer.Customer objects without customerId
+    // constructor for initialising Customer objects without customerId
     public Customer(String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
 
         // customer record in the database is autoincrement
@@ -25,7 +25,6 @@ public class Customer {
 
         // validate input
         try{
-            //validateDeliveryAreaId();
             validateDeliveryArea(deliveryAreaId);
             validateAddress1(address1);
             validateName(firstName, "First name");
@@ -57,13 +56,11 @@ public class Customer {
         this.status = status;
     }
 
-    // constructor for initialising com.newspaper.customer.Customer objects with all fields
+    // constructor for initialising Customer objects with all fields
     public Customer(int customerId, String firstName, String lastName, int address1, String address2, String town, String eircode, String phoneNumber, String holidayStartDate, String holidayEndDate, boolean status, int deliveryAreaId) throws CustomerExceptionHandler {
 
         // validate input
         try{
-            //validateId(customerId);
-            //validateId(deliveryAreaId);
             validateAddress1(address1);
             validateName(firstName, "First name");
             validateName(lastName, "Last name");

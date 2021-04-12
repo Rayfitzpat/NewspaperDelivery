@@ -8,6 +8,7 @@ package com.newspaper.gui;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliverydocket.DeliveryDocket;
 import com.newspaper.deliverydocket.DeliveryDocketExceptionHandler;
+import com.newspaper.deliverydocket.Utility;
 import com.newspaper.invoice.Invoice;
 import com.newspaper.invoice.InvoiceGenerator;
 
@@ -38,6 +39,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     Validation validation = new Validation();
     InvoiceGenerator ig = new InvoiceGenerator();
     Validation v = new Validation();
+    Utility utility = new Utility();
 
 
     /**
@@ -421,7 +423,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel30.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel30.setText("Please Enter the month of the Invoice that you would like to Create");
+        jLabel30.setText("Please enter the month of the invoice that you would like to create");
 
         jTextField19.setBackground(new Color(19, 28, 33));
         jTextField19.setForeground(new Color(6, 187, 163));
@@ -447,7 +449,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel38.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel38.setText("Please enter the id of the Customer  whose Invoice that you would like to Create");
+        jLabel38.setText("Please enter the ID of the customer whose invoice you would like to create");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -559,7 +561,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel39.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel39.setText("Please Enter the month of the Invoice that you would like to View");
+        jLabel39.setText("Please enter the month of the invoice that you would like to view");
 
         jTextField45.setBackground(new Color(19, 28, 33));
         jTextField45.setForeground(new Color(6, 187, 163));
@@ -585,7 +587,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel40.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel40.setText("Please enter the id of the Customer  whose Invoice that you would like to View");
+        jLabel40.setText("Please enter the ID of the customer whose invoice you would like to view");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -651,6 +653,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField5.setText("");
         jTextField5.setBorder(null);
+        jTextField5.setEditable(false);
 
 
         javax.swing.GroupLayout DisplayOne6Layout = new javax.swing.GroupLayout(DisplayOne6);
@@ -706,7 +709,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel41.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel41.setText("Please Enter the Customer Id to change Invoice Status");
+        jLabel41.setText("Please enter the Customer ID to change invoice status");
 
         jTextField48.setBackground(new Color(19, 28, 33));
         jTextField48.setForeground(new Color(6, 187, 163));
@@ -810,32 +813,29 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField50.setFont(new java.awt.Font(null, 0, 18));
         jTextField50.setHorizontalAlignment(JTextField.CENTER);
 
-        jTextField6.setText("");
+//        jTextField6.setText("6666666666666666666666");
+//        jTextField1.setText("1");
+//        jTextField19.setText("19");
+//        jTextField2.setText("2222222222");
+//        jTextField20.setText("20");
+//        jTextField21.setText("21");
+//        jTextField25.setText("25");
+//        jTextField26.setText("26");
+//        jTextField3.setText("3");
+//        jTextField4.setText("4");
+//        jTextField44.setText("44");
+//        jTextField45.setText("45");
+//        jTextField46.setText("46");
+//        jTextField47.setText("47");
+//        jTextField48.setText("48");
+//        jTextField5.setText("5");
+//        jTextField50.setText("50");
+//        jTextField46.setText("46");
+//        jTextField6.setText("6");
 
 
-
-        jTextField1.setText("1");
-        jTextField19.setText("19");
-        jTextField2.setText("");
         jTextField2.setForeground(new java.awt.Color(255,0,0));
         jTextField2.setBackground(new java.awt.Color(255,255,255));
-        jTextField20.setText("20");
-        jTextField21.setText("21");
-        jTextField25.setText("25");
-        jTextField26.setText("26");
-        jTextField3.setText("3");
-        jTextField4.setText("4");
-        jTextField44.setText("44");
-        jTextField45.setText("45");
-        jTextField46.setText("46");
-        jTextField47.setText("47");
-        jTextField48.setText("48");
-        jTextField5.setText("5");
-        jTextField50.setText("50");
-        jTextField46.setText("46");
-        jTextField6.setText("6");
-
-
 
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -922,7 +922,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel33.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel33.setText("Please Enter the Customer Id to show their Invoices");
+        jLabel33.setText("Please enter the customer ID to show their invoices");
 
         jTextField25.setBackground(new Color(19, 28, 33));
         jTextField25.setForeground(new Color(6, 187, 163));
@@ -1007,6 +1007,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField44.setForeground(new Color(6, 187, 163));
         jTextField44.setFont(new Font(null, 0, 24));
         jTextField44.setHorizontalAlignment(JTextField.CENTER);
+        jTextField4.setEditable(false);
 
         jButton37.setBackground(new java.awt.Color(49, 117, 108));
         jButton37.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -1021,6 +1022,12 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
             }
         });
+
+        jTextField6.setForeground(new java.awt.Color(6, 187, 163));
+        jTextField6.setBackground(new java.awt.Color(19,28,33));
+        jTextField6.setFont(new java.awt.Font("sansserif", 0, 17));
+        jTextField6.setBorder(null);
+
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1091,7 +1098,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel3.setText("Please Enter the Invoice ID to get Customer Details");
+        jLabel3.setText("Please enter the invoice ID to get customer details");
 
         jTextField1.setBackground(new Color(19, 28, 33));
         jTextField1.setForeground(new Color(6, 187, 163));
@@ -1167,6 +1174,15 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField2.setSelectedTextColor(new java.awt.Color(19, 28, 33));
         jTextField2.setFont(new java.awt.Font(null,0,18));
         jTextField2.setHorizontalAlignment(jTextField2.CENTER);
+
+        jTextField26.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField26.setForeground(new java.awt.Color(255, 0, 0));
+        jTextField26.setBorder(null);
+        jTextField26.setDisabledTextColor(new java.awt.Color(19, 28, 33));
+        jTextField26.setFocusable(false);
+        jTextField26.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+        jTextField26.setFont(new java.awt.Font(null,0,18));
+
 
         jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -1344,6 +1360,8 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         {
                 jTextArea54.setText(invoice.toString());
                 ig.createInvoiceFile(invoice);
+                jTextField4.setText("");
+
         }
         else
         {
@@ -1356,7 +1374,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         if (evt.getSource() == jButton32) {
             String cusId = jTextField19.getText();
             String month = jTextField21.getText();
-            if (v.validateID(cusId))
+
+            int customerId = Integer.parseInt(cusId);
+
+            if (utility.ifCustomerExists(customerId))
             {
                 if (v.validateID(month))
                 {
@@ -1379,7 +1400,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             }
             else
             {
-                jTextField4.setText("Customer Id not Valid");
+                jTextField4.setText("Customer with ID "+customerId+" does not exist.");
             }
         }
     }
@@ -1405,10 +1426,11 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         if (invoice != null) {
             jTextField3.setText(invoice.toString());
             ig.createInvoiceFile(invoice);
+            jTextField5.setText("");
         }
         else
         {
-            jTextField5.setText("Error");
+            jTextField5.setText("Invoice for this customer does not exist");
         }
     }
 
@@ -1418,7 +1440,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         {
                 String cusId = jTextField45.getText();
                 String month = jTextField47.getText();
-                if (v.validateID(cusId))
+
+                int customerId = Integer.parseInt(cusId);
+
+                if (utility.ifCustomerExists(customerId))
                 {
                     if (v.validateID(month))
                     {
@@ -1442,7 +1467,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
                 else
                 {
-                    jTextField5.setText("Customer Id not Valid");
+                    jTextField5.setText("Customer with ID "+customerId+" does not exist.");
                 }
             }
     }
@@ -1502,14 +1527,14 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     {
         if (evt.getSource() == jButton8)
         {
-                String cusID = jTextField1.getText();
-
-
-                if (v.validateID(cusID))
+            String cusID = jTextField1.getText();
+            int customerID = Integer.parseInt(cusID);
+                if (utility.ifCustomerExists(customerID))
                 {
                     String sql = "Select * from invoice where customer_id = " + cusID;
                     Statement DeleteStmt = DBconnection.con.createStatement();
                     ResultSet rs = DeleteStmt.executeQuery(sql);
+                    jTextField2.setText("");
 
                     while (rs.next())
                     {
@@ -1530,7 +1555,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
                 else
                 {
-                    jTextField2.setText("ID Invalid");
+                    jTextField2.setText("Customer with ID "+ customerID+" does not exist");
                 }
             }
         }
@@ -1544,10 +1569,12 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             String sql = "Select * from invoice where customer_id = " + cusID;
             Statement DeleteStmt = DBconnection.con.createStatement();
 
-            if (v.validateID(cusID))
+            int customerId = Integer.parseInt(cusID);
+
+            if (utility.ifCustomerExists(customerId))
             {
-                int cId = Integer.parseInt(cusID);
                 ResultSet rs = DeleteStmt.executeQuery(sql);
+                jTextField49.setText("");
 
                 while (rs.next())
                 {
@@ -1568,7 +1595,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             }
             else
             {
-                jTextField49.setText("Customer Id not Valid");
+                jTextField49.setText("Customer with ID "+customerId+" does not exist.");
             }
         }
     }
@@ -1579,8 +1606,12 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             String cusId = jTextField48.getText();
             String invoiceId = jTextField50.getText();
 
-            if (v.validateID(cusId)) {
-                if (v.validateID(invoiceId)) {
+            int customerID = Integer.parseInt(cusId);
+            int invId = Integer.parseInt(invoiceId);
+            if (utility.ifCustomerExists(customerID))
+            {
+                if (utility.ifInvoiceExists(invId))
+                {
                     String setPaid = "update invoice set price_paid = 'paid' where invoice_id =" + invoiceId + " and customer_id = " + cusId;
                     Statement stmt = DBconnection.con.createStatement();
                     stmt.executeUpdate(setPaid);
@@ -1590,41 +1621,45 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
                 else
                 {
-                    jTextField49.setText("Invoice Id not valid");
+                    jTextField49.setText("Invoice with ID "+invId+" does not exist.");
                 }
             }
             else
             {
-                jTextField49.setText("Customer Id not valid");
+                jTextField49.setText("Customer with ID "+cusId+" does not exist.");
             }
         }
         }
 
 
     //EDIT UNPAID FUNCTIONALITY
-
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         if (evt.getSource() == jButton36)
         {
             String cusId = jTextField48.getText();
             String invoiceId = jTextField50.getText();
 
-            if (v.validateID(cusId)) {
-                if (v.validateID(invoiceId)) {
+            int customerID = Integer.parseInt(cusId);
+            int invId = Integer.parseInt(invoiceId);
+            if (utility.ifCustomerExists(customerID))
+            {
+                if (utility.ifInvoiceExists(invId))
+                {
                     String setPaid = "update invoice set price_paid = 'unpaid' where invoice_id =" + invoiceId + " and customer_id = " + cusId;
                     Statement stmt = DBconnection.con.createStatement();
                     stmt.executeUpdate(setPaid);
+
                     jTextField6.setText("Updated");
                     jTextField49.setText("");
                 }
                 else
                 {
-                    jTextField49.setText("Invoice Id not valid");
+                    jTextField49.setText("Invoice with ID "+invId+" does not exist.");
                 }
             }
             else
             {
-                jTextField49.setText("Customer Id not valid");
+                jTextField49.setText("Customer with ID "+cusId+" does not exist.");
             }
         }
     }
@@ -1641,6 +1676,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 String sql = "Select * from invoice where customer_id = " + cusID;
                 Statement DeleteStmt = DBconnection.con.createStatement();
                 ResultSet rs = DeleteStmt.executeQuery(sql);
+                jTextField26.setText("");
                 while (rs.next()) {
                     int invoiceId = rs.getInt("invoice_id");
                     int cusId = rs.getInt("customer_id");
@@ -1657,6 +1693,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                     personOneDBInitialised[0] = true;
                 }
             }
+            else
+            {
+                jTextField26.setText("ID is invalid");
+            }
         }
     }
 
@@ -1671,6 +1711,12 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 String updateQuery = "DELETE FROM invoice WHERE invoice_id = " + invoiceId + ";";
                 Statement DeleteStmt = DBconnection.con.createStatement();
                 DeleteStmt.executeUpdate(updateQuery);
+                jTextField26.setText("Invoice with ID "+invoiceId+" has been deleted");
+
+            }
+            else
+            {
+                jTextField26.setText("ID is invalid");
             }
         }
     }

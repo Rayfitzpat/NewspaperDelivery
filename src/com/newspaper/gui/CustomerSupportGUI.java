@@ -110,9 +110,9 @@ public class CustomerSupportGUI extends javax.swing.JFrame {
 //        jLabel6.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/rayCover2.png")));
 //        jLabel7.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/remi.jpg")));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/marty.png")));
 //        jLabel8.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/jack.jpg")));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/jack.png")));
 //        jLabel9.setIcon(new javax.swing.ImageIcon("../images/Mark.jpg")); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -136,7 +136,7 @@ public class CustomerSupportGUI extends javax.swing.JFrame {
 
         jLabel15.setBackground(new java.awt.Color(51, 0, 51));
         jLabel15.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel15.setText("(c) 2021 Team Dunder Mifflin");
+//        jLabel15.setText("(c) 2021 Team Dunder Mifflin");
 
         jLabel17.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(6, 187, 163));
