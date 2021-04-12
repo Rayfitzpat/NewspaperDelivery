@@ -1574,9 +1574,7 @@ MonthlySummary.setBackground(new java.awt.Color(19,28,33));
         boolean validyear = false;
         String enterYear = "";
         String enterMonth ="";
-        System.out.println("Test1");
 
-            System.out.println("Test2");
             enterYear = jTextField26.getText();
 
             validyear = ds.validateYear(enterYear);
