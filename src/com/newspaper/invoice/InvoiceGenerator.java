@@ -35,8 +35,8 @@ public class InvoiceGenerator {
 
     Utility utility = new Utility();
     DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
-
-
+    
+    
     public Invoice createInvoice(int customerId, int month) {
         Invoice invoice = null;
 

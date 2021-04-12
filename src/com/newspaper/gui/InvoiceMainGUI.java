@@ -8,6 +8,7 @@ package com.newspaper.gui;
 import com.newspaper.db.DBconnection;
 import com.newspaper.deliverydocket.DeliveryDocket;
 import com.newspaper.deliverydocket.DeliveryDocketExceptionHandler;
+import com.newspaper.deliverydocket.Utility;
 import com.newspaper.invoice.Invoice;
 import com.newspaper.invoice.InvoiceGenerator;
 
@@ -38,6 +39,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     Validation validation = new Validation();
     InvoiceGenerator ig = new InvoiceGenerator();
     Validation v = new Validation();
+    Utility utility = new Utility();
 
 
     /**
@@ -1372,7 +1374,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         if (evt.getSource() == jButton32) {
             String cusId = jTextField19.getText();
             String month = jTextField21.getText();
-            if (v.validateID(cusId))
+
+            int customerId = Integer.parseInt(cusId);
+
+            if (utility.ifCustomerExists(customerId))
             {
                 if (v.validateID(month))
                 {
@@ -1395,7 +1400,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             }
             else
             {
-                jTextField4.setText("Customer Id not Valid");
+                jTextField4.setText("Customer with ID "+customerId+" does not exist.");
             }
         }
     }
@@ -1435,7 +1440,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         {
                 String cusId = jTextField45.getText();
                 String month = jTextField47.getText();
-                if (v.validateID(cusId))
+
+                int customerId = Integer.parseInt(cusId);
+
+                if (utility.ifCustomerExists(customerId))
                 {
                     if (v.validateID(month))
                     {
@@ -1459,7 +1467,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
                 else
                 {
-                    jTextField5.setText("Customer Id not Valid");
+                    jTextField5.setText("Customer with ID "+customerId+" does not exist.");
                 }
             }
     }
@@ -1520,8 +1528,8 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         if (evt.getSource() == jButton8)
         {
             String cusID = jTextField1.getText();
-
-                if (v.validateID(cusID))
+            int customerID = Integer.parseInt(cusID);
+                if (utility.ifCustomerExists(customerID))
                 {
                     String sql = "Select * from invoice where customer_id = " + cusID;
                     Statement DeleteStmt = DBconnection.con.createStatement();
@@ -1547,7 +1555,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
                 else
                 {
-                    jTextField2.setText("ID Invalid");
+                    jTextField2.setText("Customer with ID "+ customerID+" does not exist");
                 }
             }
         }
@@ -1561,9 +1569,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             String sql = "Select * from invoice where customer_id = " + cusID;
             Statement DeleteStmt = DBconnection.con.createStatement();
 
-            if (v.validateID(cusID))
+            int customerId = Integer.parseInt(cusID);
+
+            if (utility.ifCustomerExists(customerId))
             {
-                int cId = Integer.parseInt(cusID);
                 ResultSet rs = DeleteStmt.executeQuery(sql);
                 jTextField49.setText("");
 
@@ -1586,7 +1595,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             }
             else
             {
-                jTextField49.setText("Customer Id not Valid");
+                jTextField49.setText("Customer with ID "+customerId+" does not exist.");
             }
         }
     }
@@ -1597,8 +1606,12 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             String cusId = jTextField48.getText();
             String invoiceId = jTextField50.getText();
 
-            if (v.validateID(cusId)) {
-                if (v.validateID(invoiceId)) {
+            int customerID = Integer.parseInt(cusId);
+            int invId = Integer.parseInt(invoiceId);
+            if (utility.ifCustomerExists(customerID))
+            {
+                if (utility.ifInvoiceExists(invId))
+                {
                     String setPaid = "update invoice set price_paid = 'paid' where invoice_id =" + invoiceId + " and customer_id = " + cusId;
                     Statement stmt = DBconnection.con.createStatement();
                     stmt.executeUpdate(setPaid);
@@ -1608,12 +1621,12 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
                 else
                 {
-                    jTextField49.setText("Invoice Id not valid");
+                    jTextField49.setText("Invoice with ID "+invId+" does not exist.");
                 }
             }
             else
             {
-                jTextField49.setText("Customer Id not valid");
+                jTextField49.setText("Customer with ID "+cusId+" does not exist.");
             }
         }
         }
@@ -1626,22 +1639,27 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             String cusId = jTextField48.getText();
             String invoiceId = jTextField50.getText();
 
-            if (v.validateID(cusId)) {
-                if (v.validateID(invoiceId)) {
+            int customerID = Integer.parseInt(cusId);
+            int invId = Integer.parseInt(invoiceId);
+            if (utility.ifCustomerExists(customerID))
+            {
+                if (utility.ifInvoiceExists(invId))
+                {
                     String setPaid = "update invoice set price_paid = 'unpaid' where invoice_id =" + invoiceId + " and customer_id = " + cusId;
                     Statement stmt = DBconnection.con.createStatement();
                     stmt.executeUpdate(setPaid);
+
                     jTextField6.setText("Updated");
                     jTextField49.setText("");
                 }
                 else
                 {
-                    jTextField49.setText("Invoice Id not valid");
+                    jTextField49.setText("Invoice with ID "+invId+" does not exist.");
                 }
             }
             else
             {
-                jTextField49.setText("Customer Id not valid");
+                jTextField49.setText("Customer with ID "+cusId+" does not exist.");
             }
         }
     }
