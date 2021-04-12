@@ -654,19 +654,6 @@ public class CustomerView {
         return currStatus;
     }
 
-//    /**
-//     * Method for printing customer objects out into console window
-//     *
-//     * @param customers collection of objects that will be printed to console
-//     */
-//    public void printCustomers(ArrayList< Customer> customers) {
-//        System.out.printf("\n%-5s %-25s %-45s %-15s %-10s %-10s\n", "ID", "Name", "Address", "Phone", "Status", "Delivery Area ID");
-//        for (int i = 0; i < customers.size(); i++) {
-//            System.out.printf("%-5d %-25s %-45s %-15s %-10s %-10d\n", customers.get(i).getCustomerId(), customers.get(i).getFirstName() + " " + customers.get(i).getLastName(), (customers.get(i).getAddress1() + " " + customers.get(i).getAddress2() + ", " + customers.get(i).getTown()), customers.get(i).getPhoneNumber(), customers.get(i).getStatus(), customers.get(i).getDeliveryAreaId());
-//        }
-//    }
-
-
 
     /**
      * Method for printing all customer objects out into console window
