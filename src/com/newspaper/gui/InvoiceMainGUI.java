@@ -5,6 +5,21 @@
  */
 package com.newspaper.gui;
 
+import com.newspaper.db.DBconnection;
+import com.newspaper.deliverydocket.DeliveryDocket;
+import com.newspaper.deliverydocket.DeliveryDocketExceptionHandler;
+import com.newspaper.deliverydocket.Utility;
+import com.newspaper.invoice.Invoice;
+import com.newspaper.invoice.InvoiceGenerator;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.sql.*;
+
 /**
  *
  * @author Ray
@@ -15,10 +30,17 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
      * Creates new form GuiMainMenu
      */
     public InvoiceMainGUI() {
+        DBconnection.init_db();
         initComponents();
         this.setLocationRelativeTo(null);
         setResizable(false);
     }
+
+    Validation validation = new Validation();
+    InvoiceGenerator ig = new InvoiceGenerator();
+    Validation v = new Validation();
+    Utility utility = new Utility();
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,7 +78,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField20 = new javax.swing.JTextField();
         jTextField21 = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
-        jTextField54 = new javax.swing.JTextField();
+        jTextArea54 = new javax.swing.JTextArea();
         jTextField4 = new javax.swing.JTextField();
         ViewInvoice1 = new javax.swing.JPanel();
         DisplayOne6 = new javax.swing.JPanel();
@@ -67,7 +89,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField46 = new javax.swing.JTextField();
         jTextField47 = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextArea();
         jTextField5 = new javax.swing.JTextField();
         EditInvoice = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
@@ -115,7 +137,13 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+
+                try {
+                    jButton1ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
             }
         });
 
@@ -129,6 +157,13 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
+
+        jTextArea54.setEditable(false);
+        jTextArea54.setBackground(new java.awt.Color(19, 28, 33));
+        jTextArea54.setColumns(20);
+        jTextArea54.setForeground(new java.awt.Color(6, 186, 163));
+        jTextArea54.setRows(5);
+        jTextArea54.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
 
         jButton4.setBackground(new java.awt.Color(19, 28, 33));
         jButton4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -148,9 +183,24 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                try {
+                    jButton5ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
         });
+
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            try {
+                jButton33ActionPerformed(evt);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    });
+
 
         jButton6.setBackground(new java.awt.Color(19, 28, 33));
         jButton6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -159,8 +209,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jButton6.setActionCommand("");
         jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
+//                System.out.println("TESTESTSET");
             }
         });
 
@@ -212,6 +264,8 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 jButton29ActionPerformed(evt);
             }
         });
+
+
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -288,21 +342,47 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         DisplayAll.setBackground(new java.awt.Color(19, 28, 33));
 
         jPanel7.setBackground(new java.awt.Color(19, 28, 33));
-
         jScrollPane4.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable4.setBackground(new java.awt.Color(19, 28, 33));
-        jTable4.setForeground(new java.awt.Color(49, 117, 108));
+        JTableHeader tableHeader4 = jTable4.getTableHeader();
+        tableHeader4.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader4.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader4.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader4.setOpaque(true);
+        jTable4.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        jTable4.setForeground(new java.awt.Color(6, 187, 163));
+        jTable4.setFont(new Font( null,0, 15));
+        jTable4.setFillsViewportHeight(true);
+        jTable4.setOpaque(true);
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
+                new String[]{
+                        "Invoice ID", "Customer ID", "Invoice Date", "Price", "Price Paid?", "Delivered"
                 }
         ));
+        jTable4.setShowGrid(true);
         jTable4.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane4.setViewportView(jTable4);
+        jTable4.setRowHeight(40);
+        jTable4.setBackground(new java.awt.Color(19, 28, 33));
+
+
+        TableCellRenderer rendererFromHeader = jTable4.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=5; i++){
+            jTable4.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+
+
+
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -343,14 +423,17 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel30.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel30.setText("Please Enter the month of the Invoice that you would like to Create");
+        jLabel30.setText("Please enter the month of the invoice that you would like to create");
 
-        jTextField19.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField19.setBackground(new Color(19, 28, 33));
+        jTextField19.setForeground(new Color(6, 187, 163));
+        jTextField19.setFont(new java.awt.Font(null, 0, 18));
+        jTextField19.setHorizontalAlignment(JTextField.CENTER);
 
         jButton32.setBackground(new java.awt.Color(49, 117, 108));
         jButton32.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton32.setForeground(new java.awt.Color(0, 0, 0));
-        jButton32.setText("Submit");
+        jButton32.setText("Generate");
 
         jTextField20.setBackground(new java.awt.Color(19, 28, 39));
         jTextField20.setForeground(new java.awt.Color(18, 30, 49));
@@ -359,11 +442,14 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField20.setFocusable(false);
         jTextField20.setSelectedTextColor(new java.awt.Color(19, 28, 33));
 
-        jTextField21.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField21.setBackground(new Color(19, 28, 33));
+        jTextField21.setForeground(new Color(6, 187, 163));
+        jTextField21.setFont(new java.awt.Font(null, 0, 18));
+        jTextField21.setHorizontalAlignment(JTextField.CENTER);
 
         jLabel38.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel38.setText("Please enter the id of the Customer  whose Invoice that you would like to Create");
+        jLabel38.setText("Please enter the ID of the customer whose invoice you would like to create");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -385,7 +471,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(53, 53, 53)
-                                                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -410,17 +496,14 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                                 .addContainerGap())))
         );
 
-        jTextField54.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField54.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField54.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField54.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField54.setText("Details From Invoice here");
+        jTextArea54.setText("Details From Invoice here");
 
         jTextField4.setBackground(new java.awt.Color(19, 28, 33));
         jTextField4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextField4.setForeground(new java.awt.Color(255, 0, 0));
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField4.setText("Warning Message Here");
+        jTextField4.setBorder(null);
 
         javax.swing.GroupLayout DisplayOne5Layout = new javax.swing.GroupLayout(DisplayOne5);
         DisplayOne5.setLayout(DisplayOne5Layout);
@@ -432,7 +515,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                         .addGroup(DisplayOne5Layout.createSequentialGroup()
                                                 .addGroup(DisplayOne5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 1262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jTextField54, javax.swing.GroupLayout.PREFERRED_SIZE, 1299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jTextArea54, javax.swing.GroupLayout.PREFERRED_SIZE, 1299, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(0, 6, Short.MAX_VALUE)))
                                 .addContainerGap())
         );
@@ -443,7 +526,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField54, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextArea54, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(58, 58, 58))
         );
 
@@ -478,14 +561,17 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel39.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel39.setText("Please Enter the month of the Invoice that you would like to View");
+        jLabel39.setText("Please enter the month of the invoice that you would like to view");
 
-        jTextField45.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField45.setBackground(new Color(19, 28, 33));
+        jTextField45.setForeground(new Color(6, 187, 163));
+        jTextField45.setFont(new java.awt.Font(null, 0, 18));
+        jTextField45.setHorizontalAlignment(JTextField.CENTER);
 
         jButton33.setBackground(new java.awt.Color(49, 117, 108));
         jButton33.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton33.setForeground(new java.awt.Color(0, 0, 0));
-        jButton33.setText("Submit");
+        jButton33.setText("View");
 
         jTextField46.setBackground(new java.awt.Color(19, 28, 39));
         jTextField46.setForeground(new java.awt.Color(18, 30, 49));
@@ -494,11 +580,14 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jTextField46.setFocusable(false);
         jTextField46.setSelectedTextColor(new java.awt.Color(19, 28, 33));
 
-        jTextField47.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField47.setBackground(new Color(19, 28, 33));
+        jTextField47.setForeground(new Color(6, 187, 163));
+        jTextField47.setFont(new java.awt.Font(null, 0, 18));
+        jTextField47.setHorizontalAlignment(JTextField.CENTER);
 
         jLabel40.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel40.setText("Please enter the id of the Customer  whose Invoice that you would like to View");
+        jLabel40.setText("Please enter the ID of the customer whose invoice you would like to view");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -545,17 +634,27 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                                 .addContainerGap())))
         );
 
+
+
+
         jTextField3.setBackground(new java.awt.Color(19, 28, 33));
-        jTextField3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField3.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("Invoice Details Go Here");
+
+        jTextField3.setEditable(false);
+        jTextField3.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField3.setColumns(20);
+        jTextField3.setForeground(new java.awt.Color(6, 186, 163));
+        jTextField3.setRows(5);
+        jTextField3.setFont(new java.awt.Font(Font.MONOSPACED, Font.PLAIN, 18));
 
         jTextField5.setBackground(new java.awt.Color(19, 28, 33));
         jTextField5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextField5.setForeground(new java.awt.Color(255, 0, 0));
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField5.setText("Warning Message Here");
+        jTextField5.setText("");
+        jTextField5.setBorder(null);
+        jTextField5.setEditable(false);
+
 
         javax.swing.GroupLayout DisplayOne6Layout = new javax.swing.GroupLayout(DisplayOne6);
         DisplayOne6.setLayout(DisplayOne6Layout);
@@ -610,36 +709,86 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel41.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel41.setText("Please Enter the Customer Id to change Invoice Status");
+        jLabel41.setText("Please enter the Customer ID to change invoice status");
 
-        jTextField48.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField48.setBackground(new Color(19, 28, 33));
+        jTextField48.setForeground(new Color(6, 187, 163));
+        jTextField48.setFont(new java.awt.Font(null, 0, 18));
+        jTextField48.setHorizontalAlignment(JTextField.CENTER);
 
         jButton34.setBackground(new java.awt.Color(49, 117, 108));
         jButton34.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton34.setForeground(new java.awt.Color(0, 0, 0));
-        jButton34.setText("Submit");
+        jButton34.setText("34");
 
-        jTextField49.setBackground(new java.awt.Color(19, 28, 39));
-        jTextField49.setForeground(new java.awt.Color(18, 30, 49));
+        jTextField49.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField49.setForeground(new java.awt.Color(255, 0, 0));
         jTextField49.setBorder(null);
         jTextField49.setDisabledTextColor(new java.awt.Color(19, 28, 33));
         jTextField49.setFocusable(false);
         jTextField49.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+        jTextField49.setFont(new java.awt.Font(null,0,18));
+
 
         jScrollPane9.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable9.setBackground(new java.awt.Color(19, 28, 33));
-        jTable9.setForeground(new java.awt.Color(49, 117, 108));
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+        JTableHeader tableHeader9 = jTable9.getTableHeader();
+        tableHeader9.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader9.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader9.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader9.setOpaque(true);
+        jTable9.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
-                }
-        ));
+        jTable9.setForeground(new java.awt.Color(6, 187, 163));
+        jTable9.setFont(new Font( null,0, 15));
+        jTable9.setFillsViewportHeight(true);
+        jTable9.setShowGrid(true);
         jTable9.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane9.setViewportView(jTable9);
+        jTable9.setRowHeight(40);
+        jTable9.setBackground(new java.awt.Color(19, 28, 33));
+
+        jScrollPane9.setBackground(new java.awt.Color(19, 28, 33));
+
+        JTableHeader tableHeader1 = jTable9.getTableHeader();
+        tableHeader9.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader9.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader9.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader9.setOpaque(true);
+        jTable9.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        jTable9.setForeground(new java.awt.Color(6, 187, 163));
+        jTable9.setFont(new Font( null,0, 15));
+        jTable9.setFillsViewportHeight(true);
+        jTable9.setOpaque(true);
+        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+
+                },
+                new String[]{
+                        "Invoice ID", "Customer ID", "Invoice Date", "Price", "Price Paid?", "Delivered"
+                }
+        ));
+        jTable9.setShowGrid(true);
+        jTable9.setGridColor(new java.awt.Color(49, 117, 108));
+        jScrollPane9.setViewportView(jTable9);
+        jTable9.setRowHeight(40);
+        jTable9.setBackground(new java.awt.Color(19, 28, 33));
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=5; i++){
+            jTable9.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         jLabel42.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(6, 187, 163));
@@ -659,9 +808,35 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         jLabel43.setForeground(new java.awt.Color(6, 187, 163));
         jLabel43.setText("Select Paid or Unpaid to update the Chosen Invoice");
 
-        jTextField50.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField50.setBackground(new Color(19, 28, 33));
+        jTextField50.setForeground(new Color(6, 187, 163));
+        jTextField50.setFont(new java.awt.Font(null, 0, 18));
+        jTextField50.setHorizontalAlignment(JTextField.CENTER);
 
-        jTextField6.setText("jTextField6");
+//        jTextField6.setText("6666666666666666666666");
+//        jTextField1.setText("1");
+//        jTextField19.setText("19");
+//        jTextField2.setText("2222222222");
+//        jTextField20.setText("20");
+//        jTextField21.setText("21");
+//        jTextField25.setText("25");
+//        jTextField26.setText("26");
+//        jTextField3.setText("3");
+//        jTextField4.setText("4");
+//        jTextField44.setText("44");
+//        jTextField45.setText("45");
+//        jTextField46.setText("46");
+//        jTextField47.setText("47");
+//        jTextField48.setText("48");
+//        jTextField5.setText("5");
+//        jTextField50.setText("50");
+//        jTextField46.setText("46");
+//        jTextField6.setText("6");
+
+
+        jTextField2.setForeground(new java.awt.Color(255,0,0));
+        jTextField2.setBackground(new java.awt.Color(255,255,255));
+
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -677,7 +852,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                                                                 .addGap(32, 32, 32)
                                                                 .addComponent(jButton36, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(40, 40, 40)
-                                                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(jPanel13Layout.createSequentialGroup()
                                                                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -747,14 +922,27 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel33.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel33.setText("Please Enter the Customer Id to show their Invoices");
+        jLabel33.setText("Please enter the customer ID to show their invoices");
 
-        jTextField25.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField25.setBackground(new Color(19, 28, 33));
+        jTextField25.setForeground(new Color(6, 187, 163));
+
+        jTextField25.setFont(new Font(null, 0, 24));
+        jTextField25.setHorizontalAlignment(JTextField.CENTER);
 
         jButton26.setBackground(new java.awt.Color(49, 117, 108));
         jButton26.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton26.setForeground(new java.awt.Color(0, 0, 0));
-        jButton26.setText("Submit");
+        jButton26.setText("View");
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton26ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
         jTextField26.setBackground(new java.awt.Color(19, 28, 39));
         jTextField26.setForeground(new java.awt.Color(18, 30, 49));
@@ -765,29 +953,81 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jScrollPane6.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable6.setBackground(new java.awt.Color(19, 28, 33));
-        jTable6.setForeground(new java.awt.Color(49, 117, 108));
+        tableHeader1 = jTable6.getTableHeader();
+        tableHeader1.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader1.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader1.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader1.setOpaque(true);
+        jTable6.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        jTable6.setForeground(new java.awt.Color(6, 187, 163));
+        jTable6.setFont(new Font( null,0, 15));
+        jTable6.setFillsViewportHeight(true);
+        jTable6.setOpaque(true);
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
+                new String[]{
+                        "Invoice ID", "Customer ID", "Invoice Date", "Price", "Price Paid?", "Delivered"
                 }
         ));
+        jTable6.setShowGrid(true);
         jTable6.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane6.setViewportView(jTable6);
+        jTable6.setRowHeight(40);
+        jTable6.setBackground(new java.awt.Color(19, 28, 33));
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=5; i++){
+            jTable6.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+
+        rendererFromHeader = jTable6.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
 
         jLabel36.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(6, 187, 163));
         jLabel36.setText("Select the ID of the Invoice that you would like to DELETE");
 
-        jTextField44.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField44.setBackground(new Color(19, 28, 33));
+        jTextField44.setForeground(new Color(6, 187, 163));
+        jTextField44.setFont(new Font(null, 0, 24));
+        jTextField44.setHorizontalAlignment(JTextField.CENTER);
+        jTextField4.setEditable(false);
 
         jButton37.setBackground(new java.awt.Color(49, 117, 108));
         jButton37.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton37.setForeground(new java.awt.Color(0, 0, 0));
-        jButton37.setText("Submit");
+        jButton37.setText("Delete");
+        jButton37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton37ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+        jTextField6.setForeground(new java.awt.Color(6, 187, 163));
+        jTextField6.setBackground(new java.awt.Color(19,28,33));
+        jTextField6.setFont(new java.awt.Font("sansserif", 0, 17));
+        jTextField6.setBorder(null);
+
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -858,36 +1098,134 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(6, 187, 163));
-        jLabel3.setText("Please Enter the Invoice ID to get Customer Details");
+        jLabel3.setText("Please enter the invoice ID to get customer details");
 
-        jTextField1.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField1.setBackground(new Color(19, 28, 33));
+        jTextField1.setForeground(new Color(6, 187, 163));
+        jTextField1.setFont(new java.awt.Font(null, 0, 18));
+        jTextField1.setHorizontalAlignment(JTextField.CENTER);
 
         jButton8.setBackground(new java.awt.Color(49, 117, 108));
         jButton8.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton8.setForeground(new java.awt.Color(0, 0, 0));
         jButton8.setText("Submit");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton8ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
 
-        jTextField2.setBackground(new java.awt.Color(19, 28, 39));
-        jTextField2.setForeground(new java.awt.Color(18, 30, 49));
+
+        jButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton32ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+        jButton34.setBackground(new java.awt.Color(49, 117, 108));
+        jButton34.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jButton34.setForeground(new java.awt.Color(0, 0, 0));
+        jButton34.setText("View");
+        jButton34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton34ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+        jButton35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton35ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+        jButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton36ActionPerformed(evt);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+
+
+        jTextField2.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField2.setForeground(new java.awt.Color(255, 0, 0));
         jTextField2.setBorder(null);
         jTextField2.setDisabledTextColor(new java.awt.Color(19, 28, 33));
         jTextField2.setFocusable(false);
         jTextField2.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+        jTextField2.setFont(new java.awt.Font(null,0,18));
+        jTextField2.setHorizontalAlignment(jTextField2.CENTER);
+
+        jTextField26.setBackground(new java.awt.Color(19, 28, 33));
+        jTextField26.setForeground(new java.awt.Color(255, 0, 0));
+        jTextField26.setBorder(null);
+        jTextField26.setDisabledTextColor(new java.awt.Color(19, 28, 33));
+        jTextField26.setFocusable(false);
+        jTextField26.setSelectedTextColor(new java.awt.Color(19, 28, 33));
+        jTextField26.setFont(new java.awt.Font(null,0,18));
+
 
         jScrollPane2.setBackground(new java.awt.Color(19, 28, 33));
 
-        jTable2.setBackground(new java.awt.Color(19, 28, 33));
-        jTable2.setForeground(new java.awt.Color(49, 117, 108));
+        JTableHeader tableHeader2 = jTable2.getTableHeader();
+        tableHeader2.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader2.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader2.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader2.setOpaque(true);
+        jTable9.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        jTable2.setForeground(new java.awt.Color(6, 187, 163));
+        jTable2.setFont(new Font( null,0, 15));
+        jTable2.setFillsViewportHeight(true);
+        jTable2.setOpaque(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
 
                 },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
+                new String[]{
+                        "Invoice ID", "Customer ID", "Invoice Date", "Price", "Price Paid?", "Delivered"
                 }
         ));
+        jTable2.setShowGrid(true);
         jTable2.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane2.setViewportView(jTable2);
+        jTable2.setRowHeight(40);
+        jTable2.setBackground(new java.awt.Color(19, 28, 33));
+
+        rendererFromHeader = jTable9.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(jLabel1.CENTER);
+        for(int i=0; i<=5; i++){
+            jTable2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+
+        rendererFromHeader = jTable2.getTableHeader().getDefaultRenderer();
+        headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -963,7 +1301,8 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    //DISPLAY ALL INVOICES
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         if (evt.getSource() == jButton1) {
 
             DisplayAll.setVisible(true);
@@ -973,12 +1312,34 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             GetCustomerDetails.setVisible(false);
             DeleteInvoice.setVisible(false);
 
+            String sql = "Select * from invoice";
+            Statement DeleteStmt = DBconnection.con.createStatement();
+            ResultSet rs = DeleteStmt.executeQuery(sql);
+
+            while (rs.next())
+            {
+                int invoiceId = rs.getInt("invoice_id");
+                int cusId = rs.getInt("customer_id");
+
+                String invoice_date = rs.getString("invoice_date");
+                String price = rs.getString("price");
+                String price_paid = rs.getString("price_paid");
+                String delivered = rs.getString("is_delivered");
+
+                String tbData[] = {invoiceId + "",cusId + "",invoice_date, price, price_paid, delivered};
+                DefaultTableModel tblModel = (DefaultTableModel) jTable4.getModel();
+
+                tblModel.addRow(tbData);
+                personOneDBInitialised[0] = true;
+
+            }
         }
     }
 
+
+    //CREATE INVOICE
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         if (evt.getSource() == jButton3) {
-
             DisplayAll.setVisible(false);
             CreateInvoice.setVisible(true);
             ViewInvoice1.setVisible(false);
@@ -986,9 +1347,65 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             GetCustomerDetails.setVisible(false);
             DeleteInvoice.setVisible(false);
 
+            jTextField19.setText(""); //ID OF CUSTOMER
+            jTextField21.setText(""); //Month of the invoice
+            jTextField4.setText("");  //Warning Text Field
+            jTextArea54.setText(""); //INVOICE TEXT FIELD+
         }
     }
 
+    public void displayInvoice(int cusId, int month) {
+        Invoice invoice = ig.createInvoice2(cusId, month);
+        if (invoice != null)
+        {
+                jTextArea54.setText(invoice.toString());
+                ig.createInvoiceFile(invoice);
+                jTextField4.setText("");
+
+        }
+        else
+        {
+            jTextField4.setText("Invoice for this customer does not exist");
+        }
+    }
+
+    //Generate Functionality
+    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        if (evt.getSource() == jButton32) {
+            String cusId = jTextField19.getText();
+            String month = jTextField21.getText();
+
+            int customerId = Integer.parseInt(cusId);
+
+            if (utility.ifCustomerExists(customerId))
+            {
+                if (v.validateID(month))
+                {
+                    int cId = Integer.parseInt(cusId);
+                    int monthNo = Integer.parseInt(month);
+
+                    if (monthNo < 13 && monthNo > 0)
+                    {
+                        displayInvoice(cId, monthNo);
+                    }
+                    else
+                    {
+                        jTextField4.setText("Month not valid");
+                    }
+                }
+                else
+                {
+                    jTextField4.setText("Month not valid");
+                }
+            }
+            else
+            {
+                jTextField4.setText("Customer with ID "+customerId+" does not exist.");
+            }
+        }
+    }
+
+    //READ INVOICE
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
         if (evt.getSource() == jButton4) {
 
@@ -999,10 +1416,64 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             GetCustomerDetails.setVisible(false);
             DeleteInvoice.setVisible(false);
 
+            jTextField45.setText(""); //INVOICE ID
+            jTextField47.setText(""); //MONTH
         }
     }
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
+    public void displayInvoice2(int cusId, int month) {
+        Invoice invoice = ig.createInvoice2(cusId, month);
+        if (invoice != null) {
+            jTextField3.setText(invoice.toString());
+            ig.createInvoiceFile(invoice);
+            jTextField5.setText("");
+        }
+        else
+        {
+            jTextField5.setText("Invoice for this customer does not exist");
+        }
+    }
+
+    //Generate for View Invoice
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        if (evt.getSource() == jButton33)
+        {
+                String cusId = jTextField45.getText();
+                String month = jTextField47.getText();
+
+                int customerId = Integer.parseInt(cusId);
+
+                if (utility.ifCustomerExists(customerId))
+                {
+                    if (v.validateID(month))
+                    {
+                        int cId = Integer.parseInt(cusId);
+                        int monthNo = Integer.parseInt(month);
+
+                        if ( monthNo > 0 && monthNo < 13 )
+                        {
+                            displayInvoice2(cId, monthNo);
+                            jTextField5.setText("");
+                        }
+                        else
+                        {
+                            jTextField5.setText("Month not valid");
+                        }
+                    }
+                    else
+                    {
+                        jTextField5.setText("Month not valid");
+                    }
+                }
+                else
+                {
+                    jTextField5.setText("Customer with ID "+customerId+" does not exist.");
+                }
+            }
+    }
+
+    //EDIT INVOICE
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         if (evt.getSource() == jButton5) {
 
             DisplayAll.setVisible(false);
@@ -1011,22 +1482,24 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             EditInvoice.setVisible(true);
             GetCustomerDetails.setVisible(false);
             DeleteInvoice.setVisible(false);
-
-        }
+            jTextField48.setText("");
+            jTextField50.setText("");
+            }
     }
 
+    //GET CUSTOMER DETAILS
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
         if (evt.getSource() == jButton6) {
-
             DisplayAll.setVisible(false);
             CreateInvoice.setVisible(false);
             ViewInvoice1.setVisible(false);
             EditInvoice.setVisible(false);
             GetCustomerDetails.setVisible(true);
             DeleteInvoice.setVisible(false);
-
         }
     }
+    boolean[] personOneDBInitialised = {false};
+
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
         MainAdminScreenGUI mainAdminScreenGUI = new MainAdminScreenGUI();
@@ -1034,6 +1507,8 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
         mainAdminScreenGUI.setVisible(true);
     }
 
+
+    //DELETE INVOCIE
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {
         if (evt.getSource() == jButton29) {
 
@@ -1043,9 +1518,209 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             EditInvoice.setVisible(false);
             GetCustomerDetails.setVisible(false);
             DeleteInvoice.setVisible(true);
-
         }
     }
+
+
+    //SUBMIT FOR CUSTOMER
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException
+    {
+        if (evt.getSource() == jButton8)
+        {
+            String cusID = jTextField1.getText();
+            int customerID = Integer.parseInt(cusID);
+                if (utility.ifCustomerExists(customerID))
+                {
+                    String sql = "Select * from invoice where customer_id = " + cusID;
+                    Statement DeleteStmt = DBconnection.con.createStatement();
+                    ResultSet rs = DeleteStmt.executeQuery(sql);
+                    jTextField2.setText("");
+
+                    while (rs.next())
+                    {
+                        int invoiceId = rs.getInt("invoice_id");
+                        int cusId = rs.getInt("customer_id");
+
+                        String invoice_date = rs.getString("invoice_date");
+                        String price = rs.getString("price");
+                        String price_paid = rs.getString("price_paid");
+                        String delivered = rs.getString("is_delivered");
+
+                        String tbData[] = {invoiceId + "", cusId + "", invoice_date, price, price_paid, delivered};
+                        DefaultTableModel tblModel = (DefaultTableModel) jTable2.getModel();
+
+                        tblModel.addRow(tbData);
+                        personOneDBInitialised[0] = true;
+                    }
+                }
+                else
+                {
+                    jTextField2.setText("Customer with ID "+ customerID+" does not exist");
+                }
+            }
+        }
+
+    // EDIT VIEW BUTTON
+    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException
+    {
+        if (evt.getSource() == jButton34)
+        {
+            String cusID = jTextField48.getText();
+            String sql = "Select * from invoice where customer_id = " + cusID;
+            Statement DeleteStmt = DBconnection.con.createStatement();
+
+            int customerId = Integer.parseInt(cusID);
+
+            if (utility.ifCustomerExists(customerId))
+            {
+                ResultSet rs = DeleteStmt.executeQuery(sql);
+                jTextField49.setText("");
+
+                while (rs.next())
+                {
+                    int invoiceId = rs.getInt("invoice_id");
+                    int cusId = rs.getInt("customer_id");
+
+                    String invoice_date = rs.getString("invoice_date");
+                    String price = rs.getString("price");
+                    String price_paid = rs.getString("price_paid");
+                    String delivered = rs.getString("is_delivered");
+
+                    String tbData[] = {invoiceId + "", cusId + "", invoice_date, price, price_paid, delivered};
+                    DefaultTableModel tblModel = (DefaultTableModel) jTable9.getModel();
+
+                    tblModel.addRow(tbData);
+                    personOneDBInitialised[0] = true;
+                }
+            }
+            else
+            {
+                jTextField49.setText("Customer with ID "+customerId+" does not exist.");
+            }
+        }
+    }
+
+    // EDIT PAID FUNCTIONALITY (MAKE PAID)
+    private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        if (evt.getSource() == jButton35) {
+            String cusId = jTextField48.getText();
+            String invoiceId = jTextField50.getText();
+
+            int customerID = Integer.parseInt(cusId);
+            int invId = Integer.parseInt(invoiceId);
+            if (utility.ifCustomerExists(customerID))
+            {
+                if (utility.ifInvoiceExists(invId))
+                {
+                    String setPaid = "update invoice set price_paid = 'paid' where invoice_id =" + invoiceId + " and customer_id = " + cusId;
+                    Statement stmt = DBconnection.con.createStatement();
+                    stmt.executeUpdate(setPaid);
+
+                    jTextField6.setText("Updated");
+                    jTextField49.setText("");
+                }
+                else
+                {
+                    jTextField49.setText("Invoice with ID "+invId+" does not exist.");
+                }
+            }
+            else
+            {
+                jTextField49.setText("Customer with ID "+cusId+" does not exist.");
+            }
+        }
+        }
+
+
+    //EDIT UNPAID FUNCTIONALITY
+    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        if (evt.getSource() == jButton36)
+        {
+            String cusId = jTextField48.getText();
+            String invoiceId = jTextField50.getText();
+
+            int customerID = Integer.parseInt(cusId);
+            int invId = Integer.parseInt(invoiceId);
+            if (utility.ifCustomerExists(customerID))
+            {
+                if (utility.ifInvoiceExists(invId))
+                {
+                    String setPaid = "update invoice set price_paid = 'unpaid' where invoice_id =" + invoiceId + " and customer_id = " + cusId;
+                    Statement stmt = DBconnection.con.createStatement();
+                    stmt.executeUpdate(setPaid);
+
+                    jTextField6.setText("Updated");
+                    jTextField49.setText("");
+                }
+                else
+                {
+                    jTextField49.setText("Invoice with ID "+invId+" does not exist.");
+                }
+            }
+            else
+            {
+                jTextField49.setText("Customer with ID "+cusId+" does not exist.");
+            }
+        }
+    }
+
+
+    // Delete View Button
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException
+    {
+        if (evt.getSource() == jButton26)
+        {
+            String cusID = jTextField25.getText();
+            if (v.validateID(cusID))
+            {
+                String sql = "Select * from invoice where customer_id = " + cusID;
+                Statement DeleteStmt = DBconnection.con.createStatement();
+                ResultSet rs = DeleteStmt.executeQuery(sql);
+                jTextField26.setText("");
+                while (rs.next()) {
+                    int invoiceId = rs.getInt("invoice_id");
+                    int cusId = rs.getInt("customer_id");
+
+                    String invoice_date = rs.getString("invoice_date");
+                    String price = rs.getString("price");
+                    String price_paid = rs.getString("price_paid");
+                    String delivered = rs.getString("is_delivered");
+
+                    String tbData[] = {invoiceId + "", cusId + "", invoice_date, price, price_paid, delivered};
+                    DefaultTableModel tblModel = (DefaultTableModel) jTable6.getModel();
+
+                    tblModel.addRow(tbData);
+                    personOneDBInitialised[0] = true;
+                }
+            }
+            else
+            {
+                jTextField26.setText("ID is invalid");
+            }
+        }
+    }
+
+    // Delete Button Functionality
+    private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        if (evt.getSource() == jButton37) {
+            
+            String invoiceId = jTextField44.getText();
+
+            if (v.validateID(invoiceId))
+            {
+                String updateQuery = "DELETE FROM invoice WHERE invoice_id = " + invoiceId + ";";
+                Statement DeleteStmt = DBconnection.con.createStatement();
+                DeleteStmt.executeUpdate(updateQuery);
+                jTextField26.setText("Invoice with ID "+invoiceId+" has been deleted");
+
+            }
+            else
+            {
+                jTextField26.setText("ID is invalid");
+            }
+        }
+    }
+
 
     /**
      * @param args the command line arguments
@@ -1123,6 +1798,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel EditInvoice;
     private javax.swing.JPanel GetCustomerDetails;
     private javax.swing.JPanel ViewInvoice1;
+
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton26;
     private javax.swing.JButton jButton29;
@@ -1138,6 +1814,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1150,6 +1827,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1160,14 +1838,17 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane9;
+
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable9;
+
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField19;
     private javax.swing.JTextField jTextField2;
@@ -1175,7 +1856,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextArea jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField44;
     private javax.swing.JTextField jTextField45;
@@ -1185,7 +1866,10 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField49;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField50;
-    private javax.swing.JTextField jTextField54;
+    private javax.swing.JTextArea jTextArea54;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration
 }
+
+
+

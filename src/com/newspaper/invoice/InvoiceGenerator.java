@@ -30,13 +30,16 @@ public class InvoiceGenerator {
         generator.createInvoice(42, 3);
         generator.createInvoice(40, 3);
         generator.createInvoice(415, 3);
+        generator.createInvoice2(1,3);
     }
 
     Utility utility = new Utility();
     DeliveryDocketDB deliveryDocketDB = new DeliveryDocketDB();
+    
+    
+    public Invoice createInvoice(int customerId, int month) {
+        Invoice invoice = null;
 
-
-    public void createInvoice(int customerId, int month) {
         // if deliveries for this month don't exist yet, you can create an invoice yt as well
         if (!deliveryDocketDB.deliveriesForThisMonthExist(month)) {
             System.out.println("Deliveries for this month are not available yet. Please generate and deliver them first.");
@@ -47,7 +50,7 @@ public class InvoiceGenerator {
 
             try {
                 // get the invoice from db
-                Invoice invoice = getInvoice(customerId,month);
+                invoice = getInvoice(customerId,month);
 
                 if (invoice != null) {
                     // get the deliveries
@@ -69,6 +72,42 @@ public class InvoiceGenerator {
             }
 
         }
+        return invoice;
+    }
+
+    public Invoice createInvoice2(int customerId, int month)
+    {
+        Invoice invoice = null;
+
+        // if deliveries for this month don't exist yet, you can create an invoice yt as well
+        if (!deliveryDocketDB.deliveriesForThisMonthExist(month)) {
+        }
+        else {
+            // generate invoices
+            generateInvoicesIfNeeded(month);
+
+            try {
+                // get the invoice from db
+                invoice = getInvoice(customerId,month);
+
+                if (invoice != null) {
+                    // get the deliveries
+                    ArrayList<InvoiceItem> deliveries = getAllDeliveriesOfCustomerOfMonth(customerId, month);
+                    invoice.setInvoiceItems(deliveries);
+
+                    // print invoice to cli
+//                    System.out.println(invoice);
+
+                    // save to file
+                    createInvoiceFile(invoice);
+                }
+            }
+            catch (DeliveryDocketExceptionHandler e) {
+//                System.out.println(e.getMessage());
+            }
+
+        }
+        return invoice;
     }
 
     public ArrayList<InvoiceItem> getAllDeliveriesOfCustomerOfMonth(int customerId, int month) {
@@ -155,8 +194,6 @@ public class InvoiceGenerator {
             catch (CustomerExceptionHandler | DeliveryDocketExceptionHandler e) {
                 System.out.println(e.getMessage());
             }
-
-
 
         }
     }

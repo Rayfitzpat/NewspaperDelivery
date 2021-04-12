@@ -21,6 +21,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -445,6 +446,8 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         );
 
         CentrePanel.setLayout(new java.awt.CardLayout());
+        CentrePanel.setBackground(new java.awt.Color(19,28,33));
+
 
         DailySummary.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -452,14 +455,15 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 
         jScrollPane4.setBackground(new java.awt.Color(19, 28, 33));
 
-        JTableHeader tableHeader1 = jTable4.getTableHeader();
-        tableHeader1.setForeground(new java.awt.Color(19, 28, 33));
-        tableHeader1.setBackground(new java.awt.Color(255, 255, 255));
-        tableHeader1.setFont(new Font(null, Font.BOLD, 15));
-        tableHeader1.setOpaque(true);
-        jTable4.setBackground(new java.awt.Color(19, 28, 33));
-        jTable4.setForeground(new java.awt.Color(49, 117, 108));
+        JTableHeader tableHeader4 = jTable4.getTableHeader();
+        tableHeader4.setForeground(new java.awt.Color(19, 28, 33));
+        tableHeader4.setBackground(new java.awt.Color(255, 255, 255));
+        tableHeader4.setFont(new Font(null, Font.BOLD, 15));
+        tableHeader4.setOpaque(true);
+        jTable4.setForeground(new java.awt.Color(6, 187, 163));
         jTable4.setFont(new Font( null,0, 15));
+        jTable4.setFillsViewportHeight(true);
+        jTable4.setOpaque(true);
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -521,9 +525,10 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         tableHeader6.setBackground(new java.awt.Color(255, 255, 255));
         tableHeader6.setFont(new Font(null, Font.BOLD, 15));
         tableHeader6.setOpaque(true);
-        jTable6.setBackground(new java.awt.Color(19, 28, 33));
-        jTable6.setForeground(new java.awt.Color(49, 117, 108));
+        jTable6.setForeground(new java.awt.Color(6, 187, 163));
         jTable6.setFont(new Font( null,0, 15));
+        jTable6.setFillsViewportHeight(true);
+        jTable6.setOpaque(true);
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -542,7 +547,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         DefaultTableCellRenderer centerRenderer6 = new DefaultTableCellRenderer();
         centerRenderer6.setHorizontalAlignment(jLabel1.CENTER);
         for(int i=0; i<=3; i++){
-            jTable6.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            jTable6.getColumnModel().getColumn(i).setCellRenderer(centerRenderer6);
         }
 
 
@@ -573,19 +578,22 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         );
 
         CentrePanel.add(WeeklySummary, "card3");
+        WeeklySummary.setBackground(new java.awt.Color(19,28,33));
 
         DisplayOne3.setBackground(new java.awt.Color(19, 28, 33));
 
         jScrollPane5.setBackground(new java.awt.Color(19, 28, 33));
+
 
         JTableHeader tableHeader5 = jTable5.getTableHeader();
         tableHeader5.setForeground(new java.awt.Color(19, 28, 33));
         tableHeader5.setBackground(new java.awt.Color(255, 255, 255));
         tableHeader5.setFont(new Font(null, Font.BOLD, 15));
         tableHeader5.setOpaque(true);
-        jTable5.setBackground(new java.awt.Color(19, 28, 33));
-        jTable5.setForeground(new java.awt.Color(49, 117, 108));
+        jTable5.setForeground(new java.awt.Color(6, 187, 163));
         jTable5.setFont(new Font( null,0, 15));
+        jTable5.setFillsViewportHeight(true);
+        jTable5.setOpaque(true);
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -604,7 +612,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         DefaultTableCellRenderer centerRenderer5 = new DefaultTableCellRenderer();
         centerRenderer5.setHorizontalAlignment(jLabel1.CENTER);
         for(int i=0; i<=3; i++){
-            jTable5.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            jTable5.getColumnModel().getColumn(i).setCellRenderer(centerRenderer5);
         }
 
 
@@ -634,7 +642,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField17.setBackground(new java.awt.Color(19, 28, 39));
+        jTextField17.setBackground(new java.awt.Color(19, 28, 33));
         jTextField17.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField17.setForeground(new java.awt.Color(18, 30, 49));
         jTextField17.setBorder(null);
@@ -710,21 +718,23 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                                         .addComponent(DisplayOne3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, 0)))
         );
-
+MonthlySummary.setBackground(new java.awt.Color(19,28,33));
         CentrePanel.add(MonthlySummary, "card6");
 
         DisplayOne5.setBackground(new java.awt.Color(19, 28, 33));
 
         jScrollPane7.setBackground(new java.awt.Color(19, 28, 33));
 
+
         JTableHeader tableHeader7 = jTable7.getTableHeader();
         tableHeader7.setForeground(new java.awt.Color(19, 28, 33));
         tableHeader7.setBackground(new java.awt.Color(255, 255, 255));
         tableHeader7.setFont(new Font(null, Font.BOLD, 15));
         tableHeader7.setOpaque(true);
-        jTable7.setBackground(new java.awt.Color(19, 28, 33));
-        jTable7.setForeground(new java.awt.Color(49, 117, 108));
+        jTable7.setForeground(new java.awt.Color(6, 187, 163));
         jTable7.setFont(new Font( null,0, 15));
+        jTable7.setFillsViewportHeight(true);
+        jTable7.setOpaque(true);
         jTable7.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -736,6 +746,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jTable7.setShowGrid(true);
         jTable7.setGridColor(new java.awt.Color(49, 117, 108));
         jScrollPane7.setViewportView(jTable7);
+        jScrollPane7.setBackground(new java.awt.Color(19,28,33));
         jTable7.setRowHeight(40);
         jTable7.setBackground(new java.awt.Color(19, 28, 33));
         jScrollPane7.setViewportView(jTable7);
@@ -743,7 +754,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         DefaultTableCellRenderer centerRenderer7 = new DefaultTableCellRenderer();
         centerRenderer7.setHorizontalAlignment(jLabel1.CENTER);
         for(int i=0; i<=3; i++){
-            jTable7.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            jTable7.getColumnModel().getColumn(i).setCellRenderer(centerRenderer7);
         }
 
         jPanel11.setBackground(new java.awt.Color(19, 28, 33));
@@ -772,7 +783,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField20.setBackground(new java.awt.Color(19, 28, 39));
+        jTextField20.setBackground(new java.awt.Color(19, 28, 33));
         jTextField20.setForeground(new java.awt.Color(18, 30, 49));
         jTextField20.setBorder(null);
         jTextField20.setDisabledTextColor(new java.awt.Color(19, 28, 33));
@@ -850,6 +861,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         );
 
         CentrePanel.add(UserInput, "card6");
+        UserInput.setBackground(new java.awt.Color(19,28,33));
 
         UserChosenRange.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -860,9 +872,10 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         tableHeader3.setBackground(new java.awt.Color(255, 255, 255));
         tableHeader3.setFont(new Font(null, Font.BOLD, 15));
         tableHeader3.setOpaque(true);
-        jTable3.setBackground(new java.awt.Color(19, 28, 33));
-        jTable3.setForeground(new java.awt.Color(49, 117, 108));
+        jTable3.setForeground(new java.awt.Color(6, 187, 163));
         jTable3.setFont(new Font( null,0, 15));
+        jTable3.setFillsViewportHeight(true);
+        jTable3.setOpaque(true);
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -876,12 +889,15 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable3);
         jTable3.setRowHeight(40);
         jTable3.setBackground(new java.awt.Color(19, 28, 33));
-        jScrollPane3.setViewportView(jTable3);
+
+        TableCellRenderer rendererFromHeader = jTable3.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         DefaultTableCellRenderer centerRenderer3 = new DefaultTableCellRenderer();
         centerRenderer3.setHorizontalAlignment(jLabel1.CENTER);
         for(int i=0; i<=3; i++){
-            jTable3.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            jTable3.getColumnModel().getColumn(i).setCellRenderer(centerRenderer3);
         }
 
         jPanel5.setBackground(new java.awt.Color(19, 28, 33));
@@ -1025,6 +1041,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         );
 
         CentrePanel.add(UserChosenRange, "card7");
+        UserChosenRange.setBackground(new java.awt.Color(19,28,33));
 
         GenerateFile.setBackground(new java.awt.Color(19, 28, 33));
 
@@ -1072,6 +1089,7 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
         jTextField41.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField41.setText("");
         jTextField41.setBorder(null);
+        jTextField41.setEditable(false);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -1415,8 +1433,8 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
             }
         } else {
             jTextField17.setForeground(Color.red);
-            jTextField17.setFont(new java.awt.Font(null, 0, 12));
-           jTextField17.setText("Please enter a year and  month in the format YYYY-MM. Ensure your date is in the range of 2011-2099 and the month is in range 1-12");
+            jTextField17.setFont(new java.awt.Font(null, 0, 18));
+            jTextField17.setText("Please enter a year and month in the format YYYY-MM in the range of 2011-2099");
 
         }
 
@@ -1462,8 +1480,9 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
             }
         } else {
             jTextField20.setForeground(Color.red);
-            jTextField20.setFont(new java.awt.Font(null, 0, 12));
-           jTextField20.setText("Inalid date, please enter a date in the format YYYY-MM-DD");
+            jTextField20.setFont(new java.awt.Font(null, 0, 18));
+            jTextField20.setText("Invalid date, please enter a date in the format YYYY-MM-DD");
+            jTextField20.setHorizontalAlignment(JTextField.CENTER);
 
 
         }
@@ -1538,12 +1557,12 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                 System.out.println(str);
             }
             jTextField41.setForeground(Color.green);
-            jTextField41.setFont(new java.awt.Font(null, 0, 12));
+            jTextField41.setFont(new java.awt.Font(null, 0, 18));
             jTextField41.setText("File Created Successfully!");
 
         } else {jTextField41.setForeground(Color.red);
-            jTextField41.setFont(new java.awt.Font(null, 0, 12));
-            jTextField41.setText("Inalid date, please enter a date in the format YYYY-MM-DD");
+            jTextField41.setFont(new java.awt.Font(null, 0, 18));
+            jTextField41.setText("Invalid date, please enter a date in the format YYYY-MM-DD");
         }
     }
 
@@ -1723,13 +1742,13 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                 else
                 {
                     jTextField47.setForeground(Color.red);
-                    jTextField47.setFont(new java.awt.Font(null, 0, 12));
+                    jTextField47.setFont(new java.awt.Font(null, 0, 18));
                     jTextField47.setText("Invalid year, please only enter this year or last year.");
 
                 }
             }
             else if(!validyear){jTextField47.setForeground(Color.red);
-                jTextField47.setFont(new java.awt.Font(null, 0, 12));
+                jTextField47.setFont(new java.awt.Font(null, 0, 18));
                 jTextField47.setText("Invalid year, please only enter this year or last year.");
 
 
@@ -1795,14 +1814,14 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
 //                }
             } else {
                 jTextField30.setForeground(Color.red);
-                jTextField30.setFont(new java.awt.Font(null, 0, 12));
+                jTextField30.setFont(new java.awt.Font(null, 0, 18));
                 jTextField30.setText("Error with second date: Please enter in format YYYY-MM-DD");
 
             }
             //}
         } else {
             jTextField30.setForeground(Color.red);
-            jTextField30.setFont(new java.awt.Font(null, 0, 12));
+            jTextField30.setFont(new java.awt.Font(null, 0, 18));
             jTextField30.setText("Error with first date: Please enter in format YYYY-MM-DD");
 
         }
