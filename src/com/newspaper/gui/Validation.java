@@ -230,67 +230,67 @@ public class Validation {
     }
 
 
-    public boolean validateDeliveryID(String DPID) {
-        if (DPID.length() < 1 || DPID.length() > 3) {
-            return false;
-        } else if (DPID.matches("[0-9\\d]*")) {
-            String query = "select count(*) as total from delivery_area where delivery_area_id = " + DPID;
-            ResultSet rs;
-            int count = 0;
-            try {
-                rs = DBconnection.stmt.executeQuery(query);
-                while (rs.next()) {
-                    count = rs.getInt("total");
-                }
-                if (count == 0) {
-                    System.out.println("fghfhgfghfghfghjfjghfghjfgjh");
-                    return false;
-                } else return true;
-            } catch (SQLException sqle) {
-                System.out.println(sqle.getMessage());
-                System.out.println(query);
-                return false;
-            }
-        }
-        return false;
-    }
+//    public boolean validateDeliveryID(String DPID) {
+//        if (DPID.length() < 1 || DPID.length() > 3) {
+//            return false;
+//        } else if (DPID.matches("[0-9\\d]*")) {
+//            String query = "select count(*) as total from delivery_area where delivery_area_id = " + DPID;
+//            ResultSet rs;
+//            int count = 0;
+//            try {
+//                rs = DBconnection.stmt.executeQuery(query);
+//                while (rs.next()) {
+//                    count = rs.getInt("total");
+//                }
+//                if (count == 0) {
+//                    System.out.println("fghfhgfghfghfghjfjghfghjfgjh");
+//                    return false;
+//                } else return true;
+//            } catch (SQLException sqle) {
+//                System.out.println(sqle.getMessage());
+//                System.out.println(query);
+//                return false;
+//            }
+//        }
+//        return false;
+//    }
 
-    public boolean validateDPIDIsNum(String dpid) {
-        if (dpid.length() < 1 || dpid.length() > 3) {
-            return false;
-        } else if (dpid.matches("[0-9\\d]*")) {
-            return true;
-        }
-        return false;
-    }
+//    public boolean validateDPIDIsNum(String dpid) {
+//        if (dpid.length() < 1 || dpid.length() > 3) {
+//            return false;
+//        } else if (dpid.matches("[0-9\\d]*")) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public boolean validateDPID(String dpid) throws SQLException {
+//
+//        int count1;
+//        String strg;
+//
+//        if (dpid.length() == 0) {
+//            return false;
+//        } else if (validateEntry(dpid)) {
+//            System.out.println("ghfdfgfgdfgdfgdfgdfgdfg");
+//            strg = "select count(*) as total from delivery_Person where delivery_person_id = " + dpid;
+//            ResultSet rs = DBconnection.stmt.executeQuery(strg);
+//            count1 = 0;
+//            while (rs.next()) {
+//                count1 = rs.getInt("total");
+//            }
+//            if (count1 > 0) {
+//                System.out.println("************************************");
+//                return true;
+//
+//            } else {
+//                System.out.println("$%£$%£$%£$%£$%^£$%£^$%£^%$£%$");
+//                return false;
+//            }
+//        }
+//        return false;
 
-    public boolean validateDPID(String dpid) throws SQLException {
-
-        int count1;
-        String strg;
-
-        if (dpid.length() == 0) {
-            return false;
-        } else if (validateEntry(dpid)) {
-            System.out.println("ghfdfgfgdfgdfgdfgdfgdfg");
-            strg = "select count(*) as total from delivery_Person where delivery_person_id = " + dpid;
-            ResultSet rs = DBconnection.stmt.executeQuery(strg);
-            count1 = 0;
-            while (rs.next()) {
-                count1 = rs.getInt("total");
-            }
-            if (count1 > 0) {
-                System.out.println("************************************");
-                return true;
-
-            } else {
-                System.out.println("$%£$%£$%£$%£$%^£$%£^$%£^%$£%$");
-                return false;
-            }
-        }
-        return false;
-
-    }
+//    }
 
 
     public boolean validateStock(String DPID) {
