@@ -25,7 +25,6 @@ public class Customer {
 
         // validate input
         try{
-            //validateDeliveryAreaId();
             validateDeliveryArea(deliveryAreaId);
             validateAddress1(address1);
             validateName(firstName, "First name");
@@ -62,8 +61,6 @@ public class Customer {
 
         // validate input
         try{
-            //validateId(customerId);
-            //validateId(deliveryAreaId);
             validateAddress1(address1);
             validateName(firstName, "First name");
             validateName(lastName, "Last name");
