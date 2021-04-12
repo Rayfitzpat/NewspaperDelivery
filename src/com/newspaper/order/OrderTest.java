@@ -152,7 +152,7 @@ public class OrderTest extends TestCase {
             order.validateFrequency(5);
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -166,7 +166,7 @@ public class OrderTest extends TestCase {
             ov.getCustomerName(1);
         }
         catch (Exception e) {
-            fail("Exception expected");
+            fail("No exception expected");
             assertEquals("Valentino Firman", e.getMessage());
         }
     }
@@ -181,7 +181,6 @@ public class OrderTest extends TestCase {
             ov.getCustomerName(-1);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("Customer does not exist", sqle.getMessage());
         }
     }
@@ -210,7 +209,6 @@ public class OrderTest extends TestCase {
             ov.getPublicationByID(5);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("The Sunday Mirror", sqle.getMessage());
         }
     }
@@ -225,22 +223,20 @@ public class OrderTest extends TestCase {
             ov.getPublicationByID(-1);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("Publication does not exist", sqle.getMessage());
         }
     }
 
     //Test #: 15
     //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: int publicationID = "20", nameOfField = "Publication ID"
+    //Inputs: int publicationID = "15", nameOfField = "Publication ID"
     //Expected Output: "Publication does not exist"
     public void testGetPublicationByID003() {
         try {
             //Call method under test
-            ov.getPublicationByID(20);
+            ov.getPublicationByID(15);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("Publication does not exist", sqle.getMessage());
         }
     }
@@ -255,7 +251,6 @@ public class OrderTest extends TestCase {
             ov.convertFrequency(5);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("Friday", sqle.getMessage());
         }
     }
@@ -344,7 +339,7 @@ public class OrderTest extends TestCase {
             ov.validateOrderCustomerId(10);
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -419,7 +414,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("10", "-1");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -436,7 +430,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("10", "15");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -453,7 +446,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("10", "f");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -470,7 +462,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("10", "%");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -487,7 +478,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("-1", "10");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -504,7 +494,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("105", "10");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -521,7 +510,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("f", "10");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -538,7 +526,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("%", "10");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -555,7 +542,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("0001", "10");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -572,7 +558,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("", "10");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -589,7 +574,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderPublicationGUI("1", "");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -701,7 +685,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderFrequencyGUI("105", "1");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -718,7 +701,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderFrequencyGUI("f", "1");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -735,7 +717,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderFrequencyGUI("%", "1");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -752,7 +733,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderFrequencyGUI("0001", "1");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -769,7 +749,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderFrequencyGUI("", "1");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -786,7 +765,6 @@ public class OrderTest extends TestCase {
         try {
             //Call method under test
             ov.updateOrderFrequencyGUI("1", "");
-            //fail("Exception expected");
         }
         catch (SQLException e) {
             fail("Exception expected");
