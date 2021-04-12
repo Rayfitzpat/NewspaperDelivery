@@ -1,6 +1,7 @@
 package com.newspaper.order;
 
 import com.newspaper.db.DBconnection;
+import com.newspaper.gui.OrderMainGUI;
 import junit.framework.TestCase;
 
 import java.sql.SQLException;
@@ -16,16 +17,17 @@ public class OrderTest extends TestCase {
     }
 
     OrderView ov = new OrderView();
+    OrderMainGUI omg = new OrderMainGUI();
 
     //Test #: 1
-    //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: customer_id = 100, nameOfField = "Customer ID"
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id = 100
     //Expected Output: Exception Message: "Customer id does not exist"
 
     public void testValidateCustomerId001() {
         try {
             //Call method under test
-            order.validateCustomerId(100);
+            order.validateCustomerId(-1);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
@@ -41,7 +43,7 @@ public class OrderTest extends TestCase {
     public void testValidateCustomerId002() {
         try {
             //Call method under test
-            order.validateCustomerId(-1);
+            order.validateCustomerId(44);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
@@ -60,7 +62,7 @@ public class OrderTest extends TestCase {
             order.validateCustomerId(10);
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -72,7 +74,7 @@ public class OrderTest extends TestCase {
     public void testValidatePublicationId001() {
         try {
             //Call method under test
-            order.validatePublicationId(100);
+            order.validatePublicationId(15);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
@@ -107,7 +109,7 @@ public class OrderTest extends TestCase {
             order.validatePublicationId(10);
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -120,9 +122,9 @@ public class OrderTest extends TestCase {
     public void testValidateFrequency001() {
         try{
             order.validateFrequency(-1);
-            fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
+            fail("Exception expected");
             assertEquals("Frequency does not exist, please enter a number between 1 and 7", e.getMessage());
         }
     }
@@ -134,9 +136,9 @@ public class OrderTest extends TestCase {
     public void testValidateFrequency002() {
         try{
             order.validateFrequency(8);
-            fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
+            fail("Exception expected");
             assertEquals("Frequency does not exist, please enter a number between 1 and 7", e.getMessage());
         }
     }
@@ -150,7 +152,7 @@ public class OrderTest extends TestCase {
             order.validateFrequency(5);
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -164,7 +166,7 @@ public class OrderTest extends TestCase {
             ov.getCustomerName(1);
         }
         catch (Exception e) {
-            fail("Exception expected");
+            fail("No exception expected");
             assertEquals("Valentino Firman", e.getMessage());
         }
     }
@@ -179,7 +181,6 @@ public class OrderTest extends TestCase {
             ov.getCustomerName(-1);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("Customer does not exist", sqle.getMessage());
         }
     }
@@ -208,7 +209,6 @@ public class OrderTest extends TestCase {
             ov.getPublicationByID(5);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("The Sunday Mirror", sqle.getMessage());
         }
     }
@@ -223,22 +223,20 @@ public class OrderTest extends TestCase {
             ov.getPublicationByID(-1);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("Publication does not exist", sqle.getMessage());
         }
     }
 
     //Test #: 15
     //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: int publicationID = "20", nameOfField = "Publication ID"
+    //Inputs: int publicationID = "15", nameOfField = "Publication ID"
     //Expected Output: "Publication does not exist"
     public void testGetPublicationByID003() {
         try {
             //Call method under test
-            ov.getPublicationByID(20);
+            ov.getPublicationByID(15);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("Publication does not exist", sqle.getMessage());
         }
     }
@@ -253,7 +251,6 @@ public class OrderTest extends TestCase {
             ov.convertFrequency(5);
         }
         catch (OrderExceptionHandler sqle) {
-            //fail("Exception expected");
             assertEquals("Friday", sqle.getMessage());
         }
     }
@@ -342,7 +339,7 @@ public class OrderTest extends TestCase {
             ov.validateOrderCustomerId(10);
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -390,6 +387,1118 @@ public class OrderTest extends TestCase {
         }
         catch (OrderExceptionHandler e) {
             fail("Exception expected");
+        }
+    }
+
+    //Test #: 25
+    //Test Objective: To check validation on a correct ID
+    //Inputs: order_id = "10", publication_id = "5"
+    //Expected Output: No Exception
+
+    public void testUpdateOrderPublicationGUI001() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("10", "5");
+        }
+        catch (SQLException e) {
+            fail("No exception expected");
+        }
+    }
+
+    //Test #: 26
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "10", publication_id = "-1"
+    //Expected Output: Publication ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI002() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("10", "-1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Publication ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 27
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "10", publication_id = "15"
+    //Expected Output: Publication ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI003() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("10", "15");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Publication ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 28
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "10", publication_id = "f"
+    //Expected Output: Publication ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI004() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("10", "f");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Publication ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 29
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "10", publication_id = "%"
+    //Expected Output: Publication ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI005() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("10", "%");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Publication ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 30
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "-1", publication_id = "10"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI006() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("-1", "10");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 31
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "105", publication_id = "10"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI007() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("105", "10");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 32
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "f", publication_id = "10"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI008() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("f", "10");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 33
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "%", publication_id = "10"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI009() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("%", "10");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 34
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "0001", publication_id = "10"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI010() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("0001", "10");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 35
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "", publication_id = "10"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI011() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("", "10");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 36
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "1", publication_id = ""
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderPublicationGUI012() {
+        try {
+            //Call method under test
+            ov.updateOrderPublicationGUI("1", "");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 37
+    //Test Objective: To check validation on a correct ID
+    //Inputs: order_id = "22", frequency_id = "7"
+    //Expected Output: No exception
+
+    public void testUpdateOrderFrequencyGUI001() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("22", "7");
+        }
+        catch (SQLException e) {
+            fail("No exception expected");
+        }
+    }
+
+    //Test #: 38
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "1", frequency_id = "-1"
+    //Expected Output: Frequency ID not valid - must be a number between 1 and 7
+
+    public void testUpdateOrderFrequencyGUI002() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("1", "-1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency ID not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 39
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "1", frequency_id = "8"
+    //Expected Output: Frequency ID not valid - must be a number between 1 and 7
+
+    public void testUpdateOrderFrequencyGUI003() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("1", "8");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency ID not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 40
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "1", frequency_id = "f"
+    //Expected Output: Frequency ID not valid - must be a number between 1 and 7
+
+    public void testUpdateOrderFrequencyGUI004() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("1", "f");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency ID not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 41
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "1", frequency_id = "%"
+    //Expected Output: Frequency ID not valid - must be a number between 1 and 7
+
+    public void testUpdateOrderFrequencyGUI005() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("1", "%");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency ID not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 42
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "-1", frequency_id = "1"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderFrequencyGUI006() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("-1", "1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 43
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "105", frequency_id = "1"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderFrequencyGUI007() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("105", "1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 44
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "f", frequency_id = "1"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderFrequencyGUI008() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("f", "1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 45
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "%", frequency_id = "1"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderFrequencyGUI009() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("%", "1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 46
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "0001", frequency_id = "1"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderFrequencyGUI010() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("0001", "1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 47
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "", frequency_id = "1"
+    //Expected Output: Order ID not valid - ID must contain 1 - 3 numbers only
+
+    public void testUpdateOrderFrequencyGUI011() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("", "1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - ID must contain 1 - 3 numbers only", e.getMessage());
+        }
+    }
+
+    //Test #: 48
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "1", frequency_id = ""
+    //Expected Output: Frequency ID not valid - must be a number between 1 and 7
+
+    public void testUpdateOrderFrequencyGUI012() {
+        try {
+            //Call method under test
+            ov.updateOrderFrequencyGUI("1", "");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency ID not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 49
+    //Test Objective: To check validation on a correct ID
+    //Inputs: order_id = "1"
+    //Expected Output: No exception
+
+    public void testDeleteOrderGUI001() {
+        try {
+            //Call method under test
+            ov.deleteOrderGUI("1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+        }
+    }
+
+    //Test #: 50
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "-1"
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDeleteOrderGUI002() {
+        try {
+            //Call method under test
+            ov.deleteOrderGUI("-1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 51
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "105"
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDeleteOrderGUI003() {
+        try {
+            //Call method under test
+            ov.deleteOrderGUI("105");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 52
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "f"
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDeleteOrderGUI004() {
+        try {
+            //Call method under test
+            ov.deleteOrderGUI("f");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 53
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "%"
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDeleteOrderGUI005() {
+        try {
+            //Call method under test
+            ov.deleteOrderGUI("%");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 54
+    //Test Objective: To check validation on a correct ID
+    //Inputs: customer_id - "1", publication_id = "1", frequency = "1"
+    //Expected Output: No exception
+
+    public void testAddNewOrderGUI001() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "1", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+        }
+    }
+
+    //Test #: 55
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "-1", publication_id = "1", frequency = "1"
+    //Expected Output: Error, cannot add this order, customer ID not valid
+
+    public void testAddNewOrderGUI002() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("-1", "1", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, customer ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 56
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "44", publication_id = "1", frequency = "1"
+    //Expected Output: Error, cannot add this order, customer ID not valid
+
+    public void testAddNewOrderGUI003() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("44", "1", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, customer ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 57
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "f", publication_id = "1", frequency = "1"
+    //Expected Output: Error, cannot add this order, customer ID not valid
+
+    public void testAddNewOrderGUI004() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("f", "1", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, customer ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 58
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "%", publication_id = "1", frequency = "1"
+    //Expected Output: Error, cannot add this order, customer ID not valid
+
+    public void testAddNewOrderGUI005() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("%", "1", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, customer ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 59
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "", publication_id = "1", frequency = "1"
+    //Expected Output: Error, cannot add this order, customer ID not valid
+
+    public void testAddNewOrderGUI006() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("", "1", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, customer ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 60
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "-1", frequency = "1"
+    //Expected Output: Error, cannot add this order, publication ID not valid
+
+    public void testAddNewOrderGUI007() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "-1", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, publication ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 61
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "15", frequency = "1"
+    //Expected Output: Error, cannot add this order, publication ID not valid
+
+    public void testAddNewOrderGUI008() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "15", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, publication ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 62
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "f", frequency = "1"
+    //Expected Output: Error, cannot add this order, publication ID not valid
+
+    public void testAddNewOrderGUI009() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "f", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, publication ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 63
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "%", frequency = "1"
+    //Expected Output: Error, cannot add this order, publication ID not valid
+
+    public void testAddNewOrderGUI010() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "%", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, publication ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 64
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "", frequency = "1"
+    //Expected Output: Error, cannot add this order, publication ID not valid
+
+    public void testAddNewOrderGUI011() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "", "1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, publication ID not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 65
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "1", frequency = "-1"
+    //Expected Output: Error, cannot add this order, frequency not valid
+
+    public void testAddNewOrderGUI012() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "1", "-1");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, frequency not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 66
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "1", frequency = "8"
+    //Expected Output: Error, cannot add this order, frequency not valid
+
+    public void testAddNewOrderGUI013() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "1", "8");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, frequency not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 67
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "1", frequency = "f"
+    //Expected Output: Error, cannot add this order, frequency not valid
+
+    public void testAddNewOrderGUI014() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "1", "f");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, frequency not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 68
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "1", frequency = "%"
+    //Expected Output: Error, cannot add this order, frequency not valid
+
+    public void testAddNewOrderGUI015() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "1", "%");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, frequency not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 69
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id - "1", publication_id = "1", frequency = ""
+    //Expected Output: Error, cannot add this order, frequency not valid
+
+    public void testAddNewOrderGUI016() {
+        try {
+            //Call method under test
+            omg.addNewOrderGUI("1", "1", "");
+        }
+        catch (OrderExceptionHandler e) {
+            fail("Exception expected");
+            assertEquals("Error, cannot add this order, frequency not valid", e.getMessage());
+        }
+    }
+
+    //Test #: 70
+    //Test Objective: To check validation on a correct ID
+    //Inputs: order_id = "1"
+    //Expected Output: No exception
+
+    public void testDisplayOrderByOrderIdGUI001() {
+        try {
+            //Call method under test
+            omg.displayOrderByOrderIdGUI("1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+        }
+    }
+
+    //Test #: 71
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "-1"
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDisplayOrderByOrderIdGUI002() {
+        try {
+            //Call method under test
+            omg.displayOrderByOrderIdGUI("-1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 72
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "105"
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDisplayOrderByOrderIdGUI003() {
+        try {
+            //Call method under test
+            omg.displayOrderByOrderIdGUI("105");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 73
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "f"
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDisplayOrderByOrderIdGUI004() {
+        try {
+            //Call method under test
+            omg.displayOrderByOrderIdGUI("f");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 74
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = "%"
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDisplayOrderByOrderIdGUI005() {
+        try {
+            //Call method under test
+            omg.displayOrderByOrderIdGUI("%");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 75
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = ""
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDisplayOrderByOrderIdGUI006() {
+        try {
+            //Call method under test
+            omg.displayOrderByOrderIdGUI("");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 76
+    //Test Objective: To check validation on a correct ID
+    //Inputs: customer_id = "1"
+    //Expected Output: No exception
+
+    public void testDisplayOrderByCustomerIdGUI001() {
+        try {
+            //Call method under test
+            omg.displayOrderByCustomerIdGUI("1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+        }
+    }
+
+    //Test #: 77
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id = "-1"
+    //Expected Output: Customer ID not valid - please check the Customer section for valid ID
+
+    public void testDisplayOrderByCustomerIdGUI002() {
+        try {
+            //Call method under test
+            omg.displayOrderByCustomerIdGUI("-1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Customer ID not valid - please check the Customer section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 78
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id = "105"
+    //Expected Output: Customer ID not valid - please check the Customer section for valid ID
+
+    public void testDisplayOrderByCustomerIdGUI003() {
+        try {
+            //Call method under test
+            omg.displayOrderByCustomerIdGUI("105");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Customer ID not valid - please check the Customer section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 79
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id = "f"
+    //Expected Output: Customer ID not valid - please check the Customer section for valid ID
+
+    public void testDisplayOrderByCustomerIdGUI004() {
+        try {
+            //Call method under test
+            omg.displayOrderByCustomerIdGUI("f");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Customer ID not valid - please check the Customer section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 80
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id = "%"
+    //Expected Output: Customer ID not valid - please check the Customer section for valid ID
+
+    public void testDisplayOrderByCustomerIdGUI005() {
+        try {
+            //Call method under test
+            omg.displayOrderByCustomerIdGUI("%");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Customer ID not valid - please check the Customer section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 81
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: customer_id = ""
+    //Expected Output: Customer ID not valid - please check the Customer section for valid ID
+
+    public void testDisplayOrderByCustomerIdGUI006() {
+        try {
+            //Call method under test
+            omg.displayOrderByCustomerIdGUI("");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Customer ID not valid - please check the Customer section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 82
+    //Test Objective: To check validation on a correct ID
+    //Inputs: publication_id = 1
+    //Expected Output: No exception
+
+    public void testDisplayOrderByPublicationIdGUI001() {
+        try {
+            //Call method under test
+            omg.displayOrderByPublicationIdGUI("1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+        }
+    }
+
+    //Test #: 83
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: publication_id = -1
+    //Expected Output: Publication ID not valid - please check the Publication section for valid ID
+
+    public void testDisplayOrderByPublicationIdGUI002() {
+        try {
+            //Call method under test
+            omg.displayOrderByPublicationIdGUI("-1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Publication ID not valid - please check the Publication section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 84
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: publication_id = 15
+    //Expected Output: Publication ID not valid - please check the Publication section for valid ID
+
+    public void testDisplayOrderByPublicationIdGUI003() {
+        try {
+            //Call method under test
+            omg.displayOrderByPublicationIdGUI("15");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Publication ID not valid - please check the Publication section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 85
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: publication_id = f
+    //Expected Output: Publication ID not valid - please check the Publication section for valid ID
+
+    public void testDisplayOrderByPublicationIdGUI004() {
+        try {
+            //Call method under test
+            omg.displayOrderByPublicationIdGUI("f");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Publication ID not valid - please check the Publication section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 86
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: publication_id = %
+    //Expected Output: Publication ID not valid - please check the Publication section for valid ID
+
+    public void testDisplayOrderByPublicationIdGUI005() {
+        try {
+            //Call method under test
+            omg.displayOrderByPublicationIdGUI("%");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Publication ID not valid - please check the Publication section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 87
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: publication_id = ""
+    //Expected Output: Publication ID not valid - please check the Publication section for valid ID
+
+    public void testDisplayOrderByPublicationIdGUI006() {
+        try {
+            //Call method under test
+            omg.displayOrderByPublicationIdGUI("");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Publication ID not valid - please check the Publication section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 88
+    //Test Objective: To check validation on a correct ID
+    //Inputs: frequency = "1"
+    //Expected Output: No exception
+
+    public void testDisplayOrderByFrequencyGUI001() {
+        try {
+            //Call method under test
+            omg.displayOrderByFrequencyGUI("1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+        }
+    }
+
+    //Test #: 89
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: frequency = "-1"
+    //Expected Output: Frequency not valid - must be a number between 1 and 7
+
+    public void testDisplayOrderByFrequencyGUI002() {
+        try {
+            //Call method under test
+            omg.displayOrderByFrequencyGUI("-1");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 90
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: frequency = "8"
+    //Expected Output: Frequency not valid - must be a number between 1 and 7
+
+    public void testDisplayOrderByFrequencyGUI003() {
+        try {
+            //Call method under test
+            omg.displayOrderByFrequencyGUI("8");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 91
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: frequency = "f"
+    //Expected Output: Frequency not valid - must be a number between 1 and 7
+
+    public void testDisplayOrderByFrequencyGUI004() {
+        try {
+            //Call method under test
+            omg.displayOrderByFrequencyGUI("f");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 92
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: frequency = "%"
+    //Expected Output: Frequency not valid - must be a number between 1 and 7
+
+    public void testDisplayOrderByFrequencyGUI005() {
+        try {
+            //Call method under test
+            omg.displayOrderByFrequencyGUI("%");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 93
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: frequency = ""
+    //Expected Output: Frequency not valid - must be a number between 1 and 7
+
+    public void testDisplayOrderByFrequencyGUI006() {
+        try {
+            //Call method under test
+            omg.displayOrderByFrequencyGUI("");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Frequency not valid - must be a number between 1 and 7", e.getMessage());
+        }
+    }
+
+    //Test #: 94
+    //Test Objective: To check validation on an incorrect ID
+    //Inputs: order_id = ""
+    //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
+
+    public void testDeleteOrderGUI006() {
+        try {
+            //Call method under test
+            ov.deleteOrderGUI("");
+        }
+        catch (SQLException e) {
+            fail("Exception expected");
+            assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
         }
     }
 }
