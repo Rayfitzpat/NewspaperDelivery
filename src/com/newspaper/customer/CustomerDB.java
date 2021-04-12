@@ -7,14 +7,14 @@ import java.util.ArrayList;
 /**
  * @author  Yuliia Dovbak
  */
-public class CustomerDB {
 
-    /**
-     * Running mysqlserver on mac
-     * -mysql.server start
-     * -mysql -u root -p
-     * -mysql.server stop
-     */
+/**
+ * Running mysqlserver on mac
+ * -mysql.server start
+ * -mysql -u root -p
+ * -mysql.server stop
+ */
+public class CustomerDB {
 
     private ArrayList<Customer> customers; // local copy of all customers in the db
 
@@ -36,7 +36,6 @@ public class CustomerDB {
 
     /**
      * Method is retrieving the data about the customers and returns ArrayList of   Customer objects
-     *
      * @return an ArrayList of   Customer objects from the database
      */
     public ArrayList<Customer> fetchCustomers() throws CustomerExceptionHandler {
