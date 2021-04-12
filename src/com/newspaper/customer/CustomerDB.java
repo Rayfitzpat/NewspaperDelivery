@@ -36,7 +36,6 @@ public class CustomerDB {
 
     /**
      * Method is retrieving the data about the customers and returns ArrayList of   Customer objects
-     *
      * @return an ArrayList of   Customer objects from the database
      */
     public ArrayList<Customer> fetchCustomers() throws CustomerExceptionHandler {
