@@ -11,10 +11,7 @@ import com.newspaper.db.DBconnection;
 import jdk.swing.interop.SwingInterOpUtils;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.*;
 import java.awt.*;
 import java.sql.*;
 
@@ -1580,6 +1577,20 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
                     String sql = "Select * from delivery_area order by delivery_area_id";
                     ResultSet rs = DeleteStmt.executeQuery(sql);
 
+
+                    // reset table
+                    jTable3.setModel(new javax.swing.table.DefaultTableModel(
+                            new Object[][]{
+
+                            },
+                            new String[]{
+                                    "ID", "Area Name", "Description", "Delivery Person ID"
+                            }
+                    ));
+                    // centering the output
+                    setCellsAlignment(jTable3, SwingConstants.CENTER);
+
+
                     while (rs.next()) {
 //
 
@@ -1611,6 +1622,20 @@ public class DeliveryAreaMainGUI extends javax.swing.JFrame {
 
 
 
+
+    public static void setCellsAlignment(JTable table, int alignment) {
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(alignment);
+
+        TableModel tableModel = table.getModel();
+
+        for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++) {
+            table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
+        }
+
+        ((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(SwingConstants.CENTER);
+    }
 
 
 

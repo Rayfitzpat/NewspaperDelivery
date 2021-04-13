@@ -15,6 +15,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.sql.*;
 
@@ -1541,6 +1542,18 @@ public class PublicationMainGUI extends javax.swing.JFrame {
                     String sql = "Select * from publication order by publication_id";
                     ResultSet rs = DeleteStmt.executeQuery(sql);
 
+                    // reset table
+                    jTable3.setModel(new javax.swing.table.DefaultTableModel(
+                            new Object[][]{
+
+                            },
+                            new String[]{
+                                    "ID", "Publication Name", "Publication Frequency", "Publication Cost", "Stock Level"
+                            }
+                    ));
+                    // centering the output
+                    setCellsAlignment(jTable3, SwingConstants.CENTER);
+
                     while (rs.next()) {
 //
 
@@ -1574,6 +1587,19 @@ public class PublicationMainGUI extends javax.swing.JFrame {
 
 
 
+    public static void setCellsAlignment(JTable table, int alignment) {
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(alignment);
+
+        TableModel tableModel = table.getModel();
+
+        for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++) {
+            table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
+        }
+
+        ((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(SwingConstants.CENTER);
+    }
 
 
 
