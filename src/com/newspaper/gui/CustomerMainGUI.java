@@ -33,6 +33,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
      * Creates new form GuiMainMenu
      */
     public CustomerMainGUI() {
+        DBconnection.init_db();
         initComponents();
         setVisible(true);
         this.setLocationRelativeTo(null);
@@ -40,23 +41,6 @@ public class CustomerMainGUI extends javax.swing.JFrame {
     }
 
     Validation validation = new Validation();
-    Customer customer = new Customer();
-
-    public static Connection con = null;
-    public static Statement stmt = null;
-    static ResultSet rs = null;
-
-    {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-            con = DriverManager.getConnection(url, "root", "admin");
-            stmt = con.createStatement();
-        } catch (Exception e) {
-            System.out.println("Error: Failed to connect to database\n" + e.getMessage());
-        }
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1822,7 +1806,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             Delete.setVisible(true);
 
             String sql = "Select * from customer";
-            Statement DeleteStmt = con.createStatement();
+            Statement DeleteStmt = DBconnection.con.createStatement();
             ResultSet rs = DeleteStmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -1946,12 +1930,12 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                                                     ResultSet rs;
                                                     int count1 = 0;
                                                     try {
-                                                        rs = stmt.executeQuery(query);
+                                                        rs =  DBconnection.stmt.executeQuery(query);
                                                         while (rs.next()) {
                                                             count1 = rs.getInt("total");
                                                         }
                                                         if (count1 > 0) {
-                                                            Statement addNewPerson = con.createStatement();
+                                                            Statement addNewPerson =  DBconnection.con.createStatement();
                                                             addNewPerson.executeUpdate("insert into customer values (null ,'" + jTextField4.getText() + "','" + jTextField5.getText() + "','" + jTextField6.getText() + "','" + jTextField7.getText() + "','" + jTextField14.getText() + "','" + jTextField8.getText() + "','" + jTextField9.getText() + "','" + jTextField10.getText() + "','" + jTextField12.getText() + "','" + jTextField11.getText() + "','" + jTextField15.getText() + "')");
                                                             jTextField3.setForeground(new java.awt.Color(6, 187, 163));
                                                             jTextField3.setText("You have successfully added " + jTextField4.getText() + " " + jTextField5.getText() + " to the database");
@@ -2027,14 +2011,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if (validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
                 if (validation.validateCustomer(firstName)) {
-                    Statement editPerson = con.createStatement();
+                    Statement editPerson =  DBconnection.con.createStatement();
                     editPerson.executeUpdate("Update customer SET first_name = '" + firstName + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated First Name for ID: " + editID + " to " + firstName);
@@ -2062,14 +2046,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if (validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
                 if (validation.validateCustomer(lastName)) {
-                    Statement editPerson = con.createStatement();
+                    Statement editPerson =  DBconnection.con.createStatement();
                     editPerson.executeUpdate("Update customer SET last_name = '" + lastName + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Last Name for ID: " + editID + " to " + lastName);
@@ -2098,14 +2082,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if (validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
                 if (validation.validateHouseNumber(houseNumber)) {
-                    Statement editPerson = con.createStatement();
+                    Statement editPerson =  DBconnection.con.createStatement();
                     editPerson.executeUpdate("Update customer SET address1 = '" + houseNumber + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated House Number for ID: " + editID + " to " + houseNumber);
@@ -2134,14 +2118,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if (validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
                 if (validation.validateCustomer35(streetName)) {
-                    Statement editPerson = con.createStatement();
+                    Statement editPerson =  DBconnection.con.createStatement();
                     editPerson.executeUpdate("Update customer SET address2 = '" + streetName + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Street Name for ID: " + editID + " to " + streetName);
@@ -2169,14 +2153,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if (validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
                 if (validation.validateCustomer35(town)) {
-                    Statement editPerson = con.createStatement();
+                    Statement editPerson =  DBconnection.con.createStatement();
                     editPerson.executeUpdate("Update customer SET town = '" + town + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Town Name for ID: " + editID + " to " + town);
@@ -2204,14 +2188,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if (validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
                 if (validation.validateEircode(eircode)) {
-                    Statement editPerson = con.createStatement();
+                    Statement editPerson =  DBconnection.con.createStatement();
                     editPerson.executeUpdate("Update customer SET eircode = '" + eircode + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Eircode for ID: " + editID + " to " + eircode);
@@ -2240,14 +2224,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if (validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
                 if (validation.validatePhoneNumber(phoneNumber)) {
-                    Statement editPerson = con.createStatement();
+                    Statement editPerson =  DBconnection.con.createStatement();
                     editPerson.executeUpdate("Update customer SET phone_number = '" + phoneNumber + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Phone Number for ID: " + editID + " to " + phoneNumber);
@@ -2276,7 +2260,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if(validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
@@ -2284,7 +2268,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateDate(holidayStart)) {
                     if(validation.validateHolidayStartBeforeEnd(holidayStart, holidayEnd)) {
-                        Statement editPerson = con.createStatement();
+                        Statement editPerson =  DBconnection.con.createStatement();
                         editPerson.executeUpdate("Update customer SET holiday_start_date = '" + holidayStart + "' where customer_id = '" + editID + "'");
                         jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                         jTextField31.setText("You have successfully updated Holiday Start Date for ID: " + editID + " to " + holidayStart);
@@ -2317,7 +2301,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if(validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
@@ -2325,7 +2309,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
             if (count > 0) {
                 if (validation.validateEndDate(holidayEnd)) {
                     if(validation.validateHoliday(holidayStart, holidayEnd)){
-                    Statement editStart = con.createStatement();
+                    Statement editStart =  DBconnection.con.createStatement();
                     editStart.executeUpdate("Update customer SET holiday_start_date = '" + holidayStart + "', holiday_end_date = '" + holidayEnd+ "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Holiday for ID: " + editID + " to " + holidayStart + " - " + holidayEnd);
@@ -2360,14 +2344,14 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if(validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
             }
             if (count > 0) {
                 if (validation.validateStatus(status)) {
-                    Statement editPerson = con.createStatement();
+                    Statement editPerson =  DBconnection.con.createStatement();
                     editPerson.executeUpdate("Update customer SET customer_status = '" + status + "' where customer_id = '" + editID + "'");
                     jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField31.setText("You have successfully updated Status for ID: " + editID + " to " + status);
@@ -2394,7 +2378,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         String str;
         if(validation.validateEntry(editID)) {
             str = "select count(*) as total from customer where customer_id = " + editID;
-            ResultSet rs1 = stmt.executeQuery(str);
+            ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
             count = 0;
             while (rs1.next()) {
                 count = rs1.getInt("total");
@@ -2406,7 +2390,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                 ResultSet rs;
                 int count1 = 0;
                 try {
-                    rs = stmt.executeQuery(query);
+                    rs =  DBconnection.stmt.executeQuery(query);
                     while (rs.next()) {
                         count1 = rs.getInt("total");
                     }
@@ -2414,7 +2398,7 @@ public class CustomerMainGUI extends javax.swing.JFrame {
                         jTextField31.setForeground(new java.awt.Color(255, 0, 0));
                         jTextField31.setText("Area ID: " + deliveryId + " is invalid check Delivery Area Section ");
                     } else {
-                        Statement editPerson = con.createStatement();
+                        Statement editPerson =  DBconnection.con.createStatement();
                         editPerson.executeUpdate("Update customer SET delivery_area_id = '" + deliveryId + "' where customer_id = '" + editID + "'");
                         jTextField31.setForeground(new java.awt.Color(6, 187, 163));
                         jTextField31.setText("You have successfully updated Delivery Area ID for Customer ID: " + editID + " to " + deliveryId);
@@ -2444,15 +2428,12 @@ public class CustomerMainGUI extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/databaseGroupProject?useTimezone=true&serverTimezone=UTC";
-//            Connection con = DriverManager.getConnection(url, "root", "admin");
-//            Statement stmt = con.createStatement();
             String deleteID = jTextField29.getText();
-//            Customer customer = new Customer();
             int count;
             String str;
             if (validation.validateEntry(deleteID)) {
                 str = "select count(*) as total from customer where customer_id = " + deleteID;
-                ResultSet rs1 = stmt.executeQuery(str);
+                ResultSet rs1 =  DBconnection.stmt.executeQuery(str);
                 count = 0;
                 while (rs1.next()) {
                     count = rs1.getInt("total");
@@ -2461,14 +2442,25 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
                     jTextField30.setForeground(new java.awt.Color(6, 187, 163));
                     jTextField30.setText("Sucessfully Deleted ID: " + deleteID);
-                    Statement statement = con.createStatement();
+                    Statement statement =  DBconnection.con.createStatement();
                     statement.executeUpdate("DELETE from customer where customer_id = " + deleteID);
-                    Statement DeleteStmt = con.createStatement();
+                    Statement DeleteStmt =  DBconnection.con.createStatement();
                     String sql = "Select * from customer order by customer_id";
                     ResultSet rs = DeleteStmt.executeQuery(sql);
 
+                    // reset table
+                    jTable3.setModel(new javax.swing.table.DefaultTableModel(
+                            new Object[][]{
+
+                            },
+                            new String[]{
+                                    "ID", "First", "Last", "House No", "Street", "Town", "eircode", "Phone", "Holiday Start", "Holiday End", "Status", "Area Id"
+                            }
+                    ));
+                    // centering the output
+                    setCellsAlignment(jTable3, SwingConstants.CENTER);
+
                     while (rs.next()) {
-//
                         int id = rs.getInt("customer_id");
 
                         String firstName = rs.getString("first_name");
@@ -2505,6 +2497,19 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
 
 
+    public static void setCellsAlignment(JTable table, int alignment) {
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(alignment);
+
+        TableModel tableModel = table.getModel();
+
+        for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++) {
+            table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
+        }
+
+        ((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(SwingConstants.CENTER);
+    }
 
 
 
