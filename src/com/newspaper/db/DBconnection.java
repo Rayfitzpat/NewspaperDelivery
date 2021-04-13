@@ -2,7 +2,6 @@ package com.newspaper.db;
 
 import java.sql.*;
 
-
 public class DBconnection {
     public static Connection con = null;
     public static Statement stmt = null;

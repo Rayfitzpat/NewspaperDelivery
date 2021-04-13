@@ -2477,7 +2477,6 @@ public class CustomerMainGUI extends javax.swing.JFrame {
 
                         String tbData[] = {id + "", firstName, lastName, address1 + "", address2, town, eircode, phonenumber, holidayStartDate, holidayEndDate, status + "", deliveryAreaId + ""};
                         DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
-
                         tblModel.addRow(tbData);
                         personOneDBInitialised[0] = true;
                     }

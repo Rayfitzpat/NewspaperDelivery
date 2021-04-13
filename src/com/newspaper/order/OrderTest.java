@@ -21,13 +21,13 @@ public class OrderTest extends TestCase {
 
     //Test #: 1
     //Test Objective: To check validation on an incorrect ID
-    //Inputs: customer_id = 100
+    //Inputs: customer_id = 0
     //Expected Output: Exception Message: "Customer id does not exist"
 
     public void testValidateCustomerId001() {
         try {
             //Call method under test
-            order.validateCustomerId(-1);
+            order.validateCustomerId(0);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
@@ -37,7 +37,7 @@ public class OrderTest extends TestCase {
 
     //Test #: 2
     //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: customer_id = -1, nameOfField = "Customer ID"
+    //Inputs: customer_id = 44, nameOfField = "Customer ID"
     //Expected Output: Exception Message: "Customer id does not exist"
 
     public void testValidateCustomerId002() {
@@ -53,13 +53,13 @@ public class OrderTest extends TestCase {
 
     //Test #: 3
     //Test Objective: To check validation on a correct ID
-    //Inputs: customer_id = 10, nameOfField = "Customer ID"
+    //Inputs: customer_id = 1, nameOfField = "Customer ID"
     //Expected Output: No Exception
 
     public void testValidateCustomerId003() {
         try {
             //Call method under test
-            order.validateCustomerId(10);
+            order.validateCustomerId(1);
         }
         catch (OrderExceptionHandler e) {
             fail("No exception expected");
@@ -116,15 +116,14 @@ public class OrderTest extends TestCase {
 
     //Test #: 7
     //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: int frequency = "-1", nameOfField = "Frequency"
+    //Inputs: int frequency = "0", nameOfField = "Frequency"
     //Expected Output: Exception Message: "Frequency does not exist, please enter a number between 1 and 7"
 
     public void testValidateFrequency001() {
         try{
-            order.validateFrequency(-1);
+            order.validateFrequency(0);
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
             assertEquals("Frequency does not exist, please enter a number between 1 and 7", e.getMessage());
         }
     }
@@ -138,7 +137,6 @@ public class OrderTest extends TestCase {
             order.validateFrequency(8);
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
             assertEquals("Frequency does not exist, please enter a number between 1 and 7", e.getMessage());
         }
     }
@@ -149,7 +147,7 @@ public class OrderTest extends TestCase {
     //Expected Output: No Exception
     public void testValidateFrequency003() {
         try{
-            order.validateFrequency(5);
+            order.validateFrequency(1);
         }
         catch (OrderExceptionHandler e) {
             fail("No exception expected");
@@ -209,6 +207,7 @@ public class OrderTest extends TestCase {
             ov.getPublicationByID(5);
         }
         catch (OrderExceptionHandler sqle) {
+            fail("No exception expected");
             assertEquals("The Sunday Mirror", sqle.getMessage());
         }
     }
@@ -251,6 +250,7 @@ public class OrderTest extends TestCase {
             ov.convertFrequency(5);
         }
         catch (OrderExceptionHandler sqle) {
+            fail("No exception expected");
             assertEquals("Friday", sqle.getMessage());
         }
     }
@@ -345,13 +345,13 @@ public class OrderTest extends TestCase {
 
     //Test #: 22
     //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: order_id = 200, nameOfField = "Order ID"
+    //Inputs: order_id = 105, nameOfField = "Order ID"
     //Expected Output: Exception Message: "Order id does not exist"
 
     public void testValidateOrderId001() {
         try {
             //Call method under test
-            order.validateOrderId(200);
+            order.validateOrderId(105);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
@@ -361,13 +361,13 @@ public class OrderTest extends TestCase {
 
     //Test #: 23
     //Test Objective: To see if a number outside the range triggers the exception handler
-    //Inputs: order_id = -1, nameOfField = "Order ID"
+    //Inputs: order_id = 0, nameOfField = "Order ID"
     //Expected Output: Exception Message: "Order id does not exist"
 
     public void testValidateOrderId002() {
         try {
             //Call method under test
-            order.validateOrderId(-1);
+            order.validateOrderId(0);
             fail("Exception expected");
         }
         catch (OrderExceptionHandler e) {
@@ -377,16 +377,16 @@ public class OrderTest extends TestCase {
 
     //Test #: 24
     //Test Objective: To check validation on a correct ID
-    //Inputs: order_id = 10, nameOfField = "Order ID"
+    //Inputs: order_id = 1, nameOfField = "Order ID"
     //Expected Output: No Exception
 
     public void testValidateOrderId003() {
         try {
             //Call method under test
-            order.validateOrderId(10);
+            order.validateOrderId(1);
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -783,19 +783,19 @@ public class OrderTest extends TestCase {
             ov.deleteOrderGUI("1");
         }
         catch (SQLException e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
     //Test #: 50
     //Test Objective: To check validation on an incorrect ID
-    //Inputs: order_id = "-1"
+    //Inputs: order_id = "0"
     //Expected Output: Order ID not valid - please check Display All Orders section for valid ID
 
     public void testDeleteOrderGUI002() {
         try {
             //Call method under test
-            ov.deleteOrderGUI("-1");
+            ov.deleteOrderGUI("0");
         }
         catch (SQLException e) {
             fail("Exception expected");
@@ -862,7 +862,7 @@ public class OrderTest extends TestCase {
             omg.addNewOrderGUI("1", "1", "1");
         }
         catch (OrderExceptionHandler e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -1117,7 +1117,7 @@ public class OrderTest extends TestCase {
             omg.displayOrderByOrderIdGUI("1");
         }
         catch (SQLException e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -1212,7 +1212,7 @@ public class OrderTest extends TestCase {
             omg.displayOrderByCustomerIdGUI("1");
         }
         catch (SQLException e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -1307,7 +1307,7 @@ public class OrderTest extends TestCase {
             omg.displayOrderByPublicationIdGUI("1");
         }
         catch (SQLException e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -1402,7 +1402,7 @@ public class OrderTest extends TestCase {
             omg.displayOrderByFrequencyGUI("1");
         }
         catch (SQLException e) {
-            fail("Exception expected");
+            fail("No exception expected");
         }
     }
 
@@ -1499,6 +1499,64 @@ public class OrderTest extends TestCase {
         catch (SQLException e) {
             fail("Exception expected");
             assertEquals("Order ID not valid - please check Display All Orders section for valid ID", e.getMessage());
+        }
+    }
+
+    //Test #: 95
+    //Test Objective: To check validation on a correct ID
+    //Inputs: order_id = "1"
+    //Expected Output: No exception expected
+
+    public void testValidateOrderId004() {
+        try {
+            //Call method under test
+            order.validateOrderId(104);
+        }
+        catch (OrderExceptionHandler e) {
+            fail("No exception expected");
+        }
+    }
+
+    //Test #: 96
+    //Test Objective: To check validation on a correct ID
+    //Inputs: int frequency = "7", nameOfField = "Frequency"
+    //Expected Output: No Exception
+    public void testValidateFrequency004() {
+        try{
+            order.validateFrequency(7);
+        }
+        catch (OrderExceptionHandler e) {
+            fail("No exception expected");
+        }
+    }
+
+    //Test #: 97
+    //Test Objective: To check validation on a correct ID
+    //Inputs: order_id = "104"
+    //Expected Output: No exception
+
+    public void testDeleteOrderGUI007() {
+        try {
+            //Call method under test
+            ov.deleteOrderGUI("104");
+        }
+        catch (SQLException e) {
+            fail("No exception expected");
+        }
+    }
+
+    //Test #: 98
+    //Test Objective: To check validation on a correct ID
+    //Inputs: customer_id = 43, nameOfField = "Customer ID"
+    //Expected Output: No Exception
+
+    public void testValidateCustomerId004() {
+        try {
+            //Call method under test
+            order.validateCustomerId(43);
+        }
+        catch (OrderExceptionHandler e) {
+            fail("No exception expected");
         }
     }
 }
