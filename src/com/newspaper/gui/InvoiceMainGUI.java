@@ -1611,6 +1611,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
             String invoiceId = jTextField50.getText();
 
             if(v.validateID(cusId)) {
+                if(v.validateID(invoiceId)){
                 int customerID = Integer.parseInt(cusId);
                 int invId = Integer.parseInt(invoiceId);
                 if (utility.ifCustomerExists(customerID)) {
@@ -1626,6 +1627,11 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                     }
                 } else {
                     jTextField49.setText("Customer with ID " + customerID + " does not exist.");
+                }
+
+                } else
+                {
+                    jTextField49.setText("Invoice ID " + invoiceId + " is invalid.");
                 }
             }
             else
@@ -1644,6 +1650,7 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
 
             if(v.validateID(cusId))
             {
+                if(v.validateID(invoiceId)){
                 int customerID = Integer.parseInt(cusId);
                 int invId = Integer.parseInt(invoiceId);
 
@@ -1661,6 +1668,9 @@ public class InvoiceMainGUI extends javax.swing.JFrame {
                 }
                 else {
                     jTextField49.setText("Customer with ID " + cusId + " does not exist.");
+                }} else
+                {
+                    jTextField49.setText("Invoice ID " + invoiceId + " is invalid.");
                 }
             }
             else
