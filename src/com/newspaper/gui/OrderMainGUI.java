@@ -2302,7 +2302,6 @@ public class OrderMainGUI extends javax.swing.JFrame {
                                     try {
                                         addNewOrderGUI(customerID, publicationID, freq);
 
-
                                         try {
                                             String sql = "Select * from orders order by order_id;";
                                             Statement stmt = DBconnection.con.createStatement();
