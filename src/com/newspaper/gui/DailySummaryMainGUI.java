@@ -18,10 +18,7 @@ import com.newspaper.dailysummary.DailySummaryView;
 import com.newspaper.db.DBconnection;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -237,6 +234,22 @@ public class DailySummaryMainGUI extends javax.swing.JFrame {
                     String sql = "select daily_summary_id,delivery_date, total_revenue, publications_sold, total_revenue/publications_sold as publications_revenue from daily_summary where delivery_date BETWEEN '" + weeklyDate + "' and '" + modifiedDate + "' order by delivery_date asc";
 
                     ResultSet rs = stmt.executeQuery(sql);
+
+
+
+                    //
+                    //
+                    // reset table
+                    jTable6.setModel(new javax.swing.table.DefaultTableModel(
+                            new Object[][]{
+
+                            },
+                            new String[]{
+                                    "Summary Date ", "Total Revenue", "Publications Sold", "Revenue Per Pub"
+                            }
+                    ));
+                    // centering the output
+                    setCellsAlignment(jTable6, SwingConstants.CENTER);
 
                     while (rs.next()) {
 
@@ -1289,6 +1302,23 @@ MonthlySummary.setBackground(new java.awt.Color(19,28,33));
 
         pack();
     }// </editor-fold>
+
+
+    public static void setCellsAlignment(JTable table, int alignment) {
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(alignment);
+
+        TableModel tableModel = table.getModel();
+
+        for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++) {
+            table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
+        }
+
+        ((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         if (evt.getSource() == jButton1) {
